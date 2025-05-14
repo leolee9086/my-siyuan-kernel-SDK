@@ -1,0 +1,233 @@
+export const syncApiDefs = [
+  {
+    method: "POST",
+    endpoint: "/api/sync/createCloudSyncDir",
+    en: "createCloudSyncDir",
+    zh_cn: "创建云端同步目录",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/exportSyncProviderS3",
+    en: "exportSyncProviderS3",
+    zh_cn: "导出 S3 同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/exportSyncProviderWebDAV",
+    en: "exportSyncProviderWebDAV",
+    zh_cn: "导出 WebDAV",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/getBootSync",
+    en: "getBootSync",
+    zh_cn: "获取启动同步",
+    needAuth: true,
+    needAdminRole: false,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/getSyncInfo",
+    en: "getSyncInfo",
+    zh_cn: "获取同步信息",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/importSyncProviderS3",
+    en: "importSyncProviderS3",
+    zh_cn: "导入 S3 同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/importSyncProviderWebDAV",
+    en: "importSyncProviderWebDAV",
+    zh_cn: "导入 WebDAV",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/listCloudSyncDir",
+    en: "listCloudSyncDir",
+    zh_cn: "获取云端同步目录",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/performBootSync",
+    en: "performBootSync",
+    zh_cn: "执行启动同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/performSync",
+    en: "performSync",
+    zh_cn: "执行同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/removeCloudSyncDir",
+    en: "removeCloudSyncDir",
+    zh_cn: "删除云端同步目录",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setCloudSyncDir",
+    en: "setCloudSyncDir",
+    zh_cn: "设置云端同步目录",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncEnable",
+    en: "setSyncEnable",
+    zh_cn: "设置是否启用同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncGenerateConflictDoc",
+    en: "setSyncGenerateConflictDoc",
+    zh_cn: "设置同步是否生成冲突文档",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncInterval",
+    en: "setSyncInterval",
+    needAuth: true,
+    needAdminRole: false,
+    unavailableIfReadonly: false,
+    zh_cn: undefined,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncMode",
+    en: "setSyncMode",
+    zh_cn: "设置同步模式",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncPerception",
+    en: "setSyncPerception",
+    zh_cn: "设置同步感知",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncProvider",
+    en: "setSyncProvider",
+    zh_cn: "设置同步供应商",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncProviderLocal",
+    en: "setSyncProviderLocal",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zh_cn: undefined,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncProviderS3",
+    en: "setSyncProviderS3",
+    zh_cn: "设置S3同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/sync/setSyncProviderWebDAV",
+    en: "setSyncProviderWebDAV",
+    zh_cn: "设置webdav同步",
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  }
+];

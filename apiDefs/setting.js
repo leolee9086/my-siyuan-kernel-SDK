@@ -1,0 +1,233 @@
+export const settingApiDefs = [
+  {
+    method: "POST",
+    endpoint: "/api/setting/addVirtualBlockRefExclude",
+    en: "addVirtualBlockRefExclude",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/addVirtualBlockRefInclude",
+    en: "addVirtualBlockRefInclude",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/getCloudUser",
+    en: "getCloudUser",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: false,
+    unavailableIfReadonly: false,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/getPublish",
+    en: "getPublish",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/login2faCloudUser",
+    en: "login2faCloudUser",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/logoutCloudUser",
+    en: "logoutCloudUser",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/refreshVirtualBlockRef",
+    en: "refreshVirtualBlockRef",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setAI",
+    en: "setAI",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setAccount",
+    en: "setAccount",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setAppearance",
+    en: "setAppearance",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setBazaar",
+    en: "setBazaar",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setEditor",
+    en: "setEditor",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setEditorReadOnly",
+    en: "setEditorReadOnly",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setEmoji",
+    en: "setEmoji",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setExport",
+    en: "setExport",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setFiletree",
+    en: "setFiletree",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setFlashcard",
+    en: "setFlashcard",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setKeymap",
+    en: "setKeymap",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setPublish",
+    en: "setPublish",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setSearch",
+    en: "setSearch",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  },
+  {
+    method: "POST",
+    endpoint: "/api/setting/setSnippet",
+    en: "setConfSnippet",
+    zh_cn: undefined,
+    needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({})
+  }
+];
