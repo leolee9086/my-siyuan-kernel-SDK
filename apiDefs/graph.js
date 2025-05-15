@@ -190,7 +190,7 @@ export const graphApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).strict().describe("无请求参数"),
+    zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({
       conf: z.object({
         minRefs: z.number().int().describe("节点最少被引用次数（低于此值将被隐藏）"),
@@ -229,7 +229,7 @@ export const graphApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).strict().describe("无请求参数"),
+    zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({
       conf: z.object({
         dailyNote: z.boolean().describe("是否包含日记节点"),

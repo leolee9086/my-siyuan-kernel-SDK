@@ -8,16 +8,16 @@ export const templateApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要作为模板保存的文档ID。"),
       name: z.string().describe("模板的名称。"),
       overwrite: z.boolean().describe("如果已存在同名模板，是否覆盖。")
-    }).describe("请求体包含文档ID、模板名称和是否覆盖选项。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       msg: z.string().describe("错误或成功信息。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -28,19 +28,19 @@ export const templateApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       path: z.string().describe("模板文件的绝对路径。"),
       id: z.string().describe("可选的上下文块ID，用于模板内获取该块的信息。"),
       preview: z.boolean().optional().describe("是否为预览模式，默认为 false。")
-    }).describe("请求体包含模板路径、可选的上下文块ID和预览模式选项。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息。"),
       data: z.object({
         path: z.string().describe("渲染的模板文件路径。"),
         content: z.string().describe("渲染后的模板内容 (HTML 字符串)。")
       }).nullable().describe("成功时返回包含路径和渲染后内容的对象，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -51,13 +51,13 @@ export const templateApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       template: z.string().describe("包含 Sprig 模板语法的字符串。")
-    }).describe("请求体包含要渲染的 Sprig 模板字符串。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息。"),
       data: z.string().nullable().describe("渲染后的字符串内容，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

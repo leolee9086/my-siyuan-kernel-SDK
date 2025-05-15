@@ -8,14 +8,14 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要检出的快照的唯一标识符 (ID)。")
-    }).describe("请求体为一个包含快照ID的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,17 +26,17 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       memo: z.string().optional().describe("可选。快照的备注信息。"),
       tag: z.string().optional().describe("可选。为快照打上的标签名。如果提供，则此快照同时会成为一个标签快照。")
-    }).describe("请求体为一个包含可选备注和标签的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
         id: z.string().describe("新创建的快照的唯一标识符 (ID)。")
       }).describe("包含新快照ID的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -47,11 +47,11 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       left: z.string().describe("必需。左侧快照的 ID，作为比较基准的旧版本。"),
       right: z.string().describe("必需。右侧快照的 ID，作为比较目标的新版本。")
-    }).describe("请求体为一个包含两个快照ID的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -62,7 +62,7 @@ export const repoApiDefs = [
         left: z.object({ id: z.string().describe("快照ID"), created: z.string().describe("创建时间戳 (Unix 毫秒)"), memo: z.string().describe("备注") }).describe("左侧快照的元信息。"),
         right: z.object({ id: z.string().describe("快照ID"), created: z.string().describe("创建时间戳 (Unix 毫秒)"), memo: z.string().describe("备注") }).describe("右侧快照的元信息。")
       }).describe("包含两个快照差异详情的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -73,15 +73,15 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要下载的云端快照的 ID。"),
       tag: z.string().optional().describe("可选。如果下载的是标签快照，则此为标签名。如果下载的是普通快照，此字段应为空字符串或省略。")
-    }).describe("请求体为一个包含云端快照ID和可选标签的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -92,10 +92,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       page: z.number().int().positive().describe("必需。页码，从 1 开始。")
-    }).describe("请求体为一个包含页码的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -110,7 +110,7 @@ export const repoApiDefs = [
         pageCount: z.number().int().describe("总页数。"),
         totalCount: z.number().int().describe("快照总数量。")
       }).describe("包含云端快照列表、总页数和总数量的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -121,10 +121,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       page: z.number().int().positive().describe("必需。页码，从 1 开始。")
-    }).describe("请求体为一个包含页码的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -140,7 +140,7 @@ export const repoApiDefs = [
         pageCount: z.number().int().describe("总页数。"),
         totalCount: z.number().int().describe("标签快照总数量。")
       }).describe("包含云端标签快照列表、总页数和总数量的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -151,10 +151,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。快照的 ID。"),
       path: z.string().optional().describe("可选。快照内文件的相对路径。如果 id 已经是快照内文件的完整标识（如 `快照ID/文件路径.sy`），则此项可省略。")
-    }).describe("请求体为一个包含快照内文件标识的JSON对象。"),
+    }),
     zodResponseSchema: (z) => z.any().describe("此接口不返回标准 JSON。成功时直接返回文件数据流 (HTTP 200)，Content-Type 根据文件类型确定。失败时返回标准 JSON 错误结构。")
   },
   {
@@ -166,10 +166,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       page: z.number().int().positive().describe("必需。页码，从 1 开始。")
-    }).describe("请求体为一个包含页码的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -184,7 +184,7 @@ export const repoApiDefs = [
         pageCount: z.number().int().describe("总页数。"),
         totalCount: z.number().int().describe("快照总数量。")
       }).describe("包含本地快照列表、总页数和总数量的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -195,10 +195,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       page: z.number().int().positive().describe("必需。页码，从 1 开始。")
-    }).describe("请求体为一个包含页码的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -214,7 +214,7 @@ export const repoApiDefs = [
         pageCount: z.number().int().describe("总页数。"),
         totalCount: z.number().int().describe("标签快照总数量。")
       }).describe("包含本地标签快照列表、总页数和总数量的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -225,12 +225,12 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口通过 FormData 接收文件。必需的 FormData 字段是 'keyFile' (上传的密钥文件)。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -241,12 +241,12 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -257,14 +257,14 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       passphrase: z.string().min(1, "口令不能为空").describe("必需。用于生成密钥的用户口令。")
-    }).describe("请求体为一个包含用户口令的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -275,10 +275,10 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。快照中文档的唯一标识符 (通常是 `快照ID/文档ID.sy`)。")
-    }).describe("请求体为一个包含快照中文档ID的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -287,7 +287,7 @@ export const repoApiDefs = [
         displayInText: z.boolean().describe("是否应在纯文本模式下显示 (通常为 false)。"),
         updated: z.string().describe("文档的最后更新时间 (Unix 时间戳字符串，秒级)。")
       }).nullable().describe("包含文档标题、内容和元信息的对象。失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -298,12 +298,12 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求参数，但执行前通常会有二次确认。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -314,12 +314,12 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求参数，但执行前通常会有二次确认。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -330,15 +330,15 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要移除的云端标签快照的 ID。"),
       tag: z.string().describe("必需。要移除的云端标签快照的标签名。")
-    }).describe("请求体为一个包含快照ID和标签名的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",

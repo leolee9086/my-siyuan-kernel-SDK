@@ -407,9 +407,11 @@ export const filetreeApiDefs = [
     method: "POST",
     endpoint: "/api/filetree/listDocTree",
     en: "listDocTree",
-    zh_cn: "列出文档树结构",
-    description: "获取指定笔记本下特定路径的文档树结构。返回的结构仅包含文档ID，不包含文档名或其他详细信息。",
+    zh_cn: "列出文档树",
+    description: "列出指定笔记本的文档树结构，支持过滤、排序等。",
     needAuth: true,
+    needAdminRole: true,
+    unavailableIfReadonly: true,
     zodRequestSchema: (z) => ({
       notebook: z.string().describe("要列出文档树的笔记本ID。"),
       path: z.string().describe("要列出文档树的起始路径 (相对于笔记本根目录，例如 '/folderName')。通常用于列出某个文件夹下的文档结构。")

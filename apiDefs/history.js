@@ -8,7 +8,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).strict().describe("无请求参数"),
+    zodRequestSchema: (z)=>({}),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功"),
       Msg: z.string().describe("响应消息"),
@@ -24,7 +24,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       historyPath: z.string().describe("文档历史版本的路径，通常从其他历史记录接口获取"),
       k: z.string().optional().describe("搜索关键词，用于在历史内容中高亮显示"),
       highlight: z.boolean().optional().default(true).describe("是否对关键词进行高亮显示，默认为 true"),
@@ -49,7 +49,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       created: z.string().describe("创建日期，格式如 'YYYYMMDD'"),
       notebook: z.string().optional().describe("笔记本 ID，如果提供，则限定在该笔记本内搜索"),
       type: z.number().int().optional().default(0).describe("历史记录类型：0 表示文档，1 表示资源文件，2 表示笔记本。默认为 0 (文档)。"),
@@ -90,7 +90,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).strict().describe("无请求参数"),
+    zodRequestSchema: (z)=>({}),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功"),
       Msg: z.string().describe("响应消息"),
@@ -120,7 +120,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).strict().describe("无请求参数"),
+    zodRequestSchema: (z)=>({}),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功"),
       Msg: z.string().describe("响应消息"),
@@ -136,7 +136,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       historyPath: z.string().describe("资源文件历史版本的路径，通常从其他历史记录接口获取"),
     }),
     zodResponseSchema: (z) => ({
@@ -154,7 +154,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("文档所属的笔记本 ID"),
       historyPath: z.string().describe("文档历史版本的路径，通常从其他历史记录接口获取"),
     }),
@@ -175,7 +175,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       historyPath: z.string().describe("笔记本历史版本的路径，通常从 getNotebookHistory 接口获取"),
     }),
     zodResponseSchema: (z) => ({
@@ -193,7 +193,7 @@ export const historyApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().optional().describe("笔记本 ID，如果提供，则限定在该笔记本内搜索"),
       type: z.number().int().optional().default(0).describe("历史记录类型：0 表示文档，1 表示资源文件，2 表示笔记本。默认为 0 (文档)。"),
       query: z.string().describe("搜索关键词"),

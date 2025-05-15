@@ -8,14 +8,14 @@ export const uiApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要重新加载的属性视图的 ID。")
-    }).describe("请求体包含要重新加载的属性视图的 ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,12 +26,12 @@ export const uiApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -42,14 +42,14 @@ export const uiApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要重新加载的 Protyle 编辑器实例对应的块 ID 或文档 ID。")
-    }).describe("请求体包含要重新加载的编辑器实例的 ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -60,12 +60,12 @@ export const uiApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -76,11 +76,11 @@ export const uiApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.null().describe("成功时总是为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

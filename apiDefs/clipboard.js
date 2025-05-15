@@ -6,7 +6,7 @@ export const clipboardApiDefs = [
     zh_cn: "读取剪贴板文件路径",
     description: "从系统剪贴板中读取文件路径列表。注意：在 Linux 上此功能可能受限或不可用。",
     needAuth: true,
-    needAdminRole: false,
+    needAdminRole: true,
     unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({

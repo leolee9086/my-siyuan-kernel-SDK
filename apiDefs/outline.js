@@ -8,10 +8,10 @@ export const outlineApiDefs = [
     needAuth: true, // from router.go: model.CheckAuth
     needAdminRole: false, // from router.go
     unavailableIfReadonly: false, // from router.go
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) =>({
       id: z.string().describe("必需。要获取大纲的文档块的 ID。通常是文档的根块 ID。"),
       preview: z.boolean().optional().default(false).describe("可选。是否为预览模式获取大纲，默认为 false。预览模式可能包含未保存的更改。")
-    }).describe("请求体为一个包含文档块ID和可选预览标志的 JSON 对象。"),
+    }),
     zodResponseSchema: (z) => {
       // 定义大纲条目的递归 schema
       const headingSchema = z.lazy(() => z.object({
@@ -24,11 +24,11 @@ export const outlineApiDefs = [
         // 注意: Go 源码中的 model.OutlineBlock 还有 ` ial` (interface{}) 和 `updated` (string) 字段，但通常不包含在 API 返回中，此处省略
       }));
 
-      return z.object({
+      return ({
         Code: z.number().describe("返回码，0 表示成功"),
         Msg: z.string().describe("错误信息，成功时为空字符串"),
         Data: z.array(headingSchema).nullable().describe("文档的大纲结构数组。如果文档不存在或无标题，可能为 null 或空数组。")
-      }).describe("标准响应结构。");
+      })
     }
   }
 ];

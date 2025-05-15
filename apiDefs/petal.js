@@ -8,10 +8,10 @@ export const petalApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       frontend: z.string().describe("必需。指定要加载插件的前端界面，例如 'desktop', 'mobile', 'browser-extension'。")
-    }).describe("请求体为一个包含前端标识符的 JSON 对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.array(z.object({
@@ -23,7 +23,7 @@ export const petalApiDefs = [
         css: z.string().optional().describe("插件的 CSS 代码内容 (来自 index.css)。仅当插件启用且兼容时加载。"),
         i18n: z.record(z.any()).optional().describe("插件的国际化 (i18n) 文本资源对象。仅当插件启用且兼容时加载。")
       })).nullable().describe("一个插件对象数组。如果没有任何可加载的插件，可能为 null 或空数组。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -34,12 +34,12 @@ export const petalApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       packageName: z.string().describe("必需。要设置启用状态的插件的包名 (唯一标识符)。"),
       enabled: z.boolean().describe("必需。设置插件的启用状态，true 表示启用，false 表示禁用。"),
       frontend: z.string().describe("必需。指定要设置插件状态的前端界面，例如 'desktop', 'mobile'。")
-    }).describe("请求体为一个包含插件包名、启用状态和前端标识符的 JSON 对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功，-1 表示插件不兼容或其他错误"),
       Msg: z.string().describe("错误信息，成功时为空字符串，失败时包含具体错误，如不兼容提示。"),
       Data: z.object({
@@ -48,6 +48,6 @@ export const petalApiDefs = [
         enabled: z.boolean().describe("插件更新后的启用状态"),
         incompatible: z.boolean().describe("插件是否不兼容")
       }).nullable().describe("操作成功时返回更新后的插件状态对象 (不含代码)；失败时可能为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

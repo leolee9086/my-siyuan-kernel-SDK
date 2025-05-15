@@ -8,11 +8,11 @@ export const sqliteApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

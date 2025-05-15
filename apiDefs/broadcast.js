@@ -6,7 +6,7 @@ export const broadcastApiDefs = [
     zh_cn: "获取频道信息",
     description: "获取指定名称的广播频道的详细信息，如订阅者数量。",
     needAuth: true,
-    needAdminRole: false,
+    needAdminRole: true,
     unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({
       name: z.string().describe("要查询的广播频道名称")
@@ -27,7 +27,7 @@ export const broadcastApiDefs = [
     zh_cn: "获取频道列表",
     description: "获取当前所有活跃的广播频道及其订阅者数量的列表。",
     needAuth: true,
-    needAdminRole: false,
+    needAdminRole: true,
     unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({
@@ -49,7 +49,7 @@ export const broadcastApiDefs = [
     description: "向指定的广播频道发送文本消息。也可以用于发送特定命令 (cmd)。",
     needAuth: true,
     needAdminRole: true,
-    unavailableIfReadonly: true,
+    unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({
       channel: z.string().describe("目标广播频道的名称"),
       cmd: z.string().optional().describe("可选，要执行的命令（例如 wsctrl、protyle等）"),
@@ -69,7 +69,7 @@ export const broadcastApiDefs = [
     description: "向指定的广播频道发布消息。可以是文本消息，也可以通过上传文件发布二进制消息。请求体应为 multipart/form-data。",
     needAuth: true,
     needAdminRole: true,
-    unavailableIfReadonly: true,
+    unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({
       channel: z.string().describe("目标广播频道的名称"),
       type: z.enum(['string', 'binary']).describe("消息类型：'string' (文本) 或 'binary' (二进制文件)"),

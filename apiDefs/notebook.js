@@ -8,14 +8,14 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebooks: z.array(z.string()).describe("按新的期望顺序排列的笔记本 ID 数组。")
-    }).describe("请求体包含排序后的笔记本ID列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().optional().describe("成功时通常为 null。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,15 +26,15 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要关闭的笔记本的唯一标识符 (ID)。"),
       callback: z.string().optional().describe("可选的回调命令ID，用于操作完成后的事件通知。")
-    }).describe("请求体包含要关闭的笔记本ID及可选的回调ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().optional().describe("成功时通常为 null。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -45,10 +45,10 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       name: z.string().min(1).describe("新笔记本的名称，不能为空。")
-    }).describe("请求体包含新笔记本的名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -61,7 +61,7 @@ export const notebookApiDefs = [
           sortMode: z.number().int().describe("文档排序模式"),
         }).describe("新创建的笔记本对象信息。"),
       }).describe("包含新创建笔记本信息的对象。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -72,10 +72,10 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要获取配置的笔记本的唯一标识符 (ID)。")
-    }).describe("请求体包含要获取配置的笔记本ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -109,7 +109,7 @@ export const notebookApiDefs = [
           }).optional().describe("笔记本统计信息 (可能不存在，例如笔记本关闭时)")
         }).describe("笔记本的配置对象。")
       }).describe("包含笔记本配置的对象。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -120,10 +120,10 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要获取信息的笔记本的唯一标识符 (ID)。")
-    }).describe("请求体包含要获取信息的笔记本ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -158,7 +158,7 @@ export const notebookApiDefs = [
           }).describe("笔记本统计信息。")
         }).describe("笔记本的详细信息对象。")
       }).describe("包含笔记本详细信息的对象。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -169,8 +169,8 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -183,7 +183,7 @@ export const notebookApiDefs = [
           sortMode: z.number().int().optional().describe("笔记本内文档的排序模式 (仅在笔记本打开时存在)"),
         })).describe("笔记本对象数组。")
       }).describe("包含笔记本列表的对象。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -194,15 +194,15 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要打开的笔记本的唯一标识符 (ID)。")
-    }).describe("请求体包含要打开的笔记本ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
       }).catchall(z.any()).nullable().describe("成功时可能返回空对象或 null，主要通过推送事件传递笔记本信息。"),
-    }).describe("标准响应结构。注意：操作成功后，详细的笔记本信息通常通过 WebSocket 事件推送。")
+    })
   },
   {
     method: "POST",
@@ -213,15 +213,15 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要删除的笔记本的唯一标识符 (ID)。"),
       callback: z.string().optional().describe("可选的回调命令ID，用于操作完成后的事件通知。")
-    }).describe("请求体包含要删除的笔记本ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().optional().describe("成功时通常为 null。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -232,17 +232,17 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要重命名的笔记本的唯一标识符 (ID)。"),
       name: z.string().min(1).describe("笔记本的新名称，不能为空。")
-    }).describe("请求体包含笔记本ID和新名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功, -1 表示失败 (例如名称冲突)。"),
       Msg: z.string().describe("错误信息，成功时为空字符串。"),
       Data: z.object({
         closeTimeout: z.number().int().optional().describe("如果重命名失败，可能有关闭提示框的超时时间。")
       }).catchall(z.any()).nullable().describe("成功时为 null 或空对象，失败时可能包含 closeTimeout。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -253,7 +253,7 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要设置配置的笔记本的唯一标识符 (ID)。"),
       conf: z.object({
         name: z.string().optional().describe("可选。新的笔记本名称。"),
@@ -264,12 +264,12 @@ export const notebookApiDefs = [
         dailyNoteSavePath: z.string().optional().describe("可选。新的日记默认保存路径 (HPath)。"),
         dailyNoteTemplatePath: z.string().optional().describe("可选。新的日记模板路径 (HPath)。")
       }).describe("要更新的配置项对象。只提供需要修改的字段。")
-    }).describe("请求体包含笔记本ID和要更新的配置。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().optional().describe("成功时通常为 null。"),
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -280,14 +280,14 @@ export const notebookApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("要设置图标的笔记本的唯一标识符 (ID)。"),
       icon: z.string().describe("笔记本的新图标，可以是 Emoji 字符或图片的 Base64 编码字符串。")
-    }).describe("请求体包含笔记本ID和新图标。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().optional().describe("成功时通常为 null。"),
-    }).describe("标准响应结构。")
+    })
   }
 ];

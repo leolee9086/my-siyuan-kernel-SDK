@@ -581,8 +581,8 @@ export const blockApiDefs = [
     zh_cn: "获取删除标题块的事务",
     description: "获取删除指定标题块（及其所有子孙块）所需的事务操作列表。此接口仅返回事务，不实际执行删除。",
     needAuth: true,
-    needAdminRole: true, // 虽然接口名是 get*，但涉及删除操作的准备，权限较高
-    unavailableIfReadonly: true,
+    needAdminRole: false,
+    unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({ id: z.string().describe("要获取删除事务的标题块 ID") }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 调用返回码，0 表示成功"),
@@ -607,8 +607,8 @@ export const blockApiDefs = [
     zh_cn: "获取调整标题级别的事务",
     description: "获取调整指定标题块级别所需的事务操作列表。此接口仅返回事务，不实际执行调整。",
     needAuth: true,
-    needAdminRole: true,
-    unavailableIfReadonly: true,
+    needAdminRole: false,
+    unavailableIfReadonly: false,
     zodRequestSchema: (z) => ({
       id: z.string().describe("要调整级别的标题块 ID"),
       level: z.number().int().min(1).max(6).describe("新的标题级别 (1-6)")
@@ -928,16 +928,16 @@ export const blockApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       data: z.string().describe("要追加的内容，可以是 Markdown 或 DOM 字符串。如果 dataType 为 'markdown'，内容会先转换为 DOM。注意：后端实现中此接口行为类似 appendDailyNoteBlock，均在末尾追加，但定义保留 prepend 以匹配接口名和潜在的未来行为调整。建议使用 appendDailyNoteBlock 以获得明确的末尾追加行为。后端 action 为 prependInsert。 "),
       dataType: z.enum(["markdown", "dom"]).describe("指定 data 参数的类型 ('markdown' 或 'dom')。 "),
       notebook: z.string().describe("目标笔记本的 ID。")
-    }).describe("请求体包含要追加的内容、内容类型和目标笔记本ID。注意后端实际行为可能与接口名不完全一致。 "),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 调用返回码，0 表示成功"),
       Msg: z.string().describe("API 调用返回消息"),
       Data: z.array(z.any()).nullable().describe("操作成功时返回事务列表，失败时可能为 null。具体结构请参考 Transaction 对象。")
-    }).describe("标准响应结构，Data 字段包含事务信息。")
+    })
   },
   {
     method: "POST",
@@ -948,17 +948,17 @@ export const blockApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要移动的块的 ID。"),
       parentID: z.string().optional().describe("新的父块 ID。如果提供了 previousID，则此字段可选。如果两者都未提供或均为空，则行为未定义或可能出错。不能是文档块ID。 "),
       previousID: z.string().optional().describe("新的前一个同级块的 ID。如果提供此字段，块将被移动到该同级块之后。如果未提供，将尝试基于 parentID 移动到父块的末尾（若 parentID 有效）。不能是文档块ID。 ")
-    }).describe("请求体包含要移动的块ID，以及可选的新父块ID和/或前一个同级块ID。parentID 和 previousID 至少需要一个有效值。 "),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 调用返回码，0 表示成功"),
       Msg: z.string().describe("API 调用返回消息"),
       Data: z.null().describe("此接口成功时不返回具体数据，UI 通常通过 WebSocket 消息更新。")
       // Go 源码中 moveBlock 函数没有显式设置 ret.Data，但调用了 model.PerformTransactions 和 model.ReloadProtyle
-    }).describe("标准响应结构，Data 字段通常为 null。")
+    })
   },
   {
     method: "POST",
@@ -969,15 +969,15 @@ export const blockApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要移动的大纲标题块的 ID。"),
       parentID: z.string().optional().describe("新的父块 ID (可以是文档块或其他标题块)。如果提供了 previousID，则此字段可选。 "),
       previousID: z.string().optional().describe("新的前一个同级标题块的 ID。如果提供此字段，标题块将被移动到该同级块之后。 ")
-    }).describe("请求体包含要移动的标题块ID，以及可选的新父块ID和/或前一个同级块ID。 "),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 调用返回码，0 表示成功"),
       Msg: z.string().describe("API 调用返回消息"),
       Data: z.array(z.any()).nullable().describe("操作成功时返回事务列表，失败时可能为 null。具体结构请参考 Transaction 对象。")
-    }).describe("标准响应结构，Data 字段包含事务信息。")
+    })
   }
 ];

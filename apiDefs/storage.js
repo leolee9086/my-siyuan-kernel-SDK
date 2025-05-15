@@ -86,14 +86,14 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       name: z.string().describe("要移除的搜索标准的名称。")
-    }).describe("请求参数，包含要移除的搜索标准的名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -104,15 +104,15 @@ export const storageApiDefs = [
     needAdminRole: true,
     unavailableIfReadonly: true,
     zh_cn: "批量移除本地存储项",
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       keys: z.array(z.string()).describe("要移除的 LocalStorage 项目的键名数组。"),
       app: z.string().describe("发起操作的 App ID，用于事件广播。")
-    }).describe("请求参数，包含要移除的键名列表和 App ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -123,7 +123,7 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       criterion: z.object({
         name: z.string().describe("搜索标准的唯一名称。"),
         id: z.string().optional().describe("搜索标准的ID，通常在更新时提供。"),
@@ -144,12 +144,12 @@ export const storageApiDefs = [
         rootID: z.string().optional().describe("根块 ID。"),
         kwd: z.string().optional().describe("关键词。"),
       }).describe("要保存或更新的搜索标准对象。具体字段请参考思源笔记内核 model.Criterion 结构。")
-    }).describe("请求参数，包含要保存的搜索标准对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -160,15 +160,15 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       val: z.record(z.any()).describe("一个对象，其键值对将完全替换现有的 LocalStorage 内容。"),
       app: z.string().describe("发起操作的 App ID，用于事件广播。")
-    }).describe("请求参数，包含要设置的完整 LocalStorage 对象和 App ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -179,15 +179,15 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       key: z.string().describe("要设置的 LocalStorage 项目的键名。"),
       val: z.any().describe("要设置的 LocalStorage 项目的值，可以是任意类型，但最终会序列化为字符串存储。"),
       app: z.string().describe("发起操作的 App ID，用于事件广播。")
-    }).describe("请求参数，包含要设置的键、值和 App ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

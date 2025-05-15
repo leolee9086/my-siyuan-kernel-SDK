@@ -8,7 +8,7 @@ export const iconApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       type: z.string().optional().describe("图标类型，可选值 '1'-'8'，默认为 '1'。例如：'1' 年月日星期, '6' 星期, '7' 倒计时, '8' 文字图标"),
       color: z.string().optional().describe("图标颜色，可以是预定义颜色名 (如 'red', 'blue') 或十六进制颜色值 (如 '#ff0000', 'ff0000')"),
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("目标日期，格式 YYYY-MM-DD，用于日期相关类型的图标"),
@@ -16,7 +16,7 @@ export const iconApiDefs = [
       weekdayType: z.string().optional().describe("星期显示格式，不同语言下有不同选项，默认为 '1'"),
       content: z.string().optional().describe("文字内容，当 type='8' (文字图标) 时使用"),
       id: z.string().optional().describe("图标ID，当 type='8' (文字图标) 时使用，用于生成固定的背景色")
-    }).describe("所有参数均为 URL Query Parameters。代码实现详见 kernel/api/icon.go:getDynamicIcon"),
+    }),
     zodResponseSchema: (z) => z.any().describe("此接口不返回 JSON。成功时直接返回 image/svg+xml 类型的 SVG 图像数据 (HTTP 200)。失败时可能返回其他 HTTP 错误状态码。")
   }
 ];

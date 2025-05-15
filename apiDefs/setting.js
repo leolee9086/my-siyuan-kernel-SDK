@@ -42,7 +42,7 @@ export const settingApiDefs = [
     zh_cn: "获取云端用户信息",
     description: "刷新并获取当前登录的思源云端账户信息。",
     needAuth: true,
-    needAdminRole: true,
+    needAdminRole: false,
     unavailableIfReadonly: false,
     zodRequestSchema: (z) => z.object({
       token: z.string().optional().describe("可选的访问令牌，用于刷新用户信息。如果未提供，则尝试使用现有会话。")

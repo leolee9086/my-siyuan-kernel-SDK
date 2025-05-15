@@ -8,14 +8,14 @@ export const luteApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要导出内容的块的ID")
-    }).describe("请求体为一个包含块ID的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.string().describe("导出的标准 Markdown 内容")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,14 +26,14 @@ export const luteApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       dom: z.string().describe("要转换的 HTML 字符串")
-    }).describe("请求体为一个包含HTML字符串的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.string().describe("转换后的块级 DOM (HTML 格式的字符串)")
-    }).describe("标准响应结构。如果转换失败，Data可能为错误提示字符串。")
+    })
   },
   {
     method: "POST",
@@ -44,15 +44,15 @@ export const luteApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       dom: z.string().describe("要处理的块级 DOM 字符串 (HTML 格式)")
-    }).describe("请求体为一个包含块级DOM字符串的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
         dom: z.string().describe("经过 SpinBlockDOM 处理后的块级 DOM 字符串 (HTML 格式)")
       })
-    }).describe("标准响应结构。")
+    })
   }
 ];

@@ -8,11 +8,11 @@ export const miscApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       channel: z.string().describe("要订阅的一个或多个广播频道名称，多个频道用逗号分隔。此参数通过 URL Query String 传递。"),
       retry: z.number().int().positive().optional().describe("SSE 连接断开后的重试间隔时间 (毫秒)。此参数通过 URL Query String 传递。")
-    }).describe("所有参数均为 URL Query Parameters。"),
-    zodResponseSchema: (z) => z.any().describe("此接口不返回标准 JSON。成功时建立 SSE 连接，服务器会持续推送事件。每个事件包含 id, event (频道名), retry, data (消息内容)。连接关闭或发生错误时，事件流中断。")
+    }),
+    zodResponseSchema: (z) => ({})
   },
   {
     method: "GET",
@@ -23,9 +23,9 @@ export const miscApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       channel: z.string().describe("要连接的广播频道名称。此参数通过 URL Query String 传递。")
-    }).describe("所有参数均为 URL Query Parameters。"),
-    zodResponseSchema: (z) => z.any().describe("此接口不返回标准 JSON。成功时升级为 WebSocket 连接，用于后续的双向消息传递。如果连接失败，可能会返回 HTTP 错误状态码。")
+    }),
+    zodResponseSchema: (z) => ({})
   }
 ];

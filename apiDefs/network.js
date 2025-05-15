@@ -7,8 +7,8 @@ export const networkApiDefs = [
     description: "作为代理，将客户端构造的HTTP(S)请求转发到指定的目标URL，并返回目标服务器的响应。支持多种请求体编码方式。",
     needAuth: true,       // from router.go: model.CheckAuth
     needAdminRole: true,  // from router.go: model.CheckAdminRole
-    unavailableIfReadonly: true, // from router.go: model.CheckReadonly
-    zodRequestSchema: (z) => z.object({
+    unavailableIfReadonly: false, // from router.go: model.CheckReadonly
+    zodRequestSchema: (z) => ({
       url: z.string().url().describe("必需。要请求的目标 URL，必须是合法的 HTTP 或 HTTPS 地址。"),
       method: z.string().optional().default("POST").describe("可选。HTTP 请求方法，如 GET, POST, PUT, DELETE 等。默认为 POST。"),
       timeout: z.number().int().positive().optional().default(7000).describe("可选。请求超时时间，单位毫秒。默认为 7000ms。"),
@@ -17,8 +17,8 @@ export const networkApiDefs = [
       payload: z.any().optional().describe("可选。HTTP 请求体内容。其格式和编码由 payloadEncoding 决定。"),
       payloadEncoding: z.enum(["json", "text", "base64", "base64-std", "base64-url", "base32", "base32-std", "base32-hex", "hex"]).optional().default("json")
         .describe("可选。payload 字段的编码方式。'json' 和 'text' 表示直接使用 payload 值 (json 会被序列化)；其他选项表示 payload 是对应编码的字符串，代理服务器会先解码再发送。默认为 'json' (如果 contentType 是 application/json 则 payload 会被序列化，否则视为 text)。")
-    }).describe("请求体为一个 JSON 对象，包含了构造 HTTP 请求所需的所有参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码。0 表示代理请求成功（无论目标服务器返回何种状态码），非 0 表示代理请求本身失败。"),
       Msg: z.string().describe("错误信息。代理请求成功时为空字符串。"),
       Data: z.object({
@@ -45,6 +45,6 @@ export const networkApiDefs = [
         length: z.number().int().describe("目标服务器返回的响应体原始长度 (解码前)。"),
         isText: z.boolean().describe("指示目标服务器返回的响应体是否为文本类型。"),
       }).nullable().describe("当代理请求成功时，包含目标服务器的详细响应信息。代理失败时为 null。"),
-    }).describe("标准响应结构。")
+    })
   }
 ];

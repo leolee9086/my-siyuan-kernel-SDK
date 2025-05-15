@@ -8,12 +8,12 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "GET",
@@ -24,8 +24,8 @@ export const systemApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
@@ -33,7 +33,7 @@ export const systemApiDefs = [
         state: z.number().describe("当前启动状态码"),
         details: z.string().describe("当前启动状态的详细描述文本"),
       }).nullable().describe("启动进度信息，启动完成或未开始时可能为 null"),
-    }).describe("响应体包含启动进度详情")
+    })
   },
   {
     method: "POST",
@@ -44,8 +44,8 @@ export const systemApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
@@ -53,7 +53,7 @@ export const systemApiDefs = [
         state: z.number().describe("当前启动状态码"),
         details: z.string().describe("当前启动状态的详细描述文本"),
       }).nullable().describe("启动进度信息，启动完成或未开始时可能为 null"),
-    }).describe("响应体包含启动进度详情")
+    })
   },
   {
     method: "POST",
@@ -64,14 +64,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 理论上检查更新不应受只读模式影响，但源码中未标记 CheckReadonly，故保持 false
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       showMsg: z.boolean().describe("是否在检查后显示提示消息给用户")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null，更新信息通过 WebSocket 推送或直接在 UI 弹出"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -82,17 +82,17 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       path: z.string().describe("要检查的目录绝对路径")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功，-1 表示无效路径或检查失败"),
       msg: z.string().describe("错误或提示信息"),
       data: z.object({
         isWorkspace: z.boolean().describe("该路径是否已经是或可以成为一个有效的工作空间"),
         // 根据 model.CheckWorkspaceDir 实现，还可能有其他字段，但主要是 isWorkspace
       }).nullable().describe("检查结果，code 非 0 时可能为 null"),
-    }).describe("响应体包含目录检查结果")
+    })
   },
   {
     method: "POST",
@@ -103,14 +103,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       path: z.string().describe("要创建工作空间的目录绝对路径")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -121,12 +121,12 @@ export const systemApiDefs = [
     needAuth: false, // router.go 中未标记 model.CheckAuth
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.number().describe("当前的 Unix 时间戳 (毫秒)"),
-    }).describe("响应体包含当前时间戳")
+    })
   },
   {
     method: "POST",
@@ -137,12 +137,12 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 退出操作不应受只读限制
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -153,15 +153,15 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 导出配置不应受只读限制
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
         path: z.string().describe("导出的配置文件 `conf.json` 所在临时目录的绝对路径。前端通常会触发下载此目录下的 `conf.json`。"),
         name: z.string().describe("导出的配置文件名，通常是 `conf.json`")
       })
-    }).describe("响应体包含导出配置文件的路径和名称")
+    })
   },
   {
     method: "POST",
@@ -172,14 +172,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 导出日志不应受只读限制
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
         zip: z.string().describe("导出的日志压缩文件 `log.zip` 的绝对路径。前端通常会触发此文件的下载。")
       })
-    }).describe("响应体包含日志压缩文件的路径")
+    })
   },
   {
     method: "GET",
@@ -190,14 +190,14 @@ export const systemApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
+    zodRequestSchema: (z) => ({}),
     // 响应体是图片流，而非 JSON 对象。此处 schema 描述其元数据。
     // 实际调用时，浏览器会直接显示图片或下载。
-    zodResponseSchema: (z) => z.object({
+    zodResponseSchema: (z) => ({
       code: z.number().int().optional().describe("通常不适用，因为响应是图片流"),
       msg: z.string().optional().describe("通常不适用"),
       data: z.string().optional().describe("通常不适用。实际是图片二进制数据。"),
-    }).describe("响应为图片流，用于显示验证码。schema 仅为占位，实际内容需特殊处理。")
+    })
   },
   {
     method: "POST",
@@ -208,15 +208,15 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: false, // 根据 router.go
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
         show: z.boolean().describe("是否需要显示更新日志（例如，新版本首次启动后）"),
         html: z.string().describe("更新日志的 HTML 内容")
       })
-    }).describe("响应体包含更新日志的 HTML 内容及显示状态")
+    })
   },
   {
     method: "POST",
@@ -227,14 +227,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: false, // 根据 router.go
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.any().describe("包含所有配置项的对象，结构复杂，请参考 `siyuan/kernel/conf/conf.go` 中的 `Conf` 结构体。例如 `data.appearance.mode` 等。")
       // 由于配置结构庞大且可能随版本变化，这里使用 z.any()。
       // 开发者应参照 conf.go 自行定义具体需要的配置项 schema。
-    }).describe("响应体包含所有配置信息")
+    })
   },
   {
     method: "POST",
@@ -245,8 +245,8 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: false, // 根据 router.go
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.array(z.object({
@@ -262,7 +262,7 @@ export const systemApiDefs = [
           keywords: z.string().optional().describe("Emoji 搜索关键词"),
         })).describe("该分组下的 Emoji项列表")
       })).describe("Emoji 配置数组，每个元素是一个 Emoji 分组")
-    }).describe("响应体包含 Emoji 配置信息")
+    })
   },
   {
     method: "POST",
@@ -273,8 +273,8 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 源码中未标记 CheckReadonly
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.array(z.object({
@@ -284,7 +284,7 @@ export const systemApiDefs = [
         bookmark: z.string().describe("工作空间的备注/书签"), // 根据以往经验推断，可能为空
         closed: z.boolean().describe("工作空间是否已关闭"), // 根据以往经验推断
       })).describe("移动端工作空间列表")
-    }).describe("响应体包含移动端工作空间列表")
+    })
   },
   {
     method: "POST",
@@ -295,14 +295,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false, // 源码中未标记 CheckReadonly
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
         proxy: z.string().describe("网络代理配置字符串，例如 'socks5://127.0.0.1:1080' 或空字符串")
       })
-    }).describe("响应体包含网络配置")
+    })
   },
   {
     method: "POST",
@@ -313,15 +313,15 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true, // 根据 router.go
     unavailableIfReadonly: false, // 获取字体列表不应受只读限制
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.array(z.object({
         label: z.string().describe("字体名称，用于显示和选择"),
         value: z.string().describe("字体族名称，用于 CSS font-family")
       })).describe("系统字体列表")
-    }).describe("响应体包含系统字体列表")
+    })
   },
   {
     method: "POST",
@@ -332,15 +332,15 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true, // 源码中明确有 CheckReadonly
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.object({
         workspaceDir: z.string().describe("当前工作空间的绝对路径"),
         siyuanVer: z.string().describe("当前思源笔记的版本号")
       })
-    }).describe("响应体包含工作空间信息")
+    })
   },
   {
     method: "POST",
@@ -351,8 +351,8 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: false, // 根据 router.go
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.array(z.object({
@@ -362,7 +362,7 @@ export const systemApiDefs = [
         bookmark: z.string().describe("工作空间的备注/书签"),
         closed: z.boolean().describe("工作空间当前是否处于关闭状态"),
       })).describe("工作空间列表")
-    }).describe("响应体包含工作空间列表")
+    })
   },
   {
     method: "POST",
@@ -373,12 +373,12 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -389,14 +389,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       file: z.any().describe("上传的 `conf.json` 文件。通常通过 FormData 提交。`z.instanceof(File)` 在此场景不适用，因为这是后端定义。前端应使用 `FormData`。"),
-    }).describe("请求体为一个 FormData，包含 'file' 字段，其值为 conf.json 文件"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -407,18 +407,18 @@ export const systemApiDefs = [
     needAuth: false, // 登录操作本身不需要预先授权
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       authcode: z.string().optional().describe("访问授权码 (如果设置了)"),
       captcha: z.string().optional().describe("图片验证码的识别结果 (如果需要验证码)"),
       // username 和 password 字段在 model.LoginAuth 中没有直接体现，
       // 但社区版登录场景可能会用到。此处暂时不添加，以官方实现为准。
       // 如果需要用户名密码登录，通常是桌面端配置了，这里仅处理 authcode。
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功，其他表示失败 (如授权码错误、验证码错误等)"),
       msg: z.string().describe("错误或提示信息"),
       data: z.null().describe("成功时为 null，失败时也可能为 null"),
-    }).describe("响应体")
+    })
   },
   {
     method: "POST",
@@ -429,12 +429,12 @@ export const systemApiDefs = [
     needAuth: false, // 退出登录操作，可能在已登录或未登录状态下执行，但操作本身不依赖于当前是否已登录
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -445,12 +445,12 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -461,14 +461,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       path: z.string().describe("要移除的工作空间的绝对路径")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -479,14 +479,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       paths: z.array(z.string()).describe("要物理删除的工作空间的绝对路径列表")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -497,14 +497,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       token: z.string().describe("新的 API 令牌。如果为空字符串，则表示清空令牌。")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -515,15 +515,15 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       code: z.string().describe("新的访问授权码。如果为空字符串，则表示清空授权码。"),
       permanent: z.boolean().optional().describe("是否永久有效（此参数在后端实现中可能未直接使用，主要通过 code 是否为空判断）")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -534,14 +534,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true, // 源码中是 CheckAdminRole
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       mode: z.number().int().min(0).max(1).describe("外观模式：0 表示亮色 (Light)，1 表示暗色 (Dark)")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -552,14 +552,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       autoLaunch: z.boolean().describe("是否开机自启动")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -570,14 +570,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       downloadInstallPkg: z.boolean().describe("是否自动下载并安装更新包")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -588,14 +588,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       follow: z.boolean().describe("是否跟随系统锁屏")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -606,14 +606,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       enabled: z.boolean().describe("是否启用 Google Analytics")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -624,14 +624,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       proxy: z.string().describe("代理服务器地址，例如 'http://127.0.0.1:7890', 'socks5://127.0.0.1:1080'。如果为空字符串，则表示清除代理设置。")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -642,16 +642,16 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       serve: z.boolean().describe("是否启用网络服务"),
       port: z.string().describe("网络服务端口号，字符串形式，例如 '6806'"), // conf.go 中 ServerPort 是 string
       accessPermission: z.string().describe("网络访问权限：'lan' (仅局域网), 'wan' (允许公网，需谨慎), 'localhost' (仅本机)") // 根据以往经验推断，具体值需核实
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -662,16 +662,16 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       // 从 system.go setUILayout 函数中看到是 model.Conf.Editor.Layout = arg["layout"].(string)
       // 具体 layout 的可选值需要参考前端或 conf.go 的 EditorConf 结构
       layout: z.string().describe("UI 布局模式的标识符字符串")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -682,14 +682,14 @@ export const systemApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       path: z.string().describe("要切换到的工作空间的绝对路径")
-    }).describe("请求参数"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "POST",
@@ -700,15 +700,15 @@ export const systemApiDefs = [
     needAuth: false, // 内部接口，通常在启动时由 UI 调用，不进行鉴权
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       pid: z.number().int().optional().describe("UI 进程的 PID (可选)"),
       // 可能还有其他与 UI 进程相关的参数
-    }).describe("请求参数，包含 UI 进程信息"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.null().describe("成功时总是为 null"),
-    }).describe("通用响应结构体")
+    })
   },
   {
     method: "GET",
@@ -719,12 +719,12 @@ export const systemApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.string().describe("当前思源笔记的版本号字符串，例如 '2.10.0'"),
-    }).describe("响应体包含版本号")
+    })
   },
   {
     method: "POST",
@@ -735,11 +735,11 @@ export const systemApiDefs = [
     needAuth: false,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("无请求参数"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功"),
       msg: z.string().describe("错误信息"),
       data: z.string().describe("当前思源笔记的版本号字符串，例如 '2.10.0'"),
-    }).describe("响应体包含版本号")
+    })
   }
 ];

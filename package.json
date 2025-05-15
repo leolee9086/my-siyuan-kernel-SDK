@@ -15,5 +15,8 @@
     "kernel"
   ],
   "author": "",
-  "license": "ISC"
-} 
+  "license": "ISC",
+  "dependencies": {
+    "zod": "3.23.8"
+  }
+}

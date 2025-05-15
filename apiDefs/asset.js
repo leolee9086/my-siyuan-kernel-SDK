@@ -309,11 +309,11 @@ export const assetApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) =>({
       assetPath: z.string().optional().describe("可选，指定资源在 assets 目录中保存的相对路径 (例如 myfolder/image.png)"),
       id: z.string().optional().describe("可选，关联的文档块 ID，如果提供，则会在该文档中插入对上传资源的引用"),
       files: z.any().describe("通过 FormData 上传的文件对象或文件对象列表，此字段仅用于类型提示，实际通过 FormData 传递")
-    }).describe("参数通常通过 FormData 传递，而不是 JSON body。files 字段代表上传的文件数据。"),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("返回消息"),
