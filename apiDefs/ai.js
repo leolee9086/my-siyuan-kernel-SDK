@@ -8,8 +8,14 @@ export const aiApiDefs = [
     needAdminRole: true,
     unavailableIfReadonly: false,
     description: "与 ChatGPT 进行简单对话。",
-    zodRequestSchema: (z) => ({ msg: z.string() }),
-    zodResponseSchema: (z) => ({ Code: z.number(), Msg: z.string(), Data: z.any() })
+    zodRequestSchema: (z) => ({
+      msg: z.string().describe("发送给 ChatGPT 的消息内容")
+    }),
+    zodResponseSchema: (z) => ({
+      Code: z.number().describe("返回码，0 表示成功"),
+      Msg: z.string().describe("返回消息"),
+      Data: z.any().describe("ChatGPT 的回复内容")
+    })
   },
   {
     method: "POST",
@@ -20,7 +26,14 @@ export const aiApiDefs = [
     needAdminRole: true,
     unavailableIfReadonly: false,
     description: "调用 ChatGPT 对指定的块ID列表执行特定动作。",
-    zodRequestSchema: (z) => ({ ids: z.array(z.string()), action: z.string() }),
-    zodResponseSchema: (z) => ({ Code: z.number(), Msg: z.string(), Data: z.any() })
+    zodRequestSchema: (z) => ({
+      ids: z.array(z.string()).describe("要操作的块 ID 列表"),
+      action: z.string().describe("要执行的动作指令")
+    }),
+    zodResponseSchema: (z) => ({
+      Code: z.number().describe("返回码，0 表示成功"),
+      Msg: z.string().describe("返回消息"),
+      Data: z.any().describe("ChatGPT 执行动作后的返回结果")
+    })
   }
 ];
