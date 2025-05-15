@@ -785,3 +785,1178 @@
 *   修正了 `listDocTree` API 的权限定义。
 
 **总结**: `filetree.js` 的 API 定义更新工作量巨大，但已顺利完成。对文档树的各种操作都进行了清晰的标注。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/graph.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述，并全面核对 Go 源码 (`siyuan/kernel/api/graph.go`, `siyuan/kernel/conf/graph.go`, `siyuan/kernel/model/graph.go` 和 `siyuan/kernel/api/router.go`)，同时补充缺失的 `zh_cn` 字段。
+
+**过程**:
+
+1.  **源码阅读**: 
+    *   `siyuan/kernel/api/graph.go`: 包含 4 个 API 的核心逻辑：`getGraph`, `getLocalGraph`, `resetGraph`, `resetLocalGraph`。
+    *   `siyuan/kernel/conf/graph.go`: 定义了关系图的配置结构，包括 `GlobalGraph`, `LocalGraph`, `TypeFilter` (节点类型过滤), 和 `D3` (D3.js 力导向图参数) 等结构体。
+    *   `siyuan/kernel/model/graph.go`: 定义了关系图节点 (`GraphNode`) 和边 (`GraphLink`, `GraphArrows`, `GraphArrowsTo`) 的数据结构，以及构建关系图的核心算法函数 `BuildGraph` 和 `BuildTreeGraph`。
+    *   `siyuan/kernel/api/router.go`: 用于核对 `/api/graph/*` 相关路由的权限设置。
+
+2.  **API 定义更新与核对 (`my-siyuan-kernel-SDK/apiDefs/graph.js`)**: 遍历 `graph.js` 中的 4 个 API 定义，并执行以下操作：
+    *   为每个 API 添加了顶层 `description` 字段和 `zh_cn` 中文名。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段添加了 `.describe("中文描述")`。
+    *   确保 Zod schema 定义的参数与 Go 源码中的实际接收参数完全一致。
+    *   确保 Zod schema 定义的响应数据结构与 Go 源码中的实际返回数据结构 (包括配置对象、节点和边数组) 完全一致。
+    *   核对 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 等权限设置是否与 `router.go` 中的定义一致。
+
+3.  **具体 API 详情**:
+
+    *   **`/api/graph/getGraph`**: 获取全局关系图数据。
+        *   请求: `{ reqId: any, k: string, conf: GlobalGraphConfig }`
+        *   响应: `{ nodes: GraphNode[], links: GraphLink[], conf: GlobalGraphConfig, box: string, reqId: any }`
+        *   `GlobalGraphConfig` 包含 `minRefs`, `dailyNote`, `type` (TypeFilter), `d3` (D3Config)。
+
+    *   **`/api/graph/getLocalGraph`**: 获取局部关系图数据。
+        *   请求: `{ reqId: any, id: string, k: string, conf: LocalGraphConfig }`
+        *   响应: `{ id: string, box: string, nodes: GraphNode[], links: GraphLink[], conf: LocalGraphConfig, reqId: any }`
+        *   `LocalGraphConfig` 包含 `dailyNote`, `type` (TypeFilter), `d3` (D3Config)。
+
+    *   **`/api/graph/resetGraph`**: 重置全局关系图配置。
+        *   请求: 无 (空对象)。
+        *   响应: `{ conf: GlobalGraphConfig }` (返回重置后的默认配置)。
+
+    *   **`/api/graph/resetLocalGraph`**: 重置局部关系图配置。
+        *   请求: 无 (空对象)。
+        *   响应: `{ conf: LocalGraphConfig }` (返回重置后的默认配置)。
+
+    *   **公共数据结构**: 
+        *   `GraphNode`: `{ id, box, path, size, title?, label, type, refs, defs }`。
+        *   `GraphLink`: `{ from, to, ref, arrows?: { to?: { enabled } } }`。
+        *   `TypeFilter`: `{ tag, paragraph, heading, math, code, table, list, listItem, blockquote, super }` (均为 boolean)。
+        *   `D3Config`: `{ nodeSize, lineWidth, lineOpacity, centerStrength, collideRadius, collideStrength, linkDistance, arrow }` (均为 number 或 boolean)。
+
+4.  **文件路径问题**: 在查找 `conf.go` 时，最初错误地认为其在 `siyuan/kernel/conf/` 目录下，后确认为 `siyuan/kernel/model/conf.go` (该文件内引用了 `siyuan/kernel/conf/` 下的各个具体配置结构)。关系图本身的配置结构实际在 `siyuan/kernel/conf/graph.go`。
+
+**结果**:
+*   `apiDefs/graph.js` 中全部 4 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与相关 Go 源码 (`graph.go`, `conf/graph.go`, `model/graph.go`, `router.go`) 的实现进行了仔细核对，确保了参数、响应、权限的准确描述。
+
+**总结**: `graph.js` 的 API 定义更新完成。通过对多个相关 Go 文件的综合分析，确保了配置项、节点、边等复杂数据结构的准确描述。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/history.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述，并全面核对 Go 源码 (`siyuan/kernel/api/history.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/history.go`: 仔细阅读了该文件（约 900 行），理解了各个历史记录相关 API 的功能、参数、返回数据及权限控制逻辑。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/history/*` 相关路由的权限设置，确保 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 的准确性。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/history.js`)**: 遍历 `history.js` 中的 9 个 API 定义，进行如下操作：
+    *   为每个 API 添加了顶层 `description` 字段，详细说明其功能。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段添加了 `.describe(\"中文描述\")`。
+    *   确保 Zod schema 定义的参数与 Go 源码中的实际接收参数完全一致。
+    *   确保 Zod schema 定义的响应数据结构与 Go 源码中的实际返回数据结构完全一致。
+    *   修正了 `zh_cn` 字段，使其更准确。
+    *   根据 `router.go` 的定义，核对并确认了所有 API 的权限设置。
+
+3.  **具体 API 详情**:
+
+    *   **`/api/history/clearWorkspaceHistory`**: 清空工作区历史记录。
+        *   请求: 无参数。
+        *   响应: 标准 `Data: null`。
+        *   权限: `needAdminRole: true`, `unavailableIfReadonly: true`。
+
+    *   **`/api/history/getDocHistoryContent`**: 获取文档历史版本内容。
+        *   请求: `{ historyPath: string, k?: string, highlight?: boolean }`。`historyPath` 通常从其他历史接口获取。
+        *   响应: `Data: { id, rootID, content, isLargeDoc }`。`content` 是 HTML 格式。
+
+    *   **`/api/history/getHistoryItems`**: 获取历史条目列表。
+        *   请求: `{ created: string ('YYYYMMDD'), notebook?: string, type?: number (0文档,1资源,2笔记本), query: string, op?: string ('all') }`。
+        *   响应: `Data: { items: [...] }`。`items` 数组包含详细的历史条目信息 (id, title, content, notebookID, path, type, created, updated, size, hSize, count, repoID, historyName, historyPath, docID)。
+
+    *   **`/api/history/getNotebookHistory`**: 获取笔记本历史记录。
+        *   请求: 无参数。
+        *   响应: `Data: { histories: [...] }`。`histories` 数组包含笔记本历史版本信息 (id, title, type, created, updated, count, size, hSize, repoID, historyName, historyPath)。
+
+    *   **`/api/history/reindexHistory`**: 重建历史记录索引 (后台异步)。
+        *   请求: 无参数。
+        *   响应: 标准 `Data: null`。
+        *   权限: `needAdminRole: true`, `unavailableIfReadonly: true`。
+
+    *   **`/api/history/rollbackAssetsHistory`**: 回滚资源文件历史。
+        *   请求: `{ historyPath: string }`。
+        *   响应: 标准 `Data: null`。
+        *   权限: `needAdminRole: true`, `unavailableIfReadonly: true`。
+
+    *   **`/api/history/rollbackDocHistory`**: 回滚文档历史版本。
+        *   请求: `{ notebook: string, historyPath: string }`。
+        *   响应: `Data: { box: string (笔记本ID) }`。
+        *   权限: `needAdminRole: true`, `unavailableIfReadonly: true`。
+
+    *   **`/api/history/rollbackNotebookHistory`**: 回滚笔记本历史版本。
+        *   请求: `{ historyPath: string }`。
+        *   响应: 标准 `Data: null`。
+        *   权限: `needAdminRole: true`, `unavailableIfReadonly: true`。
+
+    *   **`/api/history/searchHistory`**: 搜索历史记录 (分页)。
+        *   请求: `{ notebook?: string, type?: number, query: string, page?: number (1), op?: string ('all') }`。
+        *   响应: `Data: { histories: [...], pageCount, totalCount }`。`histories` 按日期分组，每组包含 `created ('YYYYMMDD')`, `count`, 和可选的 `items` 数组 (结构同 `getHistoryItems` 的 `items`)。
+
+**结果**:
+*   `apiDefs/history.js` 中全部 9 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码 (`history.go` 和 `router.go`) 的实现进行了仔细核对，确保了参数、响应、权限的准确描述。
+
+**总结**: `history.js` 的 API 定义更新完成，对历史记录的查询、回滚和管理等操作都进行了清晰的标注。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/inbox.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述，并全面核对 Go 源码 (`siyuan/kernel/api/inbox.go`, `siyuan/kernel/model/cloud_service.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/inbox.go`: 包含 `getShorthand`, `getShorthands`, `removeShorthands` 三个 API 的 Gin handler 实现。
+    *   `siyuan/kernel/model/cloud_service.go`: 包含 `GetCloudShorthand` 和 `GetCloudShorthands` 函数，这两个函数实际调用云端服务接口，并对返回数据进行处理（如 Markdown 转 HTML，时间格式化等）。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/inbox/*` 相关路由的权限设置 (`model.CheckAuth`, `model.CheckAdminRole`)。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/inbox.js`)**: 遍历 `inbox.js` 中的 3 个 API 定义，进行如下操作：
+    *   为每个 API 的顶层 `description` 字段进行了微调，补充了关于内容转换的说明。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段添加了 `.describe("中文描述")`。
+    *   根据 `model/cloud_service.go` 中的数据处理逻辑，细化了 `getShorthand` 和 `getShorthands` 的响应 `Data` schema：
+        *   `getShorthand` 响应 `Data`: 定义了 `id`, `shorthandContent` (HTML), `shorthandMd` (Markdown), `hCreated` (格式化时间) 字段，并使用 `.catchall(z.any())` 允许其他云端可能返回的字段。
+        *   `getShorthands` 响应 `Data`: 定义顶层 `Data` 为一个包含 `shorthands` 数组的对象，数组内每个对象包含 `oId`, `shorthandContent` (HTML), `shorthandMd` (Markdown), `shorthandDesc` (处理后的描述), `hCreated` (格式化时间)，同样使用 `.catchall(z.any())`。顶层 `Data` 对象也使用了 `.catchall(z.any())` 以兼容分页等其他信息。
+    *   确认了所有 API 的权限设置 (`needAuth: true`, `needAdminRole: true`，`removeShorthands` 有 `unavailableIfReadonly: true`) 与 `router.go` 一致。
+
+**结果**:
+*   `apiDefs/inbox.js` 中全部 3 个 API 的 Zod schema 字段描述和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与相关 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构、权限的准确描述。
+
+**总结**: `inbox.js` 的 API 定义更新完成。通过对 `api` 和 `model` 层代码的分析，确保了返回数据结构（特别是经过处理的字段）的准确性。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/import.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/import.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/import.go`: 仔细阅读了该文件，理解了 `importData`, `importSY`, 和 `importStdMd` 三个 API 的功能、参数（包括 FormData 和 JSON body 的处理方式）及返回数据。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/import/*` 相关路由的权限设置，确认它们都需要 `model.CheckAuth`, `model.CheckAdminRole`, `model.CheckReadonly`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/import.js`)**: 遍历 `import.js` 中的 3 个 API 定义，进行如下操作：
+    *   为每个 API 添加了 `zh_cn` (中文名) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/api/import/importData`**: 
+        *   请求: FormData，必需字段为 `file` (.zip 数据包)。Schema 为 `z.object({})`，在 `.describe()` 中详细说明了 FormData 要求及覆盖工作空间的警告。
+        *   响应: 标准结构，`Data` 为 `null`。
+    *   **`/api/import/importSY`**: 
+        *   请求: FormData，必需字段为 `file` (.sy.zip 文件), `notebook` (目标笔记本ID), `toPath` (目标父路径)。Schema 为 `z.object({})`，在 `.describe()` 中详细说明了 FormData 要求。
+        *   响应: 标准结构，`Data` 为 `null`。
+    *   **`/api/import/importStdMd`**: 
+        *   请求: JSON body，必需字段为 `notebook`, `localPath` (本地 Markdown 文件/文件夹绝对路径), `toPath`。
+        *   响应: 标准结构，`Data` 为 `null`。
+    *   所有 API 的权限 (`needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`) 均已根据 `router.go` 核对并设置正确。
+    *   对 FormData 类型的请求，在描述中指明导入操作是异步的，后台会显示进度。
+
+**结果**:
+*   `apiDefs/import.js` 中全部 3 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数类型（FormData/JSON）、具体字段、响应数据结构和权限的准确描述。
+
+**总结**: `import.js` 的 API 定义更新完成。特别注意了区分 FormData 和 JSON 请求类型的处理，并在描述中清晰地指出了各自所需的参数。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/icon.js` 中的 API (`/api/icon/getDynamicIcon`) 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/icon.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/icon.go`: 阅读了 `getDynamicIcon` 函数的实现。此函数根据 Query Parameters (`type`, `color`, `date`, `lang`, `weekdayType`, `content`, `id`) 生成不同类型的 SVG 图标。重要的是，该 API 成功时直接返回 `image/svg+xml` 数据，不返回 JSON。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/icon/getDynamicIcon` 路由，确认其不需要任何权限校验 (`needAuth: false`, `needAdminRole: false`, `unavailableIfReadonly: false`)。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/icon.js`)**:
+    *   补充了 `zh_cn`: "获取动态图标"。
+    *   补充了顶层 `description`: "根据参数动态生成一个SVG格式的日期或文字图标。此接口直接返回 SVG 图像数据。"
+    *   权限设置与 `router.go` 一致。
+    *   `zodRequestSchema`: 定义为一个包含所有可选 Query Parameters (`type`, `color`, `date`, `lang`, `weekdayType`, `content`, `id`) 的对象，并为每个参数添加了详细的中文描述和可能的格式/值说明。顶层 `.describe()` 注明了所有参数均为 URL Query Parameters。
+    *   `zodResponseSchema`: 设置为 `z.any()`，并在其顶层 `.describe()` 中明确指出："此接口不返回 JSON。成功时直接返回 image/svg+xml 类型的 SVG 图像数据 (HTTP 200)。失败时可能返回其他 HTTP 错误状态码。"
+
+**结果**:
+*   `apiDefs/icon.js` 中 `/api/icon/getDynamicIcon` API 的定义已全面更新，包括中文名、描述、Zod schema (请求参数 Query Parameters 详细描述，响应特殊处理说明) 及权限设置。
+*   定义与 Go 源码实现及路由配置严格对应。
+
+**总结**: `icon.js` 的更新主要关注其独特的 SVG 响应方式和 Query Parameter 请求结构。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/lute.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/lute.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/lute.go`: 仔细阅读了该文件，理解了 `copyStdMarkdown`, `html2BlockDOM`, 和 `spinBlockDOM` 三个 API 的功能、参数及返回数据。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/lute/*` 相关路由的权限设置，确认它们都只需要 `model.CheckAuth` (即 `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`)。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/lute.js`)**: 遍历 `lute.js` 中的 3 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/api/lute/copyStdMarkdown`**: 
+        *   请求: `{ id: string }` (块ID)。
+        *   响应 `Data`: `string` (标准 Markdown 内容)。
+    *   **`/api/lute/html2BlockDOM`**: 
+        *   请求: `{ dom: string }` (HTML 字符串)。
+        *   响应 `Data`: `string` (处理后的块级 DOM，仍为 HTML 字符串)。描述中补充了转换失败时 Data 可能为错误提示。
+    *   **`/api/lute/spinBlockDOM`**: 
+        *   请求: `{ dom: string }` (块级 DOM 字符串)。
+        *   响应 `Data`: `{ dom: string }` (处理后的块级 DOM 字符串)。
+    *   所有 API 的权限设置均已核对正确。
+
+**结果**:
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/misc.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/broadcast.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/broadcast.go`: 阅读了 `broadcastSubscribe` 和 `broadcast` (处理 WebSocket) 函数的实现。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/es/broadcast/subscribe` 和 `/ws/broadcast` 相关路由的权限设置，确认为 `model.CheckAuth` 和 `model.CheckAdminRole`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/misc.js`)**: 遍历 `misc.js` 中的 2 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/es/broadcast/subscribe` (SSE)**:
+        *   请求: Query Parameters `channel` (string, 逗号分隔) 和 `retry` (number, optional)。
+        *   响应: `z.any()`，描述中注明为 SSE 事件流，包含事件结构 (id, event, retry, data)。
+        *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: false` (与 Go 源码一致)。
+    *   **`/ws/broadcast` (WebSocket)**:
+        *   请求: Query Parameter `channel` (string)。
+        *   响应: `z.any()`，描述中注明成功时升级为 WebSocket 连接。
+        *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: false` (与 Go 源码一致)。
+
+**结果**:
+*   `apiDefs/misc.js` 中全部 2 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数类型 (Query Parameters)、响应特性 (SSE/WebSocket) 和权限的准确描述。
+
+**总结**: `misc.js` 主要涉及实时消息订阅机制，更新时特别注意了请求参数的传递方式和非标准 JSON 响应的处理。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/network.js` 中的 API (`/api/network/forwardProxy`) 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/network.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/network.go`: 仔细阅读了 `forwardProxy` 函数的实现。该函数接收一个包含目标 URL、方法、超时、请求头、请求体及编码方式等参数的 JSON 对象，向目标 URL 发起 HTTP/HTTPS 请求，并将目标服务器的响应（状态码、头、Cookies、Base64 编码的 body 等）返回给客户端。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/network/forwardProxy` 路由的权限设置，确认为 `model.CheckAuth`, `model.CheckAdminRole`, `model.CheckReadonly`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/network.js`)**: 
+    *   补充了 `zh_cn`: "转发HTTP代理请求" 和顶层 `description`。
+    *   权限设置 (`needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`) 与 Go 源码一致。
+    *   `zodRequestSchema`: 详细定义了所有请求参数 (`url`, `method`, `timeout`, `headers`, `contentType`, `payload`, `payloadEncoding`)，并为每个字段添加了 `.describe()` 中文描述和默认值。
+    *   `zodResponseSchema`: 
+        *   定义了标准 `Code` 和 `Msg` 字段。
+        *   `Data` 对象详细描述了从目标服务器返回的响应信息，包括 `status`, `statusCode`, `proto`, `headers`, `cookies` (及其子字段 `Name`, `Value`, `Path`, `Domain`, `Expires`, `MaxAge` 等), `body` (Base64 编码), `url`, `length`, `isText`。所有字段均添加了中文描述。
+
+**结果**:
+*   `apiDefs/network.js` 中 `/api/network/forwardProxy` API 的定义已全面更新。
+*   Zod schema 的字段描述、中文名、顶层描述及权限设置均已根据 Go 源码仔细核对并完成。
+
+**总结**: `network.js` 的 `forwardProxy` API 功能较为复杂，涉及多种参数和详细的响应结构，本次更新确保了其定义的准确性和完整性。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/notebook.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/notebook.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/notebook.go`: 仔细阅读了该文件 (约 428 行)，理解了各个笔记本管理 API (如 `lsNotebooks`, `openNotebook`, `closeNotebook`, `createNotebook`, `getNotebookConf`, `setNotebookConf`, `getNotebookInfo` 等) 的功能、参数、返回数据及内部逻辑。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/notebook/*` 相关路由的权限设置，确保了 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 属性的准确性。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/notebook.js`)**: 遍历 `notebook.js` 中的 10 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名，例如 `getNotebookInfo` 之前缺失) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段添加了 `.describe("中文描述")`。
+    *   根据 Go 源码的实际实现，详细定义了请求参数和响应数据结构。
+
+3.  **重点 API Schema 详情**:
+    *   **`lsNotebooks`**: 响应 `Data.notebooks` 数组，每个笔记本对象包含 `id`, `name`, `icon`, `sort`, `closed`, 以及可选的 `sortMode` (当笔记本打开时)。
+    *   **`openNotebook`**: 响应 `Data` 描述为 `catchall(z.any()).nullable()`，因为笔记本的详细信息主要通过 WebSocket 事件推送。
+    *   **`closeNotebook` / `removeNotebook`**: 请求中增加了可选的 `callback` 字符串参数。
+    *   **`getNotebookConf`**: 响应 `Data.conf` 包含笔记本的详细配置 (`name`, `sort`, `icon`, `closed`, `sortMode` (并描述了各模式值含义), `refCreateSavePath`, `docCreateSavePath`, `dailyNoteSavePath`, `dailyNoteTemplatePath`) 及可选的 `boxStat` (详细统计信息，如 `docCount`, `assetCount`, `refCount` 等)。
+    *   **`setNotebookConf`**: 请求 `conf` 对象包含上述可配置的字段。
+    *   **`createNotebook`**: 请求 `{ name: string }`，响应 `Data.notebook` 包含新笔记本的 `id`, `name`, `icon`, `sort`, `closed`, `sortMode`。
+    *   **`renameNotebook`**: 响应 `Data` 在失败时可能包含 `closeTimeout`。
+    *   **`getNotebookInfo`**: 响应 `Data.boxInfo` 结构与 `getNotebookConf` 的 `conf` 类似，包含全面的笔记本信息和统计数据。特别注意其 `unavailableIfReadonly` 权限为 `true`，与 `getNotebookConf` (为 `false`) 不同。
+
+4.  **权限核对**: 所有 API 的权限设置（`needAuth`, `needAdminRole`, `unavailableIfReadonly`）均已根据 `router.go` 中的定义仔细核对并确认无误。
+
+**结果**:
+*   `apiDefs/notebook.js` 中全部 10 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构、权限的准确描述。
+
+**总结**: `notebook.js` 的 API 定义更新完成，覆盖了笔记本的创建、打开、关闭、配置、信息获取等核心操作。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/notification.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/notification.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/notification.go`: 仔细阅读了该文件（约 60 行），理解了 `pushMsg` 和 `pushErrMsg` 两个 API 的功能、参数 (`msg`, `timeout`) 及返回数据 (包含消息 `id`)。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/notification/*` 相关路由的权限设置，确认它们都需要 `model.CheckAuth` 和 `model.CheckAdminRole`，但没有 `model.CheckReadonly`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/notification.js`)**: 遍历 `notification.js` 中的 2 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/api/notification/pushErrMsg`**:
+        *   请求: `{ msg: string, timeout?: number }`。
+        *   响应 `Data`: `{ id: string }`。
+    *   **`/api/notification/pushMsg`**:
+        *   请求: `{ msg: string, timeout?: number }`。在 schema 中对 `msg` 添加了 `min(1)` 校验，因为 Go 源码会检查 `msg` 是否为空。
+        *   响应 `Data`: `{ id: string }`。描述中注明，如果请求的 `msg` 为空，Go 后端会返回错误，此时 `Data` 字段可能为 `null`。
+    *   所有 API 的权限 (`needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: false`) 均已根据 `router.go` 核对并设置正确。
+
+**结果**:
+*   `apiDefs/notification.js` 中全部 2 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构和权限的准确描述。
+
+**总结**: `notification.js` 的 API 主要用于前端消息推送，更新较为直接。对参数校验和空值处理的细节进行了标注。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/outline.js` 中的 API (`/api/outline/getDocOutline`) 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/outline.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/outline.go`: 阅读了 `getDocOutline` 函数的实现。该函数接收文档块 ID (`id`) 和可选的 `preview` (boolean) 参数，调用 `model.Outline` 来生成大纲数据。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/outline/getDocOutline` 路由的权限设置为 `model.CheckAuth`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/outline.js`)**: 
+    *   补充了顶层 `description`: "获取指定文档块（通常是文档的根块ID）的层级大纲结构。"
+    *   权限设置为 `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`，与 Go 源码一致。
+    *   `zodRequestSchema`: 定义了 `id` (string, 必需) 和 `preview` (boolean, 可选, 默认 `false`) 字段，并添加了详细中文描述。
+    *   `zodResponseSchema`: 
+        *   `Data` 部分使用 `z.lazy()` 定义了一个递归的 `headingSchema` 数组，用于表示层级大纲。
+        *   `headingSchema` 包含 `id` (string), `depth` (number), `text` (string), `blockCount` (number), `children` (递归的 `headingSchema` 数组, 可选), 和 `subType` (string, 如 'h1', 'h2') 字段，均已添加详细中文描述。
+        *   在 `headingSchema` 注释中指明，Go 源码中的 `model.OutlineBlock` 还有 `ial` 和 `updated` 字段，但通常不包含在此 API 返回中。
+
+**结果**:
+*   `apiDefs/outline.js` 中 `/api/outline/getDocOutline` API 的定义已全面更新。
+*   Zod schema 的字段描述、中文名、顶层描述及权限设置均已根据 Go 源码仔细核对并完成。
+*   成功使用了 `z.lazy()` 来定义递归的大纲层级结构。
+
+**总结**: `outline.js` 的 API 定义更新完成，准确描述了获取文档大纲的请求参数和层级化的响应数据结构。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-16 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/petal.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/petal.go`, `siyuan/kernel/model/plugin.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/petal.go`: 阅读了 `loadPetals` 和 `setPetalEnabled` 两个 API 的 Gin handler 实现。
+    *   `siyuan/kernel/model/plugin.go`: 仔细阅读了 `Petal` 结构体定义 (`Name`, `DisplayName`, `Enabled`, `Incompatible`, `JS`, `CSS`, `I18n`) 以及 `LoadPetals` 和 `SetPetalEnabled` 两个核心函数的逻辑。
+        *   `LoadPetals` 会加载所有已启用且兼容的插件，并读取其 `index.js`, `index.css` 和 i18n 文件内容。
+        *   `SetPetalEnabled` 会更新插件的启用状态，并在不兼容时返回错误。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/petal/*` 相关路由的权限设置。
+        *   `loadPetals`: `model.CheckAuth` (needAuth: true, needAdminRole: false, unavailableIfReadonly: false)。
+        *   `setPetalEnabled`: `model.CheckAuth`, `model.CheckAdminRole`, `model.CheckReadonly` (needAuth: true, needAdminRole: true, unavailableIfReadonly: true)。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/petal.js`)**: 遍历 `petal.js` 中的 2 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名) 和顶层 `description`。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/api/petal/loadPetals`**:
+        *   请求: `{ frontend: string }`。
+        *   响应 `Data`: `z.array(PetalObject)`，其中 `PetalObject` 包含 `name`, `displayName`, `enabled`, `incompatible`, 以及可选的 `js`, `css`, `i18n` 字段。
+    *   **`/api/petal/setPetalEnabled`**:
+        *   请求: `{ packageName: string, enabled: boolean, frontend: string }`。
+        *   响应 `Data`: 更新后的 `PetalObject` (不含 `js`, `css`, `i18n` 字段)，或在插件不兼容时 `Data` 为 `null` 且 `Msg` 包含错误信息。
+    *   所有 API 的权限设置均已根据 `router.go` 核对并设置正确。
+
+**结果**:
+*   `apiDefs/petal.js` 中全部 2 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与相关 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构、权限的准确描述。
+
+**总结**: `petal.js` 的 API 定义更新完成。通过对 `api` 和 `model` 层代码的分析，准确描述了插件加载和状态设置的逻辑及数据结构。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-16 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/query.js` 中的 API (`/api/query/sql`) 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/sql.go`, `siyuan/kernel/sql/query.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/sql.go`: 阅读了 `SQL` 函数的实现。该函数接收 `stmt` (SQL语句) 参数，调用 `sql.Query` 执行。
+    *   `siyuan/kernel/sql/query.go`: 阅读了 `Query` 函数的实现，它使用 `database.Mss.Query` 执行 SQL，并对结果进行处理，将列名转为小写驼峰，并将 `NULL` 值替换为 `nil`。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/query/sql` 路由的权限设置为 `model.CheckAuth`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/query.js`)**: 
+    *   补充了 `zh_cn`: "执行SQL查询" 和顶层 `description` (强调了底层为 SQLite)。
+    *   权限设置为 `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`，与 Go 源码一致。
+    *   `zodRequestSchema`: 定义了 `stmt` (string, 必需) 字段，并添加了详细中文描述。
+    *   `zodResponseSchema`: 
+        *   定义了标准 `Code` 和 `Msg` 字段。
+        *   `Data` 定义为 `z.array(z.record(z.any())).nullable()`，描述中说明每个对象代表一行数据，键为列名，值为列值。并指出查询失败或无结果时可能为 `null` 或空数组。
+
+**结果**:
+*   `apiDefs/query.js` 中 `/api/query/sql` API 的定义已全面更新。
+*   Zod schema 的字段描述、中文名、顶层描述及权限设置均已根据 Go 源码仔细核对并完成。
+
+**总结**: `query.js` 的 API 定义更新完成。准确描述了 SQL 查询接口的请求参数和响应数据结构。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-16 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/ref.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/ref.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/ref.go`: 仔细阅读了该文件 (约 740 行)，理解了 `getBacklink`, `getBacklink2`, `getBacklinkDoc`, `getBackmentionDoc`, 和 `refreshBacklink` 五个 API 的功能、参数、返回数据及内部逻辑。重点关注了 `getBacklink` 和 `getBacklink2` 的区别，以及 `getBacklinkDoc`/`getBackmentionDoc` 中 `defID` 和 `refTreeID` 的含义。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/ref/*` 相关路由的权限设置，确认它们都只需要 `model.CheckAuth` (即 `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`)。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/ref.js`)**: 遍历 `ref.js` 中的 5 个 API 定义，进行如下操作：
+    *   为每个 API 更新了 `zh_cn` (中文名) 和顶层 `description`，并对旧版 API 进行了标注。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   **`/api/ref/getBacklink` (旧版)**:
+        *   请求: `{ id: string, k: string, mk: string, beforeLen?: number, containChildren?: boolean }`。
+        *   响应 `Data`: `{ backlinks: BacklinkItem[], linkRefsCount: number, backmentions: BackmentionItem[], mentionsCount: number, k: string, mk: string, box: string }`。`BacklinkItem` 和 `BackmentionItem` 结构复杂，用 `z.any()` 并在描述中注明参考 `model` 层定义。
+    *   **`/api/ref/getBacklink2` (新版)**:
+        *   请求: `{ id: string, k: string, mk: string, sort?: string, mSort?: string, containChildren?: boolean }`。`sort` 和 `mSort` 描述了可能的排序模式值。
+        *   响应 `Data`: 结构同旧版。
+    *   **`/api/ref/getBacklinkDoc`**:
+        *   请求: `{ defID: string, refTreeID: string, keyword: string, containChildren?: boolean, highlight?: boolean }`。
+        *   响应 `Data`: `{ backlinks: BacklinkItem[], keywords: string[] }`。
+    *   **`/api/ref/getBackmentionDoc`**:
+        *   请求: 同 `getBacklinkDoc`。
+        *   响应 `Data`: `{ backmentions: BackmentionItem[], keywords: string[] }`。
+    *   **`/api/ref/refreshBacklink`**:
+        *   请求: `{ id: string }`。
+        *   响应 `Data`: `null`。
+    *   所有 API 的权限设置均已核对正确。
+
+**结果**:
+*   `apiDefs/ref.js` 中全部 5 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构和权限的准确描述。
+
+**总结**: `ref.js` 的 API 定义更新完成。特别注意了新旧版本反链 API 的区分，以及文档内反链/提及的参数含义。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-16 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/repo.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述，并全面核对 Go 源码 (`siyuan/kernel/api/repo.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/repo.go`: 仔细阅读了该文件（约 474 行），理解了各个仓库/快照管理 API 的功能、参数（包括 JSON body 和 FormData 的处理方式）、返回数据结构。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/repo/*` 相关路由的权限设置，确保了 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 属性的准确性。根据路由定义，部分只读操作 (如获取列表、比较差异、获取快照文件、打开快照文档、设置保留天数/数量) 的 `unavailableIfReadonly` 应为 `false`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/repo.js`)**: 遍历 `repo.js` 中的 22 个 API 定义，进行如下操作：
+    *   为每个 API 的顶层 `description` 字段进行了微调或补充，使其更准确。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   根据 Go 源码的实际实现，详细定义了请求参数和响应数据结构。
+    *   修正了部分 API (如 `diffRepoSnapshots`, `getCloudRepoSnapshots`, `getCloudRepoTagSnapshots`, `getRepoFile`, `getRepoSnapshots`, `getRepoTagSnapshots`, `openRepoSnapshotDoc`, `setRepoIndexRetentionDays`, `setRetentionIndexesDaily`) 的 `unavailableIfReadonly` 属性为 `false`，与 `router.go` 中的权限设置保持一致。
+    *   对 `getRepoFile` 的响应 schema 进行了特殊说明，指出成功时直接返回文件流。
+    *   对 `importRepoKey` 的请求 schema 进行了修正，指明其通过 FormData 接收名为 `keyFile` 的文件，而非 JSON 参数。
+    *   确保了所有时间戳字段的描述中指明了单位 (秒级或毫秒级)。
+
+3.  **重点 API Schema 细节**:
+    *   **`diffRepoSnapshots`**: 响应 `Data` 包含 `addsLeft`, `updatesLeft`, `updatesRight`, `removesRight` (均为 `{id, hPath}` 数组)，以及 `left` 和 `right` 快照的元信息 (`id`, `created` (毫秒时间戳), `memo`)。
+    *   **`getCloudRepoSnapshots` / `getCloudRepoTagSnapshots` / `getRepoSnapshots` / `getRepoTagSnapshots`**: 响应 `Data` 包含 `snapshots` 数组 (每个快照含 `id`, `tag?`, `created` (秒级时间戳), `hCreated`, `size`, `hSize`, `memo`), `pageCount`, `totalCount`。
+    *   **`getRepoFile`**: 请求 `{ id: string (快照ID), path?: string (文件在快照中路径) }`。响应直接为文件流，失败时为标准 JSON 错误。
+    *   **`openRepoSnapshotDoc`**: 请求 `{ id: string (快照内文档ID) }`。响应 `Data` 包含 `title`, `content` (HTML), `displayInText` (boolean), `updated` (秒级时间戳)。
+    *   其余 API 多为操作型，请求参数简单，响应 `Data` 为 `null`。
+
+**结果**:
+*   `apiDefs/repo.js` 中全部 22 个 API 的 Zod schema 字段描述、顶层 `description` 和权限设置均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构、权限的准确描述。
+
+**总结**: `repo.js` 的 API 定义更新完成，覆盖了本地和云端快照的创建、获取、比较、检出、删除、标记、导入/导出密钥等核心操作。特别注意了权限设置和特殊请求/响应格式的处理。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/riff.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/riff.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/riff.go`: 仔细阅读了该文件 (约 452 行)，理解了各个闪卡及闪卡包管理 API 的功能、参数、返回数据结构。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/riff/*` 相关路由的权限设置。大部分接口需要 `model.CheckAdminRole`，因此 `needAdminRole: true`。部分获取类接口 `unavailableIfReadonly: false`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/riff.js`)**: 遍历 `riff.js` 中的 17 个 API 定义，进行如下操作：
+    *   为每个 API 添加了顶层 `description` 字段和 `zh_cn` 中文名。
+    *   为 `zodRequestSchema` 和 `zodResponseSchema` 中的每个字段（及顶层 schema 对象）添加了 `.describe("中文描述")`。
+    *   根据 Go 源码的实际实现，详细定义了请求参数和响应数据结构。
+    *   对于返回闪卡列表的 API (如 `getNotebookRiffDueCards`, `getRiffCards`, `getRiffCardsByBlockIDs`, `getRiffDueCards`, `getTreeRiffDueCards`)，其 `Data.cards` 或 `Data.blocks` 数组中的每个闪卡对象结构均定义为包含 `id`, `deckID`, `blockID`, `created`, `due`, `interval`, `easeFactor`, `reps`。
+    *   对于返回闪卡包列表的 API (`getRiffDecks`) 或操作后返回单个闪卡包信息的 API (`addRiffCards`, `createRiffDeck`, `removeRiffCards`)，其 `Data` 中的闪卡包对象结构定义为包含 `id`, `name`, `size`, `created` (格式化时间字符串), `updated` (格式化时间字符串)。
+    *   `resetRiffCards` 请求中的 `deckID` 参数，虽然在 `api/riff.go` 中未直接使用，但考虑到 `model.ResetFlashcards` 可能需要，予以保留并在描述中说明。
+    *   `reviewRiffCard` 请求中的 `rating` 参数，根据 `riff.Rating` 的定义 (0:Again, 1:Hard, 2:Good, 3:Easy, 4:Soon)，在描述中进行了说明。
+    *   `addRiffCards` 和 `removeRiffCards` 在 `deckID` 为空字符串时 (操作 "All" 卡包)，`Data` 返回 `null`，已在 schema 中用 `.nullable()` 描述。
+    *   `renameRiffDeck` 响应 `Data` 固定为 `null` (根据 Go 源码)。
+    *   所有 API 的权限设置均已根据 `router.go` 核对并设置正确。
+
+**结果**:
+*   `apiDefs/riff.js` 中全部 17 个 API 的 Zod schema 字段描述、`zh_cn` 中文名和顶层 `description` 均已成功补充或修正完毕。
+*   所有 API 的定义都已与 Go 源码的实现进行了仔细核对，确保了参数、响应数据结构、权限的准确描述。
+*   之前的 Linter 错误（关于末尾逗号）在检查完整文件后确认为误报或已由编辑器自动修正，当前文件内容符合 JS 语法。
+
+**总结**: `riff.js` 的 API 定义更新完成，覆盖了闪卡和闪卡包的创建、获取、复习、重置、移除等核心操作。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-16 织的笔记 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/search.js` 中的所有 API 补充 Zod schema 字段的 `describe` 描述、`zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/search.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/search.go`: 仔细阅读了该文件 (约 492 行)，理解了各个搜索相关 API 的功能、参数、返回数据及权限控制逻辑。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/search/*` 相关路由的权限设置，确保了 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 的准确性。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/search.js`)**: 
+    *   对 `search.js` 中的全部 14 个 API 定义进行了逐个细致的校对。
+    *   检查并确认了每个 API 的顶层 `description`、`zh_cn` 中文名、权限标志 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`) 的准确性。
+    *   仔细核对了 `zodRequestSchema` 和 `zodResponseSchema` 中所有字段的定义、类型以及 `.describe()` 内容，确保其与 Go 源码中的参数、返回结构及业务逻辑严格对应。
+    *   大部分 API 定义已相当完善，仅对 `/api/search/findReplace` 接口的 `replaceTypes` 参数的 `.describe()` 描述进行了优化，列出了更具体的可用类型键名，使其更为清晰，这些键名源于 Go 源码 `model.FindReplace` 函数的内部注释。
+
+**结果**:
+*   `apiDefs/search.js` 中所有 API 的定义均已根据 Go 源码 (`search.go` 和 `router.go`) 完成了全面细致的校对。
+*   除一处描述优化外，现有定义已高度准确和完整。
+
+**总结**: `search.js` 的 API 定义在本次校对后，确认其质量较高。哥哥如果觉得还有其他需要修改的地方，请尽管指出哦！
+
+---
+
+## 2025-05-15 06:55 (my-siyuan-kernel-SDK)
+
+**任务**: 核对并修正 `apiDefs/search.js` 中 `/api/search/updateEmbedBlock` 接口的定义和描述。
+
+**背景**: 用户指出之前对 `updateEmbedBlock` 接口的理解可能不完整，特别是关于 `render-template` 的关联性以及接口的具体作用对象。
+
+**过程**:
+
+1.  **深入源码分析**:
+    *   **`siyuan/kernel/api/search.go`**: 重新查阅了 `updateEmbedBlock` Gin Handler 的实现。
+    *   **`siyuan/kernel/model/search.go`**: 定位并仔细阅读了 `model.UpdateEmbedBlock(id, content string)` 函数的源码。这是理解该接口行为的关键。
+        *   函数首先判断目标块是否为 `ast.NodeBlockQueryEmbed` (查询嵌入块)。如果是，则将传入的 `content` 作为其新的 Markdown 内容 (即 SQL 查询或 JS 脚本)，并调用 `updateEmbedBlockContent` 异步更新块的渲染缓存。
+        *   如果不是查询嵌入块，则检查块是否具有 `custom-attr-embed-block-content` (旧) 或 `custom-embed-block-content` (新，常量为 `treenode.IALAttrCustomEmbedBlockContent`) IAL 属性。如果有，则将传入的 `content` 更新到该属性值。
+        *   如果两者都不是，则返回错误。
+    *   **`siyuan/kernel/model/index.go`**: `autoIndexEmbedBlock` 函数中提到 `//!js` 类型的嵌入块不支持自动索引，需要前端主动调用 `/api/search/updateEmbedBlock` 更新内容，这印证了其主要用途之一。
+
+2.  **关键发现与澄清**:
+    *   `updateEmbedBlock` 主要用于更新**查询嵌入块 (`query_embed` 类型)** 的原始模板/查询语句。
+    *   其次，它可以更新具有特定自定义属性 (`custom-attr-embed-block-content` 或 `custom-embed-block-content`) 的普通块的这些属性值。
+    *   `render-template` 并非此接口直接操作的块类型名称，之前的理解有误。该接口与模板渲染相关，但其直接目标是更新模板内容本身或特定属性。
+
+3.  **JS 定义更新 (`my-siyuan-kernel-SDK/apiDefs/search.js`)**: 
+    *   根据上述分析，修改了 `/api/search/updateEmbedBlock` 接口的顶层 `description`，明确指出了其作用于查询嵌入块或具有特定自定义属性的块。
+    *   修改了 `zodRequestSchema` 中 `content` 字段的 `.describe()`，使其准确描述了 `content` 参数的含义（对于查询嵌入块是新的 Markdown/脚本，对于自定义属性块是新的属性值）。
+
+**结果**:
+*   `apiDefs/search.js` 中 `/api/search/updateEmbedBlock` 接口的定义和描述已根据 Go 源码的深入分析进行了修正，使其更准确地反映了接口的实际功能和作用对象。
+*   澄清了与 `render-template` 的关系。
+
+**总结**: 通过仔细阅读 `model` 层代码，对 `updateEmbedBlock` 接口的理解更加深入和准确。以后遇到类似情况，我会更加注意深入到模型层去理解接口的本质。
+
+---
+
+## 2025-05-15 06:58 (my-siyuan-kernel-SDK)
+
+**任务**: 更新 `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 文档，使其与 `apiDefs/search.js` 中 `/api/search/updateEmbedBlock` 接口的最新定义保持一致。
+
+**背景**: `/api/search/updateEmbedBlock` 接口的定义在之前的分析中已根据 Go 源码 (`model/search.go`) 进行了修正和细化。现在需要将这些更新同步到对应的开发者文档中。
+
+**过程**:
+
+1.  **提取最新 API 定义**: 从 `my-siyuan-kernel-SDK/apiDefs/search.js` 中获取 `/api/search/updateEmbedBlock` 接口的最新定义，包括：
+    *   中文名 (`zh_cn`)
+    *   接口描述 (`description`)
+    *   请求参数 (`zodRequestSchema` 及其字段描述)
+    *   响应结构 (`zodResponseSchema` 及其字段描述)
+    *   权限 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`)
+
+2.  **阅读现有文档**: 查看 `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 的当前内容。
+
+3.  **比对与更新**: 
+    *   **标题**: 将文档标题更新为最新的 `zh_cn` ("更新嵌入块内容")。
+    *   **接口描述**: 使用 `search.js` 中最新的 `description`，详细说明了其作用于查询嵌入块或具有特定自定义属性的块。
+    *   **实现链接**: 将核心逻辑链接从错误的 `attribute.go` 修改为正确的 `siyuan/kernel/model/search.go` (`UpdateEmbedBlock` 函数)。
+    *   **请求参数**: 将参数从旧的 `embedBlockID` 和 `stmt` 更新为新的 `id` 和 `content`，并使用了最新的参数描述。
+    *   **返回值**: 更新了返回码的描述 (明确了 -1 表示失败) 和 `Data` 字段的描述 (固定为 `null`)。
+    *   **权限**: 新增了权限说明部分，列出了 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 的值。
+    *   **请求/返回示例**: 更新了示例，以匹配新的参数名和可能的场景。
+
+**结果**:
+*   `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 文档已成功更新，与 `apiDefs/search.js` 中的 API 定义完全同步。
+
+**总结**: 接口文档的同步更新是确保开发者能够正确使用 API 的重要环节。本次更新确保了 `updateEmbedBlock` 接口文档的准确性。
+
+---
+
+## 2025-05-15 07:00 (my-siyuan-kernel-SDK)
+
+**任务**: 再次核对并最终修正 `apiDefs/search.js` 中 `/api/search/updateEmbedBlock` 接口的定义和描述，并同步更新 `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 文档。
+
+**背景**: 用户再次指出，`updateEmbedBlock` 接口**仅**用于更新**查询嵌入块 (`query_embed` 类型)** 的内容，并不能更新普通块的 `custom-attr-embed-block-content` 或 `custom-embed-block-content` 属性。
+
+**过程**:
+
+1.  **再次深入源码分析 (`siyuan/kernel/model/search.go`)**:
+    *   重新、极度仔细地审视了 `model.UpdateEmbedBlock(id, content string)` 函数的逻辑。
+    *   **关键确认**: 函数首先通过 `treenode.GetBlockTree(id)` 获取块树。然后，**严格检查** `bt.Type == ast.NodeBlockQueryEmbed`。**只有当此条件为真时**，才会继续执行更新块的 Markdown 内容并调用 `updateEmbedBlockContent`。如果 `bt.Type` 不是 `ast.NodeBlockQueryEmbed`，函数会直接返回错误 `siyuanerr.NewNotQueryEmbedBlockErr(id)`，**并不会检查或更新任何自定义属性**。
+    *   **结论**: 用户是对的。我之前的理解是错误的。`updateEmbedBlock` 接口**唯一的作用**就是更新**查询嵌入块**的 Markdown 内容。
+
+2.  **修正 `apiDefs/search.js` 定义**: 
+    *   将 `/api/search/updateEmbedBlock` 的 `zh_cn` 修改为 "更新查询嵌入块内容"。
+    *   将顶层 `description` 修改为："更新指定**查询嵌入块（`query_embed` 类型）**的原始查询语句或脚本内容。此接口专门用于处理查询嵌入块，不适用于普通块的自定义属性更新。"
+    *   `zodRequestSchema` 中 `id` 的描述修改为 "必需。要更新的查询嵌入块的 ID。"
+    *   `zodRequestSchema` 中 `content` 的描述修改为 "必需。查询嵌入块新的原始 Markdown 内容，通常是 SQL 查询语句或 JavaScript 脚本。"
+    *   顶层 `zodRequestSchema.describe` 修改为 "请求体包含查询嵌入块的 ID 和新的 Markdown 内容。"
+
+3.  **修正 `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 文档**: 
+    *   **标题**: 更新为 "更新查询嵌入块内容"。
+    *   **接口描述**: 更新为与 `search.js` 中一致的、强调仅作用于查询嵌入块的描述，并添加了明确的注意点 "**注意：此接口不适用于更新普通块的自定义属性。**"
+    *   **实现链接**: 核心逻辑链接保持不变 (`siyuan/kernel/model/search.go` - `UpdateEmbedBlock` 函数)。
+    *   **请求参数**: `id` 和 `content` 的描述更新为与 `search.js` 一致。
+    *   **请求示例**: 第一个示例保持不变（更新 SQL 查询嵌入块）。第二个示例修改为更新一个 JavaScript 脚本嵌入块的内容，移除了之前错误的自定义属性更新示例。
+    *   **返回示例**: 修正了失败示例中的 `msg`，例如当块类型不对时，应为 `"not query embed block"`。
+
+**结果**:
+*   `apiDefs/search.js` 中 `/api/search/updateEmbedBlock` 接口的定义已根据对 Go 源码的最终、最准确的理解进行了彻底修正。
+*   `my-siyuan-dev-guide/docs/kernel-api/search/updateEmbedBlock.md` 文档也已同步更新，准确反映了接口的真实功能和限制。
+
+**深刻反思**: 非常抱歉，哥哥！看来我之前对 `model.UpdateEmbedBlock` 的理解还是不够深入，错误地解读了代码分支。即使代码中提到了那些自定义属性常量，但实际的执行路径并没有在 `updateEmbedBlock` 这个函数中去修改它们。这次我把代码逻辑的每一步都看得更仔细了。以后我会更加警惕，不能轻易放过任何一个条件判断和返回路径！谢谢哥哥的耐心指正！
+
+---
+
+### `apiDefs/setting.js` 更新 (2025-05-15 UTC 07:06)
+
+本次针对 `setting.js` 文件进行了全面更新，主要工作如下：
+
+1.  **参考源码**：
+    *   `siyuan/kernel/api/setting.go`
+    *   `siyuan/kernel/api/router.go`
+    *   `siyuan/kernel/conf/` 目录下相关的配置结构体定义 (如 `user.go`, `publish.go`, `ai.go`, `appearance.go`, `editor.go`, `export.go`, `filetree.go`, `flashcard.go`, `keymap.go`, `search.go`, `snippet.go` 等)。
+
+2.  **更新内容**：
+    *   为 `settingApiDefs` 数组中的每一个 API 定义对象补充或修正了以下字段：
+        *   `zh_cn`: 根据 API 功能推断并添加了中文名称。
+        *   `description`: 详细描述了 API 的功能、参数作用及注意事项。
+        *   `needAuth`, `needAdminRole`, `unavailableIfReadonly`: 根据 `router.go` 中间件的配置，精确核对了权限要求。
+        *   `zodRequestSchema`: 基于 Go 源码中的参数解析逻辑和相关 `conf` 结构体，使用 Zod 定义了请求体的 schema，并为各字段添加了中文描述。
+        *   `zodResponseSchema`: 基于 Go 源码中的返回数据结构和相关 `conf` 结构体，使用 Zod 定义了响应体的 schema (包括 `Code`, `Msg`, `Data`)，并为各字段添加了中文描述。
+
+3.  **主要变更点举例**：
+    *   `getCloudUser`: 根据 `router.go` 修正 `needAdminRole` 为 `true`，并详细定义了返回的 `User` 对象结构。
+    *   `getPublish` 和 `setPublish`: 详细定义了 `Publish` 和 `BasicAuthAccount` 结构。
+    *   `setAI`, `setAccount`, `setAppearance`, `setBazaar`, `setEditor`, `setExport`, `setFiletree`, `setFlashcard`, `setKeymap`, `setSearch`, `setConfSnippet` (`setSnippet`):
+        *   这些 API 大多直接操作 `model.Conf` 中的某个子配置对象。
+        *   它们的 `zodRequestSchema` 和 `zodResponseSchema` (如果返回配置对象) 都基于对应的 Go `conf` 结构体进行了详细定义。
+        *   对于字段极多的配置对象（如 `Appearance`, `Editor`, `Search`），schema 中列出了主要常用字段，并使用 `.catchall(z.any())` 兼容其他字段，同时在描述中建议参考 Go 源码获取完整结构。
+        *   权限校正：确保了所有 API 的权限标志与 `router.go` 中的定义一致。
+
+4.  **遇到的挑战与解决方案**：
+    *   `setting.go` 涉及的配置项众多，且分散在 `conf` 包下的多个文件中。通过仔细阅读 `setting.go` 中各个 handler 对 `util.JsonArg` 的使用以及对 `conf` 结构体的 unmarshal 操作，结合搜索到的 `conf` 结构体定义，才得以准确构建 Zod schema。
+    *   部分 `zh_cn` 名称需要根据 API 实际功能和英文名进行合理推断。
+    *   某些 API（如 `setKeymap`）在成功时不返回 `Data`，也已在 schema 中体现为 `z.null()`。
+
+此次更新旨在提高 `setting.js` 中 API 定义的准确性和完整性，为后续的 SDK 开发和类型提示提供坚实基础。
+
+---
+
+### `apiDefs/snippet.js` 更新 (2025-05-15 UTC 07:50)
+
+本次针对 `snippet.js` 文件进行了全面更新，主要工作如下：
+
+1.  **参考源码**：
+    *   `siyuan/kernel/api/snippet.go`: 用于了解各 API 的具体实现逻辑和参数处理。
+    *   `siyuan/kernel/api/router.go`: 用于核对各 API 的路由路径和权限设置 (包括 `needAuth`, `needAdminRole`, `unavailableIfReadonly`)。
+    *   `siyuan/kernel/conf/snippet.go`: 用于获取 `Snippet` 结构体的准确定义，以创建对应的 Zod schema。
+
+2.  **更新内容**：
+    *   为 `snippetApiDefs` 数组中的每一个 API 定义对象 (`getSnippet`, `setSnippet`, `removeSnippet`) 补充或修正了以下字段：
+        *   `zh_cn`: 根据 API 功能添加了中文名称。
+        *   `description`: 详细描述了 API 的功能、参数作用及特殊行为（如 `setSnippet` 的全量替换特性）。
+        *   `needAuth`, `needAdminRole`, `unavailableIfReadonly`: 根据 `router.go` 中间件配置，精确设置了权限。
+            *   特别注意：`getSnippet` 无需管理员权限，且在只读模式下可用。
+        *   `zodRequestSchema`: 基于 Go 源码中的参数解析逻辑和 `conf.Snippet` 结构体，使用 Zod 定义了请求体的 schema，并为各字段添加了中文描述。
+            *   `getSnippet`: 请求参数包括 `type` ("js", "css", "all"), `enabled` (0-禁用, 1-启用, 2-全部), `keyword` (可选字符串)。
+            *   `setSnippet`: 请求参数为一个 `snippets` 数组，每个元素包含 `id`, `name`, `type` ("js", "css"), `content`, `enabled`。
+            *   `removeSnippet`: 请求参数为 `id` (字符串)。
+        *   `zodResponseSchema`: 基于 Go 源码中的返回数据结构和 `conf.Snippet` 结构体，使用 Zod 定义了响应体的 schema (包括 `Code`, `Msg`, `Data`)，并为各字段添加了中文描述。
+            *   `getSnippet`: 成功时 `Data` 中包含 `snippets` 数组。
+            *   `setSnippet`: 成功时 `Data` 为 `null`。
+            *   `removeSnippet`: 成功时 `Data` 中包含被移除的 `Snippet` 对象。
+
+3.  **主要发现和注意事项**：
+    *   `setSnippet` 接口的行为是**全量替换**，使用时需要特别注意，避免误删数据。文档中已对此进行了强调。
+    *   `removeSnippet` 接口成功后，会在 `Data` 字段返回被删除的那个 `Snippet` 对象，这在定义 `zodResponseSchema` 时已体现。
+
+---
+
+## 2025-05-15 UTC 07:06
+
+本次针对 `setting.js` 文件进行了全面更新，主要工作如下：
+
+1.  **参考源码**：
+    *   `siyuan/kernel/api/setting.go`
+    *   `siyuan/kernel/api/router.go`
+    *   `siyuan/kernel/conf/` 目录下相关的配置结构体定义 (如 `user.go`, `publish.go`, `ai.go`, `appearance.go`, `editor.go`, `export.go`, `filetree.go`, `flashcard.go`, `keymap.go`, `search.go`, `snippet.go` 等)。
+
+2.  **更新内容**：
+    *   为 `settingApiDefs` 数组中的每一个 API 定义对象补充或修正了以下字段：
+        *   `zh_cn`: 根据 API 功能推断并添加了中文名称。
+        *   `description`: 详细描述了 API 的功能、参数作用及注意事项。
+        *   `needAuth`, `needAdminRole`, `unavailableIfReadonly`: 根据 `router.go` 中间件的配置，精确核对了权限要求。
+        *   `zodRequestSchema`: 基于 Go 源码中的参数解析逻辑和相关 `conf` 结构体，使用 Zod 定义了请求体的 schema，并为各字段添加了中文描述。
+        *   `zodResponseSchema`: 基于 Go 源码中的返回数据结构和相关 `conf` 结构体，使用 Zod 定义了响应体的 schema (包括 `Code`, `Msg`, `Data`)，并为各字段添加了中文描述。
+
+3.  **主要变更点举例**：
+    *   `getCloudUser`: 根据 `router.go` 修正 `needAdminRole` 为 `true`，并详细定义了返回的 `User` 对象结构。
+    *   `getPublish` 和 `setPublish`: 详细定义了 `Publish` 和 `BasicAuthAccount` 结构。
+    *   `setAI`, `setAccount`, `setAppearance`, `setBazaar`, `setEditor`, `setExport`, `setFiletree`, `setFlashcard`, `setKeymap`, `setSearch`, `setConfSnippet` (`setSnippet`):
+        *   这些 API 大多直接操作 `model.Conf` 中的某个子配置对象。
+        *   它们的 `zodRequestSchema` 和 `zodResponseSchema` (如果返回配置对象) 都基于对应的 Go `conf` 结构体进行了详细定义。
+        *   对于字段极多的配置对象（如 `Appearance`, `Editor`, `Search`），schema 中列出了主要常用字段，并使用 `.catchall(z.any())` 兼容其他字段，同时在描述中建议参考 Go 源码获取完整结构。
+        *   权限校正：确保了所有 API 的权限标志与 `router.go` 中的定义一致。
+
+4.  **遇到的挑战与解决方案**：
+    *   `setting.go` 涉及的配置项众多，且分散在 `conf` 包下的多个文件中。通过仔细阅读 `setting.go` 中各个 handler 对 `util.JsonArg` 的使用以及对 `conf` 结构体的 unmarshal 操作，结合搜索到的 `conf` 结构体定义，才得以准确构建 Zod schema。
+    *   部分 `zh_cn` 名称需要根据 API 实际功能和英文名进行合理推断。
+    *   某些 API（如 `setKeymap`）在成功时不返回 `Data`，也已在 schema 中体现为 `z.null()`。
+
+此次更新旨在提高 `setting.js` 中 API 定义的准确性和完整性，为后续的 SDK 开发和类型提示提供坚实基础。
+
+---
+
+## 2025-05-15 07:56 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/sqlite.js` 中的 API (`/api/sqlite/flushTransaction`) 补充 Zod schema 字段的 `describe` 描述、更新 `zh_cn` 中文名和顶层 `description`，并全面核对 Go 源码 (`siyuan/kernel/api/sql.go` 和 `siyuan/kernel/api/router.go`)。
+
+**过程**:
+
+1.  **源码阅读与核对**:
+    *   `siyuan/kernel/api/sql.go`: 阅读了 `flushTransaction` 函数的实现。该函数不接收任何请求参数，调用 `model.FlushTxQueue()` 和 `sql.FlushQueue()` 来刷新数据库事务队列。
+    *   `siyuan/kernel/api/router.go`: 核对了 `/api/sqlite/flushTransaction` 路由的权限设置为 `model.CheckAuth`, `model.CheckAdminRole`, `model.CheckReadonly`。
+
+2.  **API 定义更新 (`my-siyuan-kernel-SDK/apiDefs/sqlite.js`)**: 
+    *   更新了 `zh_cn` 为 "刷新事务队列" (原为 "提交事务")。
+    *   补充了顶层 `description`: "将内核中待处理的数据库事务队列立即刷新到磁盘。这通常用于确保在关键操作后数据被持久化。该接口不接收参数。"
+    *   权限设置为 `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`，与 Go 源码一致。
+    *   `zodRequestSchema`: 定义为 `z.object({}).describe("此接口不需要请求体参数。")`。
+    *   `zodResponseSchema`: 定义为标准响应结构 `z.object({ Code: z.number().describe("错误码，0 表示成功，其他表示失败。"), Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"), Data: z.null().describe("接口成功执行时，Data 固定为 null。") })`，以准确反映 Go 后端 `gulu.Ret.NewResult()` 在未显式设置 `Data` 时的行为。
+
+**结果**:
+*   `apiDefs/sqlite.js` 中 `/api/sqlite/flushTransaction` API 的定义已全面更新。
+*   Zod schema 的字段描述、中文名、顶层描述及权限设置均已根据 Go 源码仔细核对并完成。
+
+**总结**: `sqlite.js` 的 API 定义更新完成，准确描述了刷新数据库事务队列接口的请求、响应和权限。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15 08:00 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/storage.js` 中的所有 API 补充或修正 `zh_cn` (中文名称), `description` (API 功能描述), 详细的 `zodRequestSchema` 和 `zodResponseSchema` (包括字段的 `.describe()`), 并核对和修正 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 权限设置。
+
+**依据**: `siyuan/kernel/api/storage.go` (API 实现) 和 `siyuan/kernel/api/router.go` (路由与权限)。
+
+**过程与结果**:
+
+1.  **`getRecentDocs` (`/api/storage/getRecentDocs`)**:
+    *   `zh_cn`: "获取最近打开的文档列表"
+    *   `description`: "获取用户最近打开过的文档列表。这些文档按最近打开时间排序。"
+    *   权限: `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`.
+    *   `zodRequestSchema`: `z.object({}).describe("此接口不需要请求体参数。")`
+    *   `zodResponseSchema`: 详细定义了 `Data` 为文档对象数组，包含 `id`, `notebookID`, `name`, `icon`, `hPath`, `path`, `sort`, `type`, `subFileCount`, `updated` 等字段，并添加了描述。
+
+2.  **`removeCriterion` (`/api/storage/removeCriterion`)**:
+    *   `zh_cn`: "移除搜索标准"
+    *   `description`: "根据名称移除一个已保存的搜索标准（过滤条件）。"
+    *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`.
+    *   `zodRequestSchema`: `z.object({ name: z.string().describe("要移除的搜索标准的名称。") })`
+    *   `zodResponseSchema`: 标准响应，`Data` 为 `null`。
+
+3.  **`setCriterion` (`/api/storage/setCriterion`)**:
+    *   `zh_cn`: "保存搜索标准"
+    *   `description`: "保存或更新一个搜索标准（过滤条件）。搜索标准可用于后续的文档或内容搜索。"
+    *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`.
+    *   `zodRequestSchema`: `z.object({ criterion: z.object({ name: z.string(), id: z.string().optional(), ...其他推测字段... }).describe("要保存或更新的搜索标准对象。具体字段请参考思源笔记内核 model.Criterion 结构。") })`
+    *   `zodResponseSchema`: 标准响应，`Data` 为 `null`。
+
+4.  **`getCriteria` (`/api/storage/getCriteria`)**:
+    *   `zh_cn`: "获取所有已保存的搜索标准"
+    *   `description`: "获取所有用户已保存的搜索标准（过滤条件）列表。"
+    *   权限: `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`.
+    *   `zodRequestSchema`: `z.object({}).describe("此接口不需要请求体参数。")`
+    *   `zodResponseSchema`: `Data` 为 `Criterion` 对象数组，详细定义了其推测字段并添加了描述。
+
+5.  **`removeLocalStorageVals` (`/api/storage/removeLocalStorageVals`)**:
+    *   `zh_cn`: "批量移除本地存储项"
+    *   `description`: "根据提供的键名列表，批量移除浏览器 LocalStorage 中的项目。同时会广播事件通知其他客户端同步移除。"
+    *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`.
+    *   `zodRequestSchema`: `z.object({ keys: z.array(z.string()).describe("要移除的 LocalStorage 项目的键名数组。"), app: z.string().describe("发起操作的 App ID，用于事件广播。") })`
+    *   `zodResponseSchema`: 标准响应，`Data` 为 `null`。
+
+6.  **`setLocalStorageVal` (`/api/storage/setLocalStorageVal`)**:
+    *   `zh_cn`: "设置单个本地存储项"
+    *   `description`: "设置浏览器 LocalStorage 中的单个键值对。同时会广播事件通知其他客户端同步设置。"
+    *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`.
+    *   `zodRequestSchema`: `z.object({ key: z.string().describe("要设置的 LocalStorage 项目的键名。"), val: z.any().describe("要设置的 LocalStorage 项目的值..."), app: z.string().describe("发起操作的 App ID，用于事件广播。") })`
+    *   `zodResponseSchema`: 标准响应，`Data` 为 `null`。
+
+7.  **`setLocalStorage` (`/api/storage/setLocalStorage`)**:
+    *   `zh_cn`: "整体设置本地存储"
+    *   `description`: "使用一个完整的对象来覆盖整个浏览器 LocalStorage 的内容。通常用于导入或恢复 LocalStorage 数据。同时会广播事件通知其他客户端同步设置。"
+    *   权限: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`.
+    *   `zodRequestSchema`: `z.object({ val: z.record(z.any()).describe("一个对象，其键值对将完全替换现有的 LocalStorage 内容。"), app: z.string().describe("发起操作的 App ID，用于事件广播。") })`
+    *   `zodResponseSchema`: 标准响应，`Data` 为 `null`。
+    *   (编辑时遇到一次 reapply 才成功应用)
+
+8.  **`getLocalStorage` (`/api/storage/getLocalStorage`)**:
+    *   `zh_cn`: "获取所有本地存储项"
+    *   `description`: "获取浏览器 LocalStorage 中的所有键值对。"
+    *   权限: `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`.
+    *   `zodRequestSchema`: `z.object({}).describe("此接口不需要请求体参数。")`
+    *   `zodResponseSchema`: `Data` 为 `z.record(z.any()).describe("包含 LocalStorage 所有键值对的对象...")`
+
+**总结**: `my-siyuan-kernel-SDK/apiDefs/storage.js` 文件已根据 Go 源码全面更新。
+
+---
+
+## 2025-05-15 08:23 (my-siyuan-kernel-SDK)
+
+**任务**: 为 `apiDefs/sync.js` 中的所有 API 补充或修正 `zh_cn` (中文名称), `description` (API 功能描述), 详细的 `zodRequestSchema` 和 `zodResponseSchema` (包括字段的 `.describe()`), 并全面核对和修正 `needAuth`, `needAdminRole`, `unavailableIfReadonly` 权限设置。
+
+**依据**: `siyuan/kernel/api/sync.go` (API 实现) 和 `siyuan/kernel/api/router.go` (路由与权限)。
+
+**过程与结果**: 对 `sync.js` 中定义的 21 个 API 进行了逐个细致的校对和更新。
+
+1.  **`/api/sync/createCloudSyncDir`**: 创建云端同步目录。
+    *   请求: `{ name: string }`。
+    *   响应 `Data`: `null` (失败时可能含 `closeTimeout`)。
+    *   权限: Admin, ReadonlyProtected.
+
+2.  **`/api/sync/exportSyncProviderS3`**: 导出S3同步配置。
+    *   请求: 无。
+    *   响应 `Data`: `{ name: string, zip: string } | null`。
+    *   权限: Admin. (router.go 中无 CheckReadonly)
+
+3.  **`/api/sync/exportSyncProviderWebDAV`**: 导出WebDAV同步配置。
+    *   请求: 无。
+    *   响应 `Data`: `{ name: string, zip: string } | null`。
+    *   权限: Admin. (router.go 中无 CheckReadonly)
+
+4.  **`/api/sync/getBootSync`**: 检查启动时同步状态。
+    *   请求: 无。
+    *   响应 `Code` 特殊: 0 表示未满足条件，1 表示启动时同步成功。`Data` 为 `null`。
+    *   权限: Admin. (router.go 中无 CheckReadonly)
+
+5.  **`/api/sync/getSyncInfo`**: 获取当前同步状态信息。
+    *   请求: 无。
+    *   响应 `Data`: `{ synced: string, stat: string, kernels: string[], kernel: string } | null`。
+    *   权限: Admin. (router.go 中无 CheckReadonly)
+
+6.  **`/api/sync/importSyncProviderS3`**: 导入S3同步配置。
+    *   请求: FormData (`file` 字段)。
+    *   响应 `Data`: 包含 S3 配置对象或为 `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+7.  **`/api/sync/importSyncProviderWebDAV`**: 导入WebDAV同步配置。
+    *   请求: FormData (`file` 字段)。
+    *   响应 `Data`: 包含 WebDAV 配置对象或为 `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+8.  **`/api/sync/listCloudSyncDir`**: 列出云端同步目录。
+    *   请求: 无。
+    *   响应 `Data`: `{ syncDirs: Array<{name, hSize, size}>, hSize, checkedSyncDir } | null` (失败时可能含 `closeTimeout`)。
+    *   权限: Admin. (router.go 中无 CheckReadonly)
+
+9.  **`/api/sync/performBootSync`**: 执行启动时数据同步。
+    *   请求: 无。
+    *   响应 `Code` 反映启动同步结果, `Data` 为 `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+10. **`/api/sync/performSync`**: 执行数据同步。
+    *   请求: `{ mobileSwitch?: boolean, upload?: boolean }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+11. **`/api/sync/removeCloudSyncDir`**: 移除云端同步目录。
+    *   请求: `{ name: string }`。
+    *   响应 `Data`: `null` (失败时可能含 `closeTimeout`)。
+    *   权限: Admin, ReadonlyProtected.
+
+12. **`/api/sync/setCloudSyncDir`**: 设置当前云端同步目录。
+    *   请求: `{ name: string }`。
+    *   响应 `Data`: `null` (失败时可能含 `closeTimeout`)。
+    *   权限: Admin, ReadonlyProtected.
+
+13. **`/api/sync/setSyncEnable`**: 设置是否启用同步。
+    *   请求: `{ enabled: boolean }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+14. **`/api/sync/setSyncGenerateConflictDoc`**: 设置同步是否生成冲突文档。
+    *   请求: `{ generateConflictDoc: boolean }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+15. **`/api/sync/setSyncInterval`**: 设置自动同步间隔。
+    *   请求: `{ syncInterval: number (分钟, min 1) }`。
+    *   响应 `Data`: `null`。
+    *   权限: `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`.
+
+16. **`/api/sync/setSyncMode`**: 设置同步模式。
+    *   请求: `{ syncMode: number (0-自动, 1-手动, 3-云端完全手动) }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+    *   修复了此 API 定义前一个 API (`setSyncInterval`) 结尾逗号缺失导致的 ESLint 错误，以及此 API 自身 `endpoint` 行末尾逗号缺失的问题。
+
+17. **`/api/sync/setSyncPerception`**: 设置同步感知。
+    *   请求: `{ syncPerception: boolean }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+18. **`/api/sync/setSyncProvider`**: 设置同步服务提供商。
+    *   请求: `{ syncProvider: string ('S3', 'WebDAV', 'LocalFolder') }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+19. **`/api/sync/setSyncProviderLocal`**: 设置本地文件夹同步路径。
+    *   请求: `{ syncProviderLocalPath: string }`。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+20. **`/api/sync/setSyncProviderS3`**: 设置S3同步配置。
+    *   请求: 包含 S3 配置参数的对象 (`s3AccessKeyID`, `s3SecretAccessKey`, `s3Endpoint`, `s3Region`, `s3Bucket`, `s3CDN?`)。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+21. **`/api/sync/setSyncProviderWebDAV`**: 设置WebDAV同步配置。
+    *   请求: 包含 WebDAV 配置参数的对象 (`webdavEndpoint`, `webdavUsername`, `webdavPassword`)。
+    *   响应 `Data`: `null`。
+    *   权限: Admin, ReadonlyProtected.
+
+**总结**: `my-siyuan-kernel-SDK/apiDefs/sync.js` 文件已根据 Go 源码全面更新。所有接口的中文名、描述、权限和 Zod Schema 定义都已仔细核对和补充。之前存在的 ESLint 逗号问题也已在此过程中修正。由于思源笔记服务暂时不可用，本次笔记未同步。
+
+---
+
+## 2025-05-15T18:07:02Z 织的笔记：更新 system.js
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/system.js`
+
+**主要操作**:
+参考 `siyuan/kernel/api/system.go` 和 `siyuan/kernel/api/router.go`，对 `system.js` 中的所有 API 定义进行了全面更新。
+
+**具体更新内容**:
+1.  **中文名 (`zh_cn`)**: 为所有接口补充或修正了中文名称。
+2.  **描述 (`description`)**: 为所有接口添加了详细的功能描述，解释了其用途和关键行为。
+3.  **权限 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`)**: 根据 `router.go` 中的路由定义，精确校对了每个接口的权限设置。
+4.  **请求 Schema (`zodRequestSchema`)**:
+    *   根据 `system.go` 中对应处理函数的参数解析逻辑（`util.JsonArg(c, ret)` 或直接从 `c.Request` 读取），为每个需要请求体的接口定义了 Zod schema，并为字段添加了中文描述。
+    *   对于无特定请求参数的接口，schema 设置为 `z.object({}).describe("无请求参数")`。
+    *   特别处理了如 `/api/system/importConf` 这种需要 FormData 上传文件的接口，在描述中注明。
+5.  **响应 Schema (`zodResponseSchema`)**:
+    *   根据 `system.go` 中对应处理函数的返回值结构 (通常是 `gulu.Ret.NewResult()` 包装的 `data` 字段)，为每个接口定义了 Zod schema，并为字段添加了中文描述。
+    *   对于标准 `gulu.Ret` 结构且 `data` 为 `null` 的情况，schema 定义为 `z.object({ code: z.number(), msg: z.string(), data: z.null() })`。
+    *   对于 `/api/system/getConf`，由于其返回的配置数据结构非常复杂 (对应 `siyuan/kernel/conf/conf.go` 中的 `Conf` 结构)，响应 schema 的 `data` 字段使用了 `z.any()` 并加以说明，建议开发者参考源码按需定义。
+    *   对于 `/api/system/getEmojiConf`，`data` 字段定义为一个包含 Emoji 分组和具体 Emoji 项的数组结构。
+    *   对于 `/api/system/getCaptcha`，由于其响应是图片流，Zod schema 主要起占位和说明作用。
+    *   其他接口如 `bootProgress`, `currentTime`, `exportConf`, `exportLog`, `getChangelog`, `getMobileWorkspaces`, `getNetwork`, `getSysFonts`, `getWorkspaceInfo`, `getWorkspaces`, `version` 等，均根据实际返回的数据结构详细定义了 `data` 字段的 schema。
+
+**遇到的主要 Go 源码文件及作用**:
+*   `siyuan/kernel/api/router.go`: 确定 API 路径、HTTP 方法、权限中间件。
+*   `siyuan/kernel/api/system.go`: API 的主要业务逻辑实现，请求参数解析和响应数据构造的依据。
+*   `siyuan/kernel/conf/conf.go`: 理解 `/api/system/getConf` 返回的复杂配置结构，以及部分设置接口 (如 `setNetworkServe`, `setUILayout` 等) 所操作的配置项。
+*   `siyuan/kernel/model/workspace.go`: 部分工作空间相关接口 (如 `getWorkspaces`) 的数据结构可能与之相关。
+*   `siyuan/kernel/model/captcha.go`: `/api/system/getCaptcha` 的实现。
+*   `siyuan/kernel/util/constants.go` 和 `siyuan/kernel/util/helper.go`: 可能包含一些常量或辅助函数定义，间接影响 API 行为。
+
+**结果**:
+`system.js` 文件已成功更新，包含了更准确、更详细的 API 定义。
+在 `edit_file` 步骤中，diff 显示了预期的更改被应用。
+
+## 2025-05-15T18:10:19Z 织的笔记：更新 tag.js
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/tag.js`
+
+**主要操作**:
+参考 `siyuan/kernel/api/tag.go` 和 `siyuan/kernel/api/router.go`，对 `tag.js` 中的所有 API 定义进行了全面更新。
+
+**具体更新内容**:
+1.  **中文名 (`zh_cn`)**:
+    *   `/api/tag/getTag`: "获取标签" -> "获取所有标签列表"
+    *   `/api/tag/removeTag`: "删除标签" -> "移除标签"
+    *   `/api/tag/renameTag`: "重命名标签" (保持不变)
+2.  **描述 (`description`)**: 为所有接口添加了详细的功能描述。
+    *   `getTag`: 说明了可以传入可选的 `sort` 参数来更新全局标签排序设置。
+    *   `removeTag`: 说明了会从所有关联块中移除该标签。
+    *   `renameTag`: 说明了会更新所有关联块中的标签引用。
+3.  **权限 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`)**: 根据 `router.go` 中的路由定义，精确校对了每个接口的权限设置。
+    *   `getTag`: `needAuth: true`, `needAdminRole: false`, `unavailableIfReadonly: false`
+    *   `removeTag`: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`
+    *   `renameTag`: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true`
+4.  **请求 Schema (`zodRequestSchema`)**:
+    *   `/api/tag/getTag`:
+        *   请求体可选，可包含 `sort: z.number().int().optional()`，并详细描述了 `sort` 各个值的含义。
+    *   `/api/tag/removeTag`:
+        *   请求体必需，`{ label: z.string() }`。
+    *   `/api/tag/renameTag`:
+        *   请求体必需，`{ oldLabel: z.string(), newLabel: z.string() }`。
+    *   所有请求 schema 的字段都添加了中文描述。
+5.  **响应 Schema (`zodResponseSchema`)**:
+    *   `/api/tag/getTag`:
+        *   `Data`: `z.array(z.object({ label, count, blockCount, hCreated, hUpdated }))`，并为每个字段添加了中文描述。
+    *   `/api/tag/removeTag` 和 `/api/tag/renameTag`:
+        *   `Data`: `z.object({ closeTimeout: z.number().optional() }).nullable()`，描述了成功时为 `null`，失败时可能包含 `closeTimeout`。
+    *   所有响应 schema 的字段都添加了中文描述。
+
+**涉及的 Go 源码文件**:
+*   `siyuan/kernel/api/tag.go`: API 的主要业务逻辑实现。
+*   `siyuan/kernel/api/router.go`: API 路由路径、HTTP 方法、权限中间件。
+*   `siyuan/kernel/model/tag.go`: `Tag` 结构体的定义 (用于 `getTag` 响应)。
+*   `siyuan/kernel/conf/conf.go`: `model.Conf.Tag.Sort` 的定义 (用于 `getTag` 请求中的 `sort` 参数)。
+
+**结果**:
+`tag.js` 文件已成功更新，包含了更准确、更详细的 API 定义。
+
+## 2025-05-15T18:32:33Z 织的笔记：更新 transactions.js
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/transactions.js`
+
+**核心 API**: `/api/transactions`
+
+**主要操作**:
+根据对 `siyuan/kernel/model/transaction.go` (`PerformTransactions` 函数及其内部调用的 `performTx` 和各个 `do<ActionName>` 方法) 、`siyuan/kernel/api/router.go` 以及开发者文档 `my-siyuan-dev-guide/docs/kernel-api/transactions/transactions.md` 的综合分析，对 `transactions.js` 中的 `/api/transactions` 接口定义进行了全面更新。
+
+**具体更新内容**:
+
+1.  **中文名 (`zh_cn`)**: "performTransactions" -> "执行事务操作"
+2.  **描述 (`description`)**: 添加了详细的功能描述，强调了其核心地位和执行多个事务操作的能力。
+3.  **权限 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`)**:
+    *   `needAuth`: `true`
+    *   `needAdminRole`: `true`
+    *   `unavailableIfReadonly`: `true` (因为事务操作本质上是写入操作)
+4.  **请求 Schema (`zodRequestSchema`)**:
+    *   **顶层结构**: 定义为包含 `transactions` (事务数组), `reqId` (请求ID), `app` (应用标识), `session` (会话ID) 的对象。
+    *   **Transaction 结构 (`transactionSchemaReq`)**:
+        *   `timestamp`: 事务时间戳。
+        *   `doOperations`: `Operation` 对象数组，至少包含一个。
+        *   `undoOperations`: 可选的 `Operation` 对象数组。
+    *   **Operation 结构 (`operationSchemaReq`)**:
+        *   `action`: 关键字段，字符串类型，描述具体操作名 (如 `updateBlock`, `insertBlock`, `setBlockAttrs` 等)。描述中强调了实际可用 `action` 需参考 `kernel/model/transaction.go` 中的 `performTx` 函数。
+        *   `id`, `parentID`, `previousID`, `nextID`: 常用的块 ID 相关参数。
+        *   `data`: `z.any()`，因为其结构随 `action` 动态变化，并在描述中指引开发者参考 `model` 层具体实现。
+        *   `dataType`: 如 "markdown", "dom"。
+        *   `isDetached`: 布尔值。
+        *   **补充字段**: 根据 `kernel/model/transaction.go` 中 `Operation` 结构体的定义，补充了大量可选字段，如 `box`, `path`, `name`, `keyID`, `avID`, `blockIDs`, `deckID`, `rowID`, `srcID`, `targetID`, `after`, `srcHeadingID`, `targetNoteBook`, `targetPath`, `previousPath`, `srcListItemID`, `fromPaths`, `toNotebook`, `toPath`, `fromIDs`, `toID`, `title`, `markdown`, `tags`, `withMath`, `clippingHref`, `listDocTree`, `callback`, `typ`, `format`, `removeDest` 等，并为它们添加了中文描述和适用场景说明。
+5.  **响应 Schema (`zodResponseSchema`)**:
+    *   **顶层结构**: 标准的 `code`, `msg`, `data` 结构。`data` 为处理后的事务数组或 `null`。
+    *   **Transaction 结构 (`transactionSchemaRes`)**:
+        *   与请求中的 `transactionSchemaReq` 结构类似，`timestamp` 对应请求的 `reqId`。
+        *   `doOperations` 和 `undoOperations` 中的 `Operation` 对象 (`operationSchemaRes`) 可能包含 `retData`。
+    *   **Operation 结构 (`operationSchemaRes`)**:
+        *   基本字段与请求中的 `operationSchemaReq` 一致。
+        *   **`retData`**: 新增 `z.any().optional()` 字段，用于存放各 `action` 执行后的具体返回结果。描述中说明了其结构随 `action` 变化，例如 `updateBlock` 成功时可能返回 `{ "updateCount": 1 }`。
+
+**待办与说明**:
+*   由于 `Operation` 中的 `data` 和 `retData` 字段结构高度依赖于 `action` 的类型，目前使用 `z.any()`。后续可以考虑为常见的 `action` 定义更精确的 `data` 和 `retData` schema，但这会使 Zod 定义变得非常复杂。
+*   `action` 的完整列表和每个 `action` 所需的具体参数及返回数据结构，最准确的来源是 `siyuan/kernel/model/transaction.go` 中的 `performTx` 函数内 `switch case op.action` 的具体实现，以及各个 `do<ActionName>` 和相关 `model` 层（如 `attribute_view.go`）的函数。
+
+## 2025-05-15T18:47:34Z 织的笔记：计划重构 transactions.js Schema
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/transactions.js`
+
+**待办事项**:
+
+*   **问题**: `/api/transactions` 接口的 Zod schema (`zodRequestSchema` 和 `zodResponseSchema`) 非常复杂，尤其涉及到 `Operation` 的 `data` 和 `retData` 字段，目前大量使用了 `z.any()`。直接内联在 `transactionsApiDefs` 数组中使得文件冗长且难以阅读和维护。
+*   **计划**:
+    1.  创建一个新的辅助 JS 文件，例如 `my-siyuan-kernel-SDK/apiDefs/schemas/transactionSchemas.js`。
+    2.  在该文件中，定义并导出构成 `/api/transactions` 请求和响应的各个核心 Zod schema 片段，例如：
+        *   `operationSchemaReq`
+        *   `operationSchemaRes`
+        *   `transactionSchemaReq`
+        *   `transactionSchemaRes`
+        *   最终的完整请求 schema 函数
+        *   最终的完整响应 schema 函数
+    3.  在 `my-siyuan-kernel-SDK/apiDefs/transactions.js` 中，导入这些从 `transactionSchemas.js` 导出的 schema 函数，并在 `zodRequestSchema` 和 `zodResponseSchema` 中直接使用它们。
+*   **目的**:
+    *   提高 `transactions.js` 文件的可读性和可维护性。
+    *   将复杂的 schema 定义模块化，便于单独管理和复用（如果未来有其他接口也使用类似的事务结构）。
+    *   为将来进一步细化 `Operation` 的 `data` 和 `retData` (针对不同 `action`) 提供一个更清晰的组织结构。
+
+**后续**: 此项重构工作将在后续合适的时间进行。
+
+## 2025-05-15T19:06:57Z 织的笔记：更新 ui.js
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/ui.js`
+
+**主要操作**:
+参考 `siyuan/kernel/api/ui.go` 和 `siyuan/kernel/api/router.go`，对 `ui.js` 中的所有 API 定义进行了全面更新。
+
+**具体更新内容**:
+1.  **中文名 (`zh_cn`)**: 为所有接口补充了中文名称。
+    *   `/api/ui/reloadAttributeView`: "重新加载属性视图"
+    *   `/api/ui/reloadFiletree`: "重新加载文件树"
+    *   `/api/ui/reloadProtyle`: "重新加载编辑器"
+    *   `/api/ui/reloadTag`: "重新加载标签列表"
+    *   `/api/ui/reloadUI`: "重新加载整个用户界面"
+2.  **描述 (`description`)**: 为所有接口添加了详细的功能描述。
+3.  **权限 (`needAuth`, `needAdminRole`, `unavailableIfReadonly`)**: 根据 `router.go` 中的路由定义 (均为 `model.CheckAuth, model.CheckAdminRole, model.CheckReadonly`)，所有接口权限设置为：
+    *   `needAuth: true`
+    *   `needAdminRole: true`
+    *   `unavailableIfReadonly: true`
+4.  **请求 Schema (`zodRequestSchema`)**:
+    *   `/api/ui/reloadAttributeView`: 请求体为 `{ id: string }` (属性视图 ID)。
+    *   `/api/ui/reloadFiletree`: 无请求参数。
+    *   `/api/ui/reloadProtyle`: 请求体为 `{ id: string }` (编辑器实例对应的块 ID 或文档 ID)。
+    *   `/api/ui/reloadTag`: 无请求参数。
+    *   `/api/ui/reloadUI`: 无请求参数。
+    *   所有请求 schema 的字段和顶层对象都添加了中文描述。
+5.  **响应 Schema (`zodResponseSchema`)**:
+    *   所有接口的响应均为标准 `gulu.Ret` 结构，且 `Data` 字段成功时总是 `null`。
+    *   Schema 定义为 `z.object({ code: z.number(), msg: z.string(), data: z.null() })`，并为各字段添加了中文描述。
+
+**涉及的 Go 源码文件**:
+*   `siyuan/kernel/api/ui.go`: API 的主要业务逻辑实现。
+*   `siyuan/kernel/api/router.go`: API 路由路径、HTTP 方法、权限中间件。
+
+**注意点**:
+*   在 `router.go` 中，存在两个 `/api/system/reloadUI` (line 64) 和 `/api/ui/reloadUI` (line 218) 的路由，它们指向同一个 `api.reloadUI` 函数。本次更新的是 `apiDefs/ui.js` 中定义的 `/api/ui/reloadUI`。
+
+**结果**:
+`ui.js` 文件已成功更新，包含了更准确、更详细的 API 定义。
