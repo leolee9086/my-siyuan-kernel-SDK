@@ -13,7 +13,7 @@ export const extensionApiDefs = [
       notebook: z.string().optional().describe("目标笔记本的ID。如果提供，资源文件将保存到该笔记本的 assets 文件夹下；否则保存到工作空间根目录的 assets 文件夹下。") /* FormData */,
       href: z.string().optional().describe("原始剪藏页面的 URL。如果此 URL 指向链滴文章 (ld246.com 或 liuyun.io)，后端会尝试直接获取文章的 Markdown 内容，并优先使用此内容而非 dom 参数中的 HTML。") /* FormData */
       // 其他动态的文件字段 (key: 原始文件名/URL, value: File对象) 会被处理并保存为资源文件。
-    }).describe("请求体为 FormData。除了以下定义的文本字段外，还包含动态的文件字段用于上传资源。"),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功"),
       Msg: z.string().describe("响应消息，失败时错误信息显示在这里"),

@@ -1,14 +1,63 @@
-// Generated client for API group tag\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 获取当前工作空间的所有标签列表。可以提供一个可选的排序参数来即时更新并应用全局标签排序设置。\n * (Requires authentication)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {number} [params.sort] sort
- * @property {number} code 错误码，0 表示成功。
- * @property {string} msg 错误信息，成功时为空字符串。
- * @property {Array<object>} data data
- */\nexport async function getTag(params) {\n  // Example: return fetchWrapper('POST', '/api/tag/getTag', params, true);\n  console.log('Mock call to getTag with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<GetTagResponse>\n}\n\n/**\n * 根据标签名称移除一个标签。这会从所有关联的块中移除该标签。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.label 要移除的标签的名称。
- * @property {number} code 错误码，0 表示成功，-1 表示失败。
- * @property {string} msg 错误信息。
- * @property {object} data data
- */\nexport async function removeTag(params) {\n  // Example: return fetchWrapper('POST', '/api/tag/removeTag', params, true);\n  console.log('Mock call to removeTag with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<RemoveTagResponse>\n}\n\n/**\n * 将一个旧标签名称重命名为一个新标签名称。所有关联块中的标签引用都会被更新。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.oldLabel 要重命名的旧标签名称。
+// Generated client for API group tag
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 获取当前工作空间的所有标签列表。可以提供一个可选的排序参数来即时更新并应用全局标签排序设置。
+ * (Requires authentication)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<GetTagResponse>}
+ * @param {number} [params.sort] sort
+ */
+export async function getTag(params) {
+  return fetchWrapper('POST', '/api/tag/getTag', params, true);
+}
+
+/**
+ * 根据标签名称移除一个标签。这会从所有关联的块中移除该标签。
+ * (Requires authentication, Requires admin role, Unavailable in read-only mode)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<RemoveTagResponse>}
+ * @param {string} params.label 要移除的标签的名称。
+ */
+export async function removeTag(params) {
+  return fetchWrapper('POST', '/api/tag/removeTag', params, true);
+}
+
+/**
+ * 将一个旧标签名称重命名为一个新标签名称。所有关联块中的标签引用都会被更新。
+ * (Requires authentication, Requires admin role, Unavailable in read-only mode)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<RenameTagResponse>}
+ * @param {string} params.oldLabel 要重命名的旧标签名称。
  * @param {string} params.newLabel 新的标签名称。
- * @property {number} code 错误码，0 表示成功，-1 表示失败。
- * @property {string} msg 错误信息。
- * @property {object} data data
- */\nexport async function renameTag(params) {\n  // Example: return fetchWrapper('POST', '/api/tag/renameTag', params, true);\n  console.log('Mock call to renameTag with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<RenameTagResponse>\n}\n\n
+ */
+export async function renameTag(params) {
+  return fetchWrapper('POST', '/api/tag/renameTag', params, true);
+}
+

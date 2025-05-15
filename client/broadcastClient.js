@@ -1,21 +1,76 @@
-// Generated client for API group broadcast\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 获取指定名称的广播频道的详细信息，如订阅者数量。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.name 要查询的广播频道名称
- * @property {number} Code API 调用返回码，0 表示成功
- * @property {string} Msg API 调用返回消息
- * @property {object} Data 频道信息对象
- */\nexport async function getChannelInfo(params) {\n  // Example: return fetchWrapper('POST', '/api/broadcast/getChannelInfo', params, true);\n  console.log('Mock call to getChannelInfo with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<GetChannelInfoResponse>\n}\n\n/**\n * 获取当前所有活跃的广播频道及其订阅者数量的列表。\n * (Requires authentication, Requires admin role)\n * @returns {Promise<object>}\n * @property {number} Code API 调用返回码，0 表示成功
- * @property {string} Msg API 调用返回消息
- * @property {Array<object>} Data 活跃频道信息对象数组
- */\nexport async function getChannels() {\n  // Example: return fetchWrapper('POST', '/api/broadcast/getChannels', undefined, true);\n  console.log('Mock call to getChannels with:', "'no params'");\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<GetChannelsResponse>\n}\n\n/**\n * 向指定的广播频道发送文本消息。也可以用于发送特定命令 (cmd)。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.channel 目标广播频道的名称
+// Generated client for API group broadcast
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 获取指定名称的广播频道的详细信息，如订阅者数量。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<GetChannelInfoResponse>}
+ * @param {string} params.name 要查询的广播频道名称
+ */
+export async function getChannelInfo(params) {
+  return fetchWrapper('POST', '/api/broadcast/getChannelInfo', params, true);
+}
+
+/**
+ * 获取当前所有活跃的广播频道及其订阅者数量的列表。
+ * (Requires authentication, Requires admin role)
+ * @returns {Promise<GetChannelsResponse>}
+ */
+export async function getChannels() {
+  return fetchWrapper('POST', '/api/broadcast/getChannels', undefined, true);
+}
+
+/**
+ * 向指定的广播频道发送文本消息。也可以用于发送特定命令 (cmd)。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<PostMessageResponse>}
+ * @param {string} params.channel 目标广播频道的名称
  * @param {string} [params.cmd] cmd
  * @param {string} params.data 要发送的消息内容或命令参数 (JSON 字符串)
- * @property {number} Code API 调用返回码，0 表示成功
- * @property {string} Msg API 调用返回消息
- * @property {any} Data Data
- */\nexport async function postMessage(params) {\n  // Example: return fetchWrapper('POST', '/api/broadcast/postMessage', params, true);\n  console.log('Mock call to postMessage with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<PostMessageResponse>\n}\n\n/**\n * 向指定的广播频道发布消息。可以是文本消息，也可以通过上传文件发布二进制消息。请求体应为 multipart/form-data。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.channel 目标广播频道的名称
+ */
+export async function postMessage(params) {
+  return fetchWrapper('POST', '/api/broadcast/postMessage', params, true);
+}
+
+/**
+ * 向指定的广播频道发布消息。可以是文本消息，也可以通过上传文件发布二进制消息。请求体应为 multipart/form-data。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<BroadcastPublishResponse>}
+ * @param {string} params.channel 目标广播频道的名称
  * @param {'string'} params.type 消息类型：'string' (文本) 或 'binary' (二进制文件)
  * @param {string} [params.data] data
  * @param {any} [params.file] file
- * @property {number} Code API 调用返回码 (外层)
- * @property {string} Msg API 调用返回消息 (外层)
- * @property {object} Data 发布操作的结果详情
- */\nexport async function broadcastPublish(params) {\n  // Example: return fetchWrapper('POST', '/api/broadcast/publish', params, true);\n  console.log('Mock call to broadcastPublish with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<BroadcastPublishResponse>\n}\n\n
+ */
+export async function broadcastPublish(params) {
+  return fetchWrapper('POST', '/api/broadcast/publish', params, true);
+}
+

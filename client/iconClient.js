@@ -1,8 +1,45 @@
-// Generated client for API group icon\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 根据参数动态生成一个SVG格式的日期或文字图标。此接口直接返回 SVG 图像数据。\n * @param {object} params - Request parameters.\n * @returns {Promise<any>} 此接口不返回 JSON。成功时直接返回 image/svg+xml 类型的 SVG 图像数据 (HTTP 200)。失败时可能返回其他 HTTP 错误状态码。\n * @param {string} [params.type] type
+// Generated client for API group icon
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 根据参数动态生成一个SVG格式的日期或文字图标。此接口直接返回 SVG 图像数据。
+ * @param {object} params - Request parameters.
+ * @returns {Promise<any>} 此接口不返回 JSON。成功时直接返回 image/svg+xml 类型的 SVG 图像数据 (HTTP 200)。失败时可能返回其他 HTTP 错误状态码。
+ * @param {string} [params.type] type
  * @param {string} [params.color] color
  * @param {string} [params.date] date
  * @param {string} [params.lang] lang
  * @param {string} [params.weekdayType] weekdayType
  * @param {string} [params.content] content
  * @param {string} [params.id] id
- */\nexport async function getDynamicIcon(params) {\n  // Example: return fetchWrapper('GET', '/api/icon/getDynamicIcon', params, false);\n  console.log('Mock call to getDynamicIcon with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<any>\n}\n\n
+ */
+export async function getDynamicIcon(params) {
+  return fetchWrapper('GET', '/api/icon/getDynamicIcon', params, false);
+}
+

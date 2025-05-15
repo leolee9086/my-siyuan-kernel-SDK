@@ -1,11 +1,46 @@
-// Generated client for API group network\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 作为代理，将客户端构造的HTTP(S)请求转发到指定的目标URL，并返回目标服务器的响应。支持多种请求体编码方式。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.url 必需。要请求的目标 URL，必须是合法的 HTTP 或 HTTPS 地址。
+// Generated client for API group network
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 作为代理，将客户端构造的HTTP(S)请求转发到指定的目标URL，并返回目标服务器的响应。支持多种请求体编码方式。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<ForwardProxyResponse>}
+ * @param {string} params.url 必需。要请求的目标 URL，必须是合法的 HTTP 或 HTTPS 地址。
  * @param {string} [params.method] method
  * @param {number} [params.timeout] timeout
- * @param {Array<Object<string,>} [params.headers] headers
+ * @param {Array<Record<string,>} [params.headers] headers
  * @param {string} [params.contentType] contentType
  * @param {any} [params.payload] payload
  * @param {'json'} [params.payloadEncoding] payloadEncoding
- * @property {number} Code 返回码。0 表示代理请求成功（无论目标服务器返回何种状态码），非 0 表示代理请求本身失败。
- * @property {string} Msg 错误信息。代理请求成功时为空字符串。
- * @property {object} Data Data
- */\nexport async function forwardProxy(params) {\n  // Example: return fetchWrapper('POST', '/api/network/forwardProxy', params, true);\n  console.log('Mock call to forwardProxy with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<ForwardProxyResponse>\n}\n\n
+ */
+export async function forwardProxy(params) {
+  return fetchWrapper('POST', '/api/network/forwardProxy', params, true);
+}
+

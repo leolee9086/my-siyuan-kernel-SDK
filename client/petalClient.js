@@ -1,11 +1,53 @@
-// Generated client for API group petal\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 加载指定前端界面的所有已启用且兼容的插件（Petals）及其代码和配置信息。\n * (Requires authentication)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.frontend 必需。指定要加载插件的前端界面，例如 'desktop', 'mobile', 'browser-extension'。
- * @property {number} Code 返回码，0 表示成功
- * @property {string} Msg 错误信息，成功时为空字符串
- * @property {Array<object>} Data Data
- */\nexport async function loadPetals(params) {\n  // Example: return fetchWrapper('POST', '/api/petal/loadPetals', params, true);\n  console.log('Mock call to loadPetals with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<LoadPetalsResponse>\n}\n\n/**\n * 设置指定前端界面中特定插件（由包名识别）的启用或禁用状态。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.packageName 必需。要设置启用状态的插件的包名 (唯一标识符)。
+// Generated client for API group petal
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 加载指定前端界面的所有已启用且兼容的插件（Petals）及其代码和配置信息。
+ * (Requires authentication)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<LoadPetalsResponse>}
+ * @param {string} params.frontend 必需。指定要加载插件的前端界面，例如 'desktop', 'mobile', 'browser-extension'。
+ */
+export async function loadPetals(params) {
+  return fetchWrapper('POST', '/api/petal/loadPetals', params, true);
+}
+
+/**
+ * 设置指定前端界面中特定插件（由包名识别）的启用或禁用状态。
+ * (Requires authentication, Requires admin role, Unavailable in read-only mode)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<SetPetalEnabledResponse>}
+ * @param {string} params.packageName 必需。要设置启用状态的插件的包名 (唯一标识符)。
  * @param {boolean} params.enabled 必需。设置插件的启用状态，true 表示启用，false 表示禁用。
  * @param {string} params.frontend 必需。指定要设置插件状态的前端界面，例如 'desktop', 'mobile'。
- * @property {number} Code 返回码，0 表示成功，-1 表示插件不兼容或其他错误
- * @property {string} Msg 错误信息，成功时为空字符串，失败时包含具体错误，如不兼容提示。
- * @property {object} Data Data
- */\nexport async function setPetalEnabled(params) {\n  // Example: return fetchWrapper('POST', '/api/petal/setPetalEnabled', params, true);\n  console.log('Mock call to setPetalEnabled with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<SetPetalEnabledResponse>\n}\n\n
+ */
+export async function setPetalEnabled(params) {
+  return fetchWrapper('POST', '/api/petal/setPetalEnabled', params, true);
+}
+

@@ -1,4 +1,52 @@
-// Generated client for API group misc\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 通过 Server-Sent Events (SSE) 订阅一个或多个指定广播频道的消息。连接建立后，服务器会持续推送所订阅频道的消息。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.channel 要订阅的一个或多个广播频道名称，多个频道用逗号分隔。此参数通过 URL Query String 传递。
+// Generated client for API group misc
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 通过 Server-Sent Events (SSE) 订阅一个或多个指定广播频道的消息。连接建立后，服务器会持续推送所订阅频道的消息。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<object>}
+ * @param {string} params.channel 要订阅的一个或多个广播频道名称，多个频道用逗号分隔。此参数通过 URL Query String 传递。
  * @param {number} [params.retry] retry
- */\nexport async function broadcastSubscribe(params) {\n  // Example: return fetchWrapper('GET', '/es/broadcast/subscribe', params, true);\n  console.log('Mock call to broadcastSubscribe with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<Record<string, never>>\n}\n\n/**\n * 通过 WebSocket 连接到指定的广播频道，用于双向实时通讯。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.channel 要连接的广播频道名称。此参数通过 URL Query String 传递。
- */\nexport async function broadcast(params) {\n  // Example: return fetchWrapper('GET', '/ws/broadcast', params, true);\n  console.log('Mock call to broadcast with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<Record<string, never>>\n}\n\n
+ */
+export async function broadcastSubscribe(params) {
+  return fetchWrapper('GET', '/es/broadcast/subscribe', params, true);
+}
+
+/**
+ * 通过 WebSocket 连接到指定的广播频道，用于双向实时通讯。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<object>}
+ * @param {string} params.channel 要连接的广播频道名称。此参数通过 URL Query String 传递。
+ */
+export async function broadcast(params) {
+  return fetchWrapper('GET', '/ws/broadcast', params, true);
+}
+

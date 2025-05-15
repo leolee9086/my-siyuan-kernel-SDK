@@ -78,12 +78,13 @@ export const fileApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
+    formDataRequest:true,
     zodRequestSchema: (z) => ({
       path: z.string().describe("目标文件或目录在工作空间内的相对路径。文件名需要符合规范，否则请求失败。") /* FormData */,
       isDir: z.boolean().describe("是否创建目录。如果为 true，则创建目录；如果为 false 或未提供，则上传文件。") /* FormData */,
       modTime: z.string().optional().describe("可选的文件修改时间戳 (毫秒级字符串)。如果提供，则设置文件或目录的修改时间。") /* FormData */
       // 如果 isDir 为 false，还需要一个名为 'file' 的 FormData 文件字段。
-    }).describe("请求体为 FormData。如果 isDir 为 false，必须包含一个名为 'file' 的文件字段。"),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功"),
       Msg: z.string().describe("响应消息"),

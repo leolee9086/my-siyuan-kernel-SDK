@@ -1,11 +1,53 @@
-// Generated client for API group notification\n// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n/*\nasync function fetchWrapper(method, endpoint, params, needAuth) {\n  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n  const url = SiyuanKernelPrefix + endpoint;\n  const options = { method, headers: {} };\n  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n    options.headers['Content-Type'] = 'application/json';\n    options.body = JSON.stringify(params);\n  }\n  if (needAuth) {\n    // Example: Retrieve and add auth token\n    // const token = localStorage.getItem('siyuan-auth-token'); \n    // if (token) options.headers['Authorization'] = `Token ${token}`;\n    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n  }\n  const response = await fetch(url, options);\n  if (!response.ok) {\n    let errorData = 'Failed to parse error response';\n    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\n    console.error('API Error:', response.status, errorData); \n    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);\n  }\n  const contentType = response.headers.get('content-type');\n  if (contentType && contentType.includes('application/json')) {\n    return response.json();\n  } \n  return response.text(); // Or handle other content types\n}\n*/\n\n/**\n * 向前端推送一条错误类型的消息通知，通常用于显示操作失败或异常情况。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.msg 必需。要推送的错误消息内容。
+// Generated client for API group notification
+// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
+async function fetchWrapper(method, endpoint, params, needAuth) {
+  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
+  const url = SiyuanKernelPrefix + endpoint;
+  const options = { method, headers: {} };
+  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
+    options.headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(params);
+  }
+  if (needAuth) {
+    // Example: Retrieve and add auth token
+    // const token = localStorage.getItem('siyuan-auth-token'); 
+    // if (token) options.headers['Authorization'] = `Token ${token}`;
+    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
+  }
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    let errorData = 'Failed to parse error response';
+    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
+    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
+  }
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return response.json();
+  } 
+  return response.text(); // Or handle other content types
+}
+
+/**
+ * 向前端推送一条错误类型的消息通知，通常用于显示操作失败或异常情况。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<PushErrMsgResponse>}
+ * @param {string} params.msg 必需。要推送的错误消息内容。
  * @param {number} [params.timeout] timeout
- * @property {number} Code 返回码，0 表示成功
- * @property {string} Msg 错误信息，成功时为空字符串
- * @property {object} Data 包含消息ID的对象。
- */\nexport async function pushErrMsg(params) {\n  // Example: return fetchWrapper('POST', '/api/notification/pushErrMsg', params, true);\n  console.log('Mock call to pushErrMsg with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<PushErrMsgResponse>\n}\n\n/**\n * 向前端推送一条普通类型的消息通知，通常用于显示操作成功或提示信息。\n * (Requires authentication, Requires admin role)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.msg 必需。要推送的普通消息内容。
+ */
+export async function pushErrMsg(params) {
+  return fetchWrapper('POST', '/api/notification/pushErrMsg', params, true);
+}
+
+/**
+ * 向前端推送一条普通类型的消息通知，通常用于显示操作成功或提示信息。
+ * (Requires authentication, Requires admin role)
+ * @param {object} params - Request parameters.
+ * @returns {Promise<PushMsgResponse>}
+ * @param {string} params.msg 必需。要推送的普通消息内容。
  * @param {number} [params.timeout] timeout
- * @property {number} Code 返回码，0 表示成功
- * @property {string} Msg 错误信息，成功时为空字符串。如果 msg 为空，则 Code 为 -1，Msg 为 'msg can't be empty'。
- * @property {object} Data Data
- */\nexport async function pushMsg(params) {\n  // Example: return fetchWrapper('POST', '/api/notification/pushMsg', params, true);\n  console.log('Mock call to pushMsg with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<PushMsgResponse>\n}\n\n
+ */
+export async function pushMsg(params) {
+  return fetchWrapper('POST', '/api/notification/pushMsg', params, true);
+}
+

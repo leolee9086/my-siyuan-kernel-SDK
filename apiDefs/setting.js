@@ -251,7 +251,7 @@ export const settingApiDefs = [
       fontFamily: z.string().optional().describe("编辑器字体。"),
       hideStatusBar: z.boolean().optional().describe("是否隐藏状态栏。"),
       customCSS: z.string().optional().describe("自定义全局 CSS。"),
-    }).catchall(z.any()),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
@@ -268,7 +268,7 @@ export const settingApiDefs = [
         codeFontFamily: z.string().optional().describe("代码块字体。"),
         hideStatusBar: z.boolean().optional().describe("是否隐藏状态栏。"),
         customCSS: z.string().optional().describe("自定义全局 CSS。"),
-      }).catchall(z.any()).nullable().describe("更新后的外观配置对象。")
+      }).nullable().describe("更新后的外观配置对象。")
     })
   },
   {
@@ -337,7 +337,7 @@ export const settingApiDefs = [
       backmentionExpandCount: z.number().int().optional().describe("反链提及面板中默认展开的项目数量。"),
       backlinkContainChildren: z.boolean().optional().describe("计算反向链接时是否包含子块。"),
       markdown: z.any().optional().describe("Markdown 解析和渲染相关的详细配置对象。具体结构请参考 util.Markdown。")
-    }).catchall(z.any()),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
@@ -408,7 +408,7 @@ export const settingApiDefs = [
       pdfWatermarkDesc: z.string().optional().describe("PDF 导出时的水印位置、大小和样式等描述。"),
       imageWatermarkStr: z.string().optional().describe("图片导出时的水印文本或水印图片文件路径。"),
       imageWatermarkDesc: z.string().optional().describe("图片导出时的水印位置、大小和样式等描述。")
-    }).catchall(z.any()),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
@@ -438,7 +438,7 @@ export const settingApiDefs = [
       closeTabsOnStart: z.boolean().optional().describe("启动思源笔记时是否关闭所有已打开的页签。"),
       useSingleLineSave: z.boolean().optional().describe("是否使用单行格式保存 .sy 文档和属性视图 .json 文件。"),
       sort: z.number().int().optional().describe("文件树默认排序方式的数字代码。具体含义需参考 util.SortMode* 常量。")
-    }).catchall(z.any()),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
@@ -594,7 +594,7 @@ export const settingApiDefs = [
       virtualRefAlias: z.boolean().optional().describe("虚拟引用是否作用于别名。更改此项会刷新虚拟引用缓存。"),
       virtualRefAnchor: z.boolean().optional().describe("虚拟引用是否作用于锚文本。更改此项会刷新虚拟引用缓存。"),
       virtualRefDoc: z.boolean().optional().describe("虚拟引用是否作用于文档标题。更改此项会刷新虚拟引用缓存。")
-    }).catchall(z.any()),
+    }),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),

@@ -60,12 +60,12 @@ export const transactionsApiDefs = [
         undoOperations: z.array(operationSchemaReq).optional().describe("可选的撤销操作列表。")
       }).describe("单个事务的定义。");
 
-      return z.object({
+      return ({
         transactions: z.array(transactionSchemaReq).min(1).describe("一个或多个事务对象的数组，至少包含一个事务。"),
         reqId: z.number().int().describe("必需，请求的唯一ID (通常是客户端生成的时间戳，毫秒级)。"),
         app: z.string().describe("必需，发起请求的应用标识 (例如 \"SiYuan\")。"),
         session: z.string().describe("必需，当前会话ID (例如前端的 WebSocket clientID)。")
-      }).describe("执行事务操作的请求体结构。");
+      });
     },
     zodResponseSchema: (z) => {
       // Operation Schema for Response (extends request schema by adding retData)
@@ -121,11 +121,11 @@ export const transactionsApiDefs = [
         undoOperations: z.array(operationSchemaRes).optional().describe("对应的撤销操作列表（如果请求中提供）。")
       }).describe("单个事务的定义（响应）。");
 
-      return z.object({
+      return ({
         code: z.number().int().describe("错误码，0 表示成功。其他值表示不同类型的错误。"),
         msg: z.string().describe("错误或成功信息。成功时通常为空字符串。"),
         data: z.array(transactionSchemaRes).nullable().describe("成功时返回处理后的事务数组。失败或无数据时为 null。")
-      }).describe("执行事务操作的响应体结构。");
+      });
     }
   }
 ];
