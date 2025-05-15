@@ -126,6 +126,55 @@ async function fetchFileContent(docPath) {
 // fetchFileContent('/sy/思源笔记.sy');
 ```
 
+## 生成单文件 ESM 客户端 (kernelApiClient.js)
+
+除了上述生成多个独立客户端文件的方式外，项目还提供了一个名为 `generateSingleFileClient.cjs` 的脚本，用于生成一个单一的、ESM (ECMAScript Module) 格式的 API 客户端文件。
+
+这个脚本会：
+- 读取 `apiDefs/` 目录下的所有 `.js` API 定义文件 (这些文件本身也应为 ESM 格式，使用 `export const ...ApiDefs = [...]` 语法)。
+- 生成一个名为 `kernelApiClient.js` 的单文件客户端，该文件包含一个 `KernelApiClient` 类，集成了所有 API 方法。
+- 生成的 `kernelApiClient.js` 文件是 ESM 格式，可以直接在现代 JavaScript 项目中使用 `import` 语句导入。
+
+**生成步骤**:
+
+1.  确保 `apiDefs/` 目录下的 API 定义文件是 ESM 格式。
+2.  在 `my-siyuan-kernel-SDK` 目录下运行以下命令：
+
+    ```bash
+    node generateSingleFileClient.cjs
+    ```
+3.  脚本执行完毕后，你会在 `my-siyuan-kernel-SDK` 目录下找到生成的 `kernelApiClient.js` 文件。
+
+**使用生成的单文件客户端**:
+
+```javascript
+// 假设 kernelApiClient.js 与你的代码在同一目录或可访问路径
+import KernelApiClient from './kernelApiClient.js'; 
+
+// 初始化客户端
+const client = new KernelApiClient({
+  baseUrl: 'http://127.0.0.1:6806', // 你的思源笔记内核地址
+  apiToken: 'YOUR_API_TOKEN_IF_NEEDED', // 如果 API 需要认证，请提供 Token
+});
+
+// 调用 API 示例 (假设有一个 getVersion() API)
+async function fetchVersion() {
+  try {
+    const response = await client.getVersion(); // 注意：方法直接在 client 实例上，没有分组
+    console.log('Siyuan Kernel Version:', response); 
+  } catch (error) {
+    console.error('Failed to fetch version:', error.message);
+    if (error.data) {
+      console.error('Error details:', error.data);
+    }
+  }
+}
+
+fetchVersion();
+```
+
+生成的 `kernelApiClient.js` 文件内部也包含了详细的 JSDoc 注释，描述了每个方法的参数和返回值。
+
 ## TypeScript 类型定义
 
 生成的 `client/index.d.ts` 文件包含了所有必要的 TypeScript 类型定义。当你在 TypeScript 项目中使用客户端时，可以获得完整的类型提示和检查。

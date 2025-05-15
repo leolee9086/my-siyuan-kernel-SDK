@@ -2072,3 +2072,25 @@
 
 **意义**: 
 此功能有助于快速了解生成的客户端中包含了多少个 API 接口，方便进行核对和验证。
+
+---
+
+## 2025-05-16 (织的笔记 - 更新 README.md)
+
+**时间**: Thu May 15 2025 19:09:39 UTC (根据 timeanddate.com)
+
+**任务**: 修改 `my-siyuan-kernel-SDK/README.md` 文件，添加关于如何使用 `generateSingleFileClient.cjs` 脚本生成单文件 ESM 客户端的说明。
+
+**核心改动**:\n
+在 `README.md` 文件中，于原有的"生成 API 客户端"（针对 `generateApiClients.cjs`）章节之后，新增了一个名为 "**生成单文件 ESM 客户端 (kernelApiClient.js)**" 的二级章节。\n
+该新章节详细说明了：
+*   `generateSingleFileClient.cjs` 脚本的用途：生成一个单一的、ESM 格式的 API 客户端文件 `kernelApiClient.js`。
+*   脚本如何工作：读取 `apiDefs/*.js` (ESM 格式) 并集成所有 API 方法到 `KernelApiClient` 类中。
+*   生成步骤：
+    1.  确保 `apiDefs/` 文件为 ESM 格式。
+    2.  在 `my-siyuan-kernel-SDK` 目录下运行 `node generateSingleFileClient.cjs`。
+    3.  生成的 `kernelApiClient.js` 文件位于 SDK 根目录。
+*   如何使用生成的单文件客户端：提供了一个 JavaScript 代码示例，展示了如何导入 `KernelApiClient` 并调用 API 方法（强调了方法直接在客户端实例上，没有分组）。
+*   提到了生成的 `kernelApiClient.js` 文件内部包含详细的 JSDoc 注释。
+
+**意义**: \n补充了关于新脚本的文档，使得用户可以了解并使用新的单文件客户端生成方式，方便其在不同类型的项目中集成思源笔记的 API 功能。
