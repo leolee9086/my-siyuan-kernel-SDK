@@ -8,14 +8,14 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       name: z.string().describe("要创建的云端同步目录的名称。")
-    }).describe("请求体包含要创建的云端同步目录的名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.null().describe("接口成功执行时，Data 固定为 null。如果创建失败，Data 可能包含 { closeTimeout: 5000 }。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,15 +26,15 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.object({
         name: z.string().describe("导出的文件名 (不含 .zip 后缀)。"),
         zip: z.string().describe("导出的 .zip 文件在服务端的临时路径，前端可据此下载。")
       }).nullable().describe("成功时返回导出文件的名称和路径，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -45,15 +45,15 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.object({
         name: z.string().describe("导出的文件名 (不含 .zip 后缀)。"),
         zip: z.string().describe("导出的 .zip 文件在服务端的临时路径，前端可据此下载。")
       }).nullable().describe("成功时返回导出文件的名称和路径，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -64,12 +64,12 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码。0 表示未满足特定条件（非管理员、同步未启用、启动时同步未成功），1 表示启动时同步成功。其他值表示失败。注意这里的 Code 含义比较特殊。 "),
       Msg: z.string().describe("接口返回的消息。Code 为 1 时，Msg 为提示信息（如 '启动时同步数据完毕'）。Code 为 0 时通常为空。 "),
       Data: z.null().describe("此接口不通过 Data 返回数据。")
-    }).describe("标准响应结构，但 Code 和 Msg 有特定含义。")
+    })
   },
   {
     method: "POST",
@@ -80,8 +80,8 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.object({
@@ -90,7 +90,7 @@ export const syncApiDefs = [
         kernels: z.array(z.string()).describe("当前在线的其他内核实例的 ID 列表。"),
         kernel: z.string().describe("当前内核实例的 ID。")
       }).nullable().describe("成功时返回同步状态信息对象，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -101,8 +101,8 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("请求体为 FormData，必须包含一个名为 'file' 的文件字段，文件内容为导出的 S3 配置包 (.zip 或 .json)。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.object({
@@ -115,7 +115,7 @@ export const syncApiDefs = [
           cdn: z.string().optional().describe("CDN 地址，可选。")
         }).describe("导入并应用成功的 S3 配置对象。部分敏感字段可能不会完整返回或不应直接展示。")
       }).nullable().describe("成功时返回导入的 S3 配置对象，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -126,8 +126,8 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("请求体为 FormData，必须包含一个名为 'file' 的文件字段，文件内容为导出的 WebDAV 配置包 (.zip 或 .json)。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.object({
@@ -137,7 +137,7 @@ export const syncApiDefs = [
           password: z.string().describe("WebDAV 密码。敏感信息，通常前端不直接展示。")
         }).describe("导入并应用成功的 WebDAV 配置对象。部分敏感字段可能不会完整返回或不应直接展示。")
       }).nullable().describe("成功时返回导入的 WebDAV 配置对象，失败时为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -148,8 +148,8 @@ export const syncApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，1 表示获取失败（如网络错误、配置错误）。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串，失败时包含错误信息。"),
       Data: z.object({
@@ -161,7 +161,7 @@ export const syncApiDefs = [
         hSize: z.string().describe("所有同步目录的总大小的人类可读格式。"),
         checkedSyncDir: z.string().describe("当前内核配置中正在使用的云端同步目录名称。")
       }).nullable().describe("成功时返回包含目录列表和总大小等信息的对象。如果获取失败（Code为1），Data 可能包含 { closeTimeout: 5000 }。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",

@@ -8,14 +8,14 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       keywords: z.array(z.string()).describe("要添加到排除列表的关键字数组。")
-    }).describe("请求体包含要排除的关键字列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -26,14 +26,14 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       keywords: z.array(z.string()).describe("要添加到包含列表的关键字数组。")
-    }).describe("请求体包含要包含的关键字列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -44,10 +44,10 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       token: z.string().optional().describe("可选的访问令牌，用于刷新用户信息。如果未提供，则尝试使用现有会话。")
-    }).describe("请求体可以包含用于刷新用户信息的令牌。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -80,7 +80,7 @@ export const settingApiDefs = [
         userSiYuanLifetimePro: z.boolean().describe("是否为思源笔记终身专业版用户。"),
         userSiYuanTeam: z.boolean().describe("是否为思源笔记团队版用户。")
       }).nullable().describe("包含用户详细信息的对象，获取失败时为 null。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -91,8 +91,8 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -110,7 +110,7 @@ export const settingApiDefs = [
           }).describe("Basic 认证配置。")
         }).describe("详细的发布配置项。")
       }).nullable().describe("包含发布服务端口和配置信息的对象，获取失败时为 null。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -121,15 +121,15 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       token: z.string().describe("登录过程中的临时令牌。"),
       code: z.string().min(6).max(6).describe("6位数字的两步验证码。")
-    }).describe("请求体包含两步验证所需的令牌和验证码。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.record(z.string(), z.any()).nullable().describe("登录成功后返回的数据，通常包含新的用户信息或会话信息。具体结构依赖于云端服务的响应。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -140,12 +140,12 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -156,12 +156,12 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -172,7 +172,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       openAI: z.object({
         apiKey: z.string().optional().describe("OpenAI API 密钥。"),
         apiTimeout: z.number().int().min(5).max(600).optional().describe("OpenAI API 请求超时时间 (秒)，范围 5-600。"),
@@ -186,8 +186,8 @@ export const settingApiDefs = [
         apiProvider: z.string().optional().describe("API 提供商，例如 'OpenAI', 'Azure'。"),
         apiVersion: z.string().optional().describe("Azure API 版本，当 provider 为 Azure 时使用。")
       }).describe("OpenAI 相关配置。")
-    }).describe("请求体包含 AI 配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -205,7 +205,7 @@ export const settingApiDefs = [
           apiVersion: z.string().optional().describe("Azure API 版本。")
         }).describe("OpenAI 相关配置。")
       }).nullable().describe("更新后的 AI 配置对象。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -216,18 +216,18 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       displayTitle: z.boolean().optional().describe("是否在用户头像旁显示称号。"),
       displayVIP: z.boolean().optional().describe("是否在用户头像旁显示Pro标识。")
-    }).describe("请求体包含账户显示配置。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
         displayTitle: z.boolean().describe("是否在用户头像旁显示称号。"),
         displayVIP: z.boolean().describe("是否在用户头像旁显示Pro标识。")
       }).nullable().describe("更新后的账户配置对象。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -238,7 +238,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       mode: z.number().int().optional().describe("外观模式，0：跟随系统，1：亮色，2：暗色。"),
       themeDark: z.string().optional().describe("暗色模式使用的主题名称。"),
       themeLight: z.string().optional().describe("亮色模式使用的主题名称。"),
@@ -251,8 +251,8 @@ export const settingApiDefs = [
       fontFamily: z.string().optional().describe("编辑器字体。"),
       hideStatusBar: z.boolean().optional().describe("是否隐藏状态栏。"),
       customCSS: z.string().optional().describe("自定义全局 CSS。"),
-    }).catchall(z.any()).describe("请求体包含外观配置对象。由于配置项繁多，此处仅列出主要部分，允许其他未列出字段。"),
-    zodResponseSchema: (z) => z.object({
+    }).catchall(z.any()),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -269,7 +269,7 @@ export const settingApiDefs = [
         hideStatusBar: z.boolean().optional().describe("是否隐藏状态栏。"),
         customCSS: z.string().optional().describe("自定义全局 CSS。"),
       }).catchall(z.any()).nullable().describe("更新后的外观配置对象。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -280,18 +280,18 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       trust: z.boolean().optional().describe("是否信任所有社区插件和主题（跳过安全警告）。"),
       petalDisabled: z.boolean().optional().describe("是否禁用所有插件（花瓣）。")
-    }).describe("请求体包含集市配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
         trust: z.boolean().optional().describe("是否信任所有社区包。"),
         petalDisabled: z.boolean().optional().describe("是否禁用所有插件。")
       }).nullable().describe("更新后的集市配置对象。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -302,7 +302,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       allowHTMLBLockScript: z.boolean().optional().describe("是否允许执行 HTML 块内脚本。"),
       fontSize: z.number().int().optional().describe("编辑器字体大小。"),
       fontSizeScrollZoom: z.boolean().optional().describe("字体大小是否支持滚轮缩放。"),
@@ -337,12 +337,12 @@ export const settingApiDefs = [
       backmentionExpandCount: z.number().int().optional().describe("反链提及面板中默认展开的项目数量。"),
       backlinkContainChildren: z.boolean().optional().describe("计算反向链接时是否包含子块。"),
       markdown: z.any().optional().describe("Markdown 解析和渲染相关的详细配置对象。具体结构请参考 util.Markdown。")
-    }).catchall(z.any()).describe("请求体包含编辑器配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }).catchall(z.any()),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.any().nullable().describe("更新后的编辑器配置对象。结构与请求体类似。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -353,14 +353,14 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       readonly: z.boolean().describe("是否将编辑器设置为只读模式。")
-    }).describe("请求体包含只读状态。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -371,14 +371,14 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       emoji: z.array(z.string()).describe("新的常用表情符号列表。")
-    }).describe("请求体包含常用表情列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据，直接修改配置。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -389,7 +389,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       paragraphBeginningSpace: z.boolean().optional().describe("导出Markdown时段落开头是否空两格（中文排版）。"),
       addTitle: z.boolean().optional().describe("导出时是否自动添加文档标题。"),
       blockRefMode: z.number().int().optional().describe("内容块引用导出模式（Markdown）：2-锚文本块链, 3-仅锚文本, 4-块引转脚注+锚点哈希。"),
@@ -408,12 +408,12 @@ export const settingApiDefs = [
       pdfWatermarkDesc: z.string().optional().describe("PDF 导出时的水印位置、大小和样式等描述。"),
       imageWatermarkStr: z.string().optional().describe("图片导出时的水印文本或水印图片文件路径。"),
       imageWatermarkDesc: z.string().optional().describe("图片导出时的水印位置、大小和样式等描述。")
-    }).catchall(z.any()).describe("请求体包含导出配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }).catchall(z.any()),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.any().nullable().describe("更新后的导出配置对象。结构与请求体类似。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -424,7 +424,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       alwaysSelectOpenedFile: z.boolean().optional().describe("打开文件时，文件树是否自动选中该文件。"),
       openFilesUseCurrentTab: z.boolean().optional().describe("是否总是在当前页签打开文件，而不是新页签。"),
       refCreateSaveBox: z.string().optional().describe("通过块引创建新文档时，默认保存到的笔记本ID。"),
@@ -438,12 +438,12 @@ export const settingApiDefs = [
       closeTabsOnStart: z.boolean().optional().describe("启动思源笔记时是否关闭所有已打开的页签。"),
       useSingleLineSave: z.boolean().optional().describe("是否使用单行格式保存 .sy 文档和属性视图 .json 文件。"),
       sort: z.number().int().optional().describe("文件树默认排序方式的数字代码。具体含义需参考 util.SortMode* 常量。")
-    }).catchall(z.any()).describe("请求体包含文件树配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }).catchall(z.any()),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.any().nullable().describe("更新后的文件树配置对象。结构与请求体类似。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -454,7 +454,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       newCardLimit: z.number().int().min(0).optional().describe("每日新建卡片上限。"),
       reviewCardLimit: z.number().int().min(0).optional().describe("每日复习卡片上限。"),
       requestRetention: z.number().min(0.7).max(0.97).optional().describe("期望记忆留存率 (FSRS)。"),
@@ -463,8 +463,8 @@ export const settingApiDefs = [
       hardInterval: z.number().min(1).optional().describe("困难间隔系数 (FSRS)。"),
       lapseInterval: z.number().min(0.01).optional().describe("失误间隔系数 (FSRS)。"),
       againInterval: z.number().min(0.01).optional().describe("重来间隔系数 (FSRS)。")
-    }).describe("请求体包含闪卡配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -477,7 +477,7 @@ export const settingApiDefs = [
         lapseInterval: z.number().describe("失误间隔系数。"),
         againInterval: z.number().describe("重来间隔系数。")
       }).nullable().describe("更新后的闪卡配置对象。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -488,7 +488,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       data: z.object({
         editor: z.record(z.string(), z.string()).optional().describe("编辑器通用快捷键。键为命令ID，值为快捷键组合字符串。"),
         protyleIR: z.record(z.string(), z.string()).optional().describe("Protyle (IR模式) 快捷键。"),
@@ -498,12 +498,12 @@ export const settingApiDefs = [
         notebook: z.record(z.string(), z.string()).optional().describe("笔记本操作快捷键。"),
         global: z.record(z.string(), z.string()).optional().describe("全局快捷键。")
       }).describe("包含各类快捷键映射的对象。")
-    }).describe("请求体包含完整的快捷键配置数据。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据，直接修改配置。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -514,7 +514,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       enable: z.boolean().describe("是否启用发布服务。"),
       port: z.number().int().min(0).max(65535).describe("发布服务监听的端口号。"),
       auth: z.object({
@@ -525,8 +525,8 @@ export const settingApiDefs = [
           memo: z.string().optional().describe("账户备注信息。")
         })).describe("Basic 认证账户列表。")
       }).describe("Basic 认证配置。")
-    }).describe("请求体包含发布服务配置。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -544,7 +544,7 @@ export const settingApiDefs = [
           }).describe("Basic 认证配置。")
         }).describe("详细的发布配置项。")
       }).nullable().describe("包含更新后配置及服务端口的对象，初始化失败时 Data 可能为 null。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -555,7 +555,7 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       document: z.boolean().optional().describe("搜索范围是否包含文档块。"),
       heading: z.boolean().optional().describe("搜索范围是否包含标题块。"),
       list: z.boolean().optional().describe("搜索范围是否包含列表块。"),
@@ -594,12 +594,12 @@ export const settingApiDefs = [
       virtualRefAlias: z.boolean().optional().describe("虚拟引用是否作用于别名。更改此项会刷新虚拟引用缓存。"),
       virtualRefAnchor: z.boolean().optional().describe("虚拟引用是否作用于锚文本。更改此项会刷新虚拟引用缓存。"),
       virtualRefDoc: z.boolean().optional().describe("虚拟引用是否作用于文档标题。更改此项会刷新虚拟引用缓存。")
-    }).catchall(z.any()).describe("请求体包含搜索配置对象。"),
-    zodResponseSchema: (z) => z.object({
+    }).catchall(z.any()),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.any().nullable().describe("更新后的搜索配置对象。结构与请求体类似。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -610,17 +610,17 @@ export const settingApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       enabledCSS: z.boolean().optional().describe("是否启用所有自定义CSS代码片段。"),
       enabledJS: z.boolean().optional().describe("是否启用所有自定义JS代码片段。")
-    }).describe("请求体包含代码片段的全局启用状态。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
         enabledCSS: z.boolean().describe("是否启用所有自定义CSS代码片段。"),
         enabledJS: z.boolean().describe("是否启用所有自定义JS代码片段。")
       }).nullable().describe("更新后的代码片段全局配置。")
-    }).describe("标准的API响应结构。")
+    })
   }
-];
+];  

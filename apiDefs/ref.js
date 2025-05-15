@@ -8,14 +8,14 @@ export const refApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要查询反向链接和提及的目标块的 ID。"),
       k: z.string().describe("用于筛选反向链接结果的关键词。"),
       mk: z.string().describe("用于筛选反向提及结果的关键词。"),
       beforeLen: z.number().int().optional().default(12).describe("可选。上下文截取长度或其他用途，默认为 12。具体作用需进一步确认。"),
       containChildren: z.boolean().optional().describe("可选。是否包含子块内容进行搜索。默认为内核配置 `conf.editor.backlinkContainChildren`。")
-    }).describe("请求体为一个包含目标块ID和筛选关键词等参数的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -27,7 +27,7 @@ export const refApiDefs = [
         mk: z.string().describe("实际用于筛选反向提及的关键词。"),
         box: z.string().describe("目标块所在的笔记本 ID。")
       }).nullable().describe("包含反向链接、反向提及列表及相关信息的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -38,15 +38,15 @@ export const refApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要查询反向链接和提及的目标块的 ID。"),
       k: z.string().describe("用于筛选反向链接结果的关键词。"),
       mk: z.string().describe("用于筛选反向提及结果的关键词。"),
       sort: z.string().optional().describe("可选。反向链接的排序模式。具体值参考内核 `util.SortMode*` 常量 (例如 '0'-按更新时间倒序, '1'-按更新时间顺序, '6'-按相关度等)。默认为按更新时间倒序。"),
       mSort: z.string().optional().describe("可选。反向提及的排序模式。规则同 `sort`。"),
       containChildren: z.boolean().optional().describe("可选。是否包含子块内容进行搜索。默认为内核配置 `conf.editor.backlinkContainChildren`。")
-    }).describe("请求体为一个包含目标块ID、筛选关键词和排序模式等参数的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -58,7 +58,7 @@ export const refApiDefs = [
         mk: z.string().describe("实际用于筛选反向提及的关键词。"),
         box: z.string().describe("目标块所在的笔记本 ID。")
       }).nullable().describe("包含反向链接、反向提及列表及相关信息的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -69,21 +69,21 @@ export const refApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       defID: z.string().describe("必需。定义块的 ID (即被其他块引用的块)。"),
       refTreeID: z.string().describe("必需。引用块所在文档树的根块 ID (通常是当前打开的文档的根块 ID)。"),
       keyword: z.string().describe("用于筛选结果的关键词。"),
       containChildren: z.boolean().optional().describe("可选。是否包含子块内容进行搜索。默认为内核配置 `conf.editor.backlinkContainChildren`。"),
       highlight: z.boolean().optional().default(true).describe("可选。是否高亮关键词，默认为 true。")
-    }).describe("请求体为一个包含定义块ID、引用树ID和筛选条件等参数的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
         backlinks: z.array(z.any()).describe("反向链接块的详细信息数组，具体结构复杂，参考 model.Backlink。"),
         keywords: z.array(z.string()).describe("实际用于高亮的关键词列表。")
       }).nullable().describe("包含反向链接列表和高亮关键词的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -94,21 +94,21 @@ export const refApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       defID: z.string().describe("必需。定义块的 ID (即被其他块提及的块)。"),
       refTreeID: z.string().describe("必需。提及块所在文档树的根块 ID (通常是当前打开的文档的根块 ID)。"),
       keyword: z.string().describe("用于筛选结果的关键词。"),
       containChildren: z.boolean().optional().describe("可选。是否包含子块内容进行搜索。默认为内核配置 `conf.editor.backlinkContainChildren`。"),
       highlight: z.boolean().optional().default(true).describe("可选。是否高亮关键词，默认为 true。")
-    }).describe("请求体为一个包含定义块ID、提及树ID和筛选条件等参数的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
         backmentions: z.array(z.any()).describe("反向提及块的详细信息数组，具体结构复杂，参考 model.Backmention。"),
         keywords: z.array(z.string()).describe("实际用于高亮的关键词列表。")
       }).nullable().describe("包含反向提及列表和高亮关键词的对象。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -119,13 +119,13 @@ export const refApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false, // 虽然可能修改数据，但router中未限制readonly
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要刷新反向链接和提及信息的目标块的 ID。")
-    }).describe("请求体为一个包含目标块ID的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

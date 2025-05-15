@@ -349,15 +349,15 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要移除的本地标签快照的 ID。"),
       tag: z.string().describe("必需。要移除的本地标签快照的标签名。")
-    }).describe("请求体为一个包含快照ID和标签名的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -368,12 +368,12 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求参数，但执行前通常会有二次确认。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -384,14 +384,14 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       days: z.number().int().min(1, "保留天数至少为1天").describe("必需。快照索引保留的天数，必须为正整数。")
-    }).describe("请求体为一个包含保留天数的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -402,14 +402,14 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       indexes: z.number().int().min(1, "保留数量至少为1").describe("必需。每日快照的保留数量，必须为正整数。")
-    }).describe("请求体为一个包含保留数量的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -420,16 +420,16 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要标记的快照的 ID。"),
       tag: z.string().min(1, "标签名不能为空").describe("必需。要打上的标签名。"),
       memo: z.string().optional().describe("可选。快照的备注信息，如果提供，会覆盖快照原有的备注。")
-    }).describe("请求体为一个包含快照ID、标签名和可选备注的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -440,14 +440,14 @@ export const repoApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。要上传的本地快照的 ID。"),
       tag: z.string().optional().describe("可选。如果上传的是标签快照，则此为标签名。如果上传的是普通快照，此字段应为空字符串或省略。")
-    }).describe("请求体为一个包含本地快照ID和可选标签的JSON对象。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

@@ -8,10 +8,10 @@ export const tagApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       sort: z.number().int().optional().describe("可选的排序模式。0: 按标签引用计数降序, 1: 按标签字符升序, 2: 按标签字符降序, 3: 按最近使用升序, 4: 按最近使用降序, 5: 按创建时间升序, 6: 按创建时间降序。如果提供此参数，会更新并保存全局标签排序配置。")
-    }).describe("请求体可以包含一个可选的排序参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功。"),
       msg: z.string().describe("错误信息，成功时为空字符串。"),
       data: z.array(z.object({
@@ -21,7 +21,7 @@ export const tagApiDefs = [
         hCreated: z.string().describe("标签创建时间的人类可读格式。"),
         hUpdated: z.string().describe("标签最后更新时间的人类可读格式。")
       })).nullable().describe("成功时返回标签对象数组，失败时可能为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -32,16 +32,16 @@ export const tagApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       label: z.string().describe("要移除的标签的名称。")
-    }).describe("请求体包含要移除的标签名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功，-1 表示失败。"),
       msg: z.string().describe("错误信息。"),
       data: z.object({
         closeTimeout: z.number().optional().describe("操作失败时，前端弹窗的关闭延时（毫秒）。")
       }).nullable().describe("成功时为 null，失败时可能包含 closeTimeout。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -52,16 +52,16 @@ export const tagApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       oldLabel: z.string().describe("要重命名的旧标签名称。"),
       newLabel: z.string().describe("新的标签名称。")
-    }).describe("请求体包含旧标签名和新标签名。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       code: z.number().describe("错误码，0 表示成功，-1 表示失败。"),
       msg: z.string().describe("错误信息。"),
       data: z.object({
         closeTimeout: z.number().optional().describe("操作失败时，前端弹窗的关闭延时（毫秒）。")
       }).nullable().describe("成功时为 null，失败时可能包含 closeTimeout。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

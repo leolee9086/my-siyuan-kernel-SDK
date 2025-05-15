@@ -63,10 +63,13 @@
  * @property {number} Code 返回码，0 表示成功
  * @property {string} Msg 返回消息
  * @property {object} Data Data
- */\nexport async function statAsset(params) {\n  // Example: return fetchWrapper('POST', '/api/asset/statAsset', params, true);\n  console.log('Mock call to statAsset with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<StatAssetResponse>\n}\n\n/**\n * 处理文件上传。通常用于将文件上传到服务器的临时目录或直接作为资源插入。参数通过 FormData 传递，如 assetPath (可选，指定保存路径) 和 id (可选，关联的文档ID)。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {any} payload - ERROR: API def Upload Request returns z.object() directly.\n * @returns {Promise<object>}\n * @property {number} Code 返回码，0 表示成功
+ */\nexport async function statAsset(params) {\n  // Example: return fetchWrapper('POST', '/api/asset/statAsset', params, true);\n  console.log('Mock call to statAsset with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<StatAssetResponse>\n}\n\n/**\n * 处理文件上传。通常用于将文件上传到服务器的临时目录或直接作为资源插入。参数通过 FormData 传递，如 assetPath (可选，指定保存路径) 和 id (可选，关联的文档ID)。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} [params.assetPath] assetPath
+ * @param {string} [params.id] id
+ * @param {any} params.files 通过 FormData 上传的文件对象或文件对象列表，此字段仅用于类型提示，实际通过 FormData 传递
+ * @property {number} Code 返回码，0 表示成功
  * @property {string} Msg 返回消息
  * @property {object} Data Data
- */\nexport async function Upload(payload) {\n  // Example: return fetchWrapper('POST', '/api/asset/upload', payload, true);\n  console.log('Mock call to Upload with:', payload);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<UploadResponse>\n}\n\n/**\n * 将指定文档（及其子文档中）引用的所有本地资源文件上传到用户配置的云存储服务。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.id 文档块的 ID，将上传此文档及其子文档中引用的所有本地资源
+ */\nexport async function Upload(params) {\n  // Example: return fetchWrapper('POST', '/api/asset/upload', params, true);\n  console.log('Mock call to Upload with:', params);\n  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<UploadResponse>\n}\n\n/**\n * 将指定文档（及其子文档中）引用的所有本地资源文件上传到用户配置的云存储服务。\n * (Requires authentication, Requires admin role, Unavailable in read-only mode)\n * @param {object} params - Request parameters.\n * @returns {Promise<object>}\n * @param {string} params.id 文档块的 ID，将上传此文档及其子文档中引用的所有本地资源
  * @property {number} Code 返回码，0 表示成功
  * @property {string} Msg 返回消息
  * @property {any} Data Data

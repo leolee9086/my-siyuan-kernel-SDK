@@ -8,12 +8,12 @@ export const snippetApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       type: z.enum(["js", "css", "all"]).describe("要获取的代码片段类型：'js', 'css', 或 'all'。"),
       enabled: z.number().int().min(0).max(2).describe("根据启用状态进行过滤：0-仅禁用, 1-仅启用, 2-全部。"),
       keyword: z.string().optional().describe("可选的搜索关键字，用于在代码片段的名称和内容中查找（不区分大小写）。")
-    }).describe("请求体包含用于过滤代码片段的参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -25,7 +25,7 @@ export const snippetApiDefs = [
           content: z.string().describe("代码片段的实际内容。")
         })).describe("符合过滤条件的代码片段对象数组。")
       }).nullable().describe("包含代码片段列表的对象，获取失败时为 null。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -36,7 +36,7 @@ export const snippetApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       snippets: z.array(z.object({
         id: z.string().describe("片段的唯一ID。对于新片段或希望系统生成ID的片段，可设置为空字符串。"),
         name: z.string().describe("代码片段的名称。"),
@@ -44,12 +44,12 @@ export const snippetApiDefs = [
         content: z.string().describe("代码片段的实际内容（JavaScript 或 CSS 代码）。"),
         enabled: z.boolean().describe("代码片段是否启用。")
       })).describe("包含一个或多个代码片段对象的数组。此数组将成为操作完成后系统中全新的、完整的代码片段列表。")
-    }).describe("请求体包含全新的代码片段列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.null().describe("此接口成功时不返回具体数据，直接修改配置。")
-    }).describe("标准的API响应结构。")
+    })
   },
   {
     method: "POST",
@@ -60,10 +60,10 @@ export const snippetApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("要移除的代码片段的唯一ID。")
-    }).describe("请求体包含要移除的代码片段ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("API 执行结果的状态码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("API 执行结果的描述信息。"),
       Data: z.object({
@@ -73,6 +73,6 @@ export const snippetApiDefs = [
         enabled: z.boolean().describe("被移除代码片段的启用状态。"),
         content: z.string().describe("被移除代码片段的内容。")
       }).nullable().describe("包含被移除代码片段信息的对象，操作失败或未找到时可能为 null 或不返回 Data。")
-    }).describe("标准的API响应结构。")
+    })
   }
 ];

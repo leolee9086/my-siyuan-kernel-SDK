@@ -8,11 +8,11 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。目标闪卡包的 ID。"),
       blockIDs: z.array(z.string()).describe("必需。要添加为闪卡的块 ID 数组。")
-    }).describe("请求体包含闪卡包 ID 和块 ID 数组。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -22,7 +22,7 @@ export const riffApiDefs = [
         created: z.string().describe("闪卡包创建时间，格式 YYYY-MM-DD HH:mm:ss"),
         updated: z.string().describe("闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss")
       }).nullable().describe("成功时返回更新后的闪卡包信息，如果 deckID 为空字符串（表示操作 All 卡包），则为 null。")
-    }).describe("标准响应结构。Data 字段包含操作后的闪卡包信息。")
+    })
   },
   {
     method: "POST",
@@ -33,17 +33,17 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       cardDues: z.array(z.object({
         id: z.string().describe("必需。闪卡块 ID。"),
         due: z.string().describe("必需。新的到期时间，ISO 8601 格式的日期时间字符串。")
       })).describe("必需。包含闪卡 ID 和对应新到期时间的数组。")
-    }).describe("请求体包含一个 cardDues 数组。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -54,10 +54,10 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       name: z.string().describe("必需。新闪卡包的名称。")
-    }).describe("请求体包含新闪卡包的名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -67,7 +67,7 @@ export const riffApiDefs = [
         created: z.string().describe("闪卡包创建时间，格式 YYYY-MM-DD HH:mm:ss"),
         updated: z.string().describe("闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss")
       }).describe("成功时返回新创建的闪卡包信息。")
-    }).describe("标准响应结构。Data 字段包含新创建的闪卡包信息。")
+    })
   },
   {
     method: "POST",
@@ -78,12 +78,12 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。笔记本 ID。"),
       page: z.number().int().min(1).describe("必需。页码，从 1 开始。"),
       pageSize: z.number().int().min(1).optional().describe("可选。每页数量，默认为 20。")
-    }).describe("请求体包含笔记本 ID 和分页参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -91,7 +91,7 @@ export const riffApiDefs = [
         total: z.number().int().describe("该笔记本下闪卡总数。"),
         pageCount: z.number().int().describe("总页数。")
       }).describe("成功时返回分页的闪卡块 ID 及分页信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -102,13 +102,13 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       notebook: z.string().describe("必需。笔记本 ID。"),
       reviewedCards: z.array(z.object({
         cardID: z.string().describe("已复习卡片的 ID")
       })).optional().describe("可选。当前学习会话中已经复习过的卡片列表，用于在获取下一张卡片时排除它们。")
-    }).describe("请求体包含笔记本 ID 和可选的已复习卡片列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -126,7 +126,7 @@ export const riffApiDefs = [
         unreviewedNewCardCount: z.number().int().describe("未复习新卡片数量。"),
         unreviewedOldCardCount: z.number().int().describe("未复习旧卡片数量。")
       }).describe("成功时返回到期闪卡列表及统计信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -137,12 +137,12 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。闪卡包 ID。"),
       page: z.number().int().min(1).describe("必需。页码，从 1 开始。"),
       pageSize: z.number().int().min(1).optional().describe("可选。每页数量，默认为 20。")
-    }).describe("请求体包含闪卡包 ID 和分页参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -159,7 +159,7 @@ export const riffApiDefs = [
         total: z.number().int().describe("该闪卡包下闪卡总数。"),
         pageCount: z.number().int().describe("总页数。")
       }).describe("成功时返回分页的闪卡对象及分页信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -170,10 +170,10 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       blockIDs: z.array(z.string()).describe("必需。块 ID 数组。")
-    }).describe("请求体包含块 ID 数组。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -188,7 +188,7 @@ export const riffApiDefs = [
           reps: z.number().int().describe("已复习次数")
         })).describe("对应的闪卡信息数组。如果某个 blockID 不是闪卡，则对应项可能缺失或为 null。")
       }).describe("成功时返回闪卡信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -199,8 +199,8 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.array(z.object({
@@ -210,7 +210,7 @@ export const riffApiDefs = [
         created: z.string().describe("闪卡包创建时间，格式 YYYY-MM-DD HH:mm:ss"),
         updated: z.string().describe("闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss")
       })).describe("成功时返回所有闪卡包的信息数组。如果没有闪卡包，则返回空数组。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -221,13 +221,13 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。闪卡包 ID。"),
       reviewedCards: z.array(z.object({
         cardID: z.string().describe("已复习卡片的 ID")
       })).optional().describe("可选。当前学习会话中已经复习过的卡片列表，用于在获取下一张卡片时排除它们。")
-    }).describe("请求体包含闪卡包 ID 和可选的已复习卡片列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -245,7 +245,7 @@ export const riffApiDefs = [
         unreviewedNewCardCount: z.number().int().describe("未复习新卡片数量。"),
         unreviewedOldCardCount: z.number().int().describe("未复习旧卡片数量。")
       }).describe("成功时返回到期闪卡列表及统计信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -256,12 +256,12 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       id: z.string().describe("必需。文档树的根块 ID。"),
       page: z.number().int().min(1).describe("必需。页码，从 1 开始。"),
       pageSize: z.number().int().min(1).optional().describe("可选。每页数量，默认为 20。")
-    }).describe("请求体包含根块 ID 和分页参数。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -269,7 +269,7 @@ export const riffApiDefs = [
         total: z.number().int().describe("该文档树下闪卡总数。"),
         pageCount: z.number().int().describe("总页数。")
       }).describe("成功时返回分页的闪卡块 ID 及分页信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -280,13 +280,13 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       rootID: z.string().describe("必需。文档树的根块 ID。"),
       reviewedCards: z.array(z.object({
         cardID: z.string().describe("已复习卡片的 ID")
       })).optional().describe("可选。当前学习会话中已经复习过的卡片列表，用于在获取下一张卡片时排除它们。")
-    }).describe("请求体包含根块 ID 和可选的已复习卡片列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -304,7 +304,7 @@ export const riffApiDefs = [
         unreviewedNewCardCount: z.number().int().describe("未复习新卡片数量。"),
         unreviewedOldCardCount: z.number().int().describe("未复习旧卡片数量。")
       }).describe("成功时返回到期闪卡列表及统计信息。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -315,11 +315,11 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。目标闪卡包的 ID。如果为空字符串，则表示从所有卡包中移除这些卡片（通常用于\"All\"卡包的操作场景，但后端实际是根据 blockID 移除）。"),
       blockIDs: z.array(z.string()).describe("必需。要移除的闪卡块 ID 数组。")
-    }).describe("请求体包含闪卡包 ID 和要移除的块 ID 数组。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.object({
@@ -329,7 +329,7 @@ export const riffApiDefs = [
         created: z.string().describe("闪卡包创建时间，格式 YYYY-MM-DD HH:mm:ss"),
         updated: z.string().describe("闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss")
       }).nullable().describe("成功时返回更新后的闪卡包信息。如果操作的是\"All\"卡包（即传入的 deckID 为空字符串），则 Data 为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -340,14 +340,14 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。要移除的闪卡包 ID。")
-    }).describe("请求体包含要移除的闪卡包 ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -358,15 +358,15 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。要重命名的闪卡包 ID。"),
       name: z.string().describe("必需。新的闪卡包名称。")
-    }).describe("请求体包含闪卡包 ID 和新名称。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -377,17 +377,17 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       type: z.enum(["notebook", "tree", "deck"]).describe("必需。重置类型：'notebook' (笔记本), 'tree' (文档树), 'deck' (闪卡包)。"),
       id: z.string().describe("必需。对应类型的 ID：笔记本 ID、文档树根块 ID 或闪卡包 ID。"),
       deckID: z.string().describe("必需。闪卡包 ID。即使 type 是 'notebook' 或 'tree'，也需要指定一个 deckID 来确定操作范围，通常可以是这些卡片实际所属的卡包 ID，或者是全局的卡片操作。具体逻辑需参照后端 model.ResetFlashcards 实现。从 riff.go L89 看，此参数未被直接使用，但model层可能需要。暂时保留。"),
       blockIDs: z.array(z.string()).optional().describe("可选。要重置的具体闪卡块 ID 数组。如果未提供或为空数组，则重置 type 和 id 指定范围内的所有卡片。")
-    }).describe("请求体包含重置类型、ID、闪卡包ID和可选的块ID数组。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -398,19 +398,19 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。闪卡所属的卡包 ID。"),
       cardID: z.string().describe("必需。要复习的闪卡块 ID。"),
       rating: z.number().int().min(0).max(4).describe("必需。评分，通常为 0 (Again), 1 (Hard), 2 (Good), 3 (Easy), 4 (Soon)。具体数值对应关系可能依赖于底层的 SM-2 算法实现。参照 riff.Rating 定义，0:Again, 1:Hard, 2:Good, 3:Easy, 4:Soon, (SM2 的0-5 对应这里的0-4?)"),
       reviewedCards: z.array(z.object({
         cardID: z.string().describe("已复习卡片的 ID")
       })).optional().describe("可选。当前学习会话中已经复习过的卡片列表，用于在获取下一张卡片时排除它们（后端逻辑 model.ReviewFlashcard 中使用了 reviewedCardIDs）。")
-    }).describe("请求体包含卡包 ID、卡片 ID、评分和可选的已复习卡片列表。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -421,14 +421,14 @@ export const riffApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true,
-    zodRequestSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({
       deckID: z.string().describe("必需。闪卡所属的卡包 ID。"),
       cardID: z.string().describe("必需。要跳过复习的闪卡块 ID。")
-    }).describe("请求体包含卡包 ID 和要跳过的卡片 ID。"),
-    zodResponseSchema: (z) => z.object({
+    }),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("返回码，0 表示成功"),
       Msg: z.string().describe("错误信息，成功时为空字符串"),
       Data: z.null().describe("成功时 Data 固定为 null。")
-    }).describe("标准响应结构。")
+    })
   }
 ];

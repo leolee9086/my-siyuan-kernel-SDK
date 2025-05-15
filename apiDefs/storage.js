@@ -8,8 +8,8 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.array(z.object({
@@ -32,7 +32,7 @@ export const storageApiDefs = [
         rootID: z.string().optional().describe("根块 ID。"),
         kwd: z.string().optional().describe("关键词。")
       })).describe("已保存的搜索标准列表。每个元素代表一个搜索标准，具体字段请参考思源笔记内核 model.Criterion 结构。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -43,12 +43,12 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.record(z.any()).describe("包含 LocalStorage 所有键值对的对象。值的类型可能多样，取决于存储时的数据。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
@@ -59,8 +59,8 @@ export const storageApiDefs = [
     needAuth: true,
     needAdminRole: false,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => z.object({}).describe("此接口不需要请求体参数。"),
-    zodResponseSchema: (z) => z.object({
+    zodRequestSchema: (z) => ({}),
+    zodResponseSchema: (z) => ({
       Code: z.number().describe("错误码，0 表示成功，其他表示失败。"),
       Msg: z.string().describe("接口返回的消息，成功时通常为空字符串。"),
       Data: z.array(z.object({
@@ -75,7 +75,7 @@ export const storageApiDefs = [
         subFileCount: z.number().describe("子文件数量 (通常用于笔记本或文件夹)。"),
         updated: z.string().datetime().describe("文档的最后更新时间 (ISO 8601 格式)。")
       })).describe("最近打开的文档列表。")
-    }).describe("标准响应结构。")
+    })
   },
   {
     method: "POST",
