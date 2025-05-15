@@ -56,7 +56,7 @@ export const exportApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: false,
-    zodRequestSchema: (z) => ({}.describe("此接口不需要请求参数")),
+    zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({ Code: z.number().describe("响应状态码，0 表示成功"), Msg: z.string().describe("响应消息"), Data: z.object({ zip: z.string().describe("导出的 .zip 文件在服务器上的绝对路径") }).describe("成功时返回的数据") })
   },
   {

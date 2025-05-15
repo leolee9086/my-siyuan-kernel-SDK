@@ -550,7 +550,7 @@ export const filetreeApiDefs = [
     needAuth: true,
     needAdminRole: true,
     unavailableIfReadonly: true, // 尽管 Go 源码 model.FullReindex() 本身不检查只读，但 router.go 中此API路由配置了 model.CheckReadonly
-    zodRequestSchema: (z) => (({}).describe("此接口不需要请求参数")),
+    zodRequestSchema: (z) => ({}),
     zodResponseSchema: (z) => ({
       Code: z.number().describe("响应状态码，0 表示成功（操作已异步启动）"),
       Msg: z.string().describe("响应消息"),
