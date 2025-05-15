@@ -1,7 +1,5 @@
 // TypeScript definitions for generated API clients
 
-import { ZodFirstPartyTypeKind } from 'zod'; // Optional: for type safety if you inspect these types
-
 interface CheckActivationcodeParams {
   data: string; // 要检查的激活码
 }
@@ -6653,7 +6651,7 @@ interface ReloadTagResponse {
   data: null; // 成功时总是为 null。
 }
 
-declare module './accountClient' {
+declare module './account' {
   /**
    * 检查用户输入的激活码是否有效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -6694,7 +6692,7 @@ declare module './accountClient' {
 
 }
 
-declare module './aiClient' {
+declare module './ai' {
   /**
    * 与 ChatGPT 进行简单对话。
    * (Requires authentication, Requires admin role)
@@ -6713,7 +6711,7 @@ declare module './aiClient' {
 
 }
 
-declare module './archiveClient' {
+declare module './archive' {
   /**
    * 将指定的 .zip 文件解压到指定路径。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -6732,7 +6730,7 @@ declare module './archiveClient' {
 
 }
 
-declare module './assetClient' {
+declare module './asset' {
   /**
    * 完全重新索引工作空间中所有资源文件的内容，用于搜索。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -6875,7 +6873,7 @@ declare module './assetClient' {
 
 }
 
-declare module './attrClient' {
+declare module './attr' {
   /**
    * 根据提供的块 ID 列表，批量获取这些块的所有自定义属性。
    * (Requires authentication)
@@ -6925,7 +6923,7 @@ declare module './attrClient' {
 
 }
 
-declare module './avClient' {
+declare module './av' {
   /**
    * 向指定的属性视图中添加一个或多个数据块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7104,7 +7102,7 @@ declare module './avClient' {
 
 }
 
-declare module './bazaarClient' {
+declare module './bazaar' {
   /**
    * 根据指定的客户端类型（如 'frontend'）批量更新思源笔记本地缓存的集市包信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7291,7 +7289,7 @@ declare module './bazaarClient' {
 
 }
 
-declare module './blockClient' {
+declare module './block' {
   /**
    * 在指定父块的末尾插入新的子块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7645,7 +7643,7 @@ declare module './blockClient' {
 
 }
 
-declare module './bookmarkClient' {
+declare module './bookmark' {
   /**
    * 构建并返回当前工作空间的所有书签列表。书签是为块设置的特定名称，方便快速访问。
    * (Requires authentication)
@@ -7671,7 +7669,7 @@ declare module './bookmarkClient' {
 
 }
 
-declare module './broadcastClient' {
+declare module './broadcast' {
   /**
    * 获取指定名称的广播频道的详细信息，如订阅者数量。
    * (Requires authentication, Requires admin role)
@@ -7705,7 +7703,7 @@ declare module './broadcastClient' {
 
 }
 
-declare module './clipboardClient' {
+declare module './clipboard' {
   /**
    * 从系统剪贴板中读取文件路径列表。注意：在 Linux 上此功能可能受限或不可用。
    * (Requires authentication, Requires admin role)
@@ -7715,7 +7713,7 @@ declare module './clipboardClient' {
 
 }
 
-declare module './cloudClient' {
+declare module './cloud' {
   /**
    * 获取用户的云端存储空间使用情况、流量消耗以及同步和备份状态等信息。
    * (Requires authentication, Requires admin role)
@@ -7725,7 +7723,7 @@ declare module './cloudClient' {
 
 }
 
-declare module './convertClient' {
+declare module './convert' {
   /**
    * 调用系统安装的 Pandoc 工具进行文档格式转换。需要提供 Pandoc 命令行参数。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7736,7 +7734,7 @@ declare module './convertClient' {
 
 }
 
-declare module './exportClient' {
+declare module './export' {
   /**
    * 将指定的文档内容导出到链滴社区。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7962,7 +7960,7 @@ declare module './exportClient' {
 
 }
 
-declare module './extensionClient' {
+declare module './extension' {
   /**
    * 处理来自浏览器扩展（如剪藏）复制过来的内容。将 HTML DOM 转换为 Markdown，并处理其中包含的图片等资源，将其保存到指定的笔记本或默认的 assets 目录。支持从链滴剪藏时直接获取 Markdown。这是一个 multipart/form-data 请求，除了明确定义的字段外，还可以包含多个文件字段。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -7973,7 +7971,7 @@ declare module './extensionClient' {
 
 }
 
-declare module './fileClient' {
+declare module './file' {
   /**
    * 复制工作空间内的单个文件或资源文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8040,7 +8038,7 @@ declare module './fileClient' {
 
 }
 
-declare module './filetreeClient' {
+declare module './filetree' {
   /**
    * 更改指定笔记本下，特定路径列表的文档树排序方式。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8290,7 +8288,7 @@ declare module './filetreeClient' {
 
 }
 
-declare module './formatClient' {
+declare module './format' {
   /**
    * 为指定块ID的内容（Markdown原文）在中文与英文、数字之间自动添加空格，以优化排版。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8317,7 +8315,7 @@ declare module './formatClient' {
 
 }
 
-declare module './graphClient' {
+declare module './graph' {
   /**
    * 根据关键词和配置获取全局关系图的节点和边数据。
    * (Requires authentication)
@@ -8350,7 +8348,7 @@ declare module './graphClient' {
 
 }
 
-declare module './historyClient' {
+declare module './history' {
   /**
    * 清空当前工作空间下的所有历史记录。这是一个耗时操作，执行前会有提示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8422,7 +8420,7 @@ declare module './historyClient' {
 
 }
 
-declare module './iconClient' {
+declare module './icon' {
   /**
    * 根据参数动态生成一个SVG格式的日期或文字图标。此接口直接返回 SVG 图像数据。
    * @param params Request parameters (GetDynamicIconParams)
@@ -8432,7 +8430,7 @@ declare module './iconClient' {
 
 }
 
-declare module './importClient' {
+declare module './import' {
   /**
    * 导入完整的数据包备份 (.zip)。此操作会覆盖当前工作空间的数据。请求体为 FormData，必须包含 'file' 字段，值为 .zip 数据包文件。由于是 FormData，具体字段不在 Zod schema 中定义。代码实现详见 kernel/api/import.go:importData。导入过程会将文件暂存并在处理后删除。注意：此操作会覆盖当前工作空间。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8457,7 +8455,7 @@ declare module './importClient' {
 
 }
 
-declare module './inboxClient' {
+declare module './inbox' {
   /**
    * 根据ID获取单个云端速记条目的详细内容。速记内容会从 Markdown 转换为 HTML。
    * (Requires authentication, Requires admin role)
@@ -8484,7 +8482,7 @@ declare module './inboxClient' {
 
 }
 
-declare module './luteClient' {
+declare module './lute' {
   /**
    * 将指定ID的块内容导出为标准 Markdown 格式的字符串。
    * (Requires authentication)
@@ -8511,7 +8509,7 @@ declare module './luteClient' {
 
 }
 
-declare module './miscClient' {
+declare module './misc' {
   /**
    * 通过 Server-Sent Events (SSE) 订阅一个或多个指定广播频道的消息。连接建立后，服务器会持续推送所订阅频道的消息。
    * (Requires authentication, Requires admin role)
@@ -8530,7 +8528,7 @@ declare module './miscClient' {
 
 }
 
-declare module './networkClient' {
+declare module './network' {
   /**
    * 作为代理，将客户端构造的HTTP(S)请求转发到指定的目标URL，并返回目标服务器的响应。支持多种请求体编码方式。
    * (Requires authentication, Requires admin role)
@@ -8541,7 +8539,7 @@ declare module './networkClient' {
 
 }
 
-declare module './notebookClient' {
+declare module './notebook' {
   /**
    * 批量更改笔记本的显示顺序。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8631,7 +8629,7 @@ declare module './notebookClient' {
 
 }
 
-declare module './notificationClient' {
+declare module './notification' {
   /**
    * 向前端推送一条错误类型的消息通知，通常用于显示操作失败或异常情况。
    * (Requires authentication, Requires admin role)
@@ -8650,7 +8648,7 @@ declare module './notificationClient' {
 
 }
 
-declare module './outlineClient' {
+declare module './outline' {
   /**
    * 获取指定文档块（通常是文档的根块ID）的层级大纲结构。
    * (Requires authentication)
@@ -8661,7 +8659,7 @@ declare module './outlineClient' {
 
 }
 
-declare module './petalClient' {
+declare module './petal' {
   /**
    * 加载指定前端界面的所有已启用且兼容的插件（Petals）及其代码和配置信息。
    * (Requires authentication)
@@ -8680,7 +8678,7 @@ declare module './petalClient' {
 
 }
 
-declare module './queryClient' {
+declare module './query' {
   /**
    * 执行 SQL 查询语句，返回查询结果。思源笔记使用 SQLite 作为底层数据库，支持标准的 SQL 查询语法。
    * (Requires authentication)
@@ -8691,7 +8689,7 @@ declare module './queryClient' {
 
 }
 
-declare module './refClient' {
+declare module './ref' {
   /**
    * 获取指定块ID的反向链接和反向提及列表。此接口为旧版，建议使用 /api/ref/getBacklink2。
    * (Requires authentication)
@@ -8734,7 +8732,7 @@ declare module './refClient' {
 
 }
 
-declare module './repoClient' {
+declare module './repo' {
   /**
    * 将当前工作区内容回滚到指定的仓库快照版本。这是一个危险操作，会导致当前未保存的更改丢失，请谨慎操作。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -8908,7 +8906,7 @@ declare module './repoClient' {
 
 }
 
-declare module './riffClient' {
+declare module './riff' {
   /**
    * 将指定的块添加为闪卡到指定的闪卡包中。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9046,7 +9044,7 @@ declare module './riffClient' {
 
 }
 
-declare module './searchClient' {
+declare module './search' {
   /**
    * 在指定的块ID范围、路径、笔记本、类型中查找内容并进行替换。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9161,7 +9159,7 @@ declare module './searchClient' {
 
 }
 
-declare module './settingClient' {
+declare module './setting' {
   /**
    * 将指定的关键字列表添加到虚拟块引用的全局排除列表中。这些关键字将不会用于生成虚拟引用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9329,7 +9327,7 @@ declare module './settingClient' {
 
 }
 
-declare module './snippetClient' {
+declare module './snippet' {
   /**
    * 获取已保存的代码片段列表。可以根据类型（js/css/all）、启用状态（0-禁用, 1-启用, 2-全部）和关键字进行过滤。
    * (Requires authentication)
@@ -9356,7 +9354,7 @@ declare module './snippetClient' {
 
 }
 
-declare module './sqliteClient' {
+declare module './sqlite' {
   /**
    * 将内核中待处理的数据库事务队列立即刷新到磁盘。这通常用于确保在关键操作后数据被持久化。该接口不接收参数。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9366,7 +9364,7 @@ declare module './sqliteClient' {
 
 }
 
-declare module './storageClient' {
+declare module './storage' {
   /**
    * 获取所有用户已保存的搜索标准（过滤条件）列表。
    * (Requires authentication)
@@ -9430,7 +9428,7 @@ declare module './storageClient' {
 
 }
 
-declare module './syncClient' {
+declare module './sync' {
   /**
    * 在云端存储中创建一个新的同步目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9593,7 +9591,7 @@ declare module './syncClient' {
 
 }
 
-declare module './systemClient' {
+declare module './system' {
   /**
    * 将思源笔记相关目录添加到 Microsoft Defender 的排除项中，以避免潜在的性能问题或冲突。此操作仅在 Windows 系统上有效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9886,7 +9884,7 @@ declare module './systemClient' {
 
 }
 
-declare module './tagClient' {
+declare module './tag' {
   /**
    * 获取当前工作空间的所有标签列表。可以提供一个可选的排序参数来即时更新并应用全局标签排序设置。
    * (Requires authentication)
@@ -9913,7 +9911,7 @@ declare module './tagClient' {
 
 }
 
-declare module './templateClient' {
+declare module './template' {
   /**
    * 将指定 ID 的文档内容保存为一个模板。可以指定模板名称，以及是否覆盖同名模板。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9940,7 +9938,7 @@ declare module './templateClient' {
 
 }
 
-declare module './transactionsClient' {
+declare module './transactions' {
   /**
    * 执行一个或多个事务操作，每个事务可以包含多个具体的数据修改动作。这是思源笔记中进行数据修改最核心的接口之一。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
@@ -9951,7 +9949,7 @@ declare module './transactionsClient' {
 
 }
 
-declare module './uiClient' {
+declare module './ui' {
   /**
    * 重新加载指定的属性视图。通常在属性视图的结构或数据发生变化后调用，以刷新显示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)

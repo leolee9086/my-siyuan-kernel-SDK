@@ -383,7 +383,6 @@ async function generateClient() {
         jsModuleContent += `  if (needAuth) {\n`;
         jsModuleContent += `    // Example: Retrieve and add auth token\n`;
         jsModuleContent += `    // const token = localStorage.getItem('siyuan-auth-token'); \n`;
-        jsModuleContent += `    // if (token) options.headers['Authorization'] = \`Token \${token}\`;\n`;
         jsModuleContent += `    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n`;
         jsModuleContent += `  }\n`;
         jsModuleContent += `  const response = await fetch(url, options);\n`;
@@ -496,17 +495,16 @@ async function generateClient() {
             tsModuleFuncDeclarations += `  export function ${apiName}(${tsParamsList.join(', ')}): Promise<${tsResType}>;\n\n`;
         }
 
-        const clientModulePath = path.join(OUTPUT_CLIENT_DIR, `${groupName}Client.js`);
+        const clientModulePath = path.join(OUTPUT_CLIENT_DIR, `${groupName}.js`);
         await fs.writeFile(clientModulePath, jsModuleContent);
-        console.log(`Generated JS client: client/${groupName}Client.js`);
+        console.log(`Generated JS client: client/${groupName}.js`);
 
         if (tsModuleFuncDeclarations) {
-            allModuleDtsEntries.push(`declare module './${groupName}Client' {\n${tsModuleFuncDeclarations}}`);
+            allModuleDtsEntries.push(`declare module './${groupName}' {\n${tsModuleFuncDeclarations}}`);
         }
     }
 
     let finalDtsContent = "// TypeScript definitions for generated API clients\n\n";
-    finalDtsContent += "import { ZodFirstPartyTypeKind } from 'zod'; // Optional: for type safety if you inspect these types\n\n";
 
     for (const typeName in GENERATED_TYPES) {
         finalDtsContent += `${GENERATED_TYPES[typeName]}\n\n`;
