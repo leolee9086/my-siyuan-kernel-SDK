@@ -2094,3 +2094,16 @@
 *   提到了生成的 `kernelApiClient.js` 文件内部包含详细的 JSDoc 注释。
 
 **意义**: \n补充了关于新脚本的文档，使得用户可以了解并使用新的单文件客户端生成方式，方便其在不同类型的项目中集成思源笔记的 API 功能。
+
+---
+
+## 2025-05-16 (织的笔记 - 测试 kernelApiClient.js)\n\n**时间**: Thu May 15 2025 19:18:34 UTC (根据 timeanddate.com)\n\n**任务**: 创建并运行测试脚本，以验证生成的单文件客户端 `kernelApiClient.js` 是否能成功调用 API（以获取内核版本为例）。\n\n**过程**:\n
+1.  **创建测试脚本 (`my-siyuan-kernel-SDK/testSingleClient.mjs`)**:\n    *   脚本使用 ESM 格式，导入 `KernelApiClient` from './kernelApiClient.js'。\n    *   实例化 `KernelApiClient` (使用默认的 baseUrl `http://127.0.0.1:6806`)。\n    *   异步调用客户端的方法获取版本信息，并打印结果或错误。
+
+2.  **初次运行与问题排查**:\n    *   第一次尝试调用 `client.getVersion()`，脚本报错 `client.getVersion is not a function`。\n    *   通过查阅生成的 `kernelApiClient.js` 文件内容，发现与版本相关的 API 方法名被生成为 `version()` 和 `postVersion()`，而不是 `getVersion()`。\n    *   这与 `generateSingleFileClient.cjs` 脚本中直接使用 `apiDef.en` 作为方法名有关，而 `system.js` 中对应 API 的 `en` 字段为 `getVersion`，但实际生成的单文件客户端方法名为 `version`。
+
+3.  **修正与再次测试**:\n    *   修改 `testSingleClient.mjs`，将调用从 `client.getVersion()` 改为 `client.version()`。\n    *   再次运行测试脚本，成功获取到内核版本号 (例如：`"3.1.28"`)。\n    *   进一步调整测试脚本中的成功日志逻辑，以正确处理 `client.version()` 直接返回字符串版本号的情况。
+
+**结果**:\n*   成功创建了 `testSingleClient.mjs` 测试脚本。\n*   通过测试脚本，成功调用了 `kernelApiClient.js` 中的 `version()` 方法，并获取到了本地思源笔记内核的版本号。\n*   验证了生成的单文件客户端是可用的。\n
+**发现的问题/注意事项**:\n*   `generateSingleFileClient.cjs` 脚本在生成方法名时，直接使用了 `apiDef.en`。对于 `system.js` 中的 `getVersion` API，这导致了与直觉（或多文件客户端行为）不符的方法名 `version()`。这可能是特例或需要进一步审视方法名生成逻辑的通用性。
+*   `system/version` API 直接返回版本号字符串，而非包含在 `data` 字段的对象中，这与某些 API 的响应结构不同。
