@@ -1960,3 +1960,58 @@
 
 **结果**:
 `ui.js` 文件已成功更新，包含了更准确、更详细的 API 定义。
+
+## 2025-05-15T21:08:53Z 织的笔记：为 block.js 补充缺失的 API 定义框架
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/block.js`
+
+**背景**:
+在运行 `validateApiDefs.js` 脚本后，发现 `block.js` 文件中缺失了以下三个 API 的定义：
+*   `POST /api/block/prependDailyNoteBlock`
+*   `POST /api/block/moveBlock`
+*   `POST /api/block/moveOutlineHeading`
+
+**主要操作**:
+1.  从 `validateApiDefs.js` 的输出中获取了这三个 API 的 `method`, `endpoint`, 和 `en` 英文名。
+2.  在 `my-siyuan-kernel-SDK/apiDefs/block.js` 文件的 `blockApiDefs` 数组末尾，为这三个 API 添加了基本的定义框架。
+3.  这些框架包含了上述已知信息，权限标志暂时假设为 `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true` (因为未能完整读取 `rawApiList.json` 来精确获取)。
+4.  `zh_cn`, `description`, `zodRequestSchema`, 和 `zodResponseSchema` 均使用了占位符或非常基础的定义 (如 `(z) => z.object({}).describe("请求参数待定义")`)，标记为后续需要详细补充。
+
+**目的**: 
+快速修复 `validateApiDefs.js` 报告的 "MissingApiInDefFile" 问题，以便后续可以专注于其他类型的校验错误或API的详细定义工作。这三个API的完整定义将在后续步骤中完成。
+
+**后续**:
+*   需要根据 `siyuan/kernel/api/block_op.go` 和 `siyuan/kernel/api/router.go` (以及 `rawApiList.json` 的完整内容) 详细定义这三个 API 的 `zh_cn`, `description`, 权限和 Zod schema。
+
+## 2025-05-15T21:10:50Z 织的笔记：详细更新 block.js 中的 prependDailyNoteBlock, moveBlock, moveOutlineHeading API
+
+**文件**: `my-siyuan-kernel-SDK/apiDefs/block.js`
+
+**背景**:
+在先前为 `block.js` 补充了 `prependDailyNoteBlock`, `moveBlock`, `moveOutlineHeading` 三个 API 的基本框架后，本次根据 `siyuan/kernel/api/block_op.go` 和 `siyuan/kernel/api/router.go` 的详细实现，对这三个 API 的定义进行了全面更新。
+
+**主要操作**:
+
+1.  **`/api/block/prependDailyNoteBlock`**:
+    *   **中文名**: "前置追加日记块"
+    *   **描述**: "在指定笔记本的当日日记文档开头追加新的内容块。如果当日日记不存在，则会创建。"
+    *   **权限**: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true` (根据 `router.go` 中 `apiGroupBlockOp` 的定义)。
+    *   **请求 Schema**: `z.object({ notebook: z.string().describe("目标笔记本ID"), content: z.string().describe("要追加的Markdown内容") })`。
+    *   **响应 Schema**: `Data: z.object({ id: z.string().describe("新创建的日记文档的ID (如果创建了新日记)") })`。根据 `block_op.go` 中 `prependDailyNoteBlock` 函数的实现，它返回 `model.PrependDailyNoteBlock` 的结果，该结果包含新日记的 ID。
+
+2.  **`/api/block/moveBlock`**:
+    *   **中文名**: "移动块"
+    *   **描述**: "移动一个或多个块到新的父块下，或调整其在同级中的顺序。"
+    *   **权限**: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true` (根据 `router.go` 中 `apiGroupBlockOp` 的定义)。
+    *   **请求 Schema**: `z.object({ id: z.string().describe("要移动的块ID (如果是多个块，则为其中一个，其他通过 nextIDs/previousIDs 关联)"), parentID: z.string().optional().describe("新的父块ID，如果仅在同级调整顺序则可不提供"), previousID: z.string().optional().describe("移动后，该块的前一个同级块ID"), nextID: z.string().optional().describe("移动后，该块的后一个同级块ID"), nextIDs: z.array(z.string()).optional().describe("当移动多个块时，指定 id 块之后的其他块ID列表") })`。这些参数基于 `block_op.go` 中 `moveBlock` 函数对 `util.JsonArgByte` 的解析。
+    *   **响应 Schema**: `Data: z.array(z.any()).nullable().describe("操作成功时返回事务对象数组，失败或无操作时为 null。")`。与大部分 `block_op.go` 中的写操作类似，返回事务列表。
+
+3.  **`/api/block/moveOutlineHeading`**:
+    *   **中文名**: "移动大纲标题"
+    *   **描述**: "移动大纲中的标题块及其所有子内容到新的位置。"
+    *   **权限**: `needAuth: true`, `needAdminRole: true`, `unavailableIfReadonly: true` (根据 `router.go` 中 `apiGroupBlockOp` 的定义)。
+    *   **请求 Schema**: `z.object({ focusID: z.string().describe("要移动的标题块ID"), targetID: z.string().optional().describe("目标位置的块ID (父块)"), previousID: z.string().optional().describe("移动后，该标题的前一个同级块ID"), nextID: z.string().optional().describe("移动后，该标题的后一个同级块ID") })`。这些参数基于 `block_op.go` 中 `moveOutlineHeading` 函数对 `util.JsonArgByte` 的解析。
+    *   **响应 Schema**: `Data: z.array(z.any()).nullable().describe("操作成功时返回事务对象数组，失败或无操作时为 null。")`。返回事务列表。
+
+**结果**:
+`block.js` 中这三个 API 的定义已更新为准确和详细的版本，包括中文名、描述、权限以及请求和响应的 Zod schema，均严格依据 Go 源码。
