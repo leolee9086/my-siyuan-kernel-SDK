@@ -1,305 +1,271 @@
-// Generated client for API group av
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group av
+export class AvApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvAddAttributeViewBlocksParams} AvAddAttributeViewBlocksParams
+ * @typedef {import('./index.d.ts').AvAddAttributeViewBlocksResponse} AvAddAttributeViewBlocksResponse
  * 向指定的属性视图中添加一个或多个数据块。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<AddAttributeViewBlocksResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} [params.blockID] blockID
- * @param {string} [params.previousID] previousID
- * @param {boolean} [params.ignoreFillFilter] ignoreFillFilter
- * @param {Array<Record<string,>} params.srcs 要添加的源数据块信息数组，具体结构取决于源类型
+ * @param {AvAddAttributeViewBlocksParams} params - Request parameters.
+ * @returns {Promise<AvAddAttributeViewBlocksResponse>}
  */
-export async function addAttributeViewBlocks(params) {
-  return fetchWrapper('POST', '/api/av/addAttributeViewBlocks', params, true);
-}
+  addAttributeViewBlocks(params) {
+    return this.fetcher('POST', '/api/av/addAttributeViewBlocks', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvAddAttributeViewKeyParams} AvAddAttributeViewKeyParams
+ * @typedef {import('./index.d.ts').AvAddAttributeViewKeyResponse} AvAddAttributeViewKeyResponse
  * 向指定的属性视图添加一个新的列定义。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<AddAttributeViewKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyID 新列的 ID，如果为空则自动生成
- * @param {string} params.keyName 新列的名称
- * @param {string} params.keyType 新列的类型 (e.g., 'text', 'number', 'select')
- * @param {string} params.keyIcon 新列的图标 (Emoji 或思源图标名)
- * @param {string} params.previousKeyID 新列将插入到此列 ID 之前
+ * @param {AvAddAttributeViewKeyParams} params - Request parameters.
+ * @returns {Promise<AvAddAttributeViewKeyResponse>}
  */
-export async function addAttributeViewKey(params) {
-  return fetchWrapper('POST', '/api/av/addAttributeViewKey', params, true);
-}
+  addAttributeViewKey(params) {
+    return this.fetcher('POST', '/api/av/addAttributeViewKey', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvAppendAttributeViewDetachedBlocksWithValuesParams} AvAppendAttributeViewDetachedBlocksWithValuesParams
+ * @typedef {import('./index.d.ts').AvAppendAttributeViewDetachedBlocksWithValuesResponse} AvAppendAttributeViewDetachedBlocksWithValuesResponse
  * 向属性视图追加多个新的独立块，并为这些块设置初始值。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<AppendAttributeViewDetachedBlocksWithValuesResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {Array<Array<any>>} params.blocksValues 二维数组，外层数组代表多个新块，内层数组代表每个块对应各列的初始值
+ * @param {AvAppendAttributeViewDetachedBlocksWithValuesParams} params - Request parameters.
+ * @returns {Promise<AvAppendAttributeViewDetachedBlocksWithValuesResponse>}
  */
-export async function appendAttributeViewDetachedBlocksWithValues(params) {
-  return fetchWrapper('POST', '/api/av/appendAttributeViewDetachedBlocksWithValues', params, true);
-}
+  appendAttributeViewDetachedBlocksWithValues(params) {
+    return this.fetcher('POST', '/api/av/appendAttributeViewDetachedBlocksWithValues', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvDuplicateAttributeViewBlockParams} AvDuplicateAttributeViewBlockParams
+ * @typedef {import('./index.d.ts').AvDuplicateAttributeViewBlockResponse} AvDuplicateAttributeViewBlockResponse
  * 复制一个属性视图块（数据库块）。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<DuplicateAttributeViewBlockResponse>}
- * @param {string} params.avID 要复制的属性视图块的 ID
+ * @param {AvDuplicateAttributeViewBlockParams} params - Request parameters.
+ * @returns {Promise<AvDuplicateAttributeViewBlockResponse>}
  */
-export async function duplicateAttributeViewBlock(params) {
-  return fetchWrapper('POST', '/api/av/duplicateAttributeViewBlock', params, true);
-}
+  duplicateAttributeViewBlock(params) {
+    return this.fetcher('POST', '/api/av/duplicateAttributeViewBlock', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetAttributeViewParams} AvGetAttributeViewParams
+ * @typedef {import('./index.d.ts').AvGetAttributeViewResponse} AvGetAttributeViewResponse
  * 获取指定ID的属性视图的详细信息。
  * (Requires authentication, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAttributeViewResponse>}
- * @param {string} params.id 属性视图的 ID
+ * @param {AvGetAttributeViewParams} params - Request parameters.
+ * @returns {Promise<AvGetAttributeViewResponse>}
  */
-export async function getAttributeView(params) {
-  return fetchWrapper('POST', '/api/av/getAttributeView', params, true);
-}
+  getAttributeView(params) {
+    return this.fetcher('POST', '/api/av/getAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetAttributeViewFilterSortParams} AvGetAttributeViewFilterSortParams
+ * @typedef {import('./index.d.ts').AvGetAttributeViewFilterSortResponse} AvGetAttributeViewFilterSortResponse
  * 获取指定属性视图（或其关联块）的筛选条件和排序规则。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAttributeViewFilterSortResponse>}
- * @param {string} params.id 属性视图的 ID
- * @param {string} params.blockID 属性视图关联的块 ID (通常与属性视图ID相同)
+ * @param {AvGetAttributeViewFilterSortParams} params - Request parameters.
+ * @returns {Promise<AvGetAttributeViewFilterSortResponse>}
  */
-export async function getAttributeViewFilterSort(params) {
-  return fetchWrapper('POST', '/api/av/getAttributeViewFilterSort', params, true);
-}
+  getAttributeViewFilterSort(params) {
+    return this.fetcher('POST', '/api/av/getAttributeViewFilterSort', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetAttributeViewKeysParams} AvGetAttributeViewKeysParams
+ * @typedef {import('./index.d.ts').AvGetAttributeViewKeysResponse} AvGetAttributeViewKeysResponse
  * 获取指定属性视图ID的所有列定义 (keys)。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAttributeViewKeysResponse>}
- * @param {string} params.id 属性视图的 ID
+ * @param {AvGetAttributeViewKeysParams} params - Request parameters.
+ * @returns {Promise<AvGetAttributeViewKeysResponse>}
  */
-export async function getAttributeViewKeys(params) {
-  return fetchWrapper('POST', '/api/av/getAttributeViewKeys', params, true);
-}
+  getAttributeViewKeys(params) {
+    return this.fetcher('POST', '/api/av/getAttributeViewKeys', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetAttributeViewKeysByAvIDParams} AvGetAttributeViewKeysByAvIDParams
+ * @typedef {import('./index.d.ts').AvGetAttributeViewKeysByAvIDResponse} AvGetAttributeViewKeysByAvIDResponse
  * 通过属性视图ID获取其所有列定义 (keys)。(此接口功能上可能与 getAttributeViewKeys 重复，需确认)
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAttributeViewKeysByAvIDResponse>}
- * @param {string} params.avID 属性视图的 ID
+ * @param {AvGetAttributeViewKeysByAvIDParams} params - Request parameters.
+ * @returns {Promise<AvGetAttributeViewKeysByAvIDResponse>}
  */
-export async function getAttributeViewKeysByAvID(params) {
-  return fetchWrapper('POST', '/api/av/getAttributeViewKeysByAvID', params, true);
-}
+  getAttributeViewKeysByAvID(params) {
+    return this.fetcher('POST', '/api/av/getAttributeViewKeysByAvID', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetAttributeViewPrimaryKeyValuesParams} AvGetAttributeViewPrimaryKeyValuesParams
+ * @typedef {import('./index.d.ts').AvGetAttributeViewPrimaryKeyValuesResponse} AvGetAttributeViewPrimaryKeyValuesResponse
  * 获取指定属性视图的主键列的值，支持分页和关键词搜索。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAttributeViewPrimaryKeyValuesResponse>}
- * @param {string} params.id 属性视图的 ID
- * @param {string} [params.keyword] keyword
- * @param {number} [params.page] page
- * @param {number} [params.pageSize] pageSize
+ * @param {AvGetAttributeViewPrimaryKeyValuesParams} params - Request parameters.
+ * @returns {Promise<AvGetAttributeViewPrimaryKeyValuesResponse>}
  */
-export async function getAttributeViewPrimaryKeyValues(params) {
-  return fetchWrapper('POST', '/api/av/getAttributeViewPrimaryKeyValues', params, true);
-}
+  getAttributeViewPrimaryKeyValues(params) {
+    return this.fetcher('POST', '/api/av/getAttributeViewPrimaryKeyValues', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvGetMirrorDatabaseBlocksParams} AvGetMirrorDatabaseBlocksParams
+ * @typedef {import('./index.d.ts').AvGetMirrorDatabaseBlocksResponse} AvGetMirrorDatabaseBlocksResponse
  * 获取指定属性视图ID的镜像数据库块ID列表。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetMirrorDatabaseBlocksResponse>}
- * @param {string} params.avID 属性视图的 ID
+ * @param {AvGetMirrorDatabaseBlocksParams} params - Request parameters.
+ * @returns {Promise<AvGetMirrorDatabaseBlocksResponse>}
  */
-export async function getMirrorDatabaseBlocks(params) {
-  return fetchWrapper('POST', '/api/av/getMirrorDatabaseBlocks', params, true);
-}
+  getMirrorDatabaseBlocks(params) {
+    return this.fetcher('POST', '/api/av/getMirrorDatabaseBlocks', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvRemoveAttributeViewBlocksParams} AvRemoveAttributeViewBlocksParams
+ * @typedef {import('./index.d.ts').AvRemoveAttributeViewBlocksResponse} AvRemoveAttributeViewBlocksResponse
  * 从指定的属性视图中移除一个或多个数据块。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveAttributeViewBlocksResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {Array<string>} params.srcIDs 要移除的源数据块的 ID 数组
+ * @param {AvRemoveAttributeViewBlocksParams} params - Request parameters.
+ * @returns {Promise<AvRemoveAttributeViewBlocksResponse>}
  */
-export async function removeAttributeViewBlocks(params) {
-  return fetchWrapper('POST', '/api/av/removeAttributeViewBlocks', params, true);
-}
+  removeAttributeViewBlocks(params) {
+    return this.fetcher('POST', '/api/av/removeAttributeViewBlocks', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvRemoveAttributeViewKeyParams} AvRemoveAttributeViewKeyParams
+ * @typedef {import('./index.d.ts').AvRemoveAttributeViewKeyResponse} AvRemoveAttributeViewKeyResponse
  * 从指定的属性视图移除一个列定义。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveAttributeViewKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyID 要移除的列的 ID
- * @param {boolean} [params.removeRelationDest] removeRelationDest
+ * @param {AvRemoveAttributeViewKeyParams} params - Request parameters.
+ * @returns {Promise<AvRemoveAttributeViewKeyResponse>}
  */
-export async function removeAttributeViewKey(params) {
-  return fetchWrapper('POST', '/api/av/removeAttributeViewKey', params, true);
-}
+  removeAttributeViewKey(params) {
+    return this.fetcher('POST', '/api/av/removeAttributeViewKey', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvRenderAttributeViewParams} AvRenderAttributeViewParams
+ * @typedef {import('./index.d.ts').AvRenderAttributeViewResponse} AvRenderAttributeViewResponse
  * 渲染属性视图，获取其名称、视图类型、视图ID、所有视图、当前视图详情以及是否为镜像等信息。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<RenderAttributeViewResponse>}
- * @param {string} params.id 属性视图的 ID
- * @param {string} [params.viewID] viewID
- * @param {string} [params.query] query
- * @param {number} [params.page] page
- * @param {number} [params.pageSize] pageSize
+ * @param {AvRenderAttributeViewParams} params - Request parameters.
+ * @returns {Promise<AvRenderAttributeViewResponse>}
  */
-export async function renderAttributeView(params) {
-  return fetchWrapper('POST', '/api/av/renderAttributeView', params, true);
-}
+  renderAttributeView(params) {
+    return this.fetcher('POST', '/api/av/renderAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvRenderHistoryAttributeViewParams} AvRenderHistoryAttributeViewParams
+ * @typedef {import('./index.d.ts').AvRenderHistoryAttributeViewResponse} AvRenderHistoryAttributeViewResponse
  * 渲染指定历史版本的属性视图。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<RenderHistoryAttributeViewResponse>}
- * @param {string} params.id 属性视图的 ID
- * @param {string} params.created 历史版本创建的时间戳字符串 (毫秒级)
+ * @param {AvRenderHistoryAttributeViewParams} params - Request parameters.
+ * @returns {Promise<AvRenderHistoryAttributeViewResponse>}
  */
-export async function renderHistoryAttributeView(params) {
-  return fetchWrapper('POST', '/api/av/renderHistoryAttributeView', params, true);
-}
+  renderHistoryAttributeView(params) {
+    return this.fetcher('POST', '/api/av/renderHistoryAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvRenderSnapshotAttributeViewParams} AvRenderSnapshotAttributeViewParams
+ * @typedef {import('./index.d.ts').AvRenderSnapshotAttributeViewResponse} AvRenderSnapshotAttributeViewResponse
  * 渲染指定快照索引的属性视图。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<RenderSnapshotAttributeViewResponse>}
- * @param {string} params.snapshot 快照的路径或标识
- * @param {string} params.id 属性视图的 ID
+ * @param {AvRenderSnapshotAttributeViewParams} params - Request parameters.
+ * @returns {Promise<AvRenderSnapshotAttributeViewResponse>}
  */
-export async function renderSnapshotAttributeView(params) {
-  return fetchWrapper('POST', '/api/av/renderSnapshotAttributeView', params, true);
-}
+  renderSnapshotAttributeView(params) {
+    return this.fetcher('POST', '/api/av/renderSnapshotAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewParams} AvSearchAttributeViewParams
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewResponse} AvSearchAttributeViewResponse
  * 根据关键词搜索属性视图，可排除指定ID。
  * (Requires authentication, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchAttributeViewResponse>}
- * @param {string} params.keyword 搜索关键词
- * @param {Array<string>} [params.excludes] excludes
+ * @param {AvSearchAttributeViewParams} params - Request parameters.
+ * @returns {Promise<AvSearchAttributeViewResponse>}
  */
-export async function searchAttributeView(params) {
-  return fetchWrapper('POST', '/api/av/searchAttributeView', params, true);
-}
+  searchAttributeView(params) {
+    return this.fetcher('POST', '/api/av/searchAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewNonRelationKeyParams} AvSearchAttributeViewNonRelationKeyParams
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewNonRelationKeyResponse} AvSearchAttributeViewNonRelationKeyResponse
  * 根据关键词搜索指定属性视图的非关联列 (Non-relation Key)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchAttributeViewNonRelationKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyword 搜索关键词
+ * @param {AvSearchAttributeViewNonRelationKeyParams} params - Request parameters.
+ * @returns {Promise<AvSearchAttributeViewNonRelationKeyResponse>}
  */
-export async function searchAttributeViewNonRelationKey(params) {
-  return fetchWrapper('POST', '/api/av/searchAttributeViewNonRelationKey', params, true);
-}
+  searchAttributeViewNonRelationKey(params) {
+    return this.fetcher('POST', '/api/av/searchAttributeViewNonRelationKey', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewRelationKeyParams} AvSearchAttributeViewRelationKeyParams
+ * @typedef {import('./index.d.ts').AvSearchAttributeViewRelationKeyResponse} AvSearchAttributeViewRelationKeyResponse
  * 根据关键词搜索指定属性视图的关联列 (Relation Key)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchAttributeViewRelationKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyword 搜索关键词
+ * @param {AvSearchAttributeViewRelationKeyParams} params - Request parameters.
+ * @returns {Promise<AvSearchAttributeViewRelationKeyResponse>}
  */
-export async function searchAttributeViewRelationKey(params) {
-  return fetchWrapper('POST', '/api/av/searchAttributeViewRelationKey', params, true);
-}
+  searchAttributeViewRelationKey(params) {
+    return this.fetcher('POST', '/api/av/searchAttributeViewRelationKey', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSetAttributeViewBlockAttrParams} AvSetAttributeViewBlockAttrParams
+ * @typedef {import('./index.d.ts').AvSetAttributeViewBlockAttrResponse} AvSetAttributeViewBlockAttrResponse
  * 更新属性视图中指定行（块ID）、指定列（KeyID）的单元格的值。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetAttributeViewBlockAttrResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyID 列的 ID (Key ID)
- * @param {string} params.rowID 行的 ID (通常是数据块的 ID)
- * @param {any} params.value 要设置的新值，具体类型取决于列的类型
+ * @param {AvSetAttributeViewBlockAttrParams} params - Request parameters.
+ * @returns {Promise<AvSetAttributeViewBlockAttrResponse>}
  */
-export async function setAttributeViewBlockAttr(params) {
-  return fetchWrapper('POST', '/api/av/setAttributeViewBlockAttr', params, true);
-}
+  setAttributeViewBlockAttr(params) {
+    return this.fetcher('POST', '/api/av/setAttributeViewBlockAttr', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSetDatabaseBlockViewParams} AvSetDatabaseBlockViewParams
+ * @typedef {import('./index.d.ts').AvSetDatabaseBlockViewResponse} AvSetDatabaseBlockViewResponse
  * 设置指定数据库块（属性视图块）的默认视图ID。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetDatabaseBlockViewResponse>}
- * @param {string} params.id 数据库块（属性视图块）的 ID
- * @param {string} params.viewID 要设置为默认视图的视图 ID
+ * @param {AvSetDatabaseBlockViewParams} params - Request parameters.
+ * @returns {Promise<AvSetDatabaseBlockViewResponse>}
  */
-export async function setDatabaseBlockView(params) {
-  return fetchWrapper('POST', '/api/av/setDatabaseBlockView', params, true);
-}
+  setDatabaseBlockView(params) {
+    return this.fetcher('POST', '/api/av/setDatabaseBlockView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSortAttributeViewKeyParams} AvSortAttributeViewKeyParams
+ * @typedef {import('./index.d.ts').AvSortAttributeViewKeyResponse} AvSortAttributeViewKeyResponse
  * 对属性视图的列进行排序。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SortAttributeViewKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.keyID 要移动的列的 ID
- * @param {string} params.previousKeyID 目标位置：将列移动到此列 ID 之前
+ * @param {AvSortAttributeViewKeyParams} params - Request parameters.
+ * @returns {Promise<AvSortAttributeViewKeyResponse>}
  */
-export async function sortAttributeViewKey(params) {
-  return fetchWrapper('POST', '/api/av/sortAttributeViewKey', params, true);
-}
+  sortAttributeViewKey(params) {
+    return this.fetcher('POST', '/api/av/sortAttributeViewKey', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AvSortAttributeViewViewKeyParams} AvSortAttributeViewViewKeyParams
+ * @typedef {import('./index.d.ts').AvSortAttributeViewViewKeyResponse} AvSortAttributeViewViewKeyResponse
  * 对属性视图中某个特定视图（如图表、看板等）的列进行排序。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SortAttributeViewViewKeyResponse>}
- * @param {string} params.avID 属性视图的 ID
- * @param {string} params.viewID 特定视图的 ID
- * @param {string} params.keyID 要移动的列的 ID
- * @param {string} params.previousKeyID 目标位置：将列移动到此列 ID 之前
+ * @param {AvSortAttributeViewViewKeyParams} params - Request parameters.
+ * @returns {Promise<AvSortAttributeViewViewKeyResponse>}
  */
-export async function sortAttributeViewViewKey(params) {
-  return fetchWrapper('POST', '/api/av/sortAttributeViewViewKey', params, true);
-}
+  sortAttributeViewViewKey(params) {
+    return this.fetcher('POST', '/api/av/sortAttributeViewViewKey', params, true);
+  }
 
+}

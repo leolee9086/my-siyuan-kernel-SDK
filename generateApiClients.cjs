@@ -6,8 +6,10 @@ const z = require('zod');
 const API_DEFS_DIR = path.join(__dirname, 'apiDefs');
 const OUTPUT_CLIENT_DIR = path.join(__dirname, 'client');
 const OUTPUT_DTS_FILE = path.join(OUTPUT_CLIENT_DIR, 'index.d.ts');
+const OUTPUT_CLIENT_INDEX_JS_PATH = path.join(OUTPUT_CLIENT_DIR, 'index.js');
 
 const GENERATED_TYPES = {};
+const collectedApiGroups = [];
 
 // Helper to check if an object is a Zod schema (ZodRawShape)
 const isZodRawShape = (obj) => {
@@ -30,6 +32,7 @@ function parseZodSchemaDef(schemaDef, baseTypeNameForTs, lazyBeingProcessed) {
     let currentDef = schemaDef;
     let isOptional = false;
     let isNullable = false;
+    let generatedInterfaceName = null;
 
     while (
         currentDef.typeName === z.ZodFirstPartyTypeKind.ZodOptional ||
@@ -118,9 +121,11 @@ function parseZodSchemaDef(schemaDef, baseTypeNameForTs, lazyBeingProcessed) {
                     GENERATED_TYPES[baseTypeNameForTs] = `interface ${baseTypeNameForTs} {\n${tsProps}}`;
                     tsType = baseTypeNameForTs;
                     jsDocType = baseTypeNameForTs; // Ensure JSDoc type also uses the interface name
+                    generatedInterfaceName = baseTypeNameForTs;
                 } else if (baseTypeNameForTs && GENERATED_TYPES[baseTypeNameForTs]) {
                     tsType = baseTypeNameForTs;
                     jsDocType = baseTypeNameForTs; // Ensure JSDoc type also uses the interface name
+                    generatedInterfaceName = baseTypeNameForTs;
                 } else {
                     let inlineProps = '';
                     for (const key in properties) {
@@ -158,8 +163,18 @@ function parseZodSchemaDef(schemaDef, baseTypeNameForTs, lazyBeingProcessed) {
         case z.ZodFirstPartyTypeKind.ZodRecord:
             recordKeyType = parseZodSchemaDef(mainDef.keyType._def, `${baseTypeNameForTs}Key`, lazyBeingProcessed);
             recordValueType = parseZodSchemaDef(mainDef.valueType._def, `${baseTypeNameForTs}Value`, lazyBeingProcessed);
-            // Use Record<K, V> for JSDoc type for better compatibility
-            jsDocType = `Record<${recordKeyType.jsDocType.split(' ')[0]}, ${recordValueType.jsDocType.split(' ')[0]}>`;
+            
+            let keyJsDocPart = recordKeyType.jsDocType.split(' ')[0].trim();
+            let valueJsDocPart = recordValueType.jsDocType.split(' ')[0].trim();
+            console.log(`[DEBUG ZodRecord] baseTypeNameForTs: ${baseTypeNameForTs}, keyJsDocPart: '${keyJsDocPart}', valueJsDocPart: '${valueJsDocPart}'`); // <--- 添加这行
+            // If valueJsDocPart is an empty string after trimming, or if it's 'any',
+            // then the record's value type for JSDoc should be 'any'.
+            if (!valueJsDocPart || valueJsDocPart === 'any') {
+                jsDocType = `Record<${keyJsDocPart}, any>`;
+            } else {
+                jsDocType = `Record<${keyJsDocPart}, ${valueJsDocPart}>`;
+            }
+
             tsType = `Record<${recordKeyType.tsType}, ${recordValueType.tsType}>`;
             break;
         case z.ZodFirstPartyTypeKind.ZodLazy:
@@ -242,6 +257,7 @@ function parseZodSchemaDef(schemaDef, baseTypeNameForTs, lazyBeingProcessed) {
         literalValue: literalValue,
         recordKeyType: recordKeyType,
         recordValueType: recordValueType,
+        generatedInterfaceName: generatedInterfaceName
     };
 }
 
@@ -307,50 +323,73 @@ function parseSchema(schemaFn, apiNameForContext, baseTypeNameForTs, lazyBeingPr
     }
 }
 
-function generateJsDocPropertiesForObject(properties, baseParamName, forReturn = false, indent = ' * ') {
+function generateJsDocPropertiesForObject(properties, baseParamName, forReturn = false, indent = ' * ', collectedTypedefs = new Set()) {
     let propLines = [];
     if (!properties) return propLines;
 
     for (const key in properties) {
         const propInfo = properties[key];
-        const actualType = propInfo.jsDocType.split(' ')[0];
+        let actualType = propInfo.jsDocType;
+        if (actualType.endsWith(' | null')) {
+            actualType = actualType.substring(0, actualType.length - ' | null'.length).trim();
+        }
+        if (!actualType) actualType = 'any';
+
         const description = propInfo.description || key;
+        const typeForJsDoc = propInfo.generatedInterfaceName || actualType.replace('?', '');
+
+        // If this property's type is a generated interface, add it to typedefs
+        if (propInfo.generatedInterfaceName) {
+            collectedTypedefs.add(` * @typedef {import('./index.d.ts').${propInfo.generatedInterfaceName}} ${propInfo.generatedInterfaceName}`);
+        }
 
         if (forReturn) {
-            // If baseParamName is empty, we are at the top-level of the return object's properties.
-            // In this case, we should not generate @property tags here, as the details
-            // should be within the named interface type used in @returns {Promise<InterfaceName>}.
-            if (baseParamName === '') {
-                // Do nothing, skip generating @property for top-level return object fields.
+            // For @property, if it's a top-level named interface, we skip, handled by @returns {Promise<InterfaceName>}
+            // Otherwise, or if nested, generate @property.
+            if (baseParamName === '' && propInfo.generatedInterfaceName) {
+                // Skip, top-level return object properties are not listed if return is a named interface
             } else {
-                // This case would be for documenting nested properties like @property foo.bar : type
-                // However, with current calling patterns, this branch might not be frequently hit for return values.
                 const optionalMarker = propInfo.isOptional ? '?' : '';
-                propLines.push(`${indent}@property {${actualType}} ${key}${optionalMarker} ${description}`);
+                propLines.push(`${indent}@property {${typeForJsDoc}} ${key}${optionalMarker} ${description}`);
             }
         } else {
             const paramOptionalSyntax = propInfo.isOptional ? `[${baseParamName}.${key}]` : `${baseParamName}.${key}`;
-            propLines.push(`${indent}@param {${actualType}} ${paramOptionalSyntax} ${description}`);
+            propLines.push(`${indent}@param {${typeForJsDoc}} ${paramOptionalSyntax} ${description}`);
         }
 
-        if (propInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && propInfo.properties && !forReturn) {
-            propLines = propLines.concat(generateJsDocPropertiesForObject(propInfo.properties, `${baseParamName}.${key}`, false, indent));
+        // Recurse for ZodObject properties only if they did NOT result in a generated interface name for themselves.
+        // If they did, their structure is defined by the @typedef and TS interface.
+        if (propInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && propInfo.properties && !propInfo.generatedInterfaceName) {
+            propLines = propLines.concat(generateJsDocPropertiesForObject(propInfo.properties, `${baseParamName}.${key}`, forReturn, indent, collectedTypedefs));
         }
     }
     return propLines;
 }
 
 async function generateClient() {
-    const lazyBeingProcessed = new Map(); // Initialize map for tracking ZodLazy processing
+    const lazyBeingProcessed = new Map();
     try {
         await fs.mkdir(OUTPUT_CLIENT_DIR, { recursive: true });
     } catch (e) { /* ignore if exists */ }
 
     const apiDefFiles = (await fs.readdir(API_DEFS_DIR)).filter(f => f.endsWith('.js') && !f.startsWith('AInote') && !f.startsWith('validateApiDefs'));
-    let allModuleDtsEntries = [];
+    let allGroupApiInterfacesDts = '';
+
+    for (const key in GENERATED_TYPES) {
+        delete GENERATED_TYPES[key];
+    }
+    collectedApiGroups.length = 0;
 
     for (const defFile of apiDefFiles) {
         const groupName = defFile.replace('.js', '');
+        const groupClassName = `${capitalizeFirstLetter(groupName)}Api`;
+        let groupInstanceName = groupName.includes('-') 
+            ? groupName.toLowerCase().replace(/-([a-z])/g, (match, letter) => letter.toUpperCase())
+            : (groupName.charAt(0).toLowerCase() + groupName.slice(1));
+        if (groupInstanceName === "export") groupInstanceName = "_export";
+
+        collectedApiGroups.push({ groupName, groupClassName, groupInstanceName });
+
         const defFilePath = path.join(API_DEFS_DIR, defFile);
         const fileUrl = pathToFileURL(defFilePath).href + '?t=' + Date.now();
 
@@ -369,38 +408,8 @@ async function generateClient() {
             continue;
         }
 
-        let jsModuleContent = `// Generated client for API group ${groupName}\n`;
-        jsModuleContent += `// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)\n`;
-        // Un-comment the fetchWrapper by removing /* and */
-        jsModuleContent += `async function fetchWrapper(method, endpoint, params, needAuth) {\n`;
-        jsModuleContent += `  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';\n`;
-        jsModuleContent += `  const url = SiyuanKernelPrefix + endpoint;\n`;
-        jsModuleContent += `  const options = { method, headers: {} };\n`;
-        jsModuleContent += `  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty\n`;
-        jsModuleContent += `    options.headers['Content-Type'] = 'application/json';\n`;
-        jsModuleContent += `    options.body = JSON.stringify(params);\n`;
-        jsModuleContent += `  }\n`;
-        jsModuleContent += `  if (needAuth) {\n`;
-        jsModuleContent += `    // Example: Retrieve and add auth token\n`;
-        jsModuleContent += `    // const token = localStorage.getItem('siyuan-auth-token'); \n`;
-        jsModuleContent += `    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder\n`;
-        jsModuleContent += `  }\n`;
-        jsModuleContent += `  const response = await fetch(url, options);\n`;
-        jsModuleContent += `  if (!response.ok) {\n`;
-        jsModuleContent += `    let errorData = 'Failed to parse error response';\n`;
-        jsModuleContent += `    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}\
-`;
-        jsModuleContent += `    console.error('API Error:', response.status, errorData); \n`;
-        jsModuleContent += `    throw new Error(\`API Error \${response.status}: \${JSON.stringify(errorData)}\`);\n`;
-        jsModuleContent += `  }\n`;
-        jsModuleContent += `  const contentType = response.headers.get('content-type');\n`;
-        jsModuleContent += `  if (contentType && contentType.includes('application/json')) {\n`;
-        jsModuleContent += `    return response.json();\n`;
-        jsModuleContent += `  } \n`;
-        jsModuleContent += `  return response.text(); // Or handle other content types\n`;
-        jsModuleContent += `}\n\n`;
-
-        let tsModuleFuncDeclarations = '';
+        let jsClassMethodsForGroup = '';
+        let tsGroupInterfaceMethods = '';
 
         for (const apiDef of apiDefsInFile) {
             const apiName = getApiNameFromDef(apiDef);
@@ -409,13 +418,43 @@ async function generateClient() {
                 continue;
             }
 
-            const reqInterfaceName = `${capitalizeFirstLetter(apiName)}Params`;
-            const resInterfaceName = `${capitalizeFirstLetter(apiName)}Response`;
+            const apiNameForContext = `${capitalizeFirstLetter(groupName)}${capitalizeFirstLetter(apiName)}`;
+            const reqInterfaceName = `${apiNameForContext}Params`;
+            const resInterfaceName = `${apiNameForContext}Response`;
+            
+            lazyBeingProcessed.clear();
+            const parsedReqInfo = parseSchema(apiDef.zodRequestSchema, `${apiNameForContext} Request`, reqInterfaceName, lazyBeingProcessed);
+            lazyBeingProcessed.clear();
+            const parsedResInfo = parseSchema(apiDef.zodResponseSchema, `${apiNameForContext} Response`, resInterfaceName, lazyBeingProcessed);
 
-            const parsedReqInfo = parseSchema(apiDef.zodRequestSchema, `${apiName} Request`, reqInterfaceName, lazyBeingProcessed);
-            const parsedResInfo = parseSchema(apiDef.zodResponseSchema, `${apiName} Response`, resInterfaceName, lazyBeingProcessed);
+            const collectedTypedefs = new Set();
 
             let jsDoc = '/**\n';
+
+            // Add typedef for request if it's a named interface
+            if (parsedReqInfo.generatedInterfaceName) {
+                 collectedTypedefs.add(` * @typedef {import('./index.d.ts').${parsedReqInfo.generatedInterfaceName}} ${parsedReqInfo.generatedInterfaceName}`);
+            }
+            // Add typedef for response if it's a named interface
+            if (parsedResInfo.generatedInterfaceName) {
+                 collectedTypedefs.add(` * @typedef {import('./index.d.ts').${parsedResInfo.generatedInterfaceName}} ${parsedResInfo.generatedInterfaceName}`);
+            }
+
+            // Collect typedefs from nested properties (for params only, return properties are not expanded if return is an interface)
+            if (parsedReqInfo.properties && !parsedReqInfo.generatedInterfaceName) { // If request is an inline object
+                generateJsDocPropertiesForObject(parsedReqInfo.properties, 'params', false, ' * ', collectedTypedefs);
+            } else if (parsedReqInfo.properties && parsedReqInfo.generatedInterfaceName) { // If request is a named interface, still scan its props for further typedefs
+                 generateJsDocPropertiesForObject(parsedReqInfo.properties, 'params', false, ' * ', collectedTypedefs); 
+            }
+
+            if (parsedResInfo.properties && !parsedResInfo.generatedInterfaceName) { // If response is an inline object, scan its props for typedefs
+                generateJsDocPropertiesForObject(parsedResInfo.properties, '', true, ' * ', collectedTypedefs);
+            }
+            
+            if (collectedTypedefs.size > 0) {
+                jsDoc += Array.from(collectedTypedefs).join('\n') + '\n';
+            }
+
             jsDoc += ` * ${apiDef.description || apiName}\n`;
             let authNotes = [];
             if (apiDef.needAuth) authNotes.push('Requires authentication');
@@ -426,54 +465,66 @@ async function generateClient() {
 
             let hasRequestPayload = parsedReqInfo.typeName !== z.ZodFirstPartyTypeKind.ZodVoid &&
                                 !(parsedReqInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && (!parsedReqInfo.properties || Object.keys(parsedReqInfo.properties).length === 0));
-            const jsDocParamLines = [];
+            
+            const jsDocLines = [];
             let paramsArgumentNameForJs = '';
+            let paramsArgumentForFetcher = 'undefined';
 
             if (hasRequestPayload) {
                 if (parsedReqInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && parsedReqInfo.properties && Object.keys(parsedReqInfo.properties).length > 0) {
                     paramsArgumentNameForJs = 'params';
-                    jsDoc += ` * @param {object} params - Request parameters.\n`;
-                    jsDocParamLines.push(...generateJsDocPropertiesForObject(parsedReqInfo.properties, 'params', false, ' * '));
+                    const paramTypeName = parsedReqInfo.generatedInterfaceName || 'object';
+                    jsDocLines.push(` * @param {${paramTypeName}} params - Request parameters.`);
+                    if (!parsedReqInfo.generatedInterfaceName) { // Only add sub-properties if not a named interface
+                        jsDocLines.push(...generateJsDocPropertiesForObject(parsedReqInfo.properties, 'params', false, ' * ', new Set())); // Pass new Set to avoid re-adding typedefs here
+                    }
+                    paramsArgumentForFetcher = 'params';
                 } else {
                     paramsArgumentNameForJs = 'payload';
                     const paramTypeBase = parsedReqInfo.jsDocType.split(' ')[0];
-                    jsDoc += ` * @param {${paramTypeBase}} payload ${parsedReqInfo.description ? '- ' + parsedReqInfo.description : ''}\n`;
+                    jsDocLines.push(` * @param {${paramTypeBase}} payload ${parsedReqInfo.description ? '- ' + parsedReqInfo.description : ''}`);
+                    paramsArgumentForFetcher = 'payload';
+                }
+            } else {
+                 if (apiDef.method === 'POST' || apiDef.method === 'PUT') {
+                    paramsArgumentForFetcher = '{}';
                 }
             }
-
-            const resJsDocTypeBase = parsedResInfo.jsDocType.split(' ')[0];
-            jsDoc += ` * @returns {Promise<${resJsDocTypeBase}>}${parsedResInfo.description ? ' ' + parsedResInfo.description : ''}\n`;
-            if (parsedResInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && parsedResInfo.properties) {
-                jsDocParamLines.push(...generateJsDocPropertiesForObject(parsedResInfo.properties, '', true, ' * '));
-            }
-            if(jsDocParamLines.length > 0) jsDoc += jsDocParamLines.join('\n') + '\n';
+            
+            const resJsDocTypeBase = parsedResInfo.generatedInterfaceName || parsedResInfo.jsDocType.split(' ')[0];
+            jsDocLines.push(` * @returns {Promise<${resJsDocTypeBase}>}${parsedResInfo.description ? ' ' + parsedResInfo.description : ''}`);
+            
+            if(jsDocLines.length > 0) jsDoc += jsDocLines.join('\n') + '\n';
             jsDoc += ` */\n`;
 
-            jsModuleContent += `${jsDoc}export async function ${apiName}(${paramsArgumentNameForJs}) {\n`;
-            // Call actual fetchWrapper instead of mock
-            jsModuleContent += `  return fetchWrapper('${apiDef.method}', '${apiDef.endpoint}', ${paramsArgumentNameForJs || 'undefined'}, ${!!apiDef.needAuth});\n`;
-            // jsModuleContent += `  console.log('Mock call to ${apiName} with:', ${paramsArgumentNameForJs || "\"'no params'\""});\n`;
-            // jsModuleContent += `  return Promise.resolve({}); // TODO: Ensure mock response matches Promise<${parsedResInfo.tsType}>\n`;
-            jsModuleContent += `}\n\n`;
+            jsClassMethodsForGroup += `  ${jsDoc}`;
+            jsClassMethodsForGroup += `  ${apiName}(${paramsArgumentNameForJs}) {\n`;
+            jsClassMethodsForGroup += `    return this.fetcher('${apiDef.method}', '${apiDef.endpoint}', ${paramsArgumentForFetcher}, ${!!apiDef.needAuth});\n`;
+            jsClassMethodsForGroup += `  }\n\n`;
 
             let tsReqParamType = 'void';
             let paramsArgumentNameForTs = '';
 
             if (hasRequestPayload) {
-                if (parsedReqInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && parsedReqInfo.properties && Object.keys(parsedReqInfo.properties).length > 0) {
+                 if (parsedReqInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && parsedReqInfo.properties && Object.keys(parsedReqInfo.properties).length > 0) {
                     tsReqParamType = reqInterfaceName;
                     paramsArgumentNameForTs = 'params';
+                    if (GENERATED_TYPES[reqInterfaceName]) { // Check if it's a generated interface
+                        // Correctly reference the interface name
+                    }
                 } else {
                     tsReqParamType = parsedReqInfo.tsType;
                     paramsArgumentNameForTs = 'payload';
                 }
             }
-
+            
             let tsResType = parsedResInfo.tsType;
-            if (parsedResInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && (!parsedResInfo.properties || Object.keys(parsedResInfo.properties).length === 0) && tsResType !== 'Record<string, never>') {
+             if (parsedResInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && (!parsedResInfo.properties || Object.keys(parsedResInfo.properties).length === 0) && tsResType !== 'Record<string, never>') {
                 tsResType = 'Record<string, never>';
-            } else if (tsResType === 'void' && parsedResInfo.typeName !== z.ZodFirstPartyTypeKind.ZodVoid) {
-                tsResType = 'void';
+            } else if (tsResType === 'void' && parsedResInfo.typeName !== z.ZodFirstPartyTypeKind.ZodVoid && !(parsedResInfo.typeName === z.ZodFirstPartyTypeKind.ZodObject && (!parsedResInfo.properties || Object.keys(parsedResInfo.properties).length === 0))) {
+                // This was an empty else if, removed.
+            } else if (GENERATED_TYPES[resInterfaceName] && parsedResInfo.tsType === resInterfaceName) { // Check if it's a generated interface for response
+                 // Correctly reference the interface name for response
             }
 
             const tsParamsList = [];
@@ -481,35 +532,107 @@ async function generateClient() {
                 tsParamsList.push(`${paramsArgumentNameForTs}: ${tsReqParamType}`);
             }
 
-            tsModuleFuncDeclarations += `  /**\n`;
-            tsModuleFuncDeclarations += `   * ${apiDef.description || apiName}\n`;
-            if (authNotes.length > 0) tsModuleFuncDeclarations += `   * (${authNotes.join(', ')})\n`;
-            if (apiDef.deprecated) tsModuleFuncDeclarations += `   * @deprecated\n`;
+            tsGroupInterfaceMethods += `  /**\n`;
+            tsGroupInterfaceMethods += `   * ${apiDef.description || apiName}\n`;
+            if (authNotes.length > 0) tsGroupInterfaceMethods += `   * (${authNotes.join(', ')})\n`;
+            if (apiDef.deprecated) tsGroupInterfaceMethods += `   * @deprecated\n`;
             if (paramsArgumentNameForTs === 'params') {
-                tsModuleFuncDeclarations += `   * @param params Request parameters (${reqInterfaceName})\n`;
+                tsGroupInterfaceMethods += `   * @param params Request parameters (${reqInterfaceName})\n`;
             } else if (paramsArgumentNameForTs === 'payload') {
-                tsModuleFuncDeclarations += `   * @param payload Request payload (${tsReqParamType})\n`;
+                tsGroupInterfaceMethods += `   * @param payload Request payload (${tsReqParamType})\n`;
             }
-            tsModuleFuncDeclarations += `   * @returns Promise<${tsResType}> ${parsedResInfo.description || ''}\n`;
-            tsModuleFuncDeclarations += `   */\n`;
-            tsModuleFuncDeclarations += `  export function ${apiName}(${tsParamsList.join(', ')}): Promise<${tsResType}>;\n\n`;
+            tsGroupInterfaceMethods += `   * @returns Promise<${tsResType}> ${parsedResInfo.description || ''}\n`;
+            tsGroupInterfaceMethods += `   */\n`;
+            tsGroupInterfaceMethods += `  ${apiName}(${tsParamsList.join(', ')}): Promise<${tsResType}>;\n\n`;
         }
 
+        const jsClientFileContent = `// Generated API client for group ${groupName}\nexport class ${groupClassName} {\n    constructor(fetcher) {\n        this.fetcher = fetcher;\n    }\n\n${jsClassMethodsForGroup}}\n`;
         const clientModulePath = path.join(OUTPUT_CLIENT_DIR, `${groupName}.js`);
-        await fs.writeFile(clientModulePath, jsModuleContent);
-        console.log(`Generated JS client: client/${groupName}.js`);
+        await fs.writeFile(clientModulePath, jsClientFileContent);
+        console.log(`Generated JS client class: client/${groupName}.js`);
 
-        if (tsModuleFuncDeclarations) {
-            allModuleDtsEntries.push(`declare module './${groupName}' {\n${tsModuleFuncDeclarations}}`);
+        if (tsGroupInterfaceMethods) {
+            allGroupApiInterfacesDts += `export interface ${groupClassName} {\n${tsGroupInterfaceMethods}}\n\n`;
         }
     }
 
-    let finalDtsContent = "// TypeScript definitions for generated API clients\n\n";
+    let indexJsContent = '// Main Siyuan SDK Client Entry Point\n\n';
+    for (const group of collectedApiGroups) {
+        indexJsContent += `import { ${group.groupClassName} } from './${group.groupName}.js';\n`;
+    }
+    indexJsContent += '\n';
 
+    indexJsContent += `export class SiyuanClient {\n`;
+    indexJsContent += `    constructor({ baseUrl = 'http://127.0.0.1:6806', apiToken = '', customFetch } = {}) {\n`;
+    indexJsContent += `        this.baseUrl = baseUrl.replace(/$/, ''); // Ensure no trailing slash\n`;
+    indexJsContent += `        this.apiToken = apiToken;\n`;
+    indexJsContent += `        this.fetchInstance = customFetch || (typeof window !== 'undefined' ? window.fetch.bind(window) : global.fetch);\n`;
+    indexJsContent += `    }\n\n`;
+
+    indexJsContent += `    async fetcher(method, endpoint, params, needAuth) {\n`;
+    indexJsContent += `        let actualUrl = this.baseUrl + endpoint;\n`;
+    indexJsContent += `        const options = { method, headers: {} };\n\n`;
+    indexJsContent += `        if (needAuth && this.apiToken) {\n`;
+    indexJsContent += `            options.headers['Authorization'] = \`Token \${this.apiToken}\`; \n`;
+    indexJsContent += `        }\n\n`;
+    indexJsContent += `        if (method === 'POST' || method === 'PUT') {\n`;
+    indexJsContent += `            options.headers['Content-Type'] = 'application/json';\n`;
+    indexJsContent += `            options.body = JSON.stringify(params || {});\n`;
+    indexJsContent += `        } else if ((method === 'GET' || method === 'DELETE') && params && Object.keys(params).length > 0) {\n`;
+    indexJsContent += `            const filteredParams = {};\n`;
+    indexJsContent += `            for (const key in params) {\n`;
+    indexJsContent += `                if (params[key] !== undefined && params[key] !== null) {\n`;
+    indexJsContent += `                    filteredParams[key] = params[key];\n`;
+    indexJsContent += `                }\n`;
+    indexJsContent += `            }\n`;
+    indexJsContent += `            if (Object.keys(filteredParams).length > 0) {\n`;
+    indexJsContent += `                const queryParams = new URLSearchParams(filteredParams);\n`;
+    indexJsContent += `                actualUrl += \`?\${queryParams.toString()}\`; \n`;
+    indexJsContent += `            }\n`;
+    indexJsContent += `        }\n\n`;
+    indexJsContent += `        const response = await this.fetchInstance(actualUrl, options);\n\n`;
+    indexJsContent += `        if (!response.ok) {\n`;
+    indexJsContent += `            let errorData = 'Failed to parse error response';\n`;
+    indexJsContent += `            try { errorData = await response.json(); } catch (e) { try { errorData = await response.text(); } catch (e2) { /* ignore */ } }\n`;
+    indexJsContent += `            console.error(\`API Error [\${method} \${actualUrl}]: \${response.status}\`, errorData);\n`;
+    indexJsContent += `            const err = new Error(\`API Error \${response.status} for \${method} \${endpoint}\`); \n`;
+    indexJsContent += `            err.data = errorData; err.status = response.status; err.response = response;\n`;
+    indexJsContent += `            throw err;\n`;
+    indexJsContent += `        }\n\n`;
+    indexJsContent += `        const contentType = response.headers.get('content-type');\n`;
+    indexJsContent += `        if (response.status === 204 || !contentType) { return undefined; }\n`;
+    indexJsContent += `        if (contentType.includes('application/json')) { return response.json(); }\n`;
+    indexJsContent += `        return response.text();\n`;
+    indexJsContent += `    }\n`;
+
+    indexJsContent += `\n    // API Group Instances\n`;
+    for (const group of collectedApiGroups) {
+        indexJsContent += `    ${group.groupInstanceName} = new ${group.groupClassName}(this.fetcher.bind(this));\n`;
+    }
+    indexJsContent += `}\n`;
+
+    await fs.writeFile(OUTPUT_CLIENT_INDEX_JS_PATH, indexJsContent);
+    console.log(`Generated SiyuanClient in: client/index.js`);
+
+    let finalDtsContent = "// TypeScript definitions for Siyuan API Client\n\n";
     for (const typeName in GENERATED_TYPES) {
         finalDtsContent += `${GENERATED_TYPES[typeName]}\n\n`;
     }
-    finalDtsContent += allModuleDtsEntries.join('\n\n');
+    finalDtsContent += allGroupApiInterfacesDts;
+    finalDtsContent += "\n";
+
+    finalDtsContent += "export interface SiyuanClientConfig {\n";
+    finalDtsContent += "  baseUrl?: string;\n";
+    finalDtsContent += "  apiToken?: string;\n";
+    finalDtsContent += "  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;\n";
+    finalDtsContent += "}\n\n";
+
+    finalDtsContent += "export class SiyuanClient {\n";
+    finalDtsContent += "  constructor(config?: SiyuanClientConfig);\n\n";
+    for (const group of collectedApiGroups) {
+        finalDtsContent += `  ${group.groupInstanceName}: ${group.groupClassName};\n`;
+    }
+    finalDtsContent += "}\n";
 
     await fs.writeFile(OUTPUT_DTS_FILE, finalDtsContent);
     console.log(`Generated TypeScript definitions file: ${OUTPUT_DTS_FILE.replace(__dirname, '')}`);

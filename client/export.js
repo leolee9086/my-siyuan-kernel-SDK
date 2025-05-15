@@ -1,360 +1,341 @@
-// Generated client for API group export
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group export
+export class ExportApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExport2LiandiParams} ExportExport2LiandiParams
+ * @typedef {import('./index.d.ts').ExportExport2LiandiResponse} ExportExport2LiandiResponse
  * 将指定的文档内容导出到链滴社区。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<Export2LiandiResponse>}
- * @param {string} params.id 要导出到链滴的文档ID
+ * @param {ExportExport2LiandiParams} params - Request parameters.
+ * @returns {Promise<ExportExport2LiandiResponse>}
  */
-export async function export2Liandi(params) {
-  return fetchWrapper('POST', '/api/export/export2Liandi', params, true);
-}
+  export2Liandi(params) {
+    return this.fetcher('POST', '/api/export/export2Liandi', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportAsFileParams} ExportExportAsFileParams
+ * @typedef {import('./index.d.ts').ExportExportAsFileResponse} ExportExportAsFileResponse
  * 接收上传的文件，将其保存到临时导出目录，并返回处理后的文件名及可访问路径。通常用于'另存为'等场景。文件通过 FormData 的 'file' 字段上传。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportAsFileResponse>}
- * @param {string} params.type 上传文件的MIME类型
+ * @param {ExportExportAsFileParams} params - Request parameters.
+ * @returns {Promise<ExportExportAsFileResponse>}
  */
-export async function exportAsFile(params) {
-  return fetchWrapper('POST', '/api/export/exportAsFile', params, true);
-}
+  exportAsFile(params) {
+    return this.fetcher('POST', '/api/export/exportAsFile', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportAsciiDocParams} ExportExportAsciiDocParams
+ * @typedef {import('./index.d.ts').ExportExportAsciiDocResponse} ExportExportAsciiDocResponse
  * 将指定的文档导出为 AsciiDoc 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportAsciiDocResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportAsciiDocParams} params - Request parameters.
+ * @returns {Promise<ExportExportAsciiDocResponse>}
  */
-export async function exportAsciiDoc(params) {
-  return fetchWrapper('POST', '/api/export/exportAsciiDoc', params, true);
-}
+  exportAsciiDoc(params) {
+    return this.fetcher('POST', '/api/export/exportAsciiDoc', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportAttributeViewParams} ExportExportAttributeViewParams
+ * @typedef {import('./index.d.ts').ExportExportAttributeViewResponse} ExportExportAttributeViewResponse
  * 将指定的属性视图导出为 CSV 压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportAttributeViewResponse>}
- * @param {string} params.id 属性视图的ID (avID)
- * @param {string} params.blockID 包含该属性视图的块ID
+ * @param {ExportExportAttributeViewParams} params - Request parameters.
+ * @returns {Promise<ExportExportAttributeViewResponse>}
  */
-export async function exportAttributeView(params) {
-  return fetchWrapper('POST', '/api/export/exportAttributeView', params, true);
-}
+  exportAttributeView(params) {
+    return this.fetcher('POST', '/api/export/exportAttributeView', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportDataResponse} ExportExportDataResponse
  * 导出当前工作空间的全部数据为一个 .zip 压缩文件。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<ExportDataResponse>}
+ * @returns {Promise<ExportExportDataResponse>}
  */
-export async function exportData() {
-  return fetchWrapper('POST', '/api/export/exportData', undefined, true);
-}
+  exportData() {
+    return this.fetcher('POST', '/api/export/exportData', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportDataInFolderParams} ExportExportDataInFolderParams
+ * @typedef {import('./index.d.ts').ExportExportDataInFolderResponse} ExportExportDataInFolderResponse
  * 导出指定文件夹内的所有数据为一个压缩包。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportDataInFolderResponse>}
- * @param {string} params.folder 要导出数据的文件夹路径 (相对于工作空间data目录)
+ * @param {ExportExportDataInFolderParams} params - Request parameters.
+ * @returns {Promise<ExportExportDataInFolderResponse>}
  */
-export async function exportDataInFolder(params) {
-  return fetchWrapper('POST', '/api/export/exportDataInFolder', params, true);
-}
+  exportDataInFolder(params) {
+    return this.fetcher('POST', '/api/export/exportDataInFolder', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportDocxParams} ExportExportDocxParams
+ * @typedef {import('./index.d.ts').ExportExportDocxResponse} ExportExportDocxResponse
  * 将指定的文档导出为 DOCX (.docx) 文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportDocxResponse>}
- * @param {string} params.id 要导出的文档ID
- * @param {string} params.savePath 服务器上保存 .docx 文件的绝对路径
- * @param {boolean} params.removeAssets 是否移除导出的 Word 文件中包含的资源文件（如图片）的原始文件
- * @param {boolean} [params.merge] merge
+ * @param {ExportExportDocxParams} params - Request parameters.
+ * @returns {Promise<ExportExportDocxResponse>}
  */
-export async function exportDocx(params) {
-  return fetchWrapper('POST', '/api/export/exportDocx', params, true);
-}
+  exportDocx(params) {
+    return this.fetcher('POST', '/api/export/exportDocx', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportEPUBParams} ExportExportEPUBParams
+ * @typedef {import('./index.d.ts').ExportExportEPUBResponse} ExportExportEPUBResponse
  * 将指定的文档导出为 EPUB 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportEPUBResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportEPUBParams} params - Request parameters.
+ * @returns {Promise<ExportExportEPUBResponse>}
  */
-export async function exportEPUB(params) {
-  return fetchWrapper('POST', '/api/export/exportEPUB', params, true);
-}
+  exportEPUB(params) {
+    return this.fetcher('POST', '/api/export/exportEPUB', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportHTMLParams} ExportExportHTMLParams
+ * @typedef {import('./index.d.ts').ExportExportHTMLResponse} ExportExportHTMLResponse
  * 将指定文档导出为标准的、包含完整思源主题样式和脚本的 HTML 内容，通常用于生成可独立浏览的 HTML 文件或作为导出 PDF 的中间步骤。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportHTMLResponse>}
- * @param {string} params.id 要导出的文档ID
- * @param {boolean} params.pdf 是否为导出 PDF 进行预处理（例如，处理链接和资源路径以适应 PDF 生成环境）
- * @param {string} params.savePath 服务器上保存 HTML 文件的绝对路径 (如果 pdf 为 true，则此路径可能用于临时存储)
- * @param {boolean} [params.keepFold] keepFold
- * @param {boolean} [params.merge] merge
+ * @param {ExportExportHTMLParams} params - Request parameters.
+ * @returns {Promise<ExportExportHTMLResponse>}
  */
-export async function exportHTML(params) {
-  return fetchWrapper('POST', '/api/export/exportHTML', params, true);
-}
+  exportHTML(params) {
+    return this.fetcher('POST', '/api/export/exportHTML', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportMdParams} ExportExportMdParams
+ * @typedef {import('./index.d.ts').ExportExportMdResponse} ExportExportMdResponse
  * 将指定的单个文档导出为 Markdown 文件，并打包成一个 .zip 压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportMdResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportMdParams} params - Request parameters.
+ * @returns {Promise<ExportExportMdResponse>}
  */
-export async function exportMd(params) {
-  return fetchWrapper('POST', '/api/export/exportMd', params, true);
-}
+  exportMd(params) {
+    return this.fetcher('POST', '/api/export/exportMd', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportMdContentParams} ExportExportMdContentParams
+ * @typedef {import('./index.d.ts').ExportExportMdContentResponse} ExportExportMdContentResponse
  * 获取指定文档的 Markdown 文本内容，可自定义块引用和嵌入块的处理方式以及是否包含 YAML Front Matter。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportMdContentResponse>}
- * @param {string} params.id 要导出 Markdown 内容的文档ID
- * @param {number} [params.refMode] refMode
- * @param {number} [params.embedMode] embedMode
- * @param {boolean} [params.yfm] yfm
+ * @param {ExportExportMdContentParams} params - Request parameters.
+ * @returns {Promise<ExportExportMdContentResponse>}
  */
-export async function exportMdContent(params) {
-  return fetchWrapper('POST', '/api/export/exportMdContent', params, true);
-}
+  exportMdContent(params) {
+    return this.fetcher('POST', '/api/export/exportMdContent', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportMdHTMLParams} ExportExportMdHTMLParams
+ * @typedef {import('./index.d.ts').ExportExportMdHTMLResponse} ExportExportMdHTMLResponse
  * 获取指定文档渲染后的纯 HTML 内容（不包含完整主题样式和脚本，主要用于内容嵌入）。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportMdHTMLResponse>}
- * @param {string} params.id 要导出 HTML 内容的文档ID
- * @param {string} params.savePath 服务器上保存 HTML 文件的绝对路径 (此参数在后端代码中存在但似乎未实际用于此接口，可能为遗留或通用逻辑)
+ * @param {ExportExportMdHTMLParams} params - Request parameters.
+ * @returns {Promise<ExportExportMdHTMLResponse>}
  */
-export async function exportMdHTML(params) {
-  return fetchWrapper('POST', '/api/export/exportMdHTML', params, true);
-}
+  exportMdHTML(params) {
+    return this.fetcher('POST', '/api/export/exportMdHTML', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportMdsParams} ExportExportMdsParams
+ * @typedef {import('./index.d.ts').ExportExportMdsResponse} ExportExportMdsResponse
  * 将指定的多个文档分别导出为 Markdown 文件，并打包成一个 .zip 压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportMdsResponse>}
- * @param {Array<string>} params.ids 要导出的文档ID数组
+ * @param {ExportExportMdsParams} params - Request parameters.
+ * @returns {Promise<ExportExportMdsResponse>}
  */
-export async function exportMds(params) {
-  return fetchWrapper('POST', '/api/export/exportMds', params, true);
-}
+  exportMds(params) {
+    return this.fetcher('POST', '/api/export/exportMds', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportMediaWikiParams} ExportExportMediaWikiParams
+ * @typedef {import('./index.d.ts').ExportExportMediaWikiResponse} ExportExportMediaWikiResponse
  * 将指定的文档导出为 MediaWiki 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportMediaWikiResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportMediaWikiParams} params - Request parameters.
+ * @returns {Promise<ExportExportMediaWikiResponse>}
  */
-export async function exportMediaWiki(params) {
-  return fetchWrapper('POST', '/api/export/exportMediaWiki', params, true);
-}
+  exportMediaWiki(params) {
+    return this.fetcher('POST', '/api/export/exportMediaWiki', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportNotebookMdParams} ExportExportNotebookMdParams
+ * @typedef {import('./index.d.ts').ExportExportNotebookMdResponse} ExportExportNotebookMdResponse
  * 将指定的笔记本导出为 Markdown 格式的 .zip 压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportNotebookMdResponse>}
- * @param {string} params.notebook 要导出的笔记本ID
+ * @param {ExportExportNotebookMdParams} params - Request parameters.
+ * @returns {Promise<ExportExportNotebookMdResponse>}
  */
-export async function exportNotebookMd(params) {
-  return fetchWrapper('POST', '/api/export/exportNotebookMd', params, true);
-}
+  exportNotebookMd(params) {
+    return this.fetcher('POST', '/api/export/exportNotebookMd', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportNotebookSYParams} ExportExportNotebookSYParams
+ * @typedef {import('./index.d.ts').ExportExportNotebookSYResponse} ExportExportNotebookSYResponse
  * 将指定的笔记本导出为思源原生 .sy 格式的压缩包。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportNotebookSYResponse>}
- * @param {string} params.id 要导出的笔记本ID
+ * @param {ExportExportNotebookSYParams} params - Request parameters.
+ * @returns {Promise<ExportExportNotebookSYResponse>}
  */
-export async function exportNotebookSY(params) {
-  return fetchWrapper('POST', '/api/export/exportNotebookSY', params, true);
-}
+  exportNotebookSY(params) {
+    return this.fetcher('POST', '/api/export/exportNotebookSY', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportODTParams} ExportExportODTParams
+ * @typedef {import('./index.d.ts').ExportExportODTResponse} ExportExportODTResponse
  * 将指定的文档导出为 ODT 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportODTResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportODTParams} params - Request parameters.
+ * @returns {Promise<ExportExportODTResponse>}
  */
-export async function exportODT(params) {
-  return fetchWrapper('POST', '/api/export/exportODT', params, true);
-}
+  exportODT(params) {
+    return this.fetcher('POST', '/api/export/exportODT', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportOPMLParams} ExportExportOPMLParams
+ * @typedef {import('./index.d.ts').ExportExportOPMLResponse} ExportExportOPMLResponse
  * 将指定的文档导出为 OPML 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportOPMLResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportOPMLParams} params - Request parameters.
+ * @returns {Promise<ExportExportOPMLResponse>}
  */
-export async function exportOPML(params) {
-  return fetchWrapper('POST', '/api/export/exportOPML', params, true);
-}
+  exportOPML(params) {
+    return this.fetcher('POST', '/api/export/exportOPML', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportOrgModeParams} ExportExportOrgModeParams
+ * @typedef {import('./index.d.ts').ExportExportOrgModeResponse} ExportExportOrgModeResponse
  * 将指定的文档导出为 Org-mode 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportOrgModeResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportOrgModeParams} params - Request parameters.
+ * @returns {Promise<ExportExportOrgModeResponse>}
  */
-export async function exportOrgMode(params) {
-  return fetchWrapper('POST', '/api/export/exportOrgMode', params, true);
-}
+  exportOrgMode(params) {
+    return this.fetcher('POST', '/api/export/exportOrgMode', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportPreviewHTMLParams} ExportExportPreviewHTMLParams
+ * @typedef {import('./index.d.ts').ExportExportPreviewHTMLResponse} ExportExportPreviewHTMLResponse
  * 获取指定文档用于预览的 HTML 内容，包含块属性、类型等更丰富的上下文信息，并处理了块引链接。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportPreviewHTMLResponse>}
- * @param {string} params.id 要导出预览 HTML 的文档ID
- * @param {boolean} [params.keepFold] keepFold
- * @param {boolean} [params.merge] merge
- * @param {boolean} [params.image] image
+ * @param {ExportExportPreviewHTMLParams} params - Request parameters.
+ * @returns {Promise<ExportExportPreviewHTMLResponse>}
  */
-export async function exportPreviewHTML(params) {
-  return fetchWrapper('POST', '/api/export/exportPreviewHTML', params, true);
-}
+  exportPreviewHTML(params) {
+    return this.fetcher('POST', '/api/export/exportPreviewHTML', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportRTFParams} ExportExportRTFParams
+ * @typedef {import('./index.d.ts').ExportExportRTFResponse} ExportExportRTFResponse
  * 将指定的文档导出为 RTF 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportRTFResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportRTFParams} params - Request parameters.
+ * @returns {Promise<ExportExportRTFResponse>}
  */
-export async function exportRTF(params) {
-  return fetchWrapper('POST', '/api/export/exportRTF', params, true);
-}
+  exportRTF(params) {
+    return this.fetcher('POST', '/api/export/exportRTF', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportReStructuredTextParams} ExportExportReStructuredTextParams
+ * @typedef {import('./index.d.ts').ExportExportReStructuredTextResponse} ExportExportReStructuredTextResponse
  * 将指定的文档导出为 reStructuredText 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportReStructuredTextResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportReStructuredTextParams} params - Request parameters.
+ * @returns {Promise<ExportExportReStructuredTextResponse>}
  */
-export async function exportReStructuredText(params) {
-  return fetchWrapper('POST', '/api/export/exportReStructuredText', params, true);
-}
+  exportReStructuredText(params) {
+    return this.fetcher('POST', '/api/export/exportReStructuredText', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportResourcesParams} ExportExportResourcesParams
+ * @typedef {import('./index.d.ts').ExportExportResourcesResponse} ExportExportResourcesResponse
  * 将指定路径列表的文件或文件夹打包导出为一个 .zip 压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportResourcesResponse>}
- * @param {string} [params.name] name
- * @param {Array<string>} params.paths 要导出的文件或文件夹在工作空间中的相对路径数组 (相对于data目录)
+ * @param {ExportExportResourcesParams} params - Request parameters.
+ * @returns {Promise<ExportExportResourcesResponse>}
  */
-export async function exportResources(params) {
-  return fetchWrapper('POST', '/api/export/exportResources', params, true);
-}
+  exportResources(params) {
+    return this.fetcher('POST', '/api/export/exportResources', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportSYParams} ExportExportSYParams
+ * @typedef {import('./index.d.ts').ExportExportSYResponse} ExportExportSYResponse
  * 将指定的单个文档导出为思源原生 .sy 格式的压缩包。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportSYResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportSYParams} params - Request parameters.
+ * @returns {Promise<ExportExportSYResponse>}
  */
-export async function exportSY(params) {
-  return fetchWrapper('POST', '/api/export/exportSY', params, true);
-}
+  exportSY(params) {
+    return this.fetcher('POST', '/api/export/exportSY', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportTempContentParams} ExportExportTempContentParams
+ * @typedef {import('./index.d.ts').ExportExportTempContentResponse} ExportExportTempContentResponse
  * 将传入的 Markdown 内容保存为临时文件，并根据参数生成预览（HTML/PDF/图片），返回预览的 URL。注意：此接口在 `export.go` 中并未完整实现所有参数的逻辑（如 mode, theme, title, type, css, js 均未实际使用），主要实现了 content 的临时保存和URL返回。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportTempContentResponse>}
- * @param {string} params.content 要导出预览的 Markdown 内容字符串
- * @param {number} [params.mode] mode
- * @param {string} [params.theme] theme
- * @param {string} [params.title] title
- * @param {string} [params.type] type
- * @param {string} [params.css] css
- * @param {string} [params.js] js
+ * @param {ExportExportTempContentParams} params - Request parameters.
+ * @returns {Promise<ExportExportTempContentResponse>}
  */
-export async function exportTempContent(params) {
-  return fetchWrapper('POST', '/api/export/exportTempContent', params, true);
-}
+  exportTempContent(params) {
+    return this.fetcher('POST', '/api/export/exportTempContent', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportTextileParams} ExportExportTextileParams
+ * @typedef {import('./index.d.ts').ExportExportTextileResponse} ExportExportTextileResponse
  * 将指定的文档导出为 Textile 格式的压缩文件。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportTextileResponse>}
- * @param {string} params.id 要导出的文档ID
+ * @param {ExportExportTextileParams} params - Request parameters.
+ * @returns {Promise<ExportExportTextileResponse>}
  */
-export async function exportTextile(params) {
-  return fetchWrapper('POST', '/api/export/exportTextile', params, true);
-}
+  exportTextile(params) {
+    return this.fetcher('POST', '/api/export/exportTextile', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportExportPreviewParams} ExportExportPreviewParams
+ * @typedef {import('./index.d.ts').ExportExportPreviewResponse} ExportExportPreviewResponse
  * 获取指定文档的完整 HTML 预览内容，包含标准主题和脚本，可直接用于浏览器展示。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<ExportPreviewResponse>}
- * @param {string} params.id 要获取 HTML 预览的文档ID
+ * @param {ExportExportPreviewParams} params - Request parameters.
+ * @returns {Promise<ExportExportPreviewResponse>}
  */
-export async function exportPreview(params) {
-  return fetchWrapper('POST', '/api/export/preview', params, true);
-}
+  exportPreview(params) {
+    return this.fetcher('POST', '/api/export/preview', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').ExportProcessPDFParams} ExportProcessPDFParams
+ * @typedef {import('./index.d.ts').ExportProcessPDFResponse} ExportProcessPDFResponse
  * 对已生成的用于 PDF 导出的 HTML 文件进行后处理，如添加水印等。通常在调用 exportHTML (pdf=true) 之后使用。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<ProcessPDFResponse>}
- * @param {string} params.id 相关文档的ID (用于日志记录或上下文关联)
- * @param {string} params.path 已生成的 HTML 文件的绝对路径 (该文件将被用于生成或处理 PDF)
- * @param {boolean} [params.merge] merge
- * @param {boolean} params.removeAssets 处理完成后是否移除相关资源文件
- * @param {boolean} params.watermark 是否添加水印
+ * @param {ExportProcessPDFParams} params - Request parameters.
+ * @returns {Promise<ExportProcessPDFResponse>}
  */
-export async function processPDF(params) {
-  return fetchWrapper('POST', '/api/export/processPDF', params, true);
-}
+  processPDF(params) {
+    return this.fetcher('POST', '/api/export/processPDF', params, true);
+  }
 
+}

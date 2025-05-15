@@ -1,159 +1,138 @@
-// Generated client for API group notebook
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group notebook
+export class NotebookApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookChangeSortNotebookParams} NotebookChangeSortNotebookParams
+ * @typedef {import('./index.d.ts').NotebookChangeSortNotebookResponse} NotebookChangeSortNotebookResponse
  * 批量更改笔记本的显示顺序。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<ChangeSortNotebookResponse>}
- * @param {Array<string>} params.notebooks 按新的期望顺序排列的笔记本 ID 数组。
+ * @param {NotebookChangeSortNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookChangeSortNotebookResponse>}
  */
-export async function changeSortNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/changeSortNotebook', params, true);
-}
+  changeSortNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/changeSortNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookCloseNotebookParams} NotebookCloseNotebookParams
+ * @typedef {import('./index.d.ts').NotebookCloseNotebookResponse} NotebookCloseNotebookResponse
  * 关闭一个指定的笔记本。关闭后，笔记本内容将不再可访问，直到再次打开。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CloseNotebookResponse>}
- * @param {string} params.notebook 要关闭的笔记本的唯一标识符 (ID)。
- * @param {string} [params.callback] callback
+ * @param {NotebookCloseNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookCloseNotebookResponse>}
  */
-export async function closeNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/closeNotebook', params, true);
-}
+  closeNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/closeNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookCreateNotebookParams} NotebookCreateNotebookParams
+ * @typedef {import('./index.d.ts').NotebookCreateNotebookResponse} NotebookCreateNotebookResponse
  * 创建一个新的笔记本。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CreateNotebookResponse>}
- * @param {string} params.name 新笔记本的名称，不能为空。
+ * @param {NotebookCreateNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookCreateNotebookResponse>}
  */
-export async function createNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/createNotebook', params, true);
-}
+  createNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/createNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookGetNotebookConfParams} NotebookGetNotebookConfParams
+ * @typedef {import('./index.d.ts').NotebookGetNotebookConfResponse} NotebookGetNotebookConfResponse
  * 获取指定笔记本的配置信息。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetNotebookConfResponse>}
- * @param {string} params.notebook 要获取配置的笔记本的唯一标识符 (ID)。
+ * @param {NotebookGetNotebookConfParams} params - Request parameters.
+ * @returns {Promise<NotebookGetNotebookConfResponse>}
  */
-export async function getNotebookConf(params) {
-  return fetchWrapper('POST', '/api/notebook/getNotebookConf', params, true);
-}
+  getNotebookConf(params) {
+    return this.fetcher('POST', '/api/notebook/getNotebookConf', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookGetNotebookInfoParams} NotebookGetNotebookInfoParams
+ * @typedef {import('./index.d.ts').NotebookGetNotebookInfoResponse} NotebookGetNotebookInfoResponse
  * 获取指定笔记本的详细信息，包括其配置和统计数据。
  * (Requires authentication, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetNotebookInfoResponse>}
- * @param {string} params.notebook 要获取信息的笔记本的唯一标识符 (ID)。
+ * @param {NotebookGetNotebookInfoParams} params - Request parameters.
+ * @returns {Promise<NotebookGetNotebookInfoResponse>}
  */
-export async function getNotebookInfo(params) {
-  return fetchWrapper('POST', '/api/notebook/getNotebookInfo', params, true);
-}
+  getNotebookInfo(params) {
+    return this.fetcher('POST', '/api/notebook/getNotebookInfo', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookLsNotebooksResponse} NotebookLsNotebooksResponse
  * 获取当前工作空间中所有笔记本的列表，包含已打开和未打开的笔记本。
  * (Requires authentication)
- * @returns {Promise<LsNotebooksResponse>}
+ * @returns {Promise<NotebookLsNotebooksResponse>}
  */
-export async function lsNotebooks() {
-  return fetchWrapper('POST', '/api/notebook/lsNotebooks', undefined, true);
-}
+  lsNotebooks() {
+    return this.fetcher('POST', '/api/notebook/lsNotebooks', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookOpenNotebookParams} NotebookOpenNotebookParams
+ * @typedef {import('./index.d.ts').NotebookOpenNotebookResponse} NotebookOpenNotebookResponse
  * 打开一个指定的笔记本。如果笔记本已经是打开状态，此操作可能仅刷新其状态。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<OpenNotebookResponse>}
- * @param {string} params.notebook 要打开的笔记本的唯一标识符 (ID)。
+ * @param {NotebookOpenNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookOpenNotebookResponse>}
  */
-export async function openNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/openNotebook', params, true);
-}
+  openNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/openNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookRemoveNotebookParams} NotebookRemoveNotebookParams
+ * @typedef {import('./index.d.ts').NotebookRemoveNotebookResponse} NotebookRemoveNotebookResponse
  * 删除一个指定的笔记本。此操作会从工作空间移除笔记本及其所有内容。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveNotebookResponse>}
- * @param {string} params.notebook 要删除的笔记本的唯一标识符 (ID)。
- * @param {string} [params.callback] callback
+ * @param {NotebookRemoveNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookRemoveNotebookResponse>}
  */
-export async function removeNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/removeNotebook', params, true);
-}
+  removeNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/removeNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookRenameNotebookParams} NotebookRenameNotebookParams
+ * @typedef {import('./index.d.ts').NotebookRenameNotebookResponse} NotebookRenameNotebookResponse
  * 重命名一个指定的笔记本。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RenameNotebookResponse>}
- * @param {string} params.notebook 要重命名的笔记本的唯一标识符 (ID)。
- * @param {string} params.name 笔记本的新名称，不能为空。
+ * @param {NotebookRenameNotebookParams} params - Request parameters.
+ * @returns {Promise<NotebookRenameNotebookResponse>}
  */
-export async function renameNotebook(params) {
-  return fetchWrapper('POST', '/api/notebook/renameNotebook', params, true);
-}
+  renameNotebook(params) {
+    return this.fetcher('POST', '/api/notebook/renameNotebook', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookSetNotebookConfParams} NotebookSetNotebookConfParams
+ * @typedef {import('./index.d.ts').NotebookSetNotebookConfResponse} NotebookSetNotebookConfResponse
+ * @typedef {import('./index.d.ts').NotebookSetNotebookConfParamsConf} NotebookSetNotebookConfParamsConf
  * 更新指定笔记本的配置信息。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetNotebookConfResponse>}
- * @param {string} params.notebook 要设置配置的笔记本的唯一标识符 (ID)。
- * @param {SetNotebookConfParamsConf} params.conf 要更新的配置项对象。只提供需要修改的字段。
- * @param {string} [params.conf.name] name
- * @param {string} [params.conf.icon] icon
- * @param {number} [params.conf.sortMode] sortMode
- * @param {string} [params.conf.refCreateSavePath] refCreateSavePath
- * @param {string} [params.conf.docCreateSavePath] docCreateSavePath
- * @param {string} [params.conf.dailyNoteSavePath] dailyNoteSavePath
- * @param {string} [params.conf.dailyNoteTemplatePath] dailyNoteTemplatePath
+ * @param {NotebookSetNotebookConfParams} params - Request parameters.
+ * @returns {Promise<NotebookSetNotebookConfResponse>}
  */
-export async function setNotebookConf(params) {
-  return fetchWrapper('POST', '/api/notebook/setNotebookConf', params, true);
-}
+  setNotebookConf(params) {
+    return this.fetcher('POST', '/api/notebook/setNotebookConf', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').NotebookSetNotebookIconParams} NotebookSetNotebookIconParams
+ * @typedef {import('./index.d.ts').NotebookSetNotebookIconResponse} NotebookSetNotebookIconResponse
  * 设置指定笔记本的显示图标。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetNotebookIconResponse>}
- * @param {string} params.notebook 要设置图标的笔记本的唯一标识符 (ID)。
- * @param {string} params.icon 笔记本的新图标，可以是 Emoji 字符或图片的 Base64 编码字符串。
+ * @param {NotebookSetNotebookIconParams} params - Request parameters.
+ * @returns {Promise<NotebookSetNotebookIconResponse>}
  */
-export async function setNotebookIcon(params) {
-  return fetchWrapper('POST', '/api/notebook/setNotebookIcon', params, true);
-}
+  setNotebookIcon(params) {
+    return this.fetcher('POST', '/api/notebook/setNotebookIcon', params, true);
+  }
 
+}

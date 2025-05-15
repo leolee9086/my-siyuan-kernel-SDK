@@ -1,269 +1,260 @@
-// Generated client for API group repo
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group repo
+export class RepoApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoCheckoutRepoParams} RepoCheckoutRepoParams
+ * @typedef {import('./index.d.ts').RepoCheckoutRepoResponse} RepoCheckoutRepoResponse
  * 将当前工作区内容回滚到指定的仓库快照版本。这是一个危险操作，会导致当前未保存的更改丢失，请谨慎操作。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CheckoutRepoResponse>}
- * @param {string} params.id 必需。要检出的快照的唯一标识符 (ID)。
+ * @param {RepoCheckoutRepoParams} params - Request parameters.
+ * @returns {Promise<RepoCheckoutRepoResponse>}
  */
-export async function checkoutRepo(params) {
-  return fetchWrapper('POST', '/api/repo/checkoutRepo', params, true);
-}
+  checkoutRepo(params) {
+    return this.fetcher('POST', '/api/repo/checkoutRepo', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoCreateSnapshotParams} RepoCreateSnapshotParams
+ * @typedef {import('./index.d.ts').RepoCreateSnapshotResponse} RepoCreateSnapshotResponse
  * 为当前工作区创建一个新的快照。可以附带备注信息和标签。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CreateSnapshotResponse>}
- * @param {string} [params.memo] memo
- * @param {string} [params.tag] tag
+ * @param {RepoCreateSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoCreateSnapshotResponse>}
  */
-export async function createSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/createSnapshot', params, true);
-}
+  createSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/createSnapshot', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoDiffRepoSnapshotsParams} RepoDiffRepoSnapshotsParams
+ * @typedef {import('./index.d.ts').RepoDiffRepoSnapshotsResponse} RepoDiffRepoSnapshotsResponse
  * 比较两个指定的本地快照之间的差异，列出新增、修改和删除的文档。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<DiffRepoSnapshotsResponse>}
- * @param {string} params.left 必需。左侧快照的 ID，作为比较基准的旧版本。
- * @param {string} params.right 必需。右侧快照的 ID，作为比较目标的新版本。
+ * @param {RepoDiffRepoSnapshotsParams} params - Request parameters.
+ * @returns {Promise<RepoDiffRepoSnapshotsResponse>}
  */
-export async function diffRepoSnapshots(params) {
-  return fetchWrapper('POST', '/api/repo/diffRepoSnapshots', params, true);
-}
+  diffRepoSnapshots(params) {
+    return this.fetcher('POST', '/api/repo/diffRepoSnapshots', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoDownloadCloudSnapshotParams} RepoDownloadCloudSnapshotParams
+ * @typedef {import('./index.d.ts').RepoDownloadCloudSnapshotResponse} RepoDownloadCloudSnapshotResponse
  * 从云端下载指定的快照到本地。如果本地已存在同名快照，可能会被覆盖或操作失败。下载的是标签快照时需要提供标签名。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<DownloadCloudSnapshotResponse>}
- * @param {string} params.id 必需。要下载的云端快照的 ID。
- * @param {string} [params.tag] tag
+ * @param {RepoDownloadCloudSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoDownloadCloudSnapshotResponse>}
  */
-export async function downloadCloudSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/downloadCloudSnapshot', params, true);
-}
+  downloadCloudSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/downloadCloudSnapshot', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoGetCloudRepoSnapshotsParams} RepoGetCloudRepoSnapshotsParams
+ * @typedef {import('./index.d.ts').RepoGetCloudRepoSnapshotsResponse} RepoGetCloudRepoSnapshotsResponse
  * 分页获取当前用户在云端存储的所有普通快照列表。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetCloudRepoSnapshotsResponse>}
- * @param {number} params.page 必需。页码，从 1 开始。
+ * @param {RepoGetCloudRepoSnapshotsParams} params - Request parameters.
+ * @returns {Promise<RepoGetCloudRepoSnapshotsResponse>}
  */
-export async function getCloudRepoSnapshots(params) {
-  return fetchWrapper('POST', '/api/repo/getCloudRepoSnapshots', params, true);
-}
+  getCloudRepoSnapshots(params) {
+    return this.fetcher('POST', '/api/repo/getCloudRepoSnapshots', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoGetCloudRepoTagSnapshotsParams} RepoGetCloudRepoTagSnapshotsParams
+ * @typedef {import('./index.d.ts').RepoGetCloudRepoTagSnapshotsResponse} RepoGetCloudRepoTagSnapshotsResponse
  * 分页获取当前用户在云端存储的所有标签快照列表。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetCloudRepoTagSnapshotsResponse>}
- * @param {number} params.page 必需。页码，从 1 开始。
+ * @param {RepoGetCloudRepoTagSnapshotsParams} params - Request parameters.
+ * @returns {Promise<RepoGetCloudRepoTagSnapshotsResponse>}
  */
-export async function getCloudRepoTagSnapshots(params) {
-  return fetchWrapper('POST', '/api/repo/getCloudRepoTagSnapshots', params, true);
-}
+  getCloudRepoTagSnapshots(params) {
+    return this.fetcher('POST', '/api/repo/getCloudRepoTagSnapshots', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoGetRepoFileParams} RepoGetRepoFileParams
  * 获取指定快照中特定文件的原始内容。此接口直接返回文件数据流，不返回标准JSON结构。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
+ * @param {RepoGetRepoFileParams} params - Request parameters.
  * @returns {Promise<any>} 此接口不返回标准 JSON。成功时直接返回文件数据流 (HTTP 200)，Content-Type 根据文件类型确定。失败时返回标准 JSON 错误结构。
- * @param {string} params.id 必需。快照的 ID。
- * @param {string} [params.path] path
  */
-export async function getRepoFile(params) {
-  return fetchWrapper('POST', '/api/repo/getRepoFile', params, true);
-}
+  getRepoFile(params) {
+    return this.fetcher('POST', '/api/repo/getRepoFile', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoGetRepoSnapshotsParams} RepoGetRepoSnapshotsParams
+ * @typedef {import('./index.d.ts').RepoGetRepoSnapshotsResponse} RepoGetRepoSnapshotsResponse
  * 分页获取当前工作区本地存储的所有普通快照列表。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetRepoSnapshotsResponse>}
- * @param {number} params.page 必需。页码，从 1 开始。
+ * @param {RepoGetRepoSnapshotsParams} params - Request parameters.
+ * @returns {Promise<RepoGetRepoSnapshotsResponse>}
  */
-export async function getRepoSnapshots(params) {
-  return fetchWrapper('POST', '/api/repo/getRepoSnapshots', params, true);
-}
+  getRepoSnapshots(params) {
+    return this.fetcher('POST', '/api/repo/getRepoSnapshots', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoGetRepoTagSnapshotsParams} RepoGetRepoTagSnapshotsParams
+ * @typedef {import('./index.d.ts').RepoGetRepoTagSnapshotsResponse} RepoGetRepoTagSnapshotsResponse
  * 分页获取当前工作区本地存储的所有标签快照列表。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetRepoTagSnapshotsResponse>}
- * @param {number} params.page 必需。页码，从 1 开始。
+ * @param {RepoGetRepoTagSnapshotsParams} params - Request parameters.
+ * @returns {Promise<RepoGetRepoTagSnapshotsResponse>}
  */
-export async function getRepoTagSnapshots(params) {
-  return fetchWrapper('POST', '/api/repo/getRepoTagSnapshots', params, true);
-}
+  getRepoTagSnapshots(params) {
+    return this.fetcher('POST', '/api/repo/getRepoTagSnapshots', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoImportRepoKeyResponse} RepoImportRepoKeyResponse
  * 导入仓库加密密钥。这是一个危险操作，错误的密钥可能导致数据无法解密。导入的密钥文件通常是 .sykey 后缀。此操作通过 FormData 接收文件。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<ImportRepoKeyResponse>}
+ * @returns {Promise<RepoImportRepoKeyResponse>}
  */
-export async function importRepoKey() {
-  return fetchWrapper('POST', '/api/repo/importRepoKey', undefined, true);
-}
+  importRepoKey() {
+    return this.fetcher('POST', '/api/repo/importRepoKey', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoInitRepoKeyResponse} RepoInitRepoKeyResponse
  * 为当前工作区初始化一个新的随机加密密钥。此操作通常在首次设置加密或重置密钥时使用。旧密钥将被覆盖。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<InitRepoKeyResponse>}
+ * @returns {Promise<RepoInitRepoKeyResponse>}
  */
-export async function initRepoKey() {
-  return fetchWrapper('POST', '/api/repo/initRepoKey', undefined, true);
-}
+  initRepoKey() {
+    return this.fetcher('POST', '/api/repo/initRepoKey', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoInitRepoKeyFromPassphraseParams} RepoInitRepoKeyFromPassphraseParams
+ * @typedef {import('./index.d.ts').RepoInitRepoKeyFromPassphraseResponse} RepoInitRepoKeyFromPassphraseResponse
  * 通过用户提供的口令生成并初始化仓库加密密钥。旧密钥将被覆盖。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<InitRepoKeyFromPassphraseResponse>}
- * @param {string} params.passphrase 必需。用于生成密钥的用户口令。
+ * @param {RepoInitRepoKeyFromPassphraseParams} params - Request parameters.
+ * @returns {Promise<RepoInitRepoKeyFromPassphraseResponse>}
  */
-export async function initRepoKeyFromPassphrase(params) {
-  return fetchWrapper('POST', '/api/repo/initRepoKeyFromPassphrase', params, true);
-}
+  initRepoKeyFromPassphrase(params) {
+    return this.fetcher('POST', '/api/repo/initRepoKeyFromPassphrase', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoOpenRepoSnapshotDocParams} RepoOpenRepoSnapshotDocParams
+ * @typedef {import('./index.d.ts').RepoOpenRepoSnapshotDocResponse} RepoOpenRepoSnapshotDocResponse
  * 获取并打开指定快照中特定文档的内容，用于预览历史版本。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<OpenRepoSnapshotDocResponse>}
- * @param {string} params.id 必需。快照中文档的唯一标识符 (通常是 `快照ID/文档ID.sy`)。
+ * @param {RepoOpenRepoSnapshotDocParams} params - Request parameters.
+ * @returns {Promise<RepoOpenRepoSnapshotDocResponse>}
  */
-export async function openRepoSnapshotDoc(params) {
-  return fetchWrapper('POST', '/api/repo/openRepoSnapshotDoc', params, true);
-}
+  openRepoSnapshotDoc(params) {
+    return this.fetcher('POST', '/api/repo/openRepoSnapshotDoc', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoPurgeCloudRepoResponse} RepoPurgeCloudRepoResponse
  * 彻底删除用户在云端的所有仓库数据，包括所有快照和标签快照。这是一个非常危险且不可逆的操作，执行前通常会有二次确认。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<PurgeCloudRepoResponse>}
+ * @returns {Promise<RepoPurgeCloudRepoResponse>}
  */
-export async function purgeCloudRepo() {
-  return fetchWrapper('POST', '/api/repo/purgeCloudRepo', undefined, true);
-}
+  purgeCloudRepo() {
+    return this.fetcher('POST', '/api/repo/purgeCloudRepo', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoPurgeRepoResponse} RepoPurgeRepoResponse
  * 彻底删除当前工作区的本地仓库数据，包括所有快照和标签快照。这是一个非常危险且不可逆的操作，执行前通常会有二次确认。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<PurgeRepoResponse>}
+ * @returns {Promise<RepoPurgeRepoResponse>}
  */
-export async function purgeRepo() {
-  return fetchWrapper('POST', '/api/repo/purgeRepo', undefined, true);
-}
+  purgeRepo() {
+    return this.fetcher('POST', '/api/repo/purgeRepo', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoRemoveCloudRepoTagSnapshotParams} RepoRemoveCloudRepoTagSnapshotParams
+ * @typedef {import('./index.d.ts').RepoRemoveCloudRepoTagSnapshotResponse} RepoRemoveCloudRepoTagSnapshotResponse
  * 从云端移除指定的标签快照。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveCloudRepoTagSnapshotResponse>}
- * @param {string} params.id 必需。要移除的云端标签快照的 ID。
- * @param {string} params.tag 必需。要移除的云端标签快照的标签名。
+ * @param {RepoRemoveCloudRepoTagSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoRemoveCloudRepoTagSnapshotResponse>}
  */
-export async function removeCloudRepoTagSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/removeCloudRepoTagSnapshot', params, true);
-}
+  removeCloudRepoTagSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/removeCloudRepoTagSnapshot', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoRemoveRepoTagSnapshotParams} RepoRemoveRepoTagSnapshotParams
+ * @typedef {import('./index.d.ts').RepoRemoveRepoTagSnapshotResponse} RepoRemoveRepoTagSnapshotResponse
  * 从本地仓库移除指定的标签快照。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveRepoTagSnapshotResponse>}
- * @param {string} params.id 必需。要移除的本地标签快照的 ID。
- * @param {string} params.tag 必需。要移除的本地标签快照的标签名。
+ * @param {RepoRemoveRepoTagSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoRemoveRepoTagSnapshotResponse>}
  */
-export async function removeRepoTagSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/removeRepoTagSnapshot', params, true);
-}
+  removeRepoTagSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/removeRepoTagSnapshot', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoResetRepoResponse} RepoResetRepoResponse
  * 重置本地仓库，会清空所有快照和标签，并重新初始化仓库密钥。这是一个危险操作，执行前通常会有二次确认。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<ResetRepoResponse>}
+ * @returns {Promise<RepoResetRepoResponse>}
  */
-export async function resetRepo() {
-  return fetchWrapper('POST', '/api/repo/resetRepo', undefined, true);
-}
+  resetRepo() {
+    return this.fetcher('POST', '/api/repo/resetRepo', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoSetRepoIndexRetentionDaysParams} RepoSetRepoIndexRetentionDaysParams
+ * @typedef {import('./index.d.ts').RepoSetRepoIndexRetentionDaysResponse} RepoSetRepoIndexRetentionDaysResponse
  * 设置本地仓库快照索引的保留天数。过期的索引将被自动清理。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetRepoIndexRetentionDaysResponse>}
- * @param {number} params.days 必需。快照索引保留的天数，必须为正整数。
+ * @param {RepoSetRepoIndexRetentionDaysParams} params - Request parameters.
+ * @returns {Promise<RepoSetRepoIndexRetentionDaysResponse>}
  */
-export async function setRepoIndexRetentionDays(params) {
-  return fetchWrapper('POST', '/api/repo/setRepoIndexRetentionDays', params, true);
-}
+  setRepoIndexRetentionDays(params) {
+    return this.fetcher('POST', '/api/repo/setRepoIndexRetentionDays', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoSetRetentionIndexesDailyParams} RepoSetRetentionIndexesDailyParams
+ * @typedef {import('./index.d.ts').RepoSetRetentionIndexesDailyResponse} RepoSetRetentionIndexesDailyResponse
  * 设置每日自动创建的快照在本地的保留数量。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetRetentionIndexesDailyResponse>}
- * @param {number} params.indexes 必需。每日快照的保留数量，必须为正整数。
+ * @param {RepoSetRetentionIndexesDailyParams} params - Request parameters.
+ * @returns {Promise<RepoSetRetentionIndexesDailyResponse>}
  */
-export async function setRetentionIndexesDaily(params) {
-  return fetchWrapper('POST', '/api/repo/setRetentionIndexesDaily', params, true);
-}
+  setRetentionIndexesDaily(params) {
+    return this.fetcher('POST', '/api/repo/setRetentionIndexesDaily', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoTagSnapshotParams} RepoTagSnapshotParams
+ * @typedef {import('./index.d.ts').RepoTagSnapshotResponse} RepoTagSnapshotResponse
  * 为指定的本地快照打上标签，使其成为一个标签快照。可以同时提供备注，如果提供会覆盖快照原有的备注。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<TagSnapshotResponse>}
- * @param {string} params.id 必需。要标记的快照的 ID。
- * @param {string} params.tag 必需。要打上的标签名。
- * @param {string} [params.memo] memo
+ * @param {RepoTagSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoTagSnapshotResponse>}
  */
-export async function tagSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/tagSnapshot', params, true);
-}
+  tagSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/tagSnapshot', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').RepoUploadCloudSnapshotParams} RepoUploadCloudSnapshotParams
+ * @typedef {import('./index.d.ts').RepoUploadCloudSnapshotResponse} RepoUploadCloudSnapshotResponse
  * 将指定的本地快照上传到云端。如果是标签快照，需要提供标签名。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<UploadCloudSnapshotResponse>}
- * @param {string} params.id 必需。要上传的本地快照的 ID。
- * @param {string} [params.tag] tag
+ * @param {RepoUploadCloudSnapshotParams} params - Request parameters.
+ * @returns {Promise<RepoUploadCloudSnapshotResponse>}
  */
-export async function uploadCloudSnapshot(params) {
-  return fetchWrapper('POST', '/api/repo/uploadCloudSnapshot', params, true);
-}
+  uploadCloudSnapshot(params) {
+    return this.fetcher('POST', '/api/repo/uploadCloudSnapshot', params, true);
+  }
 
+}

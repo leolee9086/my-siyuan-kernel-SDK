@@ -1,225 +1,215 @@
-// Generated client for API group asset
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group asset
+export class AssetApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetFullReindexAssetContentResponse} AssetFullReindexAssetContentResponse
  * 完全重新索引工作空间中所有资源文件的内容，用于搜索。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<FullReindexAssetContentResponse>}
+ * @returns {Promise<AssetFullReindexAssetContentResponse>}
  */
-export async function fullReindexAssetContent() {
-  return fetchWrapper('POST', '/api/asset/fullReindexAssetContent', undefined, true);
-}
+  fullReindexAssetContent() {
+    return this.fetcher('POST', '/api/asset/fullReindexAssetContent', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetDocAssetsParams} AssetGetDocAssetsParams
+ * @typedef {import('./index.d.ts').AssetGetDocAssetsResponse} AssetGetDocAssetsResponse
  * 获取指定文档块所引用的所有资源文件列表。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetDocAssetsResponse>}
- * @param {string} params.id 文档块的 ID
+ * @param {AssetGetDocAssetsParams} params - Request parameters.
+ * @returns {Promise<AssetGetDocAssetsResponse>}
  */
-export async function getDocAssets(params) {
-  return fetchWrapper('POST', '/api/asset/getDocAssets', params, true);
-}
+  getDocAssets(params) {
+    return this.fetcher('POST', '/api/asset/getDocAssets', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetDocImageAssetsParams} AssetGetDocImageAssetsParams
+ * @typedef {import('./index.d.ts').AssetGetDocImageAssetsResponse} AssetGetDocImageAssetsResponse
  * 获取指定文档块所引用的所有图片类型资源文件列表。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetDocImageAssetsResponse>}
- * @param {string} params.id 文档块的 ID
+ * @param {AssetGetDocImageAssetsParams} params - Request parameters.
+ * @returns {Promise<AssetGetDocImageAssetsResponse>}
  */
-export async function getDocImageAssets(params) {
-  return fetchWrapper('POST', '/api/asset/getDocImageAssets', params, true);
-}
+  getDocImageAssets(params) {
+    return this.fetcher('POST', '/api/asset/getDocImageAssets', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetFileAnnotationParams} AssetGetFileAnnotationParams
+ * @typedef {import('./index.d.ts').AssetGetFileAnnotationResponse} AssetGetFileAnnotationResponse
  * 获取指定资源文件的标注信息（通常是 XFDF 格式的 PDF 标注）。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetFileAnnotationResponse>}
- * @param {string} params.path 资源文件的路径 (例如 assets/xxx.pdf)
+ * @param {AssetGetFileAnnotationParams} params - Request parameters.
+ * @returns {Promise<AssetGetFileAnnotationResponse>}
  */
-export async function getFileAnnotation(params) {
-  return fetchWrapper('POST', '/api/asset/getFileAnnotation', params, true);
-}
+  getFileAnnotation(params) {
+    return this.fetcher('POST', '/api/asset/getFileAnnotation', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetImageOCRTextParams} AssetGetImageOCRTextParams
+ * @typedef {import('./index.d.ts').AssetGetImageOCRTextResponse} AssetGetImageOCRTextResponse
  * 获取指定图片资源文件后台 OCR 识别的文本内容。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetImageOCRTextResponse>}
- * @param {string} params.path 图片资源文件的路径 (例如 assets/xxx.png)
+ * @param {AssetGetImageOCRTextParams} params - Request parameters.
+ * @returns {Promise<AssetGetImageOCRTextResponse>}
  */
-export async function getImageOCRText(params) {
-  return fetchWrapper('POST', '/api/asset/getImageOCRText', params, true);
-}
+  getImageOCRText(params) {
+    return this.fetcher('POST', '/api/asset/getImageOCRText', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetMissingAssetsResponse} AssetGetMissingAssetsResponse
  * 获取所有在文档中被引用但实际资源文件已不存在的资源路径列表。
  * (Requires authentication)
- * @returns {Promise<GetMissingAssetsResponse>}
+ * @returns {Promise<AssetGetMissingAssetsResponse>}
  */
-export async function getMissingAssets() {
-  return fetchWrapper('POST', '/api/asset/getMissingAssets', undefined, true);
-}
+  getMissingAssets() {
+    return this.fetcher('POST', '/api/asset/getMissingAssets', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetGetUnusedAssetsResponse} AssetGetUnusedAssetsResponse
  * 获取工作空间中存在但未被任何文档引用的资源文件列表（最多返回512条）。
  * (Requires authentication)
- * @returns {Promise<GetUnusedAssetsResponse>}
+ * @returns {Promise<AssetGetUnusedAssetsResponse>}
  */
-export async function getUnusedAssets() {
-  return fetchWrapper('POST', '/api/asset/getUnusedAssets', undefined, true);
-}
+  getUnusedAssets() {
+    return this.fetcher('POST', '/api/asset/getUnusedAssets', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetInsertLocalAssetsParams} AssetInsertLocalAssetsParams
+ * @typedef {import('./index.d.ts').AssetInsertLocalAssetsResponse} AssetInsertLocalAssetsResponse
  * 将指定的本地文件复制到当前笔记本的 assets 文件夹中，并在指定文档中插入对这些资源的引用。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<InsertLocalAssetsResponse>}
- * @param {Array<string>} params.assetPaths 本地资源文件的绝对路径数组
- * @param {string} params.id 要插入资源引用的目标文档块 ID
- * @param {boolean} [params.isUpload] isUpload
+ * @param {AssetInsertLocalAssetsParams} params - Request parameters.
+ * @returns {Promise<AssetInsertLocalAssetsResponse>}
  */
-export async function insertLocalAssets(params) {
-  return fetchWrapper('POST', '/api/asset/insertLocalAssets', params, true);
-}
+  insertLocalAssets(params) {
+    return this.fetcher('POST', '/api/asset/insertLocalAssets', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetOcrParams} AssetOcrParams
+ * @typedef {import('./index.d.ts').AssetOcrResponse} AssetOcrResponse
  * 对指定的图片资源文件执行光学字符识别，并返回识别出的文本及原始 OCR 结果。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<OcrResponse>}
- * @param {string} params.path path
+ * @param {AssetOcrParams} params - Request parameters.
+ * @returns {Promise<AssetOcrResponse>}
  */
-export async function ocr(params) {
-  return fetchWrapper('POST', '/api/asset/ocr', params, true);
-}
+  ocr(params) {
+    return this.fetcher('POST', '/api/asset/ocr', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetRemoveUnusedAssetParams} AssetRemoveUnusedAssetParams
+ * @typedef {import('./index.d.ts').AssetRemoveUnusedAssetResponse} AssetRemoveUnusedAssetResponse
  * 删除工作空间中指定的单个未使用（未被任何文档引用）的资源文件。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveUnusedAssetResponse>}
- * @param {string} params.path path
+ * @param {AssetRemoveUnusedAssetParams} params - Request parameters.
+ * @returns {Promise<AssetRemoveUnusedAssetResponse>}
  */
-export async function removeUnusedAsset(params) {
-  return fetchWrapper('POST', '/api/asset/removeUnusedAsset', params, true);
-}
+  removeUnusedAsset(params) {
+    return this.fetcher('POST', '/api/asset/removeUnusedAsset', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetRemoveUnusedAssetsResponse} AssetRemoveUnusedAssetsResponse
  * 删除工作空间中所有未被任何文档引用的资源文件。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<RemoveUnusedAssetsResponse>}
+ * @returns {Promise<AssetRemoveUnusedAssetsResponse>}
  */
-export async function removeUnusedAssets() {
-  return fetchWrapper('POST', '/api/asset/removeUnusedAssets', undefined, true);
-}
+  removeUnusedAssets() {
+    return this.fetcher('POST', '/api/asset/removeUnusedAssets', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetRenameAssetParams} AssetRenameAssetParams
+ * @typedef {import('./index.d.ts').AssetRenameAssetResponse} AssetRenameAssetResponse
  * 重命名指定的资源文件，并自动更新所有文档中对该资源的引用。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RenameAssetResponse>}
- * @param {string} params.oldPath 资源文件的当前路径 (例如 assets/old_name.png)
- * @param {string} params.newName 资源文件的新名称 (不含路径，例如 new_name.png)
+ * @param {AssetRenameAssetParams} params - Request parameters.
+ * @returns {Promise<AssetRenameAssetResponse>}
  */
-export async function renameAsset(params) {
-  return fetchWrapper('POST', '/api/asset/renameAsset', params, true);
-}
+  renameAsset(params) {
+    return this.fetcher('POST', '/api/asset/renameAsset', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetResolveAssetPathParams} AssetResolveAssetPathParams
+ * @typedef {import('./index.d.ts').AssetResolveAssetPathResponse} AssetResolveAssetPathResponse
  * 将资源文件在思源笔记中的相对路径（如 'assets/image.png'）转换为其在文件系统中的绝对路径。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<ResolveAssetPathResponse>}
- * @param {string} params.path 思源笔记中的资源相对路径 (例如 assets/image.png)
+ * @param {AssetResolveAssetPathParams} params - Request parameters.
+ * @returns {Promise<AssetResolveAssetPathResponse>}
  */
-export async function resolveAssetPath(params) {
-  return fetchWrapper('POST', '/api/asset/resolveAssetPath', params, true);
-}
+  resolveAssetPath(params) {
+    return this.fetcher('POST', '/api/asset/resolveAssetPath', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetSetFileAnnotationParams} AssetSetFileAnnotationParams
+ * @typedef {import('./index.d.ts').AssetSetFileAnnotationResponse} AssetSetFileAnnotationResponse
  * 为指定的资源文件（通常是 PDF）保存或更新其标注信息（通常是 XFDF 格式）。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetFileAnnotationResponse>}
- * @param {string} params.path 资源文件的路径 (例如 assets/xxx.pdf)
- * @param {string} params.data 要设置的标注数据 (通常为 XFDF 格式的字符串)
+ * @param {AssetSetFileAnnotationParams} params - Request parameters.
+ * @returns {Promise<AssetSetFileAnnotationResponse>}
  */
-export async function setFileAnnotation(params) {
-  return fetchWrapper('POST', '/api/asset/setFileAnnotation', params, true);
-}
+  setFileAnnotation(params) {
+    return this.fetcher('POST', '/api/asset/setFileAnnotation', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetSetImageOCRTextParams} AssetSetImageOCRTextParams
+ * @typedef {import('./index.d.ts').AssetSetImageOCRTextResponse} AssetSetImageOCRTextResponse
  * 手动为指定的图片资源文件设置或更新其 OCR 文本内容，并刷新到数据库。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetImageOCRTextResponse>}
- * @param {string} params.path 图片资源文件的路径 (例如 assets/xxx.png)
- * @param {string} params.text 要设置的 OCR 文本内容
+ * @param {AssetSetImageOCRTextParams} params - Request parameters.
+ * @returns {Promise<AssetSetImageOCRTextResponse>}
  */
-export async function setImageOCRText(params) {
-  return fetchWrapper('POST', '/api/asset/setImageOCRText', params, true);
-}
+  setImageOCRText(params) {
+    return this.fetcher('POST', '/api/asset/setImageOCRText', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetStatAssetParams} AssetStatAssetParams
+ * @typedef {import('./index.d.ts').AssetStatAssetResponse} AssetStatAssetResponse
  * 获取指定资源文件（assets/ 路径）或本地文件（file:/// 路径）的大小、创建及修改时间等元信息。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<StatAssetResponse>}
- * @param {string} params.path 资源文件的 assets/ 路径或本地文件的 file:/// 绝对路径
+ * @param {AssetStatAssetParams} params - Request parameters.
+ * @returns {Promise<AssetStatAssetResponse>}
  */
-export async function statAsset(params) {
-  return fetchWrapper('POST', '/api/asset/statAsset', params, true);
-}
+  statAsset(params) {
+    return this.fetcher('POST', '/api/asset/statAsset', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetUploadParams} AssetUploadParams
+ * @typedef {import('./index.d.ts').AssetUploadResponse} AssetUploadResponse
  * 处理文件上传。通常用于将文件上传到服务器的临时目录或直接作为资源插入。参数通过 FormData 传递，如 assetPath (可选，指定保存路径) 和 id (可选，关联的文档ID)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<UploadResponse>}
- * @param {string} [params.assetPath] assetPath
- * @param {string} [params.id] id
- * @param {any} params.files 通过 FormData 上传的文件对象或文件对象列表，此字段仅用于类型提示，实际通过 FormData 传递
+ * @param {AssetUploadParams} params - Request parameters.
+ * @returns {Promise<AssetUploadResponse>}
  */
-export async function Upload(params) {
-  return fetchWrapper('POST', '/api/asset/upload', params, true);
-}
+  Upload(params) {
+    return this.fetcher('POST', '/api/asset/upload', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').AssetUploadCloudParams} AssetUploadCloudParams
+ * @typedef {import('./index.d.ts').AssetUploadCloudResponse} AssetUploadCloudResponse
  * 将指定文档（及其子文档中）引用的所有本地资源文件上传到用户配置的云存储服务。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<UploadCloudResponse>}
- * @param {string} params.id 文档块的 ID，将上传此文档及其子文档中引用的所有本地资源
+ * @param {AssetUploadCloudParams} params - Request parameters.
+ * @returns {Promise<AssetUploadCloudResponse>}
  */
-export async function uploadCloud(params) {
-  return fetchWrapper('POST', '/api/asset/uploadCloud', params, true);
-}
+  uploadCloud(params) {
+    return this.fetcher('POST', '/api/asset/uploadCloud', params, true);
+  }
 
+}

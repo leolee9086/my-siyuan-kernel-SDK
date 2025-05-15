@@ -1,222 +1,175 @@
-// Generated client for API group search
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group search
+export class SearchApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchFindReplaceParams} SearchFindReplaceParams
+ * @typedef {import('./index.d.ts').SearchFindReplaceResponse} SearchFindReplaceResponse
  * 在指定的块ID范围、路径、笔记本、类型中查找内容并进行替换。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<FindReplaceResponse>}
- * @param {string} params.k 必需。要查找的关键词。
- * @param {string} params.r 必需。要替换的字符串。
- * @param {Array<string>} params.ids 必需。要进行查找替换操作的块 ID 数组。
- * @param {Array<string>} [params.paths] paths
- * @param {Array<string>} [params.boxes] boxes
- * @param {Record<string,} [params.types] types
- * @param {number} [params.method] method
- * @param {number} [params.orderBy] orderBy
- * @param {number} [params.groupBy] groupBy
- * @param {Record<string,} [params.replaceTypes] replaceTypes
+ * @param {SearchFindReplaceParams} params - Request parameters.
+ * @returns {Promise<SearchFindReplaceResponse>}
  */
-export async function findReplace(params) {
-  return fetchWrapper('POST', '/api/search/findReplace', params, true);
-}
+  findReplace(params) {
+    return this.fetcher('POST', '/api/search/findReplace', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchFullTextSearchAssetContentParams} SearchFullTextSearchAssetContentParams
+ * @typedef {import('./index.d.ts').SearchFullTextSearchAssetContentResponse} SearchFullTextSearchAssetContentResponse
  * 对资源文件内容进行全文搜索（此功能需要付费订阅）。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<FullTextSearchAssetContentResponse>}
- * @param {string} params.query 必需。搜索查询语句。
- * @param {number} [params.page] page
- * @param {number} [params.pageSize] pageSize
- * @param {Record<string,} [params.types] types
- * @param {number} [params.method] method
- * @param {number} [params.orderBy] orderBy
+ * @param {SearchFullTextSearchAssetContentParams} params - Request parameters.
+ * @returns {Promise<SearchFullTextSearchAssetContentResponse>}
  */
-export async function fullTextSearchAssetContent(params) {
-  return fetchWrapper('POST', '/api/search/fullTextSearchAssetContent', params, true);
-}
+  fullTextSearchAssetContent(params) {
+    return this.fetcher('POST', '/api/search/fullTextSearchAssetContent', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchFullTextSearchBlockParams} SearchFullTextSearchBlockParams
+ * @typedef {import('./index.d.ts').SearchFullTextSearchBlockResponse} SearchFullTextSearchBlockResponse
  * 对块内容进行全文搜索，支持多种搜索方式和过滤条件。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<FullTextSearchBlockResponse>}
- * @param {string} params.query 必需。搜索查询语句。
- * @param {number} [params.page] page
- * @param {number} [params.pageSize] pageSize
- * @param {Array<string>} [params.paths] paths
- * @param {Array<string>} [params.boxes] boxes
- * @param {Record<string,} [params.types] types
- * @param {number} [params.method] method
- * @param {number} [params.orderBy] orderBy
- * @param {number} [params.groupBy] groupBy
+ * @param {SearchFullTextSearchBlockParams} params - Request parameters.
+ * @returns {Promise<SearchFullTextSearchBlockResponse>}
  */
-export async function fullTextSearchBlock(params) {
-  return fetchWrapper('POST', '/api/search/fullTextSearchBlock', params, true);
-}
+  fullTextSearchBlock(params) {
+    return this.fetcher('POST', '/api/search/fullTextSearchBlock', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchGetAssetContentParams} SearchGetAssetContentParams
+ * @typedef {import('./index.d.ts').SearchGetAssetContentResponse} SearchGetAssetContentResponse
  * 获取资源文件内容中，与指定查询相关的片段。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetAssetContentResponse>}
- * @param {string} params.id 必需。资源文件块的 ID。
- * @param {string} params.query 必需。查询关键词。
- * @param {number} params.queryMethod 必需。查询方法：0：关键字，1：查询语法，2：SQL，3：正则表达式。
+ * @param {SearchGetAssetContentParams} params - Request parameters.
+ * @returns {Promise<SearchGetAssetContentResponse>}
  */
-export async function getAssetContent(params) {
-  return fetchWrapper('POST', '/api/search/getAssetContent', params, true);
-}
+  getAssetContent(params) {
+    return this.fetcher('POST', '/api/search/getAssetContent', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchGetEmbedBlockParams} SearchGetEmbedBlockParams
+ * @typedef {import('./index.d.ts').SearchGetEmbedBlockResponse} SearchGetEmbedBlockResponse
  * 获取指定嵌入块的渲染内容，支持包含其子块或显示面包屑。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<GetEmbedBlockResponse>}
- * @param {string} params.embedBlockID 必需。嵌入块（通常是 `((块ID))` 引用的块）的 ID。
- * @param {Array<string>} params.includeIDs 必需。要实际嵌入显示的块 ID 数组（通常只包含 embedBlockID，但在特殊情况下可能包含其子块）。
- * @param {number} [params.headingMode] headingMode
- * @param {boolean} [params.breadcrumb] breadcrumb
+ * @param {SearchGetEmbedBlockParams} params - Request parameters.
+ * @returns {Promise<SearchGetEmbedBlockResponse>}
  */
-export async function getEmbedBlock(params) {
-  return fetchWrapper('POST', '/api/search/getEmbedBlock', params, true);
-}
+  getEmbedBlock(params) {
+    return this.fetcher('POST', '/api/search/getEmbedBlock', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchListInvalidBlockRefsParams} SearchListInvalidBlockRefsParams
+ * @typedef {import('./index.d.ts').SearchListInvalidBlockRefsResponse} SearchListInvalidBlockRefsResponse
  * 分页列出在当前工作空间中所有无效的块引用（例如，引用的块已被删除）。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<ListInvalidBlockRefsResponse>}
- * @param {number} [params.page] page
- * @param {number} [params.pageSize] pageSize
+ * @param {SearchListInvalidBlockRefsParams} params - Request parameters.
+ * @returns {Promise<SearchListInvalidBlockRefsResponse>}
  */
-export async function listInvalidBlockRefs(params) {
-  return fetchWrapper('POST', '/api/search/listInvalidBlockRefs', params, true);
-}
+  listInvalidBlockRefs(params) {
+    return this.fetcher('POST', '/api/search/listInvalidBlockRefs', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchRemoveTemplateParams} SearchRemoveTemplateParams
+ * @typedef {import('./index.d.ts').SearchRemoveTemplateResponse} SearchRemoveTemplateResponse
  * 根据路径移除指定的模板文件。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveTemplateResponse>}
- * @param {string} params.path 必需。要移除的模板文件的相对路径（相对于模板文件夹）。
+ * @param {SearchRemoveTemplateParams} params - Request parameters.
+ * @returns {Promise<SearchRemoveTemplateResponse>}
  */
-export async function removeTemplate(params) {
-  return fetchWrapper('POST', '/api/search/removeTemplate', params, true);
-}
+  removeTemplate(params) {
+    return this.fetcher('POST', '/api/search/removeTemplate', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchAssetParams} SearchSearchAssetParams
+ * @typedef {import('./index.d.ts').SearchSearchAssetResponse} SearchSearchAssetResponse
  * 根据文件名关键词和可选的文件扩展名搜索资源文件。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchAssetResponse>}
- * @param {string} params.k 必需。搜索关键词。
- * @param {Array<string>} [params.exts] exts
+ * @param {SearchSearchAssetParams} params - Request parameters.
+ * @returns {Promise<SearchSearchAssetResponse>}
  */
-export async function searchAsset(params) {
-  return fetchWrapper('POST', '/api/search/searchAsset', params, true);
-}
+  searchAsset(params) {
+    return this.fetcher('POST', '/api/search/searchAsset', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchEmbedBlockParams} SearchSearchEmbedBlockParams
+ * @typedef {import('./index.d.ts').SearchSearchEmbedBlockResponse} SearchSearchEmbedBlockResponse
  * 在指定的嵌入块（及其可能的子块）中使用 SQL 语句进行内容搜索。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchEmbedBlockResponse>}
- * @param {string} params.embedBlockID 必需。作为搜索范围根的嵌入块 ID。
- * @param {string} params.stmt 必需。用于搜索的 SQL 语句。查询的表名通常为 'blocks'，可查询的字段如 id, content, markdown, type 等。
- * @param {Array<string>} [params.excludeIDs] excludeIDs
- * @param {number} [params.headingMode] headingMode
- * @param {boolean} [params.breadcrumb] breadcrumb
+ * @param {SearchSearchEmbedBlockParams} params - Request parameters.
+ * @returns {Promise<SearchSearchEmbedBlockResponse>}
  */
-export async function searchEmbedBlock(params) {
-  return fetchWrapper('POST', '/api/search/searchEmbedBlock', params, true);
-}
+  searchEmbedBlock(params) {
+    return this.fetcher('POST', '/api/search/searchEmbedBlock', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchRefBlockParams} SearchSearchRefBlockParams
+ * @typedef {import('./index.d.ts').SearchSearchRefBlockResponse} SearchSearchRefBlockResponse
  * 在输入引用（例如 `((` 或 `[[`）时，根据关键词动态搜索可能的引用块建议。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchRefBlockResponse>}
- * @param {string} params.id 必需。当前正在编辑的块的 ID。
- * @param {string} params.rootID 必需。当前文档的根块 ID。
- * @param {string} params.k 必需。用户输入的搜索关键词。
- * @param {number} [params.beforeLen] beforeLen
- * @param {boolean} [params.isSquareBrackets] isSquareBrackets
- * @param {boolean} [params.isDatabase] isDatabase
- * @param {any} [params.reqId] reqId
+ * @param {SearchSearchRefBlockParams} params - Request parameters.
+ * @returns {Promise<SearchSearchRefBlockResponse>}
  */
-export async function searchRefBlock(params) {
-  return fetchWrapper('POST', '/api/search/searchRefBlock', params, true);
-}
+  searchRefBlock(params) {
+    return this.fetcher('POST', '/api/search/searchRefBlock', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchTagParams} SearchSearchTagParams
+ * @typedef {import('./index.d.ts').SearchSearchTagResponse} SearchSearchTagResponse
  * 根据关键词搜索已存在的标签。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchTagResponse>}
- * @param {string} params.k 必需。搜索关键词。
+ * @param {SearchSearchTagParams} params - Request parameters.
+ * @returns {Promise<SearchSearchTagResponse>}
  */
-export async function searchTag(params) {
-  return fetchWrapper('POST', '/api/search/searchTag', params, true);
-}
+  searchTag(params) {
+    return this.fetcher('POST', '/api/search/searchTag', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchTemplateParams} SearchSearchTemplateParams
+ * @typedef {import('./index.d.ts').SearchSearchTemplateResponse} SearchSearchTemplateResponse
  * 根据关键词搜索模板（通常是模板文件名或内容）。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchTemplateResponse>}
- * @param {string} params.k 必需。搜索关键词。
+ * @param {SearchSearchTemplateParams} params - Request parameters.
+ * @returns {Promise<SearchSearchTemplateResponse>}
  */
-export async function searchTemplate(params) {
-  return fetchWrapper('POST', '/api/search/searchTemplate', params, true);
-}
+  searchTemplate(params) {
+    return this.fetcher('POST', '/api/search/searchTemplate', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchSearchWidgetParams} SearchSearchWidgetParams
+ * @typedef {import('./index.d.ts').SearchSearchWidgetResponse} SearchSearchWidgetResponse
  * 根据关键词搜索挂件块。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<SearchWidgetResponse>}
- * @param {string} params.k 必需。搜索关键词。
+ * @param {SearchSearchWidgetParams} params - Request parameters.
+ * @returns {Promise<SearchSearchWidgetResponse>}
  */
-export async function searchWidget(params) {
-  return fetchWrapper('POST', '/api/search/searchWidget', params, true);
-}
+  searchWidget(params) {
+    return this.fetcher('POST', '/api/search/searchWidget', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SearchUpdateEmbedBlockParams} SearchUpdateEmbedBlockParams
+ * @typedef {import('./index.d.ts').SearchUpdateEmbedBlockResponse} SearchUpdateEmbedBlockResponse
  * 更新指定**查询嵌入块（`query_embed` 类型）**的原始查询语句或脚本内容。此接口专门用于处理查询嵌入块，不适用于普通块的自定义属性更新。
  * (Requires authentication)
- * @param {object} params - Request parameters.
- * @returns {Promise<UpdateEmbedBlockResponse>}
- * @param {string} params.id 必需。要更新的查询嵌入块的 ID。
- * @param {string} params.content 必需。查询嵌入块新的原始 Markdown 内容，通常是 SQL 查询语句或 JavaScript 脚本。
+ * @param {SearchUpdateEmbedBlockParams} params - Request parameters.
+ * @returns {Promise<SearchUpdateEmbedBlockResponse>}
  */
-export async function updateEmbedBlock(params) {
-  return fetchWrapper('POST', '/api/search/updateEmbedBlock', params, true);
-}
+  updateEmbedBlock(params) {
+    return this.fetcher('POST', '/api/search/updateEmbedBlock', params, true);
+  }
 
+}

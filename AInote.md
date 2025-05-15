@@ -2015,3 +2015,60 @@
 
 **结果**:
 `block.js` 中这三个 API 的定义已更新为准确和详细的版本，包括中文名、描述、权限以及请求和响应的 Zod schema，均严格依据 Go 源码。
+
+---
+
+## 2025-05-15 (织的笔记 - generateSingleFileClient.cjs JSDoc 改进)
+
+**时间**: Thu May 15 2025 19:00:49 UTC (根据 timeanddate.com)
+
+**任务**: 改进 `my-siyuan-kernel-SDK/generateSingleFileClient.cjs` 脚本，使其能够为生成的 `kernelApiClient.js` 中的 API 方法生成详细的 JSDoc注释，特别是能正确解析 Zod raw shape 定义的参数和返回值结构，并优先显示中文API名称。
+
+**核心实现**:
+
+1.  **添加辅助函数**: 
+    *   `isZodRawShape(obj)`: 用于判断一个对象是否为 Zod raw shape (由用户提供)。
+    *   `getZodPrimitiveTypeName(zodType)`: 将 Zod 基础类型（如 `ZodString`）转换为 JSDoc 类型名（如 `string`）。
+    *   `parseZodTypeForJsDoc(zodType, linePrefix)`: 递归地解析 Zod 类型实例，返回一个包含 `{ type: string, description: string, details: string[] }` 的对象。`details` 数组包含了为对象类型生成的 `@property` JSDoc 行（已正确缩进）。
+    *   `generateJsDocLinesFromSchema(apiDefSchemaFn, zInstance, baseJsDocLinePrefix, isReturn)`: 接收 API 定义中的 `zodRequestSchema` 或 `zodResponseSchema` 函数，执行后获取 Zod schema 实例或原始 shape，然后调用 `parseZodTypeForJsDoc` 或直接处理 raw shape 来生成详细的 JSDoc 注释行数组。
+
+2.  **修改 `generateMethodJsDoc(apiDef, hasDataParam)`**: 
+    *   调用 `generateJsDocLinesFromSchema` 为请求参数 (`@param {object} data`) 和返回值 (`@returns {Promise<object>}`) 生成详细的 `@property` 列表。
+    *   修正了 API 描述来源，从 `apiDef.zh_CN` 改为 `apiDef.zh_cn`，以正确匹配 `apiDefs/*.js` 文件中的中文字段名。
+
+3.  **处理空 Schema 和特殊情况**: 
+    *   在 `generateJsDocLinesFromSchema` 中，如果 `apiDefSchemaFn` 返回 `undefined`、`null` 或空对象 `{}`, 会生成一个通用的 JSDoc 注释 (如 `@param {object} data - Request payload` 或 `@returns {Promise<object>} The response from the server.`)。
+    *   如果 schema 是 Zod 实例 (如 `z.void()`)，`parseZodTypeForJsDoc` 会处理并返回其 JSDoc 类型 (如 `void`)，然后 `generateJsDocLinesFromSchema` 会将其包装在 `Promise<>` 中 (如 `Promise<void>`)。
+
+**遇到的问题与解决**:
+
+*   最初尝试在 `parseZodTypeForJsDoc` 中处理原始 shape，后来发现将原始 shape 的处理逻辑移至 `generateJsDocLinesFromSchema` 更为清晰。
+*   `edit_file` 工具在处理包含大量辅助函数和主函数修改的大块代码时，有时会报告 "made no changes to the file"，需要将整个文件内容作为 `code_edit` 参数再次尝试，或将多个函数定义合并到一次 `edit_file` 调用中才能成功应用。
+*   中文 API 描述一开始未能正确显示，经检查发现是 `generateMethodJsDoc` 中错用了 `apiDef.zh_CN` (大写 N) 而非正确的 `apiDef.zh_cn`。
+
+**结果**: 
+*   `generateSingleFileClient.cjs` 脚本现在能够生成包含详细参数和返回值 JSDoc 注释的 `kernelApiClient.js` 文件。
+*   JSDoc 优先显示中文 API 名称。
+*   参数和返回值的类型和属性描述都来源于 `apiDefs/*.js` 中定义的 Zod schema (无论是 Zod 实例还是原始 shape)。
+
+---
+
+## 2025-05-16 (织的笔记 - generateSingleFileClient.cjs API 方法计数)
+
+**时间**: Thu May 15 2025 19:04:17 UTC (根据 timeanddate.com)
+
+**任务**: 在 `my-siyuan-kernel-SDK/generateSingleFileClient.cjs` 脚本中添加功能，使其在生成客户端后，于控制台输出生成的 API 方法总数。
+
+**核心实现**:
+
+1.  在 `generateKernelApiClient` 函数内部、`apiDefs.forEach` 循环之前初始化一个计数器 `methodCount = 0`。
+2.  在 `forEach` 循环中，当一个 API 定义被成功处理并添加到 `classBody` (通过了重复性检查等) 之后，执行 `methodCount++`。
+3.  在 `fs.writeFileSync(OUTPUT_FILE, finalClientCode);` 之后，添加 `console.log(\`Total API methods generated: \${methodCount}\`);` 来输出总数。
+
+**执行结果**:
+*   脚本修改成功。
+*   再次运行 `node my-siyuan-kernel-SDK/generateSingleFileClient.cjs` 后，控制台正确输出了生成的 API 方法总数，例如：\"Total API methods generated: 407\"。
+*   同时也观察到脚本会报告跳过的重复方法名，如 `bootProgress`。
+
+**意义**: 
+此功能有助于快速了解生成的客户端中包含了多少个 API 接口，方便进行核对和验证。

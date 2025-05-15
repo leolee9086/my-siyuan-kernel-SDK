@@ -1,421 +1,436 @@
-// Generated client for API group system
-// TODO: Implement or import a common HTTP request wrapper function (e.g., fetchWrapper)
-async function fetchWrapper(method, endpoint, params, needAuth) {
-  const SiyuanKernelPrefix = typeof window === 'object' ? '' : 'http://127.0.0.1:6806';
-  const url = SiyuanKernelPrefix + endpoint;
-  const options = { method, headers: {} };
-  if (method === 'POST' && params && Object.keys(params).length > 0) { // Only add body if params exist and are not empty
-    options.headers['Content-Type'] = 'application/json';
-    options.body = JSON.stringify(params);
-  }
-  if (needAuth) {
-    // Example: Retrieve and add auth token
-    // const token = localStorage.getItem('siyuan-auth-token'); 
-    options.headers['Authorization'] = 'Bearer YOUR_TOKEN_HERE'; // Placeholder
-  }
-  const response = await fetch(url, options);
-  if (!response.ok) {
-    let errorData = 'Failed to parse error response';
-    try { errorData = await response.json(); } catch (e) { try {errorData = await response.text(); } catch (e2) { /* ignore secondary error */ }}    console.error('API Error:', response.status, errorData); 
-    throw new Error(`API Error ${response.status}: ${JSON.stringify(errorData)}`);
-  }
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  } 
-  return response.text(); // Or handle other content types
-}
+// Generated API client for group system
+export class SystemApi {
+    constructor(fetcher) {
+        this.fetcher = fetcher;
+    }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemAddMicrosoftDefenderExclusionResponse} SystemAddMicrosoftDefenderExclusionResponse
  * 将思源笔记相关目录添加到 Microsoft Defender 的排除项中，以避免潜在的性能问题或冲突。此操作仅在 Windows 系统上有效。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<AddMicrosoftDefenderExclusionResponse>}
+ * @returns {Promise<SystemAddMicrosoftDefenderExclusionResponse>}
  */
-export async function addMicrosoftDefenderExclusion() {
-  return fetchWrapper('POST', '/api/system/addMicrosoftDefenderExclusion', undefined, true);
-}
+  addMicrosoftDefenderExclusion() {
+    return this.fetcher('POST', '/api/system/addMicrosoftDefenderExclusion', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemBootProgressResponse} SystemBootProgressResponse
  * 获取思源笔记内核的启动进度。此接口也接受 POST 请求。
- * @returns {Promise<BootProgressResponse>}
+ * @returns {Promise<SystemBootProgressResponse>}
  */
-export async function bootProgress() {
-  return fetchWrapper('GET', '/api/system/bootProgress', undefined, false);
-}
+  bootProgress() {
+    return this.fetcher('GET', '/api/system/bootProgress', undefined, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemBootProgressResponse} SystemBootProgressResponse
  * 获取思源笔记内核的启动进度。此接口也接受 GET 请求。
- * @returns {Promise<BootProgressResponse>}
+ * @returns {Promise<SystemBootProgressResponse>}
  */
-export async function bootProgress() {
-  return fetchWrapper('POST', '/api/system/bootProgress', undefined, false);
-}
+  bootProgress() {
+    return this.fetcher('POST', '/api/system/bootProgress', {}, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemCheckUpdateParams} SystemCheckUpdateParams
+ * @typedef {import('./index.d.ts').SystemCheckUpdateResponse} SystemCheckUpdateResponse
  * 检查思源笔记是否有新版本。
  * (Requires authentication, Requires admin role)
- * @param {object} params - Request parameters.
- * @returns {Promise<CheckUpdateResponse>}
- * @param {boolean} params.showMsg 是否在检查后显示提示消息给用户
+ * @param {SystemCheckUpdateParams} params - Request parameters.
+ * @returns {Promise<SystemCheckUpdateResponse>}
  */
-export async function checkUpdate(params) {
-  return fetchWrapper('POST', '/api/system/checkUpdate', params, true);
-}
+  checkUpdate(params) {
+    return this.fetcher('POST', '/api/system/checkUpdate', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemCheckWorkspaceDirParams} SystemCheckWorkspaceDirParams
+ * @typedef {import('./index.d.ts').SystemCheckWorkspaceDirResponse} SystemCheckWorkspaceDirResponse
  * 检查指定路径是否可以作为思源笔记的工作空间目录。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CheckWorkspaceDirResponse>}
- * @param {string} params.path 要检查的目录绝对路径
+ * @param {SystemCheckWorkspaceDirParams} params - Request parameters.
+ * @returns {Promise<SystemCheckWorkspaceDirResponse>}
  */
-export async function checkWorkspaceDir(params) {
-  return fetchWrapper('POST', '/api/system/checkWorkspaceDir', params, true);
-}
+  checkWorkspaceDir(params) {
+    return this.fetcher('POST', '/api/system/checkWorkspaceDir', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemCreateWorkspaceDirParams} SystemCreateWorkspaceDirParams
+ * @typedef {import('./index.d.ts').SystemCreateWorkspaceDirResponse} SystemCreateWorkspaceDirResponse
  * 在指定路径创建一个新的思源笔记工作空间。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<CreateWorkspaceDirResponse>}
- * @param {string} params.path 要创建工作空间的目录绝对路径
+ * @param {SystemCreateWorkspaceDirParams} params - Request parameters.
+ * @returns {Promise<SystemCreateWorkspaceDirResponse>}
  */
-export async function createWorkspaceDir(params) {
-  return fetchWrapper('POST', '/api/system/createWorkspaceDir', params, true);
-}
+  createWorkspaceDir(params) {
+    return this.fetcher('POST', '/api/system/createWorkspaceDir', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemCurrentTimeResponse} SystemCurrentTimeResponse
  * 获取思源笔记服务器当前的 Unix 时间戳 (毫秒)。
- * @returns {Promise<CurrentTimeResponse>}
+ * @returns {Promise<SystemCurrentTimeResponse>}
  */
-export async function currentTime() {
-  return fetchWrapper('POST', '/api/system/currentTime', undefined, false);
-}
+  currentTime() {
+    return this.fetcher('POST', '/api/system/currentTime', {}, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemExitResponse} SystemExitResponse
  * 关闭并退出思源笔记程序。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<ExitResponse>}
+ * @returns {Promise<SystemExitResponse>}
  */
-export async function exit() {
-  return fetchWrapper('POST', '/api/system/exit', undefined, true);
-}
+  exit() {
+    return this.fetcher('POST', '/api/system/exit', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemExportConfResponse} SystemExportConfResponse
  * 导出一份包含当前用户所有配置的 JSON 文件。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<ExportConfResponse>}
+ * @returns {Promise<SystemExportConfResponse>}
  */
-export async function exportConf() {
-  return fetchWrapper('POST', '/api/system/exportConf', undefined, true);
-}
+  exportConf() {
+    return this.fetcher('POST', '/api/system/exportConf', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemExportLogResponse} SystemExportLogResponse
  * 导出包含系统运行日志的压缩文件。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<ExportLogResponse>}
+ * @returns {Promise<SystemExportLogResponse>}
  */
-export async function exportLog() {
-  return fetchWrapper('POST', '/api/system/exportLog', undefined, true);
-}
+  exportLog() {
+    return this.fetcher('POST', '/api/system/exportLog', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetCaptchaResponse} SystemGetCaptchaResponse
  * 获取用于登录验证的图片验证码。
- * @returns {Promise<GetCaptchaResponse>}
+ * @returns {Promise<SystemGetCaptchaResponse>}
  */
-export async function GetCaptcha() {
-  return fetchWrapper('GET', '/api/system/getCaptcha', undefined, false);
-}
+  GetCaptcha() {
+    return this.fetcher('GET', '/api/system/getCaptcha', undefined, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetChangelogResponse} SystemGetChangelogResponse
  * 获取当前版本的更新日志内容 (Markdown 格式转换为 HTML)。
  * (Requires authentication)
- * @returns {Promise<GetChangelogResponse>}
+ * @returns {Promise<SystemGetChangelogResponse>}
  */
-export async function getChangelog() {
-  return fetchWrapper('POST', '/api/system/getChangelog', undefined, true);
-}
+  getChangelog() {
+    return this.fetcher('POST', '/api/system/getChangelog', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetConfResponse} SystemGetConfResponse
  * 获取思源笔记的全部配置信息。配置项繁多，具体结构请参考 `siyuan/kernel/conf/conf.go` 中的 `Conf` 结构体。
  * (Requires authentication)
- * @returns {Promise<GetConfResponse>}
+ * @returns {Promise<SystemGetConfResponse>}
  */
-export async function getConf() {
-  return fetchWrapper('POST', '/api/system/getConf', undefined, true);
-}
+  getConf() {
+    return this.fetcher('POST', '/api/system/getConf', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetEmojiConfResponse} SystemGetEmojiConfResponse
  * 获取内置及自定义 Emoji 的配置信息，用于 Emoji 选择器等功能。
  * (Requires authentication)
- * @returns {Promise<GetEmojiConfResponse>}
+ * @returns {Promise<SystemGetEmojiConfResponse>}
  */
-export async function getEmojiConf() {
-  return fetchWrapper('POST', '/api/system/getEmojiConf', undefined, true);
-}
+  getEmojiConf() {
+    return this.fetcher('POST', '/api/system/getEmojiConf', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetMobileWorkspacesResponse} SystemGetMobileWorkspacesResponse
  * 获取用于移动端同步的工作空间列表。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<GetMobileWorkspacesResponse>}
+ * @returns {Promise<SystemGetMobileWorkspacesResponse>}
  */
-export async function getMobileWorkspaces() {
-  return fetchWrapper('POST', '/api/system/getMobileWorkspaces', undefined, true);
-}
+  getMobileWorkspaces() {
+    return this.fetcher('POST', '/api/system/getMobileWorkspaces', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetNetworkResponse} SystemGetNetworkResponse
  * 获取当前的网络代理等配置信息。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<GetNetworkResponse>}
+ * @returns {Promise<SystemGetNetworkResponse>}
  */
-export async function getNetwork() {
-  return fetchWrapper('POST', '/api/system/getNetwork', undefined, true);
-}
+  getNetwork() {
+    return this.fetcher('POST', '/api/system/getNetwork', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetSysFontsResponse} SystemGetSysFontsResponse
  * 获取当前操作系统上安装的可用字体列表。
  * (Requires authentication, Requires admin role)
- * @returns {Promise<GetSysFontsResponse>}
+ * @returns {Promise<SystemGetSysFontsResponse>}
  */
-export async function getSysFonts() {
-  return fetchWrapper('POST', '/api/system/getSysFonts', undefined, true);
-}
+  getSysFonts() {
+    return this.fetcher('POST', '/api/system/getSysFonts', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetWorkspaceInfoResponse} SystemGetWorkspaceInfoResponse
  * 获取当前打开的工作空间目录路径和思源版本号。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<GetWorkspaceInfoResponse>}
+ * @returns {Promise<SystemGetWorkspaceInfoResponse>}
  */
-export async function getWorkspaceInfo() {
-  return fetchWrapper('POST', '/api/system/getWorkspaceInfo', undefined, true);
-}
+  getWorkspaceInfo() {
+    return this.fetcher('POST', '/api/system/getWorkspaceInfo', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemGetWorkspacesResponse} SystemGetWorkspacesResponse
  * 获取所有已配置或曾经打开过的工作空间列表。
  * (Requires authentication)
- * @returns {Promise<GetWorkspacesResponse>}
+ * @returns {Promise<SystemGetWorkspacesResponse>}
  */
-export async function getWorkspaces() {
-  return fetchWrapper('POST', '/api/system/getWorkspaces', undefined, true);
-}
+  getWorkspaces() {
+    return this.fetcher('POST', '/api/system/getWorkspaces', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemIgnoreAddMicrosoftDefenderExclusionResponse} SystemIgnoreAddMicrosoftDefenderExclusionResponse
  * 设置不再提示用户添加 Microsoft Defender 排除项。此操作仅在 Windows 系统上有效。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<IgnoreAddMicrosoftDefenderExclusionResponse>}
+ * @returns {Promise<SystemIgnoreAddMicrosoftDefenderExclusionResponse>}
  */
-export async function ignoreAddMicrosoftDefenderExclusion() {
-  return fetchWrapper('POST', '/api/system/ignoreAddMicrosoftDefenderExclusion', undefined, true);
-}
+  ignoreAddMicrosoftDefenderExclusion() {
+    return this.fetcher('POST', '/api/system/ignoreAddMicrosoftDefenderExclusion', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemImportConfParams} SystemImportConfParams
+ * @typedef {import('./index.d.ts').SystemImportConfResponse} SystemImportConfResponse
  * 通过上传 `conf.json` 文件来导入用户配置。导入成功后通常需要重启或刷新UI生效。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<ImportConfResponse>}
- * @param {any} params.file 上传的 `conf.json` 文件。通常通过 FormData 提交。`z.instanceof(File)` 在此场景不适用，因为这是后端定义。前端应使用 `FormData`。
+ * @param {SystemImportConfParams} params - Request parameters.
+ * @returns {Promise<SystemImportConfResponse>}
  */
-export async function importConf(params) {
-  return fetchWrapper('POST', '/api/system/importConf', params, true);
-}
+  importConf(params) {
+    return this.fetcher('POST', '/api/system/importConf', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemLoginAuthParams} SystemLoginAuthParams
+ * @typedef {import('./index.d.ts').SystemLoginAuthResponse} SystemLoginAuthResponse
  * 使用访问授权码或用户名密码进行登录验证。
- * @param {object} params - Request parameters.
- * @returns {Promise<LoginAuthResponse>}
- * @param {string} [params.authcode] authcode
- * @param {string} [params.captcha] captcha
+ * @param {SystemLoginAuthParams} params - Request parameters.
+ * @returns {Promise<SystemLoginAuthResponse>}
  */
-export async function LoginAuth(params) {
-  return fetchWrapper('POST', '/api/system/loginAuth', params, false);
-}
+  LoginAuth(params) {
+    return this.fetcher('POST', '/api/system/loginAuth', params, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemLogoutAuthResponse} SystemLogoutAuthResponse
  * 清除当前的登录授权状态。
- * @returns {Promise<LogoutAuthResponse>}
+ * @returns {Promise<SystemLogoutAuthResponse>}
  */
-export async function LogoutAuth() {
-  return fetchWrapper('POST', '/api/system/logoutAuth', undefined, false);
-}
+  LogoutAuth() {
+    return this.fetcher('POST', '/api/system/logoutAuth', {}, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemReloadUIResponse} SystemReloadUIResponse
  * 命令客户端重新加载思源笔记的用户界面。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @returns {Promise<ReloadUIResponse>}
+ * @returns {Promise<SystemReloadUIResponse>}
  */
-export async function reloadUI() {
-  return fetchWrapper('POST', '/api/system/reloadUI', undefined, true);
-}
+  reloadUI() {
+    return this.fetcher('POST', '/api/system/reloadUI', {}, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemRemoveWorkspaceDirParams} SystemRemoveWorkspaceDirParams
+ * @typedef {import('./index.d.ts').SystemRemoveWorkspaceDirResponse} SystemRemoveWorkspaceDirResponse
  * 从工作空间列表中移除指定的目录（逻辑删除，不删除物理文件）。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveWorkspaceDirResponse>}
- * @param {string} params.path 要移除的工作空间的绝对路径
+ * @param {SystemRemoveWorkspaceDirParams} params - Request parameters.
+ * @returns {Promise<SystemRemoveWorkspaceDirResponse>}
  */
-export async function removeWorkspaceDir(params) {
-  return fetchWrapper('POST', '/api/system/removeWorkspaceDir', params, true);
-}
+  removeWorkspaceDir(params) {
+    return this.fetcher('POST', '/api/system/removeWorkspaceDir', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemRemoveWorkspaceDirPhysicallyParams} SystemRemoveWorkspaceDirPhysicallyParams
+ * @typedef {import('./index.d.ts').SystemRemoveWorkspaceDirPhysicallyResponse} SystemRemoveWorkspaceDirPhysicallyResponse
  * 从工作空间列表中移除并物理删除指定目录及其所有内容。这是一个危险操作！
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<RemoveWorkspaceDirPhysicallyResponse>}
- * @param {Array<string>} params.paths 要物理删除的工作空间的绝对路径列表
+ * @param {SystemRemoveWorkspaceDirPhysicallyParams} params - Request parameters.
+ * @returns {Promise<SystemRemoveWorkspaceDirPhysicallyResponse>}
  */
-export async function removeWorkspaceDirPhysically(params) {
-  return fetchWrapper('POST', '/api/system/removeWorkspaceDirPhysically', params, true);
-}
+  removeWorkspaceDirPhysically(params) {
+    return this.fetcher('POST', '/api/system/removeWorkspaceDirPhysically', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetAPITokenParams} SystemSetAPITokenParams
+ * @typedef {import('./index.d.ts').SystemSetAPITokenResponse} SystemSetAPITokenResponse
  * 设置或清空 API 访问令牌 (token)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetAPITokenResponse>}
- * @param {string} params.token 新的 API 令牌。如果为空字符串，则表示清空令牌。
+ * @param {SystemSetAPITokenParams} params - Request parameters.
+ * @returns {Promise<SystemSetAPITokenResponse>}
  */
-export async function setAPIToken(params) {
-  return fetchWrapper('POST', '/api/system/setAPIToken', params, true);
-}
+  setAPIToken(params) {
+    return this.fetcher('POST', '/api/system/setAPIToken', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetAccessAuthCodeParams} SystemSetAccessAuthCodeParams
+ * @typedef {import('./index.d.ts').SystemSetAccessAuthCodeResponse} SystemSetAccessAuthCodeResponse
  * 设置或清空访问思源笔记的授权码。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetAccessAuthCodeResponse>}
- * @param {string} params.code 新的访问授权码。如果为空字符串，则表示清空授权码。
- * @param {boolean} [params.permanent] permanent
+ * @param {SystemSetAccessAuthCodeParams} params - Request parameters.
+ * @returns {Promise<SystemSetAccessAuthCodeResponse>}
  */
-export async function setAccessAuthCode(params) {
-  return fetchWrapper('POST', '/api/system/setAccessAuthCode', params, true);
-}
+  setAccessAuthCode(params) {
+    return this.fetcher('POST', '/api/system/setAccessAuthCode', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetAppearanceModeParams} SystemSetAppearanceModeParams
+ * @typedef {import('./index.d.ts').SystemSetAppearanceModeResponse} SystemSetAppearanceModeResponse
  * 设置思源笔记的外观模式 (亮色/暗色)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetAppearanceModeResponse>}
- * @param {number} params.mode 外观模式：0 表示亮色 (Light)，1 表示暗色 (Dark)
+ * @param {SystemSetAppearanceModeParams} params - Request parameters.
+ * @returns {Promise<SystemSetAppearanceModeResponse>}
  */
-export async function setAppearanceMode(params) {
-  return fetchWrapper('POST', '/api/system/setAppearanceMode', params, true);
-}
+  setAppearanceMode(params) {
+    return this.fetcher('POST', '/api/system/setAppearanceMode', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetAutoLaunchParams} SystemSetAutoLaunchParams
+ * @typedef {import('./index.d.ts').SystemSetAutoLaunchResponse} SystemSetAutoLaunchResponse
  * 设置思源笔记是否开机自启动 (仅对桌面客户端有效)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetAutoLaunchResponse>}
- * @param {boolean} params.autoLaunch 是否开机自启动
+ * @param {SystemSetAutoLaunchParams} params - Request parameters.
+ * @returns {Promise<SystemSetAutoLaunchResponse>}
  */
-export async function setAutoLaunch(params) {
-  return fetchWrapper('POST', '/api/system/setAutoLaunch', params, true);
-}
+  setAutoLaunch(params) {
+    return this.fetcher('POST', '/api/system/setAutoLaunch', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetDownloadInstallPkgParams} SystemSetDownloadInstallPkgParams
+ * @typedef {import('./index.d.ts').SystemSetDownloadInstallPkgResponse} SystemSetDownloadInstallPkgResponse
  * 设置是否在检测到新版本后自动下载并安装更新包。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetDownloadInstallPkgResponse>}
- * @param {boolean} params.downloadInstallPkg 是否自动下载并安装更新包
+ * @param {SystemSetDownloadInstallPkgParams} params - Request parameters.
+ * @returns {Promise<SystemSetDownloadInstallPkgResponse>}
  */
-export async function setDownloadInstallPkg(params) {
-  return fetchWrapper('POST', '/api/system/setDownloadInstallPkg', params, true);
-}
+  setDownloadInstallPkg(params) {
+    return this.fetcher('POST', '/api/system/setDownloadInstallPkg', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetFollowSystemLockScreenParams} SystemSetFollowSystemLockScreenParams
+ * @typedef {import('./index.d.ts').SystemSetFollowSystemLockScreenResponse} SystemSetFollowSystemLockScreenResponse
  * 设置思源笔记是否在系统锁屏时自动锁定 (仅对桌面客户端有效)。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetFollowSystemLockScreenResponse>}
- * @param {boolean} params.follow 是否跟随系统锁屏
+ * @param {SystemSetFollowSystemLockScreenParams} params - Request parameters.
+ * @returns {Promise<SystemSetFollowSystemLockScreenResponse>}
  */
-export async function setFollowSystemLockScreen(params) {
-  return fetchWrapper('POST', '/api/system/setFollowSystemLockScreen', params, true);
-}
+  setFollowSystemLockScreen(params) {
+    return this.fetcher('POST', '/api/system/setFollowSystemLockScreen', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetGoogleAnalyticsParams} SystemSetGoogleAnalyticsParams
+ * @typedef {import('./index.d.ts').SystemSetGoogleAnalyticsResponse} SystemSetGoogleAnalyticsResponse
  * 启用或禁用 Google Analytics 数据追踪。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetGoogleAnalyticsResponse>}
- * @param {boolean} params.enabled 是否启用 Google Analytics
+ * @param {SystemSetGoogleAnalyticsParams} params - Request parameters.
+ * @returns {Promise<SystemSetGoogleAnalyticsResponse>}
  */
-export async function setGoogleAnalytics(params) {
-  return fetchWrapper('POST', '/api/system/setGoogleAnalytics', params, true);
-}
+  setGoogleAnalytics(params) {
+    return this.fetcher('POST', '/api/system/setGoogleAnalytics', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetNetworkProxyParams} SystemSetNetworkProxyParams
+ * @typedef {import('./index.d.ts').SystemSetNetworkProxyResponse} SystemSetNetworkProxyResponse
  * 设置网络连接时使用的代理服务器。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetNetworkProxyResponse>}
- * @param {string} params.proxy 代理服务器地址，例如 'http://127.0.0.1:7890', 'socks5://127.0.0.1:1080'。如果为空字符串，则表示清除代理设置。
+ * @param {SystemSetNetworkProxyParams} params - Request parameters.
+ * @returns {Promise<SystemSetNetworkProxyResponse>}
  */
-export async function setNetworkProxy(params) {
-  return fetchWrapper('POST', '/api/system/setNetworkProxy', params, true);
-}
+  setNetworkProxy(params) {
+    return this.fetcher('POST', '/api/system/setNetworkProxy', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetNetworkServeParams} SystemSetNetworkServeParams
+ * @typedef {import('./index.d.ts').SystemSetNetworkServeResponse} SystemSetNetworkServeResponse
  * 配置思源笔记的网络服务，如服务端口、是否允许其他设备访问等。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetNetworkServeResponse>}
- * @param {boolean} params.serve 是否启用网络服务
- * @param {string} params.port 网络服务端口号，字符串形式，例如 '6806'
- * @param {string} params.accessPermission 网络访问权限：'lan' (仅局域网), 'wan' (允许公网，需谨慎), 'localhost' (仅本机)
+ * @param {SystemSetNetworkServeParams} params - Request parameters.
+ * @returns {Promise<SystemSetNetworkServeResponse>}
  */
-export async function setNetworkServe(params) {
-  return fetchWrapper('POST', '/api/system/setNetworkServe', params, true);
-}
+  setNetworkServe(params) {
+    return this.fetcher('POST', '/api/system/setNetworkServe', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetUILayoutParams} SystemSetUILayoutParams
+ * @typedef {import('./index.d.ts').SystemSetUILayoutResponse} SystemSetUILayoutResponse
  * 设置用户界面的布局模式，例如左右布局、顶部分栏等。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetUILayoutResponse>}
- * @param {string} params.layout UI 布局模式的标识符字符串
+ * @param {SystemSetUILayoutParams} params - Request parameters.
+ * @returns {Promise<SystemSetUILayoutResponse>}
  */
-export async function setUILayout(params) {
-  return fetchWrapper('POST', '/api/system/setUILayout', params, true);
-}
+  setUILayout(params) {
+    return this.fetcher('POST', '/api/system/setUILayout', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemSetWorkspaceDirParams} SystemSetWorkspaceDirParams
+ * @typedef {import('./index.d.ts').SystemSetWorkspaceDirResponse} SystemSetWorkspaceDirResponse
  * 切换到指定路径的工作空间。成功后通常需要重启或刷新 UI。
  * (Requires authentication, Requires admin role, Unavailable in read-only mode)
- * @param {object} params - Request parameters.
- * @returns {Promise<SetWorkspaceDirResponse>}
- * @param {string} params.path 要切换到的工作空间的绝对路径
+ * @param {SystemSetWorkspaceDirParams} params - Request parameters.
+ * @returns {Promise<SystemSetWorkspaceDirResponse>}
  */
-export async function setWorkspaceDir(params) {
-  return fetchWrapper('POST', '/api/system/setWorkspaceDir', params, true);
-}
+  setWorkspaceDir(params) {
+    return this.fetcher('POST', '/api/system/setWorkspaceDir', params, true);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemAddUIProcessParams} SystemAddUIProcessParams
+ * @typedef {import('./index.d.ts').SystemAddUIProcessResponse} SystemAddUIProcessResponse
  * （内部接口）用于桌面端添加 UI 进程的相关信息，如 PID。通常不由普通用户或第三方应用直接调用。
- * @param {object} params - Request parameters.
- * @returns {Promise<AddUIProcessResponse>}
- * @param {number} [params.pid] pid
+ * @param {SystemAddUIProcessParams} params - Request parameters.
+ * @returns {Promise<SystemAddUIProcessResponse>}
  */
-export async function addUIProcess(params) {
-  return fetchWrapper('POST', '/api/system/uiproc', params, false);
-}
+  addUIProcess(params) {
+    return this.fetcher('POST', '/api/system/uiproc', params, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemVersionResponse} SystemVersionResponse
  * 获取当前思源笔记内核的版本号。此接口也接受 POST 请求。
- * @returns {Promise<VersionResponse>}
+ * @returns {Promise<SystemVersionResponse>}
  */
-export async function version() {
-  return fetchWrapper('GET', '/api/system/version', undefined, false);
-}
+  version() {
+    return this.fetcher('GET', '/api/system/version', undefined, false);
+  }
 
-/**
+  /**
+ * @typedef {import('./index.d.ts').SystemVersionResponse} SystemVersionResponse
  * 获取当前思源笔记内核的版本号。此接口也接受 GET 请求。
- * @returns {Promise<VersionResponse>}
+ * @returns {Promise<SystemVersionResponse>}
  */
-export async function version() {
-  return fetchWrapper('POST', '/api/system/version', undefined, false);
-}
+  version() {
+    return this.fetcher('POST', '/api/system/version', {}, false);
+  }
 
+}

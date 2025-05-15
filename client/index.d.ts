@@ -1,276 +1,276 @@
-// TypeScript definitions for generated API clients
+// TypeScript definitions for Siyuan API Client
 
-interface CheckActivationcodeParams {
+interface AccountCheckActivationcodeParams {
   data: string; // 要检查的激活码
 }
 
-interface CheckActivationcodeResponse {
+interface AccountCheckActivationcodeResponse {
   Code: number; // 返回码，0 表示成功，其他表示失败
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface DeactivateUserResponse {
+interface AccountDeactivateUserResponse {
   Code: number; // 返回码，0 表示成功，其他表示失败
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface LoginParams {
+interface AccountLoginParams {
   userName: string; // 用户名
   userPassword: string; // 用户密码
   captcha: string; // 验证码
   cloudRegion: number; // 云端区域代码，例如 0 表示中国区
 }
 
-interface LoginResponse {
+interface AccountLoginResponse {
   Code: number; // 返回码，0 表示成功，其他表示失败
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface StartFreeTrialResponse {
+interface AccountStartFreeTrialResponse {
   Code: number; // 返回码，0 表示成功，其他表示失败
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface UseActivationcodeParams {
+interface AccountUseActivationcodeParams {
   data: string; // 要使用的激活码
 }
 
-interface UseActivationcodeResponse {
+interface AccountUseActivationcodeResponse {
   Code: number; // 返回码，0 表示成功，其他表示失败
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface ChatGPTParams {
+interface AiChatGPTParams {
   msg: string; // 发送给 ChatGPT 的消息内容
 }
 
-interface ChatGPTResponse {
+interface AiChatGPTResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any; // ChatGPT 的回复内容
 }
 
-interface ChatGPTWithActionParams {
+interface AiChatGPTWithActionParams {
   ids: Array<string>; // 要操作的块 ID 列表
   action: string; // 要执行的动作指令
 }
 
-interface ChatGPTWithActionResponse {
+interface AiChatGPTWithActionResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any; // ChatGPT 执行动作后的返回结果
 }
 
-interface UnzipParams {
+interface ArchiveUnzipParams {
   zipPath: string; // 要解压的 .zip 文件的绝对路径或相对于工作空间的路径
   path: string; // 解压到目标目录的绝对路径或相对于工作空间的路径
 }
 
-interface UnzipResponse {
+interface ArchiveUnzipResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface ZipParams {
+interface ArchiveZipParams {
   path: string; // 要压缩的文件或目录的绝对路径或相对于工作空间的路径
   zipPath: string; // 生成的 .zip 文件保存的绝对路径或相对于工作空间的路径
 }
 
-interface ZipResponse {
+interface ArchiveZipResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface FullReindexAssetContentResponse {
+interface AssetFullReindexAssetContentResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface GetDocAssetsParams {
+interface AssetGetDocAssetsParams {
   id: string; // 文档块的 ID
 }
 
-interface GetDocAssetsResponse {
+interface AssetGetDocAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any; // 资源文件对象数组，具体结构未定义
 }
 
-interface GetDocImageAssetsParams {
+interface AssetGetDocImageAssetsParams {
   id: string; // 文档块的 ID
 }
 
-interface GetDocImageAssetsResponse {
+interface AssetGetDocImageAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any; // 图片资源文件对象数组，具体结构未定义
 }
 
-interface GetFileAnnotationParams {
+interface AssetGetFileAnnotationParams {
   path: string; // 资源文件的路径 (例如 assets/xxx.pdf)
 }
 
-interface GetFileAnnotationResponseData {
+interface AssetGetFileAnnotationResponseData {
   path: string; // 资源文件的路径
   data: string; // 标注数据 (通常为 XFDF 格式的字符串)
 }
 
-interface GetFileAnnotationResponse {
+interface AssetGetFileAnnotationResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetFileAnnotationResponseData;
+  Data: AssetGetFileAnnotationResponseData;
 }
 
-interface GetImageOCRTextParams {
+interface AssetGetImageOCRTextParams {
   path: string; // 图片资源文件的路径 (例如 assets/xxx.png)
 }
 
-interface GetImageOCRTextResponseData {
+interface AssetGetImageOCRTextResponseData {
   text: string; // OCR 识别出的文本内容
   ocrJSON: any; // 原始 OCR 结果，通常为 JSON 对象，具体结构取决于 OCR 引擎
 }
 
-interface GetImageOCRTextResponse {
+interface AssetGetImageOCRTextResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetImageOCRTextResponseData;
+  Data: AssetGetImageOCRTextResponseData;
 }
 
-interface GetMissingAssetsResponseData {
+interface AssetGetMissingAssetsResponseData {
   missingAssets: Array<any>; // 丢失的资源路径列表，具体元素结构未定义
 }
 
-interface GetMissingAssetsResponse {
+interface AssetGetMissingAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetMissingAssetsResponseData;
+  Data: AssetGetMissingAssetsResponseData;
 }
 
-interface GetUnusedAssetsResponseData {
+interface AssetGetUnusedAssetsResponseData {
   unusedAssets: Array<any>; // 未使用的资源文件对象列表，具体元素结构未定义
 }
 
-interface GetUnusedAssetsResponse {
+interface AssetGetUnusedAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetUnusedAssetsResponseData;
+  Data: AssetGetUnusedAssetsResponseData;
 }
 
-interface InsertLocalAssetsParams {
+interface AssetInsertLocalAssetsParams {
   assetPaths: Array<string>; // 本地资源文件的绝对路径数组
   id: string; // 要插入资源引用的目标文档块 ID
   isUpload?: boolean;
 }
 
-interface InsertLocalAssetsResponseData {
+interface AssetInsertLocalAssetsResponseData {
   succMap: Record<string, string>; // 成功插入的资源映射，键为原始文件名，值为在思源中的新资源路径
 }
 
-interface InsertLocalAssetsResponse {
+interface AssetInsertLocalAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InsertLocalAssetsResponseData;
+  Data: AssetInsertLocalAssetsResponseData;
 }
 
-interface OcrParams {
+interface AssetOcrParams {
   path: string;
 }
 
-interface OcrResponseData {
+interface AssetOcrResponseData {
   text: string; // OCR 识别出的文本内容
   ocrJSON: any; // 原始 OCR 结果，通常为 JSON 对象，具体结构取决于 OCR 引擎
 }
 
-interface OcrResponse {
+interface AssetOcrResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: OcrResponseData;
+  Data: AssetOcrResponseData;
 }
 
-interface RemoveUnusedAssetParams {
+interface AssetRemoveUnusedAssetParams {
   path: string;
 }
 
-interface RemoveUnusedAssetResponseData {
+interface AssetRemoveUnusedAssetResponseData {
   path: string; // 被成功移除的资源文件的路径
 }
 
-interface RemoveUnusedAssetResponse {
+interface AssetRemoveUnusedAssetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RemoveUnusedAssetResponseData;
+  Data: AssetRemoveUnusedAssetResponseData;
 }
 
-interface RemoveUnusedAssetsResponseData {
+interface AssetRemoveUnusedAssetsResponseData {
   paths: Array<string>; // 被成功移除的所有未使用资源文件的路径列表
 }
 
-interface RemoveUnusedAssetsResponse {
+interface AssetRemoveUnusedAssetsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RemoveUnusedAssetsResponseData;
+  Data: AssetRemoveUnusedAssetsResponseData;
 }
 
-interface RenameAssetParams {
+interface AssetRenameAssetParams {
   oldPath: string; // 资源文件的当前路径 (例如 assets/old_name.png)
   newName: string; // 资源文件的新名称 (不含路径，例如 new_name.png)
 }
 
-interface RenameAssetResponseData {
+interface AssetRenameAssetResponseData {
   newPath: string; // 资源文件重命名后的新路径 (例如 assets/new_name.png)
 }
 
-interface RenameAssetResponse {
+interface AssetRenameAssetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RenameAssetResponseData;
+  Data: AssetRenameAssetResponseData;
 }
 
-interface ResolveAssetPathParams {
+interface AssetResolveAssetPathParams {
   path: string; // 思源笔记中的资源相对路径 (例如 assets/image.png)
 }
 
-interface ResolveAssetPathResponse {
+interface AssetResolveAssetPathResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: string; // 资源文件在文件系统中的绝对路径
 }
 
-interface SetFileAnnotationParams {
+interface AssetSetFileAnnotationParams {
   path: string; // 资源文件的路径 (例如 assets/xxx.pdf)
   data: string; // 要设置的标注数据 (通常为 XFDF 格式的字符串)
 }
 
-interface SetFileAnnotationResponse {
+interface AssetSetFileAnnotationResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface SetImageOCRTextParams {
+interface AssetSetImageOCRTextParams {
   path: string; // 图片资源文件的路径 (例如 assets/xxx.png)
   text: string; // 要设置的 OCR 文本内容
 }
 
-interface SetImageOCRTextResponse {
+interface AssetSetImageOCRTextResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface StatAssetParams {
+interface AssetStatAssetParams {
   path: string; // 资源文件的 assets/ 路径或本地文件的 file:/// 绝对路径
 }
 
-interface StatAssetResponseData {
+interface AssetStatAssetResponseData {
   size: number; // 文件大小（字节）
   hSize: string; // 人类可读的文件大小 (例如 1.2MB)
   created: number; // 文件创建时间戳 (毫秒)
@@ -279,103 +279,103 @@ interface StatAssetResponseData {
   hUpdated: string; // 人类可读的文件最后修改时间
 }
 
-interface StatAssetResponse {
+interface AssetStatAssetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: StatAssetResponseData;
+  Data: AssetStatAssetResponseData;
 }
 
-interface UploadParams {
+interface AssetUploadParams {
   assetPath?: string;
   id?: string;
   files: any; // 通过 FormData 上传的文件对象或文件对象列表，此字段仅用于类型提示，实际通过 FormData 传递
 }
 
-interface UploadResponseData {
+interface AssetUploadResponseData {
   errFiles: Array<string>; // 上传失败的文件名列表
   succMap: Record<string, string>; // 上传成功的文件映射，键为原始文件名，值为在思源中的新资源路径 (例如 assets/image.png)
 }
 
-interface UploadResponse {
+interface AssetUploadResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UploadResponseData;
+  Data: AssetUploadResponseData;
 }
 
-interface UploadCloudParams {
+interface AssetUploadCloudParams {
   id: string; // 文档块的 ID，将上传此文档及其子文档中引用的所有本地资源
 }
 
-interface UploadCloudResponse {
+interface AssetUploadCloudResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface BatchGetBlockAttrsParams {
+interface AttrBatchGetBlockAttrsParams {
   ids: Array<string>; // 要获取属性的块 ID 数组
 }
 
-interface BatchGetBlockAttrsResponse {
+interface AttrBatchGetBlockAttrsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: Record<string, Record<string, string>>; // 一个对象，键为块 ID，值为该块的属性对象 (属性名: 属性值)
 }
 
-interface BatchSetBlockAttrsParamsBlockAttrsItem {
+interface AttrBatchSetBlockAttrsParamsBlockAttrsItem {
   id: string; // 块 ID
   attrs: Record<string, string | null>; // 要设置的属性对象 (属性名: 属性值)。如果属性值为 null，则删除该属性。
 }
 
-interface BatchSetBlockAttrsParams {
-  blockAttrs: Array<BatchSetBlockAttrsParamsBlockAttrsItem>; // 包含多个块属性设置的对象数组
+interface AttrBatchSetBlockAttrsParams {
+  blockAttrs: Array<AttrBatchSetBlockAttrsParamsBlockAttrsItem>; // 包含多个块属性设置的对象数组
 }
 
-interface BatchSetBlockAttrsResponse {
+interface AttrBatchSetBlockAttrsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface GetBlockAttrsParams {
+interface AttrGetBlockAttrsParams {
   id: string; // 要获取属性的块 ID
 }
 
-interface GetBlockAttrsResponse {
+interface AttrGetBlockAttrsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: Record<string, string>; // 该块的属性对象 (属性名: 属性值)
 }
 
-interface GetBookmarkLabelsResponse {
+interface AttrGetBookmarkLabelsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: Array<string>; // 书签标签字符串数组
 }
 
-interface ResetBlockAttrsParams {
+interface AttrResetBlockAttrsParams {
   id: string; // 要重置属性的块 ID
   attrs: Record<string, string>; // 要重置的属性对象 (属性名: 期望的当前属性值)。只有当块的属性值与此处提供的值匹配时，该属性才会被移除。
 }
 
-interface ResetBlockAttrsResponse {
+interface AttrResetBlockAttrsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface SetBlockAttrsParams {
+interface AttrSetBlockAttrsParams {
   id: string; // 要设置属性的块 ID
   attrs: Record<string, string | null>; // 要设置的属性对象 (属性名: 属性值)。如果属性值为 null，则删除该属性。
 }
 
-interface SetBlockAttrsResponse {
+interface AttrSetBlockAttrsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface AddAttributeViewBlocksParams {
+interface AvAddAttributeViewBlocksParams {
   avID: string; // 属性视图的 ID
   blockID?: string;
   previousID?: string;
@@ -383,13 +383,13 @@ interface AddAttributeViewBlocksParams {
   srcs: Array<Record<string, any>>; // 要添加的源数据块信息数组，具体结构取决于源类型
 }
 
-interface AddAttributeViewBlocksResponse {
+interface AvAddAttributeViewBlocksResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface AddAttributeViewKeyParams {
+interface AvAddAttributeViewKeyParams {
   avID: string; // 属性视图的 ID
   keyID: string; // 新列的 ID，如果为空则自动生成
   keyName: string; // 新列的名称
@@ -398,150 +398,150 @@ interface AddAttributeViewKeyParams {
   previousKeyID: string; // 新列将插入到此列 ID 之前
 }
 
-interface AddAttributeViewKeyResponse {
+interface AvAddAttributeViewKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface AppendAttributeViewDetachedBlocksWithValuesParams {
+interface AvAppendAttributeViewDetachedBlocksWithValuesParams {
   avID: string; // 属性视图的 ID
   blocksValues: Array<Array<any>>; // 二维数组，外层数组代表多个新块，内层数组代表每个块对应各列的初始值
 }
 
-interface AppendAttributeViewDetachedBlocksWithValuesResponse {
+interface AvAppendAttributeViewDetachedBlocksWithValuesResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface DuplicateAttributeViewBlockParams {
+interface AvDuplicateAttributeViewBlockParams {
   avID: string; // 要复制的属性视图块的 ID
 }
 
-interface DuplicateAttributeViewBlockResponseData {
+interface AvDuplicateAttributeViewBlockResponseData {
   avID: string; // 新复制的属性视图的 ID
   blockID: string; // 新复制的属性视图块的 ID
 }
 
-interface DuplicateAttributeViewBlockResponse {
+interface AvDuplicateAttributeViewBlockResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: DuplicateAttributeViewBlockResponseData | null;
+  Data: AvDuplicateAttributeViewBlockResponseData | null;
 }
 
-interface GetAttributeViewParams {
+interface AvGetAttributeViewParams {
   id: string; // 属性视图的 ID
 }
 
-interface GetAttributeViewResponseData {
+interface AvGetAttributeViewResponseData {
   av: any; // 属性视图对象的详细信息，具体结构复杂，参考前端实际使用或Go源码 `kernel.AttributeView`
 }
 
-interface GetAttributeViewResponse {
+interface AvGetAttributeViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetAttributeViewResponseData | null;
+  Data: AvGetAttributeViewResponseData | null;
 }
 
-interface GetAttributeViewFilterSortParams {
+interface AvGetAttributeViewFilterSortParams {
   id: string; // 属性视图的 ID
   blockID: string; // 属性视图关联的块 ID (通常与属性视图ID相同)
 }
 
-interface GetAttributeViewFilterSortResponseData {
+interface AvGetAttributeViewFilterSortResponseData {
   filters: Array<any>; // 筛选条件对象数组，具体结构参考 `kernel.AVFilter`
   sorts: Array<any>; // 排序规则对象数组，具体结构参考 `kernel.AVSort`
 }
 
-interface GetAttributeViewFilterSortResponse {
+interface AvGetAttributeViewFilterSortResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetAttributeViewFilterSortResponseData | null;
+  Data: AvGetAttributeViewFilterSortResponseData | null;
 }
 
-interface GetAttributeViewKeysParams {
+interface AvGetAttributeViewKeysParams {
   id: string; // 属性视图的 ID
 }
 
-interface GetAttributeViewKeysResponse {
+interface AvGetAttributeViewKeysResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: Array<any> | null;
 }
 
-interface GetAttributeViewKeysByAvIDParams {
+interface AvGetAttributeViewKeysByAvIDParams {
   avID: string; // 属性视图的 ID
 }
 
-interface GetAttributeViewKeysByAvIDResponse {
+interface AvGetAttributeViewKeysByAvIDResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: Array<any> | null;
 }
 
-interface GetAttributeViewPrimaryKeyValuesParams {
+interface AvGetAttributeViewPrimaryKeyValuesParams {
   id: string; // 属性视图的 ID
   keyword?: string;
   page?: number;
   pageSize?: number;
 }
 
-interface GetAttributeViewPrimaryKeyValuesResponseData {
+interface AvGetAttributeViewPrimaryKeyValuesResponseData {
   name: string; // 主键列的名称
   blockIDs: Array<string>; // 匹配的主键值对应的块 ID 列表
   rows: Array<any>; // 匹配的行数据数组，具体结构可能包含主键值和其他相关信息
 }
 
-interface GetAttributeViewPrimaryKeyValuesResponse {
+interface AvGetAttributeViewPrimaryKeyValuesResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetAttributeViewPrimaryKeyValuesResponseData | null;
+  Data: AvGetAttributeViewPrimaryKeyValuesResponseData | null;
 }
 
-interface GetMirrorDatabaseBlocksParams {
+interface AvGetMirrorDatabaseBlocksParams {
   avID: string; // 属性视图的 ID
 }
 
-interface GetMirrorDatabaseBlocksResponseDataRefDefsItem {
+interface AvGetMirrorDatabaseBlocksResponseDataRefDefsItem {
   RefID: string; // 引用的块ID (通常是属性视图本身)
   DefIDs: Array<string>; // 被引用的定义块ID列表 (镜像块)
 }
 
-interface GetMirrorDatabaseBlocksResponseData {
-  refDefs: Array<GetMirrorDatabaseBlocksResponseDataRefDefsItem>; // 引用定义对象数组
+interface AvGetMirrorDatabaseBlocksResponseData {
+  refDefs: Array<AvGetMirrorDatabaseBlocksResponseDataRefDefsItem>; // 引用定义对象数组
 }
 
-interface GetMirrorDatabaseBlocksResponse {
+interface AvGetMirrorDatabaseBlocksResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetMirrorDatabaseBlocksResponseData | null;
+  Data: AvGetMirrorDatabaseBlocksResponseData | null;
 }
 
-interface RemoveAttributeViewBlocksParams {
+interface AvRemoveAttributeViewBlocksParams {
   avID: string; // 属性视图的 ID
   srcIDs: Array<string>; // 要移除的源数据块的 ID 数组
 }
 
-interface RemoveAttributeViewBlocksResponse {
+interface AvRemoveAttributeViewBlocksResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface RemoveAttributeViewKeyParams {
+interface AvRemoveAttributeViewKeyParams {
   avID: string; // 属性视图的 ID
   keyID: string; // 要移除的列的 ID
   removeRelationDest?: boolean;
 }
 
-interface RemoveAttributeViewKeyResponse {
+interface AvRemoveAttributeViewKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface RenderAttributeViewParams {
+interface AvRenderAttributeViewParams {
   id: string; // 属性视图的 ID
   viewID?: string;
   query?: string;
@@ -549,7 +549,7 @@ interface RenderAttributeViewParams {
   pageSize?: number;
 }
 
-interface RenderAttributeViewResponseData {
+interface AvRenderAttributeViewResponseData {
   name: string; // 属性视图的名称
   id: string; // 属性视图的 ID
   viewType: any; // 当前视图的类型 (具体类型需查阅 kernel.AVViewType)
@@ -559,18 +559,18 @@ interface RenderAttributeViewResponseData {
   isMirror: boolean; // 是否为镜像属性视图
 }
 
-interface RenderAttributeViewResponse {
+interface AvRenderAttributeViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RenderAttributeViewResponseData | null;
+  Data: AvRenderAttributeViewResponseData | null;
 }
 
-interface RenderHistoryAttributeViewParams {
+interface AvRenderHistoryAttributeViewParams {
   id: string; // 属性视图的 ID
   created: string; // 历史版本创建的时间戳字符串 (毫秒级)
 }
 
-interface RenderHistoryAttributeViewResponseData {
+interface AvRenderHistoryAttributeViewResponseData {
   name: string; // 属性视图的名称
   id: string; // 属性视图的 ID
   viewType: any; // 视图的类型
@@ -580,18 +580,18 @@ interface RenderHistoryAttributeViewResponseData {
   isMirror: boolean; // 是否为镜像
 }
 
-interface RenderHistoryAttributeViewResponse {
+interface AvRenderHistoryAttributeViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RenderHistoryAttributeViewResponseData | null;
+  Data: AvRenderHistoryAttributeViewResponseData | null;
 }
 
-interface RenderSnapshotAttributeViewParams {
+interface AvRenderSnapshotAttributeViewParams {
   snapshot: string; // 快照的路径或标识
   id: string; // 属性视图的 ID
 }
 
-interface RenderSnapshotAttributeViewResponseData {
+interface AvRenderSnapshotAttributeViewResponseData {
   name: string; // 属性视图的名称
   id: string; // 属性视图的 ID
   viewType: any; // 视图的类型
@@ -601,283 +601,283 @@ interface RenderSnapshotAttributeViewResponseData {
   isMirror: boolean; // 是否为镜像
 }
 
-interface RenderSnapshotAttributeViewResponse {
+interface AvRenderSnapshotAttributeViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: RenderSnapshotAttributeViewResponseData | null;
+  Data: AvRenderSnapshotAttributeViewResponseData | null;
 }
 
-interface SearchAttributeViewParams {
+interface AvSearchAttributeViewParams {
   keyword: string; // 搜索关键词
   excludes?: Array<string>;
 }
 
-interface SearchAttributeViewResponseData {
+interface AvSearchAttributeViewResponseData {
   results: Array<any>; // 搜索结果对象数组，每个对象包含属性视图的基本信息 (如 id, name)
 }
 
-interface SearchAttributeViewResponse {
+interface AvSearchAttributeViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: SearchAttributeViewResponseData | null;
+  Data: AvSearchAttributeViewResponseData | null;
 }
 
-interface SearchAttributeViewNonRelationKeyParams {
+interface AvSearchAttributeViewNonRelationKeyParams {
   avID: string; // 属性视图的 ID
   keyword: string; // 搜索关键词
 }
 
-interface SearchAttributeViewNonRelationKeyResponseData {
+interface AvSearchAttributeViewNonRelationKeyResponseData {
   keys: Array<any>; // 匹配的非关联列定义对象数组，结构参考 `kernel.AVKey`
 }
 
-interface SearchAttributeViewNonRelationKeyResponse {
+interface AvSearchAttributeViewNonRelationKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: SearchAttributeViewNonRelationKeyResponseData | null;
+  Data: AvSearchAttributeViewNonRelationKeyResponseData | null;
 }
 
-interface SearchAttributeViewRelationKeyParams {
+interface AvSearchAttributeViewRelationKeyParams {
   avID: string; // 属性视图的 ID
   keyword: string; // 搜索关键词
 }
 
-interface SearchAttributeViewRelationKeyResponseData {
+interface AvSearchAttributeViewRelationKeyResponseData {
   keys: Array<any>; // 匹配的关联列定义对象数组，结构参考 `kernel.AVKey`
 }
 
-interface SearchAttributeViewRelationKeyResponse {
+interface AvSearchAttributeViewRelationKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: SearchAttributeViewRelationKeyResponseData | null;
+  Data: AvSearchAttributeViewRelationKeyResponseData | null;
 }
 
-interface SetAttributeViewBlockAttrParams {
+interface AvSetAttributeViewBlockAttrParams {
   avID: string; // 属性视图的 ID
   keyID: string; // 列的 ID (Key ID)
   rowID: string; // 行的 ID (通常是数据块的 ID)
   value: any; // 要设置的新值，具体类型取决于列的类型
 }
 
-interface SetAttributeViewBlockAttrResponseData {
+interface AvSetAttributeViewBlockAttrResponseData {
   value: any; // 成功设置后的值，可能经过转换或处理
 }
 
-interface SetAttributeViewBlockAttrResponse {
+interface AvSetAttributeViewBlockAttrResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: SetAttributeViewBlockAttrResponseData | null;
+  Data: AvSetAttributeViewBlockAttrResponseData | null;
 }
 
-interface SetDatabaseBlockViewParams {
+interface AvSetDatabaseBlockViewParams {
   id: string; // 数据库块（属性视图块）的 ID
   viewID: string; // 要设置为默认视图的视图 ID
 }
 
-interface SetDatabaseBlockViewResponse {
+interface AvSetDatabaseBlockViewResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface SortAttributeViewKeyParams {
+interface AvSortAttributeViewKeyParams {
   avID: string; // 属性视图的 ID
   keyID: string; // 要移动的列的 ID
   previousKeyID: string; // 目标位置：将列移动到此列 ID 之前
 }
 
-interface SortAttributeViewKeyResponse {
+interface AvSortAttributeViewKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface SortAttributeViewViewKeyParams {
+interface AvSortAttributeViewViewKeyParams {
   avID: string; // 属性视图的 ID
   viewID: string; // 特定视图的 ID
   keyID: string; // 要移动的列的 ID
   previousKeyID: string; // 目标位置：将列移动到此列 ID 之前
 }
 
-interface SortAttributeViewViewKeyResponse {
+interface AvSortAttributeViewViewKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface BatchUpdatePackageParams {
+interface BazaarBatchUpdatePackageParams {
   frontend: string; // 客户端类型，通常为 'frontend' 或 'app'
 }
 
-interface BatchUpdatePackageResponse {
+interface BazaarBatchUpdatePackageResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
   Data: any | null;
 }
 
-interface GetBazaarIconParams {
+interface BazaarGetBazaarIconParams {
   keyword?: string;
 }
 
-interface GetBazaarIconResponseData {
+interface BazaarGetBazaarIconResponseData {
   packages: Array<any>; // 集市图标包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetBazaarIconResponse {
+interface BazaarGetBazaarIconResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarIconResponseData | null;
+  Data: BazaarGetBazaarIconResponseData | null;
 }
 
-interface GetBazaarPackageREAMEParams {
+interface BazaarGetBazaarPackageREAMEParams {
   repoURL: string; // 包所在的仓库 URL
   repoHash: string; // 包在仓库中的特定提交哈希或版本标签
   packageType: string; // 包类型 (例如 'icons', 'plugins', 'themes', 'templates', 'widgets')
 }
 
-interface GetBazaarPackageREAMEResponseData {
+interface BazaarGetBazaarPackageREAMEResponseData {
   html: string; // README 文件的 HTML 内容
 }
 
-interface GetBazaarPackageREAMEResponse {
+interface BazaarGetBazaarPackageREAMEResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarPackageREAMEResponseData | null;
+  Data: BazaarGetBazaarPackageREAMEResponseData | null;
 }
 
-interface GetBazaarPluginParams {
+interface BazaarGetBazaarPluginParams {
   frontend: string; // 客户端类型，通常为 'frontend' 或 'app'
   keyword?: string;
 }
 
-interface GetBazaarPluginResponseData {
+interface BazaarGetBazaarPluginResponseData {
   packages: Array<any>; // 集市插件包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetBazaarPluginResponse {
+interface BazaarGetBazaarPluginResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarPluginResponseData | null;
+  Data: BazaarGetBazaarPluginResponseData | null;
 }
 
-interface GetBazaarTemplateParams {
+interface BazaarGetBazaarTemplateParams {
   keyword?: string;
 }
 
-interface GetBazaarTemplateResponseData {
+interface BazaarGetBazaarTemplateResponseData {
   packages: Array<any>; // 集市模板包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetBazaarTemplateResponse {
+interface BazaarGetBazaarTemplateResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarTemplateResponseData | null;
+  Data: BazaarGetBazaarTemplateResponseData | null;
 }
 
-interface GetBazaarThemeParams {
+interface BazaarGetBazaarThemeParams {
   keyword?: string;
 }
 
-interface GetBazaarThemeResponseData {
+interface BazaarGetBazaarThemeResponseData {
   packages: Array<any>; // 集市主题包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetBazaarThemeResponse {
+interface BazaarGetBazaarThemeResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarThemeResponseData | null;
+  Data: BazaarGetBazaarThemeResponseData | null;
 }
 
-interface GetBazaarWidgetParams {
+interface BazaarGetBazaarWidgetParams {
   keyword?: string;
 }
 
-interface GetBazaarWidgetResponseData {
+interface BazaarGetBazaarWidgetResponseData {
   packages: Array<any>; // 集市挂件包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetBazaarWidgetResponse {
+interface BazaarGetBazaarWidgetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetBazaarWidgetResponseData | null;
+  Data: BazaarGetBazaarWidgetResponseData | null;
 }
 
-interface GetInstalledIconParams {
+interface BazaarGetInstalledIconParams {
   keyword?: string;
 }
 
-interface GetInstalledIconResponseData {
+interface BazaarGetInstalledIconResponseData {
   packages: Array<any>; // 已安装图标包对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetInstalledIconResponse {
+interface BazaarGetInstalledIconResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetInstalledIconResponseData | null;
+  Data: BazaarGetInstalledIconResponseData | null;
 }
 
-interface GetInstalledPluginParams {
+interface BazaarGetInstalledPluginParams {
   frontend: string; // 客户端类型，通常为 'frontend' 或 'app'
   keyword?: string;
 }
 
-interface GetInstalledPluginResponseData {
+interface BazaarGetInstalledPluginResponseData {
   packages: Array<any>; // 已安装插件对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetInstalledPluginResponse {
+interface BazaarGetInstalledPluginResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetInstalledPluginResponseData | null;
+  Data: BazaarGetInstalledPluginResponseData | null;
 }
 
-interface GetInstalledTemplateParams {
+interface BazaarGetInstalledTemplateParams {
   keyword?: string;
 }
 
-interface GetInstalledTemplateResponseData {
+interface BazaarGetInstalledTemplateResponseData {
   packages: Array<any>; // 已安装模板对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetInstalledTemplateResponse {
+interface BazaarGetInstalledTemplateResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetInstalledTemplateResponseData | null;
+  Data: BazaarGetInstalledTemplateResponseData | null;
 }
 
-interface GetInstalledThemeParams {
+interface BazaarGetInstalledThemeParams {
   keyword?: string;
 }
 
-interface GetInstalledThemeResponseData {
+interface BazaarGetInstalledThemeResponseData {
   packages: Array<any>; // 已安装主题对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetInstalledThemeResponse {
+interface BazaarGetInstalledThemeResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetInstalledThemeResponseData | null;
+  Data: BazaarGetInstalledThemeResponseData | null;
 }
 
-interface GetInstalledWidgetParams {
+interface BazaarGetInstalledWidgetParams {
   keyword?: string;
 }
 
-interface GetInstalledWidgetResponseData {
+interface BazaarGetInstalledWidgetResponseData {
   packages: Array<any>; // 已安装挂件对象数组，具体结构参考 `kernel.BazaarPackage`
 }
 
-interface GetInstalledWidgetResponse {
+interface BazaarGetInstalledWidgetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetInstalledWidgetResponseData | null;
+  Data: BazaarGetInstalledWidgetResponseData | null;
 }
 
-interface GetUpdatedPackageParams {
+interface BazaarGetUpdatedPackageParams {
   frontend: string; // 客户端类型，通常为 'frontend' 或 'app'
 }
 
-interface GetUpdatedPackageResponseData {
+interface BazaarGetUpdatedPackageResponseData {
   plugins: Array<any>; // 可更新的插件列表，元素结构参考 `kernel.BazaarPackage`
   widgets: Array<any>; // 可更新的挂件列表，元素结构参考 `kernel.BazaarPackage`
   icons: Array<any>; // 可更新的图标包列表，元素结构参考 `kernel.BazaarPackage`
@@ -885,31 +885,31 @@ interface GetUpdatedPackageResponseData {
   templates: Array<any>; // 可更新的模板列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface GetUpdatedPackageResponse {
+interface BazaarGetUpdatedPackageResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: GetUpdatedPackageResponseData | null;
+  Data: BazaarGetUpdatedPackageResponseData | null;
 }
 
-interface InstallBazaarIconParams {
+interface BazaarInstallBazaarIconParams {
   repoURL: string; // 图标包所在的仓库 URL
   repoHash: string; // 图标包在仓库中的特定提交哈希或版本标签
   packageName: string; // 图标包的名称 (通常是仓库名)
   keyword?: string;
 }
 
-interface InstallBazaarIconResponseData {
+interface BazaarInstallBazaarIconResponseData {
   packages: Array<any>; // 更新后的已安装图标包列表，元素结构参考 `kernel.BazaarPackage`
   appearance: any; // 更新后的外观设置对象，具体结构参考 `conf.Appearance`
 }
 
-interface InstallBazaarIconResponse {
+interface BazaarInstallBazaarIconResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InstallBazaarIconResponseData | null;
+  Data: BazaarInstallBazaarIconResponseData | null;
 }
 
-interface InstallBazaarPluginParams {
+interface BazaarInstallBazaarPluginParams {
   repoURL: string; // 插件所在的仓库 URL
   repoHash: string; // 插件在仓库中的特定提交哈希或版本标签
   packageName: string; // 插件的名称 (通常是仓库名)
@@ -917,34 +917,34 @@ interface InstallBazaarPluginParams {
   keyword?: string;
 }
 
-interface InstallBazaarPluginResponseData {
+interface BazaarInstallBazaarPluginResponseData {
   packages: Array<any>; // 更新后的已安装插件列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface InstallBazaarPluginResponse {
+interface BazaarInstallBazaarPluginResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InstallBazaarPluginResponseData | null;
+  Data: BazaarInstallBazaarPluginResponseData | null;
 }
 
-interface InstallBazaarTemplateParams {
+interface BazaarInstallBazaarTemplateParams {
   repoURL: string; // 模板所在的仓库 URL
   repoHash: string; // 模板在仓库中的特定提交哈希或版本标签
   packageName: string; // 模板的名称 (通常是仓库名)
   keyword?: string;
 }
 
-interface InstallBazaarTemplateResponseData {
+interface BazaarInstallBazaarTemplateResponseData {
   packages: Array<any>; // 更新后的已安装模板列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface InstallBazaarTemplateResponse {
+interface BazaarInstallBazaarTemplateResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InstallBazaarTemplateResponseData | null;
+  Data: BazaarInstallBazaarTemplateResponseData | null;
 }
 
-interface InstallBazaarThemeParams {
+interface BazaarInstallBazaarThemeParams {
   repoURL: string; // 主题所在的仓库 URL
   repoHash: string; // 主题在仓库中的特定提交哈希或版本标签
   packageName: string; // 主题的名称 (通常是仓库名)
@@ -953,294 +953,294 @@ interface InstallBazaarThemeParams {
   keyword?: string;
 }
 
-interface InstallBazaarThemeResponseData {
+interface BazaarInstallBazaarThemeResponseData {
   packages: Array<any>; // 更新后的已安装主题列表，元素结构参考 `kernel.BazaarPackage`
   appearance: any; // 更新后的外观设置对象，具体结构参考 `conf.Appearance`
 }
 
-interface InstallBazaarThemeResponse {
+interface BazaarInstallBazaarThemeResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InstallBazaarThemeResponseData | null;
+  Data: BazaarInstallBazaarThemeResponseData | null;
 }
 
-interface InstallBazaarWidgetParams {
+interface BazaarInstallBazaarWidgetParams {
   repoURL: string; // 挂件所在的仓库 URL
   repoHash: string; // 挂件在仓库中的特定提交哈希或版本标签
   packageName: string; // 挂件的名称 (通常是仓库名)
   keyword?: string;
 }
 
-interface InstallBazaarWidgetResponseData {
+interface BazaarInstallBazaarWidgetResponseData {
   packages: Array<any>; // 更新后的已安装挂件列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface InstallBazaarWidgetResponse {
+interface BazaarInstallBazaarWidgetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: InstallBazaarWidgetResponseData | null;
+  Data: BazaarInstallBazaarWidgetResponseData | null;
 }
 
-interface UninstallBazaarIconParams {
+interface BazaarUninstallBazaarIconParams {
   packageName: string; // 要卸载的图标包的名称
   keyword?: string;
 }
 
-interface UninstallBazaarIconResponseData {
+interface BazaarUninstallBazaarIconResponseData {
   packages: Array<any>; // 更新后的已安装图标包列表，元素结构参考 `kernel.BazaarPackage`
   appearance: any; // 更新后的外观设置对象，具体结构参考 `conf.Appearance`
 }
 
-interface UninstallBazaarIconResponse {
+interface BazaarUninstallBazaarIconResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UninstallBazaarIconResponseData | null;
+  Data: BazaarUninstallBazaarIconResponseData | null;
 }
 
-interface UninstallBazaarPluginParams {
+interface BazaarUninstallBazaarPluginParams {
   packageName: string; // 要卸载的插件的名称
   frontend: string; // 客户端类型，通常为 'frontend' 或 'app'
   keyword?: string;
 }
 
-interface UninstallBazaarPluginResponseData {
+interface BazaarUninstallBazaarPluginResponseData {
   packages: Array<any>; // 更新后的已安装插件列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface UninstallBazaarPluginResponse {
+interface BazaarUninstallBazaarPluginResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UninstallBazaarPluginResponseData | null;
+  Data: BazaarUninstallBazaarPluginResponseData | null;
 }
 
-interface UninstallBazaarTemplateParams {
+interface BazaarUninstallBazaarTemplateParams {
   packageName: string; // 要卸载的模板的名称
   keyword?: string;
 }
 
-interface UninstallBazaarTemplateResponseData {
+interface BazaarUninstallBazaarTemplateResponseData {
   packages: Array<any>; // 更新后的已安装模板列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface UninstallBazaarTemplateResponse {
+interface BazaarUninstallBazaarTemplateResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UninstallBazaarTemplateResponseData | null;
+  Data: BazaarUninstallBazaarTemplateResponseData | null;
 }
 
-interface UninstallBazaarThemeParams {
+interface BazaarUninstallBazaarThemeParams {
   packageName: string; // 要卸载的主题的名称
   mode: number; // 主题模式 (0: 亮色, 1: 暗色, 2: 根据系统)，用于确定要卸载哪个模式下的主题或重置相关配置
   keyword?: string;
 }
 
-interface UninstallBazaarThemeResponseData {
+interface BazaarUninstallBazaarThemeResponseData {
   packages: Array<any>; // 更新后的已安装主题列表，元素结构参考 `kernel.BazaarPackage`
   appearance: any; // 更新后的外观设置对象，具体结构参考 `conf.Appearance`
 }
 
-interface UninstallBazaarThemeResponse {
+interface BazaarUninstallBazaarThemeResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UninstallBazaarThemeResponseData | null;
+  Data: BazaarUninstallBazaarThemeResponseData | null;
 }
 
-interface UninstallBazaarWidgetParams {
+interface BazaarUninstallBazaarWidgetParams {
   packageName: string; // 要卸载的挂件的名称
   keyword?: string;
 }
 
-interface UninstallBazaarWidgetResponseData {
+interface BazaarUninstallBazaarWidgetResponseData {
   packages: Array<any>; // 更新后的已安装挂件列表，元素结构参考 `kernel.BazaarPackage`
 }
 
-interface UninstallBazaarWidgetResponse {
+interface BazaarUninstallBazaarWidgetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 返回消息
-  Data: UninstallBazaarWidgetResponseData | null;
+  Data: BazaarUninstallBazaarWidgetResponseData | null;
 }
 
-interface AppendBlockParams {
+interface BlockAppendBlockParams {
   data: string; // 要插入的内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
   parentID: string; // 父块的 ID
 }
 
-interface AppendBlockResponseDataItem {
+interface BlockAppendBlockResponseDataItem {
   id: string; // 新创建块的 ID
 }
 
-interface AppendBlockResponse {
+interface BlockAppendBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<AppendBlockResponseDataItem> | null;
+  Data: Array<BlockAppendBlockResponseDataItem> | null;
 }
 
-interface AppendDailyNoteBlockParams {
+interface BlockAppendDailyNoteBlockParams {
   data: string; // 要追加的内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
   notebook: string; // 目标笔记本的 ID
 }
 
-interface AppendDailyNoteBlockResponseDataItem {
+interface BlockAppendDailyNoteBlockResponseDataItem {
   id: string; // 新创建块的 ID
 }
 
-interface AppendDailyNoteBlockResponse {
+interface BlockAppendDailyNoteBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<AppendDailyNoteBlockResponseDataItem> | null;
+  Data: Array<BlockAppendDailyNoteBlockResponseDataItem> | null;
 }
 
-interface BatchUpdateBlockParamsBlocksItem {
+interface BlockBatchUpdateBlockParamsBlocksItem {
   id: string; // 要更新的块 ID
   data: string; // 新的块内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
 }
 
-interface BatchUpdateBlockParams {
-  blocks: Array<BatchUpdateBlockParamsBlocksItem>; // 包含多个待更新块信息的数组
+interface BlockBatchUpdateBlockParams {
+  blocks: Array<BlockBatchUpdateBlockParamsBlocksItem>; // 包含多个待更新块信息的数组
 }
 
-interface BatchUpdateBlockResponseDataItem {
+interface BlockBatchUpdateBlockResponseDataItem {
   id: string; // 已更新块的 ID
 }
 
-interface BatchUpdateBlockResponse {
+interface BlockBatchUpdateBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<BatchUpdateBlockResponseDataItem> | null;
+  Data: Array<BlockBatchUpdateBlockResponseDataItem> | null;
 }
 
-interface CheckBlockExistParams {
+interface BlockCheckBlockExistParams {
   id: string; // 要检查的块 ID
 }
 
-interface CheckBlockExistResponse {
+interface BlockCheckBlockExistResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: boolean; // 块是否存在
 }
 
-interface CheckBlockFoldParams {
+interface BlockCheckBlockFoldParams {
   id: string; // 要检查的块 ID
 }
 
-interface CheckBlockFoldResponseData {
+interface BlockCheckBlockFoldResponseData {
   isFolded: boolean; // 块是否已折叠
   isRoot: boolean; // 块是否为根块（通常指文档块）
 }
 
-interface CheckBlockFoldResponse {
+interface BlockCheckBlockFoldResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: CheckBlockFoldResponseData; // 包含折叠状态和是否为根块的信息
+  Data: BlockCheckBlockFoldResponseData; // 包含折叠状态和是否为根块的信息
 }
 
-interface CheckBlockRefParams {
+interface BlockCheckBlockRefParams {
   ids: Array<string>; // 要检查的块 ID 数组
 }
 
-interface CheckBlockRefResponseDataValue {
+interface BlockCheckBlockRefResponseDataValue {
   defCount: number; // 该块作为定义块被引用的次数
   refCount: number; // 该块作为引用块引用其他块的次数
 }
 
-interface CheckBlockRefResponse {
+interface BlockCheckBlockRefResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Record<string, CheckBlockRefResponseDataValue>; // 一个记录对象，键为块 ID，值为该块的引用统计信息
+  Data: Record<string, BlockCheckBlockRefResponseDataValue>; // 一个记录对象，键为块 ID，值为该块的引用统计信息
 }
 
-interface DeleteBlockParams {
+interface BlockDeleteBlockParams {
   id: string; // 要删除的块 ID
 }
 
-interface DeleteBlockResponse {
+interface BlockDeleteBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<any> | null;
 }
 
-interface FoldBlockParams {
+interface BlockFoldBlockParams {
   id: string; // 要折叠的块 ID
 }
 
-interface FoldBlockResponse {
+interface BlockFoldBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<any> | null;
 }
 
-interface GetBlockBreadcrumbParams {
+interface BlockGetBlockBreadcrumbParams {
   id: string; // 目标块的 ID
   excludeTypes?: Array<string>;
 }
 
-interface GetBlockBreadcrumbResponseDataItem {
+interface BlockGetBlockBreadcrumbResponseDataItem {
   id: string; // 面包屑项的块 ID
   name: string; // 面包屑项的名称（通常是块内容或标题）
   type: string; // 面包屑项的块类型
   icon?: string;
 }
 
-interface GetBlockBreadcrumbResponse {
+interface BlockGetBlockBreadcrumbResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetBlockBreadcrumbResponseDataItem>; // 面包屑路径数组，从根到目标块的父块
+  Data: Array<BlockGetBlockBreadcrumbResponseDataItem>; // 面包屑路径数组，从根到目标块的父块
 }
 
-interface GetBlockDOMParams {
+interface BlockGetBlockDOMParams {
   id: string; // 要获取 DOM 的块 ID
 }
 
-interface GetBlockDOMResponseData {
+interface BlockGetBlockDOMResponseData {
   id: string; // 块 ID
   dom: string; // 块的 DOM 内容 (HTML 字符串)
   isFullWidth?: boolean;
 }
 
-interface GetBlockDOMResponse {
+interface BlockGetBlockDOMResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlockDOMResponseData; // 包含块 ID 和其 DOM 内容的对象
+  Data: BlockGetBlockDOMResponseData; // 包含块 ID 和其 DOM 内容的对象
 }
 
-interface GetBlockDefIDsByRefTextParams {
+interface BlockGetBlockDefIDsByRefTextParams {
   anchor: string; // 要搜索的引用锚文本
   excludeIDs?: Array<string>;
 }
 
-interface GetBlockDefIDsByRefTextResponseDataRefDefsItem {
+interface BlockGetBlockDefIDsByRefTextResponseDataRefDefsItem {
   RefID: string; // 引用块的ID (发起引用的块)
   DefIDs: Array<string>; // 被引用的定义块ID列表
 }
 
-interface GetBlockDefIDsByRefTextResponseData {
-  refDefs: Array<GetBlockDefIDsByRefTextResponseDataRefDefsItem>; // 引用定义对的列表
+interface BlockGetBlockDefIDsByRefTextResponseData {
+  refDefs: Array<BlockGetBlockDefIDsByRefTextResponseDataRefDefsItem>; // 引用定义对的列表
 }
 
-interface GetBlockDefIDsByRefTextResponse {
+interface BlockGetBlockDefIDsByRefTextResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlockDefIDsByRefTextResponseData; // 包含引用定义对列表的对象
+  Data: BlockGetBlockDefIDsByRefTextResponseData; // 包含引用定义对列表的对象
 }
 
-interface GetBlockIndexParams {
+interface BlockGetBlockIndexParams {
   id: string; // 要获取索引的块 ID
 }
 
-interface GetBlockIndexResponse {
+interface BlockGetBlockIndexResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: number; // 块在其父块子节点中的索引位置，-1 表示未找到或出错
 }
 
-interface GetBlockInfoParams {
+interface BlockGetBlockInfoParams {
   id: string; // 要获取信息的块 ID
 }
 
-interface GetBlockInfoResponseData {
+interface BlockGetBlockInfoResponseData {
   box: string; // 块所在的笔记本 ID
   path: string; // 块在笔记本中的绝对路径
   rootID: string; // 块所属的根文档块 ID
@@ -1249,49 +1249,49 @@ interface GetBlockInfoResponseData {
   rootIcon: string; // 根文档块的图标
 }
 
-interface GetBlockInfoResponse {
+interface BlockGetBlockInfoResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlockInfoResponseData; // 包含块的详细路径和上下文信息的对象
+  Data: BlockGetBlockInfoResponseData; // 包含块的详细路径和上下文信息的对象
 }
 
-interface GetBlockKramdownParams {
+interface BlockGetBlockKramdownParams {
   id: string; // 要获取 Kramdown 源码的块 ID
   mode?: 'md' | 'textmark';
 }
 
-interface GetBlockKramdownResponseData {
+interface BlockGetBlockKramdownResponseData {
   id: string; // 块 ID
   kramdown: string; // 块的 Kramdown 源码
 }
 
-interface GetBlockKramdownResponse {
+interface BlockGetBlockKramdownResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlockKramdownResponseData; // 包含块 ID 和其 Kramdown 源码的对象
+  Data: BlockGetBlockKramdownResponseData; // 包含块 ID 和其 Kramdown 源码的对象
 }
 
-interface GetBlockSiblingIDParams {
+interface BlockGetBlockSiblingIDParams {
   id: string; // 目标块的 ID
 }
 
-interface GetBlockSiblingIDResponseData {
+interface BlockGetBlockSiblingIDResponseData {
   parent: string; // 父块 ID，如果目标块是根块则为空字符串
   previous: string; // 上一个同级块 ID，如果没有则为空字符串
   next: string; // 下一个同级块 ID，如果没有则为空字符串
 }
 
-interface GetBlockSiblingIDResponse {
+interface BlockGetBlockSiblingIDResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlockSiblingIDResponseData; // 包含父块、上一个和下一个同级块 ID 的对象
+  Data: BlockGetBlockSiblingIDResponseData; // 包含父块、上一个和下一个同级块 ID 的对象
 }
 
-interface GetBlockTreeInfosParams {
+interface BlockGetBlockTreeInfosParams {
   ids: Array<string>; // 要获取块树信息的块 ID 数组
 }
 
-interface GetBlockTreeInfosResponseDataItem {
+interface BlockGetBlockTreeInfosResponseDataItem {
   id: string; // 块 ID
   box: string; // 笔记本 ID
   path: string; // 块的路径
@@ -1358,96 +1358,96 @@ interface GetBlockTreeInfosResponseDataItem {
   attrs?: Record<string, string>;
 }
 
-interface GetBlockTreeInfosResponse {
+interface BlockGetBlockTreeInfosResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetBlockTreeInfosResponseDataItem>; // 一个包含多个块树信息的数组，每个对象代表一个块及其详细信息和可能的子节点
+  Data: Array<BlockGetBlockTreeInfosResponseDataItem>; // 一个包含多个块树信息的数组，每个对象代表一个块及其详细信息和可能的子节点
 }
 
-interface GetBlocksIndexesParams {
+interface BlockGetBlocksIndexesParams {
   ids: Array<string>; // 要获取索引的块 ID 数组
 }
 
-interface GetBlocksIndexesResponse {
+interface BlockGetBlocksIndexesResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Record<string, number>; // 一个记录对象，键为块 ID，值为该块在其父块中的索引
 }
 
-interface GetBlocksWordCountParams {
+interface BlockGetBlocksWordCountParams {
   ids: Array<string>; // 要统计字数的块 ID 数组
   reqId?: string;
 }
 
-interface GetBlocksWordCountResponseDataStat {
+interface BlockGetBlocksWordCountResponseDataStat {
   wordCount: number; // 总字数
   charCount: number; // 总字符数
   linkCount: number; // 总链接数
 }
 
-interface GetBlocksWordCountResponseData {
+interface BlockGetBlocksWordCountResponseData {
   reqId?: string;
-  stat: GetBlocksWordCountResponseDataStat; // 字数统计结果
+  stat: BlockGetBlocksWordCountResponseDataStat; // 字数统计结果
 }
 
-interface GetBlocksWordCountResponse {
+interface BlockGetBlocksWordCountResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetBlocksWordCountResponseData; // 包含字数统计结果和可选请求 ID 的对象
+  Data: BlockGetBlocksWordCountResponseData; // 包含字数统计结果和可选请求 ID 的对象
 }
 
-interface GetChildBlocksParams {
+interface BlockGetChildBlocksParams {
   id: string; // 父块的 ID
 }
 
-interface GetChildBlocksResponseDataItem {
+interface BlockGetChildBlocksResponseDataItem {
   id: string; // 子块的 ID
   type: string; // 子块的类型
 }
 
-interface GetChildBlocksResponse {
+interface BlockGetChildBlocksResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetChildBlocksResponseDataItem>; // 直接子块的基本信息数组
+  Data: Array<BlockGetChildBlocksResponseDataItem>; // 直接子块的基本信息数组
 }
 
-interface GetContentWordCountParams {
+interface BlockGetContentWordCountParams {
   content: string; // 要统计字数的文本内容
   reqId?: string;
 }
 
-interface GetContentWordCountResponseDataStat {
+interface BlockGetContentWordCountResponseDataStat {
   wordCount: number; // 总字数
   charCount: number; // 总字符数
   linkCount: number; // 总链接数
 }
 
-interface GetContentWordCountResponseData {
+interface BlockGetContentWordCountResponseData {
   reqId?: string;
-  stat: GetContentWordCountResponseDataStat; // 字数统计结果
+  stat: BlockGetContentWordCountResponseDataStat; // 字数统计结果
 }
 
-interface GetContentWordCountResponse {
+interface BlockGetContentWordCountResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetContentWordCountResponseData; // 包含字数统计结果和可选请求 ID 的对象
+  Data: BlockGetContentWordCountResponseData; // 包含字数统计结果和可选请求 ID 的对象
 }
 
-interface GetDOMTextParams {
+interface BlockGetDOMTextParams {
   dom: string; // 包含 HTML 标签的 DOM 字符串
 }
 
-interface GetDOMTextResponse {
+interface BlockGetDOMTextResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: string; // 从 DOM 中提取的纯文本内容
 }
 
-interface GetDocInfoParams {
+interface BlockGetDocInfoParams {
   id: string; // 目标文档块的 ID
 }
 
-interface GetDocInfoResponseData {
+interface BlockGetDocInfoResponseData {
   id: string; // 文档块 ID
   box: string; // 笔记本 ID
   path: string; // 文档的存储路径
@@ -1460,17 +1460,17 @@ interface GetDocInfoResponseData {
   updated: string; // 文档更新时间 (yyyyMMddHHmmss格式)
 }
 
-interface GetDocInfoResponse {
+interface BlockGetDocInfoResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetDocInfoResponseData; // 包含文档详细信息的对象
+  Data: BlockGetDocInfoResponseData; // 包含文档详细信息的对象
 }
 
-interface GetDocsInfoParams {
+interface BlockGetDocsInfoParams {
   ids: Array<string>; // 包含多个文档块 ID 的数组
 }
 
-interface GetDocsInfoResponseDataItem {
+interface BlockGetDocsInfoResponseDataItem {
   id: string; // 文档块 ID
   box: string; // 笔记本 ID
   path: string; // 文档的存储路径
@@ -1481,37 +1481,37 @@ interface GetDocsInfoResponseDataItem {
   updated: string; // 文档更新时间 (yyyyMMddHHmmss格式)
 }
 
-interface GetDocsInfoResponse {
+interface BlockGetDocsInfoResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetDocsInfoResponseDataItem>; // 包含多个文档详细信息的数组
+  Data: Array<BlockGetDocsInfoResponseDataItem>; // 包含多个文档详细信息的数组
 }
 
-interface GetHeadingChildrenDOMParams {
+interface BlockGetHeadingChildrenDOMParams {
   id: string; // 目标标题块的 ID
 }
 
-interface GetHeadingChildrenDOMResponse {
+interface BlockGetHeadingChildrenDOMResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: string; // 标题块下所有子孙块合并的 DOM (HTML 字符串)
 }
 
-interface GetHeadingChildrenIDsParams {
+interface BlockGetHeadingChildrenIDsParams {
   id: string; // 目标标题块的 ID
 }
 
-interface GetHeadingChildrenIDsResponse {
+interface BlockGetHeadingChildrenIDsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<string>; // 标题块下所有子孙块的 ID 数组
 }
 
-interface GetHeadingDeleteTransactionParams {
+interface BlockGetHeadingDeleteTransactionParams {
   id: string; // 要获取删除事务的标题块 ID
 }
 
-interface GetHeadingDeleteTransactionResponseDataDoOperationsItem {
+interface BlockGetHeadingDeleteTransactionResponseDataDoOperationsItem {
   action: string; // 操作类型 (例如: delete, update, insert等)
   id?: string;
   data?: string;
@@ -1520,38 +1520,38 @@ interface GetHeadingDeleteTransactionResponseDataDoOperationsItem {
   dataType?: string;
 }
 
-interface GetHeadingDeleteTransactionResponseData {
-  doOperations: Array<GetHeadingDeleteTransactionResponseDataDoOperationsItem>; // 正向操作列表
+interface BlockGetHeadingDeleteTransactionResponseData {
+  doOperations: Array<BlockGetHeadingDeleteTransactionResponseDataDoOperationsItem>; // 正向操作列表
 }
 
-interface GetHeadingDeleteTransactionResponse {
+interface BlockGetHeadingDeleteTransactionResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetHeadingDeleteTransactionResponseData; // 包含删除操作的事务对象
+  Data: BlockGetHeadingDeleteTransactionResponseData; // 包含删除操作的事务对象
 }
 
-interface GetHeadingLevelTransactionParams {
+interface BlockGetHeadingLevelTransactionParams {
   id: string; // 要调整级别的标题块 ID
   level: number; // 新的标题级别 (1-6)
 }
 
-interface GetHeadingLevelTransactionResponseDataDoOperationsItem {
+interface BlockGetHeadingLevelTransactionResponseDataDoOperationsItem {
   action: string; // 操作类型 (例如: updateial)
   id: string; // 操作的块 ID
   data?: string;
 }
 
-interface GetHeadingLevelTransactionResponseData {
-  doOperations: Array<GetHeadingLevelTransactionResponseDataDoOperationsItem>; // 正向操作列表
+interface BlockGetHeadingLevelTransactionResponseData {
+  doOperations: Array<BlockGetHeadingLevelTransactionResponseDataDoOperationsItem>; // 正向操作列表
 }
 
-interface GetHeadingLevelTransactionResponse {
+interface BlockGetHeadingLevelTransactionResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetHeadingLevelTransactionResponseData; // 包含调整级别操作的事务对象
+  Data: BlockGetHeadingLevelTransactionResponseData; // 包含调整级别操作的事务对象
 }
 
-interface GetRecentUpdatedBlocksResponseDataItem {
+interface BlockGetRecentUpdatedBlocksResponseDataItem {
   id: string; // 块 ID
   box: string; // 笔记本 ID
   path: string; // 块所在文档的路径
@@ -1564,68 +1564,68 @@ interface GetRecentUpdatedBlocksResponseDataItem {
   updated: string; // 块更新时间 (yyyyMMddHHmmss 格式)
 }
 
-interface GetRecentUpdatedBlocksResponse {
+interface BlockGetRecentUpdatedBlocksResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetRecentUpdatedBlocksResponseDataItem>; // 最近更新的块信息数组
+  Data: Array<BlockGetRecentUpdatedBlocksResponseDataItem>; // 最近更新的块信息数组
 }
 
-interface GetRefIDsParams {
+interface BlockGetRefIDsParams {
   id: string; // 发起引用的块 ID
 }
 
-interface GetRefIDsResponse {
+interface BlockGetRefIDsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<string>; // 该块引用的所有定义块的 ID 数组
 }
 
-interface GetRefIDsByFileAnnotationIDParams {
+interface BlockGetRefIDsByFileAnnotationIDParams {
   id: string; // 文件注解块的 ID
 }
 
-interface GetRefIDsByFileAnnotationIDResponseData {
+interface BlockGetRefIDsByFileAnnotationIDResponseData {
   refID: string; // 相关的引用块 ID
   defID: string; // 相关的定义块 ID
 }
 
-interface GetRefIDsByFileAnnotationIDResponse {
+interface BlockGetRefIDsByFileAnnotationIDResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetRefIDsByFileAnnotationIDResponseData; // 包含相关引用ID和定义ID的对象
+  Data: BlockGetRefIDsByFileAnnotationIDResponseData; // 包含相关引用ID和定义ID的对象
 }
 
-interface GetRefTextParams {
+interface BlockGetRefTextParams {
   id: string; // 引用块的 ID
 }
 
-interface GetRefTextResponse {
+interface BlockGetRefTextResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: string; // 引用块的锚文本
 }
 
-interface GetTailChildBlocksParams {
+interface BlockGetTailChildBlocksParams {
   id: string; // 父块的 ID
   size: number; // 要获取的尾部子块数量
 }
 
-interface GetTailChildBlocksResponseDataItem {
+interface BlockGetTailChildBlocksResponseDataItem {
   id: string; // 子块的 ID
   type: string; // 子块的类型
 }
 
-interface GetTailChildBlocksResponse {
+interface BlockGetTailChildBlocksResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetTailChildBlocksResponseDataItem>; // 尾部子块的基本信息数组
+  Data: Array<BlockGetTailChildBlocksResponseDataItem>; // 尾部子块的基本信息数组
 }
 
-interface GetTreeStatParams {
+interface BlockGetTreeStatParams {
   id: string; // 目标块的 ID，通常为文档块
 }
 
-interface GetTreeStatResponseData {
+interface BlockGetTreeStatResponseData {
   id: string; // 块 ID
   box: string; // 笔记本 ID
   path: string; // 块路径
@@ -1652,154 +1652,154 @@ interface GetTreeStatResponseData {
   otherAssetCount: number; // 其他资源数量
 }
 
-interface GetTreeStatResponse {
+interface BlockGetTreeStatResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetTreeStatResponseData; // 块树的统计信息对象
+  Data: BlockGetTreeStatResponseData; // 块树的统计信息对象
 }
 
-interface GetUnfoldedParentIDParams {
+interface BlockGetUnfoldedParentIDParams {
   id: string; // 起始块的 ID
 }
 
-interface GetUnfoldedParentIDResponse {
+interface BlockGetUnfoldedParentIDResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: string; // 最近的已展开父块的 ID，如果无此类父块或出错则为空字符串
 }
 
-interface InsertBlockParams {
+interface BlockInsertBlockParams {
   anchorID: string; // 锚点块的 ID
   data: string; // 要插入的内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
   isBefore: boolean; // 是否在锚点块之前插入 (true: 之前, false: 之后)
 }
 
-interface InsertBlockResponseDataItem {
+interface BlockInsertBlockResponseDataItem {
   id: string; // 新创建块的 ID
 }
 
-interface InsertBlockResponse {
+interface BlockInsertBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<InsertBlockResponseDataItem> | null;
+  Data: Array<BlockInsertBlockResponseDataItem> | null;
 }
 
-interface PrependBlockParams {
+interface BlockPrependBlockParams {
   data: string; // 要插入的内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
   parentID: string; // 父块的 ID
 }
 
-interface PrependBlockResponseDataItem {
+interface BlockPrependBlockResponseDataItem {
   id: string; // 新创建块的 ID
 }
 
-interface PrependBlockResponse {
+interface BlockPrependBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<PrependBlockResponseDataItem> | null;
+  Data: Array<BlockPrependBlockResponseDataItem> | null;
 }
 
-interface SetBlockReminderParams {
+interface BlockSetBlockReminderParams {
   id: string; // 要设置提醒的块 ID
   timed: string; // 提醒时间，格式为 yyyyMMddHHmmss (例如: 20230815103000)
 }
 
-interface SetBlockReminderResponse {
+interface BlockSetBlockReminderResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 成功时为 null
 }
 
-interface SwapBlockRefParams {
+interface BlockSwapBlockRefParams {
   refID: string; // 原引用块的 ID
   defID: string; // 原定义块的 ID
   includeChildren: boolean; // 是否包含子块进行交换 (通常用于嵌入块)
 }
 
-interface SwapBlockRefResponse {
+interface BlockSwapBlockRefResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 成功时为 null
 }
 
-interface TransferBlockRefParams {
+interface BlockTransferBlockRefParams {
   fromID: string; // 原块的 ID，其引用关系将被转移
   toID: string; // 目标块的 ID，将接收引用关系
   refIDs?: Array<string>;
   reloadUI?: boolean;
 }
 
-interface TransferBlockRefResponse {
+interface BlockTransferBlockRefResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 成功时为 null
 }
 
-interface UnfoldBlockParams {
+interface BlockUnfoldBlockParams {
   id: string; // 要展开的块 ID
 }
 
-interface UnfoldBlockResponse {
+interface BlockUnfoldBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<any> | null;
 }
 
-interface UpdateBlockParams {
+interface BlockUpdateBlockParams {
   id: string; // 要更新的块 ID
   data: string; // 新的块内容，可以是 Markdown 或 DOM 字符串
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型
 }
 
-interface UpdateBlockResponseDataItem {
+interface BlockUpdateBlockResponseDataItem {
   id: string; // 已更新块的 ID
 }
 
-interface UpdateBlockResponse {
+interface BlockUpdateBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<UpdateBlockResponseDataItem> | null;
+  Data: Array<BlockUpdateBlockResponseDataItem> | null;
 }
 
-interface PrependDailyNoteBlockParams {
+interface BlockPrependDailyNoteBlockParams {
   data: string; // 要追加的内容，可以是 Markdown 或 DOM 字符串。如果 dataType 为 'markdown'，内容会先转换为 DOM。注意：后端实现中此接口行为类似 appendDailyNoteBlock，均在末尾追加，但定义保留 prepend 以匹配接口名和潜在的未来行为调整。建议使用 appendDailyNoteBlock 以获得明确的末尾追加行为。后端 action 为 prependInsert。 
   dataType: 'markdown' | 'dom'; // 指定 data 参数的类型 ('markdown' 或 'dom')。 
   notebook: string; // 目标笔记本的 ID。
 }
 
-interface PrependDailyNoteBlockResponse {
+interface BlockPrependDailyNoteBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<any> | null;
 }
 
-interface MoveBlockParams {
+interface BlockMoveBlockParams {
   id: string; // 要移动的块的 ID。
   parentID?: string;
   previousID?: string;
 }
 
-interface MoveBlockResponse {
+interface BlockMoveBlockResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 此接口成功时不返回具体数据，UI 通常通过 WebSocket 消息更新。
 }
 
-interface MoveOutlineHeadingParams {
+interface BlockMoveOutlineHeadingParams {
   id: string; // 要移动的大纲标题块的 ID。
   parentID?: string;
   previousID?: string;
 }
 
-interface MoveOutlineHeadingResponse {
+interface BlockMoveOutlineHeadingResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<any> | null;
 }
 
-interface GetBookmarkResponseDataItemBlocksItem {
+interface BookmarkGetBookmarkResponseDataItemBlocksItem {
   id: string; // 块的 ID
   type: string; // 块的类型 (例如 Paragraph, Heading, List, Document 等)
   content: string; // 块的显示内容 (对于普通块可能是名称或概要，对于属性视图是其标题)
@@ -1814,125 +1814,125 @@ interface GetBookmarkResponseDataItemBlocksItem {
   rootID: string; // 块所属的根文档块 ID
 }
 
-interface GetBookmarkResponseDataItem {
+interface BookmarkGetBookmarkResponseDataItem {
   name: string; // 书签的名称 (用户在 IAL 中为块设置的 bookmark 属性值)
-  blocks: Array<GetBookmarkResponseDataItemBlocksItem>; // 属于此书签名称下的块对象列表
+  blocks: Array<BookmarkGetBookmarkResponseDataItemBlocksItem>; // 属于此书签名称下的块对象列表
   type: string; // 固定为 'bookmark'，表示这是一个书签分组
   depth: number; // 层级深度，对于书签固定为 1
   count: number; // 此书签名称下包含的块的数量
 }
 
-interface GetBookmarkResponse {
+interface BookmarkGetBookmarkResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetBookmarkResponseDataItem>; // 书签数据数组，每个元素是一个书签分组及其包含的书签块列表
+  Data: Array<BookmarkGetBookmarkResponseDataItem>; // 书签数据数组，每个元素是一个书签分组及其包含的书签块列表
 }
 
-interface RemoveBookmarkParams {
+interface BookmarkRemoveBookmarkParams {
   bookmark: string; // 要移除的书签的名称 (块 IAL 中 bookmark 属性的值)
 }
 
-interface RemoveBookmarkResponseData {
+interface BookmarkRemoveBookmarkResponseData {
   closeTimeout: number; // 一个建议的关闭超时时间 (毫秒)，通常在错误时提供以便UI提示
 }
 
-interface RemoveBookmarkResponse {
+interface BookmarkRemoveBookmarkResponse {
   Code: number; // API 调用返回码，0 表示成功，其他表示失败
   Msg: string; // API 调用返回消息
-  Data?: RemoveBookmarkResponseData | null;
+  Data?: BookmarkRemoveBookmarkResponseData | null;
 }
 
-interface RenameBookmarkParams {
+interface BookmarkRenameBookmarkParams {
   oldBookmark: string; // 要重命名的旧书签名称 (块 IAL 中 bookmark 属性的当前值)
   newBookmark: string; // 新的书签名称 (将写入块 IAL 中 bookmark 属性的新值)
 }
 
-interface RenameBookmarkResponseData {
+interface BookmarkRenameBookmarkResponseData {
   closeTimeout: number; // 一个建议的关闭超时时间 (毫秒)，通常在错误时提供以便UI提示
 }
 
-interface RenameBookmarkResponse {
+interface BookmarkRenameBookmarkResponse {
   Code: number; // API 调用返回码，0 表示成功，其他表示失败
   Msg: string; // API 调用返回消息
-  Data?: RenameBookmarkResponseData | null;
+  Data?: BookmarkRenameBookmarkResponseData | null;
 }
 
-interface GetChannelInfoParams {
+interface BroadcastGetChannelInfoParams {
   name: string; // 要查询的广播频道名称
 }
 
-interface GetChannelInfoResponseData {
+interface BroadcastGetChannelInfoResponseData {
   name: string; // 频道名称
   count: number; // 频道的总订阅者数量 (WebSocket + SSE)
 }
 
-interface GetChannelInfoResponse {
+interface BroadcastGetChannelInfoResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: GetChannelInfoResponseData; // 频道信息对象
+  Data: BroadcastGetChannelInfoResponseData; // 频道信息对象
 }
 
-interface GetChannelsResponseDataItem {
+interface BroadcastGetChannelsResponseDataItem {
   name: string; // 频道名称
   count: number; // 频道的总订阅者数量 (WebSocket + SSE)
 }
 
-interface GetChannelsResponse {
+interface BroadcastGetChannelsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
-  Data: Array<GetChannelsResponseDataItem>; // 活跃频道信息对象数组
+  Data: Array<BroadcastGetChannelsResponseDataItem>; // 活跃频道信息对象数组
 }
 
-interface PostMessageParams {
+interface BroadcastPostMessageParams {
   channel: string; // 目标广播频道的名称
   cmd?: string;
   data: string; // 要发送的消息内容或命令参数 (JSON 字符串)
 }
 
-interface PostMessageResponse {
+interface BroadcastPostMessageResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: any | null;
 }
 
-interface BroadcastPublishParams {
+interface BroadcastBroadcastPublishParams {
   channel: string; // 目标广播频道的名称
   type: 'string' | 'binary'; // 消息类型：'string' (文本) 或 'binary' (二进制文件)
   data?: string;
   file?: any;
 }
 
-interface BroadcastPublishResponseDataChannel {
+interface BroadcastBroadcastPublishResponseDataChannel {
   name: string; // 目标频道名称
   count: number; // 发布时频道的订阅者数量
 }
 
-interface BroadcastPublishResponseDataMessage {
+interface BroadcastBroadcastPublishResponseDataMessage {
   type: 'string' | 'binary'; // 发布的消息类型
   size: number; // 发布的消息大小 (字节)
   filename: string; // 发布的文件名 (如果 type 为 'binary')
 }
 
-interface BroadcastPublishResponseData {
+interface BroadcastBroadcastPublishResponseData {
   code: number; // 操作结果返回码，0 表示成功
   msg: string; // 操作结果消息
-  channel: BroadcastPublishResponseDataChannel; // 频道信息
-  message: BroadcastPublishResponseDataMessage; // 发布的消息详情
+  channel: BroadcastBroadcastPublishResponseDataChannel; // 频道信息
+  message: BroadcastBroadcastPublishResponseDataMessage; // 发布的消息详情
 }
 
-interface BroadcastPublishResponse {
+interface BroadcastBroadcastPublishResponse {
   Code: number; // API 调用返回码 (外层)
   Msg: string; // API 调用返回消息 (外层)
-  Data: BroadcastPublishResponseData; // 发布操作的结果详情
+  Data: BroadcastBroadcastPublishResponseData; // 发布操作的结果详情
 }
 
-interface ReadFilePathsResponse {
+interface ClipboardReadFilePathsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: Array<string>; // 从剪贴板中读取到的文件绝对路径列表。如果剪贴板中不是文件路径，或在 Linux 等受限情况下，可能返回空数组。
 }
 
-interface GetCloudSpaceResponseDataSync {
+interface CloudGetCloudSpaceResponseDataSync {
   size: number; // 云端同步数据的大小 (字节)
   hSize: string; // 人类可读的云端同步数据大小 (例如 '1.2 GB')，仅当服务商为思源官方时有效，其他为'-'
   updated: string; // 云端同步数据最后更新时间戳 (格式可能为 Unix 时间戳或特定日期字符串)
@@ -1940,16 +1940,16 @@ interface GetCloudSpaceResponseDataSync {
   saveDir: string; // 本地同步数据实际存放的目录绝对路径
 }
 
-interface GetCloudSpaceResponseDataBackup {
+interface CloudGetCloudSpaceResponseDataBackup {
   size: number; // 云端备份数据的大小 (字节)
   hSize: string; // 人类可读的云端备份数据大小 (例如 '500 MB')，仅当服务商为思源官方时有效，其他为'-'
   updated: string; // 云端备份数据最后更新时间戳 (格式可能为 Unix 时间戳或特定日期字符串)
   saveDir: string; // 本地备份数据实际存放的目录绝对路径
 }
 
-interface GetCloudSpaceResponseData {
-  sync: GetCloudSpaceResponseDataSync; // 云同步相关信息
-  backup: GetCloudSpaceResponseDataBackup; // 云备份相关信息
+interface CloudGetCloudSpaceResponseData {
+  sync: CloudGetCloudSpaceResponseDataSync; // 云同步相关信息
+  backup: CloudGetCloudSpaceResponseDataBackup; // 云备份相关信息
   hAssetSize: string; // 人类可读的云端资源文件总大小 (例如 '300 MB')，仅当服务商为思源官方时有效，其他为'-'
   hSize: string; // 人类可读的云端已用空间总大小 (同步数据 + 备份数据 + 资源文件，例如 '2 GB')，仅当服务商为思源官方时有效，其他为'-'
   hTotalSize: string; // 人类可读的云端总可用空间大小 (例如 '10 GB')，仅当服务商为思源官方时有效，其他为'-'
@@ -1960,139 +1960,139 @@ interface GetCloudSpaceResponseData {
   hTrafficAPIPut: string; // 人类可读的当月 API PUT 请求次数 (例如 '800')，仅当服务商为思源官方时有效，其他为'-'
 }
 
-interface GetCloudSpaceResponse {
+interface CloudGetCloudSpaceResponse {
   Code: number; // API 调用返回码，0 表示成功，1 表示获取信息时发生错误
   Msg: string; // API 调用返回消息，错误时包含错误信息
-  Data: GetCloudSpaceResponseData; // 云端空间和流量的详细信息
+  Data: CloudGetCloudSpaceResponseData; // 云端空间和流量的详细信息
 }
 
-interface PandocParams {
+interface ConvertPandocParams {
   dir?: string;
   args: Array<string>; // Pandoc 命令行参数数组
 }
 
-interface PandocResponseData {
+interface ConvertPandocResponseData {
   path: string; // 转换后输出文件的路径
 }
 
-interface PandocResponse {
+interface ConvertPandocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: PandocResponseData; // 成功时返回的数据
+  Data: ConvertPandocResponseData; // 成功时返回的数据
 }
 
-interface Export2LiandiParams {
+interface ExportExport2LiandiParams {
   id: string; // 要导出到链滴的文档ID
 }
 
-interface Export2LiandiResponse {
+interface ExportExport2LiandiResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface ExportAsFileParams {
+interface ExportExportAsFileParams {
   type: string; // 上传文件的MIME类型
 }
 
-interface ExportAsFileResponseData {
+interface ExportExportAsFileResponseData {
   name: string; // 处理后的文件名
   file: string; // 文件在服务器上的可访问路径 (相对于/export/)
 }
 
-interface ExportAsFileResponse {
+interface ExportExportAsFileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportAsFileResponseData; // 成功时返回的数据
+  Data: ExportExportAsFileResponseData; // 成功时返回的数据
 }
 
-interface ExportAsciiDocParams {
+interface ExportExportAsciiDocParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportAsciiDocResponseData {
+interface ExportExportAsciiDocResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportAsciiDocResponse {
+interface ExportExportAsciiDocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportAsciiDocResponseData; // 成功时返回的数据
+  Data: ExportExportAsciiDocResponseData; // 成功时返回的数据
 }
 
-interface ExportAttributeViewParams {
+interface ExportExportAttributeViewParams {
   id: string; // 属性视图的ID (avID)
   blockID: string; // 包含该属性视图的块ID
 }
 
-interface ExportAttributeViewResponseData {
+interface ExportExportAttributeViewResponseData {
   zip: string; // 导出的CSV压缩文件在服务器上的绝对路径
 }
 
-interface ExportAttributeViewResponse {
+interface ExportExportAttributeViewResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportAttributeViewResponseData; // 成功时返回的数据
+  Data: ExportExportAttributeViewResponseData; // 成功时返回的数据
 }
 
-interface ExportDataResponseData {
+interface ExportExportDataResponseData {
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportDataResponse {
+interface ExportExportDataResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportDataResponseData; // 成功时返回的数据
+  Data: ExportExportDataResponseData; // 成功时返回的数据
 }
 
-interface ExportDataInFolderParams {
+interface ExportExportDataInFolderParams {
   folder: string; // 要导出数据的文件夹路径 (相对于工作空间data目录)
 }
 
-interface ExportDataInFolderResponseData {
+interface ExportExportDataInFolderResponseData {
   name: string; // 导出的压缩包文件名 (不含路径)
 }
 
-interface ExportDataInFolderResponse {
+interface ExportExportDataInFolderResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportDataInFolderResponseData; // 成功时返回的数据
+  Data: ExportExportDataInFolderResponseData; // 成功时返回的数据
 }
 
-interface ExportDocxParams {
+interface ExportExportDocxParams {
   id: string; // 要导出的文档ID
   savePath: string; // 服务器上保存 .docx 文件的绝对路径
   removeAssets: boolean; // 是否移除导出的 Word 文件中包含的资源文件（如图片）的原始文件
   merge?: boolean;
 }
 
-interface ExportDocxResponseData {
+interface ExportExportDocxResponseData {
   path: string; // 最终生成的 .docx 文件在服务器上的绝对路径
 }
 
-interface ExportDocxResponse {
+interface ExportExportDocxResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportDocxResponseData; // 成功时返回的数据
+  Data: ExportExportDocxResponseData; // 成功时返回的数据
 }
 
-interface ExportEPUBParams {
+interface ExportExportEPUBParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportEPUBResponseData {
+interface ExportExportEPUBResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportEPUBResponse {
+interface ExportExportEPUBResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportEPUBResponseData; // 成功时返回的数据
+  Data: ExportExportEPUBResponseData; // 成功时返回的数据
 }
 
-interface ExportHTMLParams {
+interface ExportExportHTMLParams {
   id: string; // 要导出的文档ID
   pdf: boolean; // 是否为导出 PDF 进行预处理（例如，处理链接和资源路径以适应 PDF 生成环境）
   savePath: string; // 服务器上保存 HTML 文件的绝对路径 (如果 pdf 为 true，则此路径可能用于临时存储)
@@ -2100,180 +2100,180 @@ interface ExportHTMLParams {
   merge?: boolean;
 }
 
-interface ExportHTMLResponseData {
+interface ExportExportHTMLResponseData {
   id: string; // 导出的文档ID
   name: string; // 文档的原始名称
   content: string; // 生成的 HTML 内容
 }
 
-interface ExportHTMLResponse {
+interface ExportExportHTMLResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportHTMLResponseData; // 成功时返回的数据
+  Data: ExportExportHTMLResponseData; // 成功时返回的数据
 }
 
-interface ExportMdParams {
+interface ExportExportMdParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportMdResponseData {
+interface ExportExportMdResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportMdResponse {
+interface ExportExportMdResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportMdResponseData; // 成功时返回的数据
+  Data: ExportExportMdResponseData; // 成功时返回的数据
 }
 
-interface ExportMdContentParams {
+interface ExportExportMdContentParams {
   id: string; // 要导出 Markdown 内容的文档ID
   refMode?: number;
   embedMode?: number;
   yfm?: boolean;
 }
 
-interface ExportMdContentResponseData {
+interface ExportExportMdContentResponseData {
   hPath: string; // 文档的人类可读路径 (面包屑路径)
   content: string; // 导出的 Markdown 文本内容
 }
 
-interface ExportMdContentResponse {
+interface ExportExportMdContentResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportMdContentResponseData; // 成功时返回的数据
+  Data: ExportExportMdContentResponseData; // 成功时返回的数据
 }
 
-interface ExportMdHTMLParams {
+interface ExportExportMdHTMLParams {
   id: string; // 要导出 HTML 内容的文档ID
   savePath: string; // 服务器上保存 HTML 文件的绝对路径 (此参数在后端代码中存在但似乎未实际用于此接口，可能为遗留或通用逻辑)
 }
 
-interface ExportMdHTMLResponseData {
+interface ExportExportMdHTMLResponseData {
   id: string; // 导出的文档ID
   name: string; // 文档的原始名称
   content: string; // 生成的纯 HTML 内容
 }
 
-interface ExportMdHTMLResponse {
+interface ExportExportMdHTMLResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportMdHTMLResponseData; // 成功时返回的数据
+  Data: ExportExportMdHTMLResponseData; // 成功时返回的数据
 }
 
-interface ExportMdsParams {
+interface ExportExportMdsParams {
   ids: Array<string>; // 要导出的文档ID数组
 }
 
-interface ExportMdsResponseData {
+interface ExportExportMdsResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportMdsResponse {
+interface ExportExportMdsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportMdsResponseData; // 成功时返回的数据
+  Data: ExportExportMdsResponseData; // 成功时返回的数据
 }
 
-interface ExportMediaWikiParams {
+interface ExportExportMediaWikiParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportMediaWikiResponseData {
+interface ExportExportMediaWikiResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportMediaWikiResponse {
+interface ExportExportMediaWikiResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportMediaWikiResponseData; // 成功时返回的数据
+  Data: ExportExportMediaWikiResponseData; // 成功时返回的数据
 }
 
-interface ExportNotebookMdParams {
+interface ExportExportNotebookMdParams {
   notebook: string; // 要导出的笔记本ID
 }
 
-interface ExportNotebookMdResponseData {
+interface ExportExportNotebookMdResponseData {
   name: string; // 导出的 .zip 文件名 (通常为笔记本名称)
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportNotebookMdResponse {
+interface ExportExportNotebookMdResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportNotebookMdResponseData; // 成功时返回的数据
+  Data: ExportExportNotebookMdResponseData; // 成功时返回的数据
 }
 
-interface ExportNotebookSYParams {
+interface ExportExportNotebookSYParams {
   id: string; // 要导出的笔记本ID
 }
 
-interface ExportNotebookSYResponseData {
+interface ExportExportNotebookSYResponseData {
   zip: string; // 导出的 .sy 文件在服务器上的绝对路径
 }
 
-interface ExportNotebookSYResponse {
+interface ExportExportNotebookSYResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportNotebookSYResponseData; // 成功时返回的数据
+  Data: ExportExportNotebookSYResponseData; // 成功时返回的数据
 }
 
-interface ExportODTParams {
+interface ExportExportODTParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportODTResponseData {
+interface ExportExportODTResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportODTResponse {
+interface ExportExportODTResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportODTResponseData; // 成功时返回的数据
+  Data: ExportExportODTResponseData; // 成功时返回的数据
 }
 
-interface ExportOPMLParams {
+interface ExportExportOPMLParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportOPMLResponseData {
+interface ExportExportOPMLResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportOPMLResponse {
+interface ExportExportOPMLResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportOPMLResponseData; // 成功时返回的数据
+  Data: ExportExportOPMLResponseData; // 成功时返回的数据
 }
 
-interface ExportOrgModeParams {
+interface ExportExportOrgModeParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportOrgModeResponseData {
+interface ExportExportOrgModeResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportOrgModeResponse {
+interface ExportExportOrgModeResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportOrgModeResponseData; // 成功时返回的数据
+  Data: ExportExportOrgModeResponseData; // 成功时返回的数据
 }
 
-interface ExportPreviewHTMLParams {
+interface ExportExportPreviewHTMLParams {
   id: string; // 要导出预览 HTML 的文档ID
   keepFold?: boolean;
   merge?: boolean;
   image?: boolean;
 }
 
-interface ExportPreviewHTMLResponseData {
+interface ExportExportPreviewHTMLResponseData {
   id: string; // 导出的文档ID
   name: string; // 文档的原始名称
   content: string; // 生成的预览 HTML 内容
@@ -2281,73 +2281,73 @@ interface ExportPreviewHTMLResponseData {
   type: string; // 文档块的类型 (如 'd' 表示文档块)
 }
 
-interface ExportPreviewHTMLResponse {
+interface ExportExportPreviewHTMLResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportPreviewHTMLResponseData; // 成功时返回的数据
+  Data: ExportExportPreviewHTMLResponseData; // 成功时返回的数据
 }
 
-interface ExportRTFParams {
+interface ExportExportRTFParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportRTFResponseData {
+interface ExportExportRTFResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportRTFResponse {
+interface ExportExportRTFResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportRTFResponseData; // 成功时返回的数据
+  Data: ExportExportRTFResponseData; // 成功时返回的数据
 }
 
-interface ExportReStructuredTextParams {
+interface ExportExportReStructuredTextParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportReStructuredTextResponseData {
+interface ExportExportReStructuredTextResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportReStructuredTextResponse {
+interface ExportExportReStructuredTextResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportReStructuredTextResponseData; // 成功时返回的数据
+  Data: ExportExportReStructuredTextResponseData; // 成功时返回的数据
 }
 
-interface ExportResourcesParams {
+interface ExportExportResourcesParams {
   name?: string;
   paths: Array<string>; // 要导出的文件或文件夹在工作空间中的相对路径数组 (相对于data目录)
 }
 
-interface ExportResourcesResponseData {
+interface ExportExportResourcesResponseData {
   path: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportResourcesResponse {
+interface ExportExportResourcesResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportResourcesResponseData; // 成功时返回的数据
+  Data: ExportExportResourcesResponseData; // 成功时返回的数据
 }
 
-interface ExportSYParams {
+interface ExportExportSYParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportSYResponseData {
+interface ExportExportSYResponseData {
   name: string; // 导出的 .sy 文件名
   zip: string; // 导出的 .sy 文件在服务器上的绝对路径
 }
 
-interface ExportSYResponse {
+interface ExportExportSYResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportSYResponseData; // 成功时返回的数据
+  Data: ExportExportSYResponseData; // 成功时返回的数据
 }
 
-interface ExportTempContentParams {
+interface ExportExportTempContentParams {
   content: string; // 要导出预览的 Markdown 内容字符串
   mode?: number;
   theme?: string;
@@ -2357,46 +2357,46 @@ interface ExportTempContentParams {
   js?: string;
 }
 
-interface ExportTempContentResponseData {
+interface ExportExportTempContentResponseData {
   url: string; // 生成的临时内容预览 URL (形如 http://localhost:6806/export/temp/xxxxxxx)
 }
 
-interface ExportTempContentResponse {
+interface ExportExportTempContentResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportTempContentResponseData; // 成功时返回的数据
+  Data: ExportExportTempContentResponseData; // 成功时返回的数据
 }
 
-interface ExportTextileParams {
+interface ExportExportTextileParams {
   id: string; // 要导出的文档ID
 }
 
-interface ExportTextileResponseData {
+interface ExportExportTextileResponseData {
   name: string; // 导出的 .zip 文件名
   zip: string; // 导出的 .zip 文件在服务器上的绝对路径
 }
 
-interface ExportTextileResponse {
+interface ExportExportTextileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportTextileResponseData; // 成功时返回的数据
+  Data: ExportExportTextileResponseData; // 成功时返回的数据
 }
 
-interface ExportPreviewParams {
+interface ExportExportPreviewParams {
   id: string; // 要获取 HTML 预览的文档ID
 }
 
-interface ExportPreviewResponseData {
+interface ExportExportPreviewResponseData {
   html: string; // 生成的文档 HTML 预览内容
 }
 
-interface ExportPreviewResponse {
+interface ExportExportPreviewResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: ExportPreviewResponseData; // 成功时返回的数据
+  Data: ExportExportPreviewResponseData; // 成功时返回的数据
 }
 
-interface ProcessPDFParams {
+interface ExportProcessPDFParams {
   id: string; // 相关文档的ID (用于日志记录或上下文关联)
   path: string; // 已生成的 HTML 文件的绝对路径 (该文件将被用于生成或处理 PDF)
   merge?: boolean;
@@ -2404,156 +2404,156 @@ interface ProcessPDFParams {
   watermark: boolean; // 是否添加水印
 }
 
-interface ProcessPDFResponse {
+interface ExportProcessPDFResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface ExtensionCopyParams {
+interface ExtensionExtensionCopyParams {
   dom: string; // 要处理的 HTML DOM 内容字符串。这是必须的字段。注意：即使是从链滴剪藏（href 指向链滴文章），也需要传递一个 dom 参数，内容可以为空字符串。
   notebook?: string;
   href?: string;
 }
 
-interface ExtensionCopyResponseData {
+interface ExtensionExtensionCopyResponseData {
   md: string; // 转换后或直接获取的 Markdown 内容
   withMath: boolean; // 指示转换后的 Markdown 内容中是否包含数学公式 (KaTeX)
 }
 
-interface ExtensionCopyResponse {
+interface ExtensionExtensionCopyResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息，失败时错误信息显示在这里
-  Data: ExtensionCopyResponseData | null;
+  Data: ExtensionExtensionCopyResponseData | null;
 }
 
-interface CopyFileParams {
+interface FileCopyFileParams {
   src: string; // 源文件路径。如果是资源文件，则为相对于 assets 目录的路径；如果是普通工作空间文件，则为相对于工作空间根目录的路径。后端会尝试将其解析为绝对路径。注意：此接口不能直接复制目录。后台实现会先尝试将其作为资源文件解析，如果失败则作为工作空间普通文件解析。若要复制普通文件，建议使用 /api/file/globalCopyFiles。 
   dest: string; // 目标文件绝对路径。
 }
 
-interface CopyFileResponseData {
+interface FileCopyFileResponseData {
   closeTimeout?: number;
 }
 
-interface CopyFileResponse {
+interface FileCopyFileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: CopyFileResponseData | null;
+  Data: FileCopyFileResponseData | null;
 }
 
-interface GetFileParams {
+interface FileGetFileParams {
   path: string; // 要获取内容的文件路径 (相对于工作空间根目录)。
 }
 
-interface GetFileResponse {
+interface FileGetFileResponse {
   Code: number; // 错误状态码 (例如 403, 404, 500)
   Msg: string; // 错误消息
 }
 
-interface GetUniqueFilenameParams {
+interface FileGetUniqueFilenameParams {
   path: string; // 原始文件路径 (通常包含期望的文件名和扩展名)。
 }
 
-interface GetUniqueFilenameResponseData {
+interface FileGetUniqueFilenameResponseData {
   path: string; // 处理后的唯一文件路径。
 }
 
-interface GetUniqueFilenameResponse {
+interface FileGetUniqueFilenameResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: GetUniqueFilenameResponseData;
+  Data: FileGetUniqueFilenameResponseData;
 }
 
-interface GlobalCopyFilesParams {
+interface FileGlobalCopyFilesParams {
   srcs: Array<string>; // 要复制的源文件绝对路径数组。如果任何一个文件不存在，操作将失败。注意：不能是目录。
   destDir: string; // 目标目录路径 (相对于工作空间根目录)。
 }
 
-interface GlobalCopyFilesResponse {
+interface FileGlobalCopyFilesResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface PutFileParams {
+interface FilePutFileParams {
   path: string; // 目标文件或目录在工作空间内的相对路径。文件名需要符合规范，否则请求失败。
   isDir: boolean; // 是否创建目录。如果为 true，则创建目录；如果为 false 或未提供，则上传文件。
   modTime?: string;
 }
 
-interface PutFileResponse {
+interface FilePutFileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface ReadDirParams {
+interface FileReadDirParams {
   path: string; // 要读取的目录路径 (相对于工作空间根目录)。
 }
 
-interface ReadDirResponseDataItem {
+interface FileReadDirResponseDataItem {
   name: string; // 文件名或目录名
   isDir: boolean; // 是否为目录
   isSymlink: boolean; // 是否为符号链接
   updated: number; // 最后修改时间的Unix时间戳 (秒)
 }
 
-interface ReadDirResponse {
+interface FileReadDirResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: Array<ReadDirResponseDataItem>; // 目录中的条目列表
+  Data: Array<FileReadDirResponseDataItem>; // 目录中的条目列表
 }
 
-interface RemoveFileParams {
+interface FileRemoveFileParams {
   path: string; // 要移除的文件或目录路径 (相对于工作空间根目录)。
 }
 
-interface RemoveFileResponse {
+interface FileRemoveFileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RenameFileParams {
+interface FileRenameFileParams {
   path: string; // 原始文件或目录路径 (相对于工作空间根目录)。
   newPath: string; // 新的文件或目录路径 (相对于工作空间根目录)。
 }
 
-interface RenameFileResponse {
+interface FileRenameFileResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface ChangeSortParams {
+interface FiletreeChangeSortParams {
   notebook: string; // 要更改排序的笔记本ID。
   paths: Array<string>; // 需要调整排序的文档路径列表。这些路径通常是文档在其笔记本内的相对路径。后端会根据这些路径的顺序来更新文档树的排序。
 }
 
-interface ChangeSortResponse {
+interface FiletreeChangeSortResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface CreateDailyNoteParams {
+interface FiletreeCreateDailyNoteParams {
   notebook: string; // 要在哪个笔记本下创建日记的ID。
   app?: string;
   callback?: string;
 }
 
-interface CreateDailyNoteResponseData {
+interface FiletreeCreateDailyNoteResponseData {
   id: string; // 创建或获取到的日记文档的根块ID。
 }
 
-interface CreateDailyNoteResponse {
+interface FiletreeCreateDailyNoteResponse {
   Code: number; // 响应状态码。0 表示成功创建或获取；1 表示笔记本未找到；-1 表示其他错误。
   Msg: string; // 响应消息。
-  Data?: CreateDailyNoteResponseData;
+  Data?: FiletreeCreateDailyNoteResponseData;
 }
 
-interface CreateDocParams {
+interface FiletreeCreateDocParams {
   notebook: string; // 文档所属的笔记本ID。
   path: string; // 文档的存储路径 (相对于笔记本根目录，例如 '/folder/documentName')。
   title: string; // 文档的标题。
@@ -2563,18 +2563,18 @@ interface CreateDocParams {
   callback?: string;
 }
 
-interface CreateDocResponseData {
+interface FiletreeCreateDocResponseData {
   id: string; // 新创建文档的根块ID。
   closeTimeout?: number;
 }
 
-interface CreateDocResponse {
+interface FiletreeCreateDocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: CreateDocResponseData; // 成功时返回新文档的ID；失败时可能包含 closeTimeout。
+  Data: FiletreeCreateDocResponseData; // 成功时返回新文档的ID；失败时可能包含 closeTimeout。
 }
 
-interface CreateDocWithMdParams {
+interface FiletreeCreateDocWithMdParams {
   notebook: string; // 文档所属的笔记本ID。
   path: string; // 文档的人类可读路径 (HPath)，例如 '/My Notes/New Document'。后端会处理路径中的非法字符和长度限制。
   markdown: string; // 新文档的Markdown内容。
@@ -2587,37 +2587,37 @@ interface CreateDocWithMdParams {
   callback?: string;
 }
 
-interface CreateDocWithMdResponse {
+interface FiletreeCreateDocWithMdResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: string;
 }
 
-interface Doc2HeadingParams {
+interface FiletreeDoc2HeadingParams {
   srcID: string; // 要转换的源文档的ID。
   targetID: string; // 目标文档中，新标题块将插入到其后的那个标题块的ID。如果 after 为 false，则插入其前。
   after: boolean; // 是否将源文档内容插入到 targetID 块之后 (true) 或之前 (false)。
 }
 
-interface Doc2HeadingResponseData {
+interface FiletreeDoc2HeadingResponseData {
   srcTreeBox: string; // 源文档所在的笔记本ID。
   srcTreePath: string; // 源文档的路径。
   closeTimeout?: number;
 }
 
-interface Doc2HeadingResponse {
+interface FiletreeDoc2HeadingResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: Doc2HeadingResponseData; // 成功时返回源文档的笔记本和路径信息；失败时可能包含 closeTimeout。
+  Data: FiletreeDoc2HeadingResponseData; // 成功时返回源文档的笔记本和路径信息；失败时可能包含 closeTimeout。
 }
 
-interface DuplicateDocParams {
+interface FiletreeDuplicateDocParams {
   id: string; // 要复制的源文档的ID。
   listDocTree?: boolean;
   callback?: string;
 }
 
-interface DuplicateDocResponseData {
+interface FiletreeDuplicateDocResponseData {
   id: string; // 新复制出来的文档的根块ID。
   notebook: string; // 新文档所在的笔记本ID。
   path: string; // 新文档的存储路径。
@@ -2625,13 +2625,13 @@ interface DuplicateDocResponseData {
   closeTimeout?: number;
 }
 
-interface DuplicateDocResponse {
+interface FiletreeDuplicateDocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: DuplicateDocResponseData; // 成功时返回新文档的相关信息；失败时可能包含 closeTimeout。
+  Data: FiletreeDuplicateDocResponseData; // 成功时返回新文档的相关信息；失败时可能包含 closeTimeout。
 }
 
-interface GetDocParams {
+interface FiletreeGetDocParams {
   id: string; // 要获取的文档或块的ID。
   index?: number;
   query?: string;
@@ -2647,7 +2647,7 @@ interface GetDocParams {
   reqId?: string;
 }
 
-interface GetDocResponseData {
+interface FiletreeGetDocResponseData {
   id: string; // 请求的原始块ID。
   mode: number; // 请求的加载模式。
   parentID: string; // 父块ID。
@@ -2666,115 +2666,115 @@ interface GetDocResponseData {
   reqId?: string;
 }
 
-interface GetDocResponse {
+interface FiletreeGetDocResponse {
   Code: number; // 响应状态码。0: 成功；1: 通用错误；3: 块未找到。
   Msg: string; // 响应消息。
-  Data?: GetDocResponseData;
+  Data?: FiletreeGetDocResponseData;
 }
 
-interface GetDocCreateSavePathParams {
+interface FiletreeGetDocCreateSavePathParams {
   notebook: string; // 当前操作的笔记本ID。计算默认保存位置时会参考此笔记本的配置及全局配置。
 }
 
-interface GetDocCreateSavePathResponseData {
+interface FiletreeGetDocCreateSavePathResponseData {
   box: string; // 计算得出的用于保存新文档的笔记本ID。
   path: string; // 计算得出的用于保存新文档的人类可读路径 (HPath)。
 }
 
-interface GetDocCreateSavePathResponse {
+interface FiletreeGetDocCreateSavePathResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: GetDocCreateSavePathResponseData;
+  Data?: FiletreeGetDocCreateSavePathResponseData;
 }
 
-interface GetFullHPathByIDParams {
+interface FiletreeGetFullHPathByIDParams {
   id: string; // 要查询的文档或块的ID。
 }
 
-interface GetFullHPathByIDResponse {
+interface FiletreeGetFullHPathByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: string;
 }
 
-interface GetHPathByIDParams {
+interface FiletreeGetHPathByIDParams {
   id: string; // 要查询的文档或块的ID。
 }
 
-interface GetHPathByIDResponse {
+interface FiletreeGetHPathByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: string;
 }
 
-interface GetHPathByPathParams {
+interface FiletreeGetHPathByPathParams {
   notebook: string; // 文档所在的笔记本ID。
   path: string; // 文档的实际存储路径 (相对于笔记本根目录，例如 '/folderName/documentName.sy')。
 }
 
-interface GetHPathByPathResponse {
+interface FiletreeGetHPathByPathResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: string;
 }
 
-interface GetHPathsByPathsParamsPathsItem {
+interface FiletreeGetHPathsByPathsParamsPathsItem {
   notebook: string; // 文档所在的笔记本ID。
   path: string; // 文档的实际存储路径 (相对于笔记本根目录)。
 }
 
-interface GetHPathsByPathsParams {
-  paths: Array<GetHPathsByPathsParamsPathsItem>; // 包含笔记本ID和文档路径的对象数组。
+interface FiletreeGetHPathsByPathsParams {
+  paths: Array<FiletreeGetHPathsByPathsParamsPathsItem>; // 包含笔记本ID和文档路径的对象数组。
 }
 
-interface GetHPathsByPathsResponse {
+interface FiletreeGetHPathsByPathsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: Array<string>;
 }
 
-interface GetIDsByHPathParams {
+interface FiletreeGetIDsByHPathParams {
   notebook: string; // 文档所在的笔记本ID。
   path: string; // 要查询的文档的人类可读路径 (HPath)，例如 '/My Notes/Topic'。
 }
 
-interface GetIDsByHPathResponse {
+interface FiletreeGetIDsByHPathResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: Array<string>;
 }
 
-interface GetPathByIDParams {
+interface FiletreeGetPathByIDParams {
   id: string; // 要查询的文档或块的ID。
 }
 
-interface GetPathByIDResponseData {
+interface FiletreeGetPathByIDResponseData {
   path: string; // 文档的实际存储路径 (相对于笔记本根目录，例如 '/folderName/documentName.sy')。
   notebook: string; // 文档所在的笔记本ID。
 }
 
-interface GetPathByIDResponse {
+interface FiletreeGetPathByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: GetPathByIDResponseData;
+  Data?: FiletreeGetPathByIDResponseData;
 }
 
-interface GetRefCreateSavePathParams {
+interface FiletreeGetRefCreateSavePathParams {
   notebook: string; // 当前操作的笔记本ID。计算默认保存位置时会参考此笔记本的配置及全局配置。
 }
 
-interface GetRefCreateSavePathResponseData {
+interface FiletreeGetRefCreateSavePathResponseData {
   box: string; // 计算得出的用于保存新块引文档的笔记本ID。
   path: string; // 计算得出的用于保存新块引文档的人类可读路径 (HPath)。
 }
 
-interface GetRefCreateSavePathResponse {
+interface FiletreeGetRefCreateSavePathResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: GetRefCreateSavePathResponseData;
+  Data?: FiletreeGetRefCreateSavePathResponseData;
 }
 
-interface Heading2DocParams {
+interface FiletreeHeading2DocParams {
   srcHeadingID: string; // 源文档中要转换为新文档的标题块的ID。
   targetNoteBook: string; // 新文档将要创建在哪个笔记本的ID。
   targetPath?: string;
@@ -2782,19 +2782,19 @@ interface Heading2DocParams {
   callback?: string;
 }
 
-interface Heading2DocResponseData {
+interface FiletreeHeading2DocResponseData {
   srcRootBlockID: string; // 转换后新文档的根块ID。
   path: string; // 新文档在目标笔记本中的实际存储路径。
   closeTimeout?: number;
 }
 
-interface Heading2DocResponse {
+interface FiletreeHeading2DocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: Heading2DocResponseData; // 成功时返回新文档的ID和路径；失败时可能包含 closeTimeout。
+  Data: FiletreeHeading2DocResponseData; // 成功时返回新文档的ID和路径；失败时可能包含 closeTimeout。
 }
 
-interface Li2DocParams {
+interface FiletreeLi2DocParams {
   srcListItemID: string; // 源文档中要转换为新文档的列表项的ID。
   targetNoteBook: string; // 新文档将要创建在哪个笔记本的ID。
   targetPath?: string;
@@ -2802,39 +2802,39 @@ interface Li2DocParams {
   callback?: string;
 }
 
-interface Li2DocResponseData {
+interface FiletreeLi2DocResponseData {
   srcRootBlockID: string; // 转换后新文档的根块ID。
   path: string; // 新文档在目标笔记本中的实际存储路径。
   closeTimeout?: number;
 }
 
-interface Li2DocResponse {
+interface FiletreeLi2DocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: Li2DocResponseData; // 成功时返回新文档的ID和路径；失败时可能包含 closeTimeout。
+  Data: FiletreeLi2DocResponseData; // 成功时返回新文档的ID和路径；失败时可能包含 closeTimeout。
 }
 
-interface ListDocTreeParams {
+interface FiletreeListDocTreeParams {
   notebook: string; // 要列出文档树的笔记本ID。
   path: string; // 要列出文档树的起始路径 (相对于笔记本根目录，例如 '/folderName')。通常用于列出某个文件夹下的文档结构。
 }
 
-interface ListDocTreeResponseDataTreeItem {
+interface FiletreeListDocTreeResponseDataTreeItem {
   id: string; // 文档或目录的ID。
   children?: Array<any>;
 }
 
-interface ListDocTreeResponseData {
-  tree: Array<ListDocTreeResponseDataTreeItem>; // 文档树结构数组。
+interface FiletreeListDocTreeResponseData {
+  tree: Array<FiletreeListDocTreeResponseDataTreeItem>; // 文档树结构数组。
 }
 
-interface ListDocTreeResponse {
+interface FiletreeListDocTreeResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: ListDocTreeResponseData;
+  Data?: FiletreeListDocTreeResponseData;
 }
 
-interface ListDocsByPathParams {
+interface FiletreeListDocsByPathParams {
   notebook: string; // 笔记本ID。
   path: string; // 要列出文档的路径 (相对于笔记本根目录，例如 '/folderName')。空字符串表示笔记本根目录。
   sort?: number;
@@ -2844,7 +2844,7 @@ interface ListDocsByPathParams {
   ignoreMaxListHint?: boolean;
 }
 
-interface ListDocsByPathResponseDataFilesItem {
+interface FiletreeListDocsByPathResponseDataFilesItem {
   type: string; // 条目类型，'d' 表示目录 (doc file)，'f' 表示文件 (asset file)。在 filetree 上下文，通常都是文档，但 model.File 的定义更通用。
   name: string; // 文档名或目录名 (不含.sy后缀)。
   alias?: string;
@@ -2865,147 +2865,147 @@ interface ListDocsByPathResponseDataFilesItem {
   hidden?: boolean;
 }
 
-interface ListDocsByPathResponseData {
+interface FiletreeListDocsByPathResponseData {
   box: string; // 请求的笔记本ID。
   path: string; // 请求的路径。
-  files: Array<ListDocsByPathResponseDataFilesItem>; // 文档和子目录列表。
+  files: Array<FiletreeListDocsByPathResponseDataFilesItem>; // 文档和子目录列表。
 }
 
-interface ListDocsByPathResponse {
+interface FiletreeListDocsByPathResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: ListDocsByPathResponseData;
+  Data?: FiletreeListDocsByPathResponseData;
 }
 
-interface MoveDocsParams {
+interface FiletreeMoveDocsParams {
   fromPaths: Array<string>; // 要移动的源文档路径数组。每个路径字符串应为 '笔记本ID/文档相对路径.sy' 或 '笔记本ID/文档相对路径' 的形式。后端会处理。例如：['box123/notes/docA.sy', 'box456/folder/docB']
   toNotebook: string; // 目标笔记本的ID。
   toPath: string; // 目标路径 (HPath 或实际路径均可，后端会尝试解析)。文档将被移动到此路径下。例如 '/Target Folder' 或 '/Target Folder/NewName.sy' (如果只移动一个文件且想重命名)。
   callback?: string;
 }
 
-interface MoveDocsResponseData {
+interface FiletreeMoveDocsResponseData {
   closeTimeout?: number;
 }
 
-interface MoveDocsResponse {
+interface FiletreeMoveDocsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: MoveDocsResponseData | null;
+  Data: FiletreeMoveDocsResponseData | null;
 }
 
-interface MoveDocsByIDParams {
+interface FiletreeMoveDocsByIDParams {
   fromIDs: Array<string>; // 要移动的源文档ID数组。
   toID: string; // 目标文档或目录的ID。如果 toID 是一个文档，则 fromIDs 中的文档会成为其子文档（如果内核逻辑支持）；如果 toID 是一个目录（通常是一个文档的HPath的父级），则 fromIDs 中的文档会被移动到该目录下。具体行为需参考内核实现细节。后台实现中，会先通过 toID 获取其 toNotebook 和 toPath，然后调用 model.MoveDocs。
   callback?: string;
 }
 
-interface MoveDocsByIDResponseData {
+interface FiletreeMoveDocsByIDResponseData {
   closeTimeout?: number;
 }
 
-interface MoveDocsByIDResponse {
+interface FiletreeMoveDocsByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: MoveDocsByIDResponseData | null;
+  Data: FiletreeMoveDocsByIDResponseData | null;
 }
 
-interface MoveLocalShorthandsParams {
+interface FiletreeMoveLocalShorthandsParams {
   notebook: string; // 要处理闪念速记的笔记本ID。
   path?: string;
   parentID?: string;
 }
 
-interface MoveLocalShorthandsResponse {
+interface FiletreeMoveLocalShorthandsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RefreshFiletreeResponse {
+interface FiletreeRefreshFiletreeResponse {
   Code: number; // 响应状态码，0 表示成功（操作已异步启动）
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RemoveDocParams {
+interface FiletreeRemoveDocParams {
   notebook: string; // 文档所在的笔记本ID。
   path: string; // 要移除的文档的相对路径 (相对于笔记本根目录，例如 '/notes/docToRemove.sy')。
 }
 
-interface RemoveDocResponse {
+interface FiletreeRemoveDocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RemoveDocByIDParams {
+interface FiletreeRemoveDocByIDParams {
   id: string; // 要移除的文档的ID。
 }
 
-interface RemoveDocByIDResponseData {
+interface FiletreeRemoveDocByIDResponseData {
   closeTimeout?: number;
 }
 
-interface RemoveDocByIDResponse {
+interface FiletreeRemoveDocByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: RemoveDocByIDResponseData | null;
+  Data: FiletreeRemoveDocByIDResponseData | null;
 }
 
-interface RemoveDocsParams {
+interface FiletreeRemoveDocsParams {
   paths: Array<string>; // 要移除的文档的复合路径数组。每个路径字符串应为 '笔记本ID/文档相对路径.sy' 或 '笔记本ID/文档相对路径' 的形式。例如：['box123/notes/docA.sy', 'box456/folder/docB']
 }
 
-interface RemoveDocsResponse {
+interface FiletreeRemoveDocsResponse {
   Code: number; // 响应状态码，0 表示成功（即使部分路径无效也可能返回0，具体需看Msg）
   Msg: string; // 响应消息。如果部分文档移除失败，Msg中可能会有提示。
   Data?: null;
 }
 
-interface RemoveIndexesParams {
+interface FiletreeRemoveIndexesParams {
   paths: Array<string>; // 需要移除索引的文档绝对路径列表。这些路径通常指向 data 目录下的 .sy 文件，例如 '/data/notebookId/path/to/doc.sy'。
 }
 
-interface RemoveIndexesResponse {
+interface FiletreeRemoveIndexesResponse {
   Code: number; // 响应状态码，0 表示成功（操作已接受）
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RenameDocParams {
+interface FiletreeRenameDocParams {
   notebook: string; // 文档所在的笔记本ID。
   path: string; // 要重命名的文档的当前相对路径 (相对于笔记本根目录，例如 '/notes/oldName.sy')。
   title: string; // 文档的新标题 (不需要带 .sy 后缀)。
 }
 
-interface RenameDocResponse {
+interface FiletreeRenameDocResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface RenameDocByIDParams {
+interface FiletreeRenameDocByIDParams {
   id: string; // 要重命名的文档的ID。
   title: string; // 文档的新标题 (不需要带 .sy 后缀)。
 }
 
-interface RenameDocByIDResponseData {
+interface FiletreeRenameDocByIDResponseData {
   closeTimeout?: number;
 }
 
-interface RenameDocByIDResponse {
+interface FiletreeRenameDocByIDResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: RenameDocByIDResponseData | null;
+  Data: FiletreeRenameDocByIDResponseData | null;
 }
 
-interface SearchDocsParams {
+interface FiletreeSearchDocsParams {
   k: string; // 搜索关键词。
   flashcard?: boolean;
 }
 
-interface SearchDocsResponseDataItem {
+interface FiletreeSearchDocsResponseDataItem {
   box: string; // 文档所属的笔记本ID。
   path: string; // 文档的实际存储路径。
   hPath: string; // 文档的人类可读路径。
@@ -3017,54 +3017,54 @@ interface SearchDocsResponseDataItem {
   memo?: string;
 }
 
-interface SearchDocsResponse {
+interface FiletreeSearchDocsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data?: Array<SearchDocsResponseDataItem>;
+  Data?: Array<FiletreeSearchDocsResponseDataItem>;
 }
 
-interface UpsertIndexesParams {
+interface FiletreeUpsertIndexesParams {
   paths: Array<string>; // 需要更新/插入索引的文档绝对路径列表。这些路径通常指向 data 目录下的 .sy 文件，例如 '/data/notebookId/path/to/doc.sy'。
 }
 
-interface UpsertIndexesResponse {
+interface FiletreeUpsertIndexesResponse {
   Code: number; // 响应状态码，0 表示成功（操作已接受）
   Msg: string; // 响应消息
   Data?: null;
 }
 
-interface AutoSpaceParams {
+interface FormatAutoSpaceParams {
   id: string; // 要处理的块 ID。
 }
 
-interface AutoSpaceResponse {
+interface FormatAutoSpaceResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 操作成功时为 null
 }
 
-interface NetAssets2LocalAssetsParams {
+interface FormatNetAssets2LocalAssetsParams {
   id: string; // 要处理的块 ID，该块内的网络资源将被转存。
 }
 
-interface NetAssets2LocalAssetsResponse {
+interface FormatNetAssets2LocalAssetsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 操作成功时为 null
 }
 
-interface NetImg2LocalAssetsParams {
+interface FormatNetImg2LocalAssetsParams {
   id: string; // 要处理的块 ID。块内的网络图片将被转存。
   url?: string;
 }
 
-interface NetImg2LocalAssetsResponse {
+interface FormatNetImg2LocalAssetsResponse {
   Code: number; // API 调用返回码，0 表示成功
   Msg: string; // API 调用返回消息
   Data: null; // 操作成功时为 null
 }
 
-interface GetGraphParamsConfType {
+interface GraphGetGraphParamsConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3077,7 +3077,7 @@ interface GetGraphParamsConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface GetGraphParamsConfD3 {
+interface GraphGetGraphParamsConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3088,20 +3088,20 @@ interface GetGraphParamsConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface GetGraphParamsConf {
+interface GraphGetGraphParamsConf {
   minRefs: number; // 节点最少被引用次数（低于此值将被隐藏）
   dailyNote: boolean; // 是否包含日记节点
-  type: GetGraphParamsConfType; // 节点类型筛选配置
-  d3: GetGraphParamsConfD3; // D3力导向图配置
+  type: GraphGetGraphParamsConfType; // 节点类型筛选配置
+  d3: GraphGetGraphParamsConfD3; // D3力导向图配置
 }
 
-interface GetGraphParams {
+interface GraphGetGraphParams {
   reqId: any; // 请求 ID，用于跟踪异步请求
   k: string; // 搜索关键词，用于筛选关系图中的节点
-  conf: GetGraphParamsConf; // 全局关系图配置项
+  conf: GraphGetGraphParamsConf; // 全局关系图配置项
 }
 
-interface GetGraphResponseNodesItem {
+interface GraphGetGraphResponseNodesItem {
   id: string; // 节点 ID (通常是块 ID 或标签名)
   box: string; // 节点所属的笔记本 ID
   path: string; // 节点对应的文档路径
@@ -3113,22 +3113,22 @@ interface GetGraphResponseNodesItem {
   defs: number; // 节点的被引用数量 (定义数量)
 }
 
-interface GetGraphResponseLinksItemArrowsTo {
+interface GraphGetGraphResponseLinksItemArrowsTo {
   enabled: boolean; // 箭头是否启用
 }
 
-interface GetGraphResponseLinksItemArrows {
-  to?: GetGraphResponseLinksItemArrowsTo;
+interface GraphGetGraphResponseLinksItemArrows {
+  to?: GraphGetGraphResponseLinksItemArrowsTo;
 }
 
-interface GetGraphResponseLinksItem {
+interface GraphGetGraphResponseLinksItem {
   from: string; // 起始节点 ID
   to: string; // 目标节点 ID
   ref: boolean; // 是否为引用关系 (true: 引用关系, false: 父子层级关系)
-  arrows?: GetGraphResponseLinksItemArrows;
+  arrows?: GraphGetGraphResponseLinksItemArrows;
 }
 
-interface GetGraphResponseConfType {
+interface GraphGetGraphResponseConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3141,7 +3141,7 @@ interface GetGraphResponseConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface GetGraphResponseConfD3 {
+interface GraphGetGraphResponseConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3152,22 +3152,22 @@ interface GetGraphResponseConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface GetGraphResponseConf {
+interface GraphGetGraphResponseConf {
   minRefs: number; // 节点最少被引用次数（低于此值将被隐藏）
   dailyNote: boolean; // 是否包含日记节点
-  type: GetGraphResponseConfType; // 节点类型筛选配置
-  d3: GetGraphResponseConfD3; // D3力导向图配置
+  type: GraphGetGraphResponseConfType; // 节点类型筛选配置
+  d3: GraphGetGraphResponseConfD3; // D3力导向图配置
 }
 
-interface GetGraphResponse {
-  nodes: Array<GetGraphResponseNodesItem>; // 关系图中的节点列表
-  links: Array<GetGraphResponseLinksItem>; // 关系图中的边列表
-  conf: GetGraphResponseConf; // 更新后的全局关系图配置项
+interface GraphGetGraphResponse {
+  nodes: Array<GraphGetGraphResponseNodesItem>; // 关系图中的节点列表
+  links: Array<GraphGetGraphResponseLinksItem>; // 关系图中的边列表
+  conf: GraphGetGraphResponseConf; // 更新后的全局关系图配置项
   box: string; // 当前知识空间（笔记本组）ID
   reqId: any; // 请求 ID，与请求参数中的 reqId 一致
 }
 
-interface GetLocalGraphParamsConfType {
+interface GraphGetLocalGraphParamsConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3180,7 +3180,7 @@ interface GetLocalGraphParamsConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface GetLocalGraphParamsConfD3 {
+interface GraphGetLocalGraphParamsConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3191,20 +3191,20 @@ interface GetLocalGraphParamsConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface GetLocalGraphParamsConf {
+interface GraphGetLocalGraphParamsConf {
   dailyNote: boolean; // 是否包含日记节点
-  type: GetLocalGraphParamsConfType; // 节点类型筛选配置
-  d3: GetLocalGraphParamsConfD3; // D3力导向图配置
+  type: GraphGetLocalGraphParamsConfType; // 节点类型筛选配置
+  d3: GraphGetLocalGraphParamsConfD3; // D3力导向图配置
 }
 
-interface GetLocalGraphParams {
+interface GraphGetLocalGraphParams {
   reqId: any; // 请求 ID，用于跟踪异步请求
   id: string; // 文档 ID，用于构建局部关系图的中心节点
   k: string; // 搜索关键词，用于筛选关系图中的节点
-  conf: GetLocalGraphParamsConf; // 局部关系图配置项
+  conf: GraphGetLocalGraphParamsConf; // 局部关系图配置项
 }
 
-interface GetLocalGraphResponseNodesItem {
+interface GraphGetLocalGraphResponseNodesItem {
   id: string; // 节点 ID (通常是块 ID 或标签名)
   box: string; // 节点所属的笔记本 ID
   path: string; // 节点对应的文档路径
@@ -3216,22 +3216,22 @@ interface GetLocalGraphResponseNodesItem {
   defs: number; // 节点的被引用数量 (定义数量)
 }
 
-interface GetLocalGraphResponseLinksItemArrowsTo {
+interface GraphGetLocalGraphResponseLinksItemArrowsTo {
   enabled: boolean; // 箭头是否启用
 }
 
-interface GetLocalGraphResponseLinksItemArrows {
-  to?: GetLocalGraphResponseLinksItemArrowsTo;
+interface GraphGetLocalGraphResponseLinksItemArrows {
+  to?: GraphGetLocalGraphResponseLinksItemArrowsTo;
 }
 
-interface GetLocalGraphResponseLinksItem {
+interface GraphGetLocalGraphResponseLinksItem {
   from: string; // 起始节点 ID
   to: string; // 目标节点 ID
   ref: boolean; // 是否为引用关系 (true: 引用关系, false: 父子层级关系)
-  arrows?: GetLocalGraphResponseLinksItemArrows;
+  arrows?: GraphGetLocalGraphResponseLinksItemArrows;
 }
 
-interface GetLocalGraphResponseConfType {
+interface GraphGetLocalGraphResponseConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3244,7 +3244,7 @@ interface GetLocalGraphResponseConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface GetLocalGraphResponseConfD3 {
+interface GraphGetLocalGraphResponseConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3255,22 +3255,22 @@ interface GetLocalGraphResponseConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface GetLocalGraphResponseConf {
+interface GraphGetLocalGraphResponseConf {
   dailyNote: boolean; // 是否包含日记节点
-  type: GetLocalGraphResponseConfType; // 节点类型筛选配置
-  d3: GetLocalGraphResponseConfD3; // D3力导向图配置
+  type: GraphGetLocalGraphResponseConfType; // 节点类型筛选配置
+  d3: GraphGetLocalGraphResponseConfD3; // D3力导向图配置
 }
 
-interface GetLocalGraphResponse {
+interface GraphGetLocalGraphResponse {
   id: string; // 请求的文档 ID
   box: string; // 当前知识空间（笔记本组）ID
-  nodes: Array<GetLocalGraphResponseNodesItem>; // 关系图中的节点列表
-  links: Array<GetLocalGraphResponseLinksItem>; // 关系图中的边列表
-  conf: GetLocalGraphResponseConf; // 更新后的局部关系图配置项
+  nodes: Array<GraphGetLocalGraphResponseNodesItem>; // 关系图中的节点列表
+  links: Array<GraphGetLocalGraphResponseLinksItem>; // 关系图中的边列表
+  conf: GraphGetLocalGraphResponseConf; // 更新后的局部关系图配置项
   reqId: any; // 请求 ID，与请求参数中的 reqId 一致
 }
 
-interface ResetGraphResponseConfType {
+interface GraphResetGraphResponseConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3283,7 +3283,7 @@ interface ResetGraphResponseConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface ResetGraphResponseConfD3 {
+interface GraphResetGraphResponseConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3294,18 +3294,18 @@ interface ResetGraphResponseConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface ResetGraphResponseConf {
+interface GraphResetGraphResponseConf {
   minRefs: number; // 节点最少被引用次数（低于此值将被隐藏）
   dailyNote: boolean; // 是否包含日记节点
-  type: ResetGraphResponseConfType; // 节点类型筛选配置
-  d3: ResetGraphResponseConfD3; // D3力导向图配置
+  type: GraphResetGraphResponseConfType; // 节点类型筛选配置
+  d3: GraphResetGraphResponseConfD3; // D3力导向图配置
 }
 
-interface ResetGraphResponse {
-  conf: ResetGraphResponseConf; // 重置后的全局关系图配置项
+interface GraphResetGraphResponse {
+  conf: GraphResetGraphResponseConf; // 重置后的全局关系图配置项
 }
 
-interface ResetLocalGraphResponseConfType {
+interface GraphResetLocalGraphResponseConfType {
   tag: boolean; // 是否显示标签节点
   paragraph: boolean; // 是否显示段落块节点
   heading: boolean; // 是否显示标题块节点
@@ -3318,7 +3318,7 @@ interface ResetLocalGraphResponseConfType {
   super: boolean; // 是否显示超级块节点
 }
 
-interface ResetLocalGraphResponseConfD3 {
+interface GraphResetLocalGraphResponseConfD3 {
   nodeSize: number; // 节点大小
   linkWidth: number; // 连线宽度
   lineOpacity: number; // 连线不透明度
@@ -3329,42 +3329,42 @@ interface ResetLocalGraphResponseConfD3 {
   arrow: boolean; // 是否显示箭头
 }
 
-interface ResetLocalGraphResponseConf {
+interface GraphResetLocalGraphResponseConf {
   dailyNote: boolean; // 是否包含日记节点
-  type: ResetLocalGraphResponseConfType; // 节点类型筛选配置
-  d3: ResetLocalGraphResponseConfD3; // D3力导向图配置
+  type: GraphResetLocalGraphResponseConfType; // 节点类型筛选配置
+  d3: GraphResetLocalGraphResponseConfD3; // D3力导向图配置
 }
 
-interface ResetLocalGraphResponse {
-  conf: ResetLocalGraphResponseConf; // 重置后的局部关系图配置项
+interface GraphResetLocalGraphResponse {
+  conf: GraphResetLocalGraphResponseConf; // 重置后的局部关系图配置项
 }
 
-interface ClearWorkspaceHistoryResponse {
+interface HistoryClearWorkspaceHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data: null; // 成功时固定为 null
 }
 
-interface GetDocHistoryContentParams {
+interface HistoryGetDocHistoryContentParams {
   historyPath: string; // 文档历史版本的路径，通常从其他历史记录接口获取
   k?: string;
   highlight?: boolean;
 }
 
-interface GetDocHistoryContentResponseData {
+interface HistoryGetDocHistoryContentResponseData {
   id: string; // 文档的 ID
   rootID: string; // 文档的根块 ID
   content: string; // 文档历史版本的内容 (HTML 格式)
   isLargeDoc: boolean; // 是否为大文档
 }
 
-interface GetDocHistoryContentResponse {
+interface HistoryGetDocHistoryContentResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: GetDocHistoryContentResponseData | null;
+  Data: HistoryGetDocHistoryContentResponseData | null;
 }
 
-interface GetHistoryItemsParams {
+interface HistoryGetHistoryItemsParams {
   created: string; // 创建日期，格式如 'YYYYMMDD'
   notebook?: string;
   type?: number;
@@ -3372,7 +3372,7 @@ interface GetHistoryItemsParams {
   op?: string;
 }
 
-interface GetHistoryItemsResponseDataItemsItem {
+interface HistoryGetHistoryItemsResponseDataItemsItem {
   id: string; // 历史记录条目的唯一ID (通常为历史文件名或路径相关ID)
   title: string; // 历史记录条目的标题或名称
   content: string; // 历史记录条目的简要内容或描述
@@ -3391,17 +3391,17 @@ interface GetHistoryItemsResponseDataItemsItem {
   docID?: string;
 }
 
-interface GetHistoryItemsResponseData {
-  items: Array<GetHistoryItemsResponseDataItemsItem>; // 符合条件的历史条目数组
+interface HistoryGetHistoryItemsResponseData {
+  items: Array<HistoryGetHistoryItemsResponseDataItemsItem>; // 符合条件的历史条目数组
 }
 
-interface GetHistoryItemsResponse {
+interface HistoryGetHistoryItemsResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: GetHistoryItemsResponseData | null;
+  Data: HistoryGetHistoryItemsResponseData | null;
 }
 
-interface GetNotebookHistoryResponseDataHistoriesItem {
+interface HistoryGetNotebookHistoryResponseDataHistoriesItem {
   id: string; // 历史记录的唯一ID (通常为历史文件名或路径相关ID)
   title: string; // 历史记录的标题 (通常是笔记本名称)
   type: number; // 历史类型 (应为2，代表笔记本历史)
@@ -3415,58 +3415,58 @@ interface GetNotebookHistoryResponseDataHistoriesItem {
   historyPath: string; // 历史文件的完整存储路径
 }
 
-interface GetNotebookHistoryResponseData {
-  histories: Array<GetNotebookHistoryResponseDataHistoriesItem>; // 笔记本历史记录数组
+interface HistoryGetNotebookHistoryResponseData {
+  histories: Array<HistoryGetNotebookHistoryResponseDataHistoriesItem>; // 笔记本历史记录数组
 }
 
-interface GetNotebookHistoryResponse {
+interface HistoryGetNotebookHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: GetNotebookHistoryResponseData | null;
+  Data: HistoryGetNotebookHistoryResponseData | null;
 }
 
-interface ReindexHistoryResponse {
+interface HistoryReindexHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data: null; // 成功时固定为 null
 }
 
-interface RollbackAssetsHistoryParams {
+interface HistoryRollbackAssetsHistoryParams {
   historyPath: string; // 资源文件历史版本的路径，通常从其他历史记录接口获取
 }
 
-interface RollbackAssetsHistoryResponse {
+interface HistoryRollbackAssetsHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data: null; // 成功时固定为 null
 }
 
-interface RollbackDocHistoryParams {
+interface HistoryRollbackDocHistoryParams {
   notebook: string; // 文档所属的笔记本 ID
   historyPath: string; // 文档历史版本的路径，通常从其他历史记录接口获取
 }
 
-interface RollbackDocHistoryResponseData {
+interface HistoryRollbackDocHistoryResponseData {
   box: string; // 文档所属的笔记本 ID
 }
 
-interface RollbackDocHistoryResponse {
+interface HistoryRollbackDocHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: RollbackDocHistoryResponseData | null;
+  Data: HistoryRollbackDocHistoryResponseData | null;
 }
 
-interface RollbackNotebookHistoryParams {
+interface HistoryRollbackNotebookHistoryParams {
   historyPath: string; // 笔记本历史版本的路径，通常从 getNotebookHistory 接口获取
 }
 
-interface RollbackNotebookHistoryResponse {
+interface HistoryRollbackNotebookHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
   Data: null; // 成功时固定为 null
 }
 
-interface SearchHistoryParams {
+interface HistorySearchHistoryParams {
   notebook?: string;
   type?: number;
   query: string; // 搜索关键词
@@ -3474,7 +3474,7 @@ interface SearchHistoryParams {
   op?: string;
 }
 
-interface SearchHistoryResponseDataHistoriesItemItemsItem {
+interface HistorySearchHistoryResponseDataHistoriesItemItemsItem {
   id: string; // 历史记录条目的唯一ID
   title: string; // 历史记录条目的标题或名称
   content: string; // 历史记录条目的简要内容或描述
@@ -3493,25 +3493,25 @@ interface SearchHistoryResponseDataHistoriesItemItemsItem {
   docID?: string;
 }
 
-interface SearchHistoryResponseDataHistoriesItem {
+interface HistorySearchHistoryResponseDataHistoriesItem {
   created: string; // 历史记录分组的创建日期 (格式：YYYYMMDD)
   count: number; // 该日期分组下的历史条目数量
-  items?: Array<SearchHistoryResponseDataHistoriesItemItemsItem>;
+  items?: Array<HistorySearchHistoryResponseDataHistoriesItemItemsItem>;
 }
 
-interface SearchHistoryResponseData {
-  histories: Array<SearchHistoryResponseDataHistoriesItem>; // 按日期分组的历史记录数组
+interface HistorySearchHistoryResponseData {
+  histories: Array<HistorySearchHistoryResponseDataHistoriesItem>; // 按日期分组的历史记录数组
   pageCount: number; // 总页数
   totalCount: number; // 符合条件的总历史记录条目数 (注意，这里可能指分组数量，不是单个item数量)
 }
 
-interface SearchHistoryResponse {
+interface HistorySearchHistoryResponse {
   Code: number; // 响应状态码，0 表示成功
   Msg: string; // 响应消息
-  Data: SearchHistoryResponseData | null;
+  Data: HistorySearchHistoryResponseData | null;
 }
 
-interface GetDynamicIconParams {
+interface IconGetDynamicIconParams {
   type?: string;
   color?: string;
   date?: string;
@@ -3521,35 +3521,35 @@ interface GetDynamicIconParams {
   id?: string;
 }
 
-interface ImportDataResponse {
+interface ImportImportDataResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface ImportSYResponse {
+interface ImportImportSYResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface ImportStdMdParams {
+interface ImportImportStdMdParams {
   notebook: string; // 目标笔记本的 ID
   localPath: string; // 本地 Markdown 文件或文件夹的绝对路径
   toPath: string; // 导入到笔记本内的目标父路径，例如 '/' 表示笔记本根目录
 }
 
-interface ImportStdMdResponse {
+interface ImportImportStdMdResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface GetShorthandParams {
+interface InboxGetShorthandParams {
   id: string; // 要获取的速记的唯一标识符 (通常为时间戳字符串)
 }
 
-interface GetShorthandResponseData {
+interface InboxGetShorthandResponseData {
   id?: string;
   shorthandContent: string; // 速记内容 (经过 Lute 引擎处理后的 HTML 格式)
   shorthandMd: string; // 速记内容的原始 Markdown 格式
@@ -3557,17 +3557,17 @@ interface GetShorthandResponseData {
   [key: string]: any; // From .catchall()
 }
 
-interface GetShorthandResponse {
+interface InboxGetShorthandResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetShorthandResponseData; // 包含速记详细信息的对象
+  Data: InboxGetShorthandResponseData; // 包含速记详细信息的对象
 }
 
-interface GetShorthandsParams {
+interface InboxGetShorthandsParams {
   page: number; // 要获取的速记列表的页码，从 1 开始
 }
 
-interface GetShorthandsResponseDataShorthandsItem {
+interface InboxGetShorthandsResponseDataShorthandsItem {
   oId: string; // 速记的原始唯一标识符 (通常为时间戳字符串)
   shorthandContent: string; // 速记内容 (经过 Lute 引擎处理后的 HTML 格式)
   shorthandMd: string; // 速记内容的原始 Markdown 格式
@@ -3576,71 +3576,71 @@ interface GetShorthandsResponseDataShorthandsItem {
   [key: string]: any; // From .catchall()
 }
 
-interface GetShorthandsResponseData {
-  shorthands: Array<GetShorthandsResponseDataShorthandsItem>; // 速记对象列表
+interface InboxGetShorthandsResponseData {
+  shorthands: Array<InboxGetShorthandsResponseDataShorthandsItem>; // 速记对象列表
   [key: string]: any; // From .catchall()
 }
 
-interface GetShorthandsResponse {
+interface InboxGetShorthandsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetShorthandsResponseData; // 包含速记列表及可能的分页信息的对象
+  Data: InboxGetShorthandsResponseData; // 包含速记列表及可能的分页信息的对象
 }
 
-interface RemoveShorthandsParams {
+interface InboxRemoveShorthandsParams {
   ids: Array<string>; // 要移除的速记的唯一标识符数组
 }
 
-interface RemoveShorthandsResponse {
+interface InboxRemoveShorthandsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface CopyStdMarkdownParams {
+interface LuteCopyStdMarkdownParams {
   id: string; // 要导出内容的块的ID
 }
 
-interface CopyStdMarkdownResponse {
+interface LuteCopyStdMarkdownResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: string; // 导出的标准 Markdown 内容
 }
 
-interface Html2BlockDOMParams {
+interface LuteHtml2BlockDOMParams {
   dom: string; // 要转换的 HTML 字符串
 }
 
-interface Html2BlockDOMResponse {
+interface LuteHtml2BlockDOMResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: string; // 转换后的块级 DOM (HTML 格式的字符串)
 }
 
-interface SpinBlockDOMParams {
+interface LuteSpinBlockDOMParams {
   dom: string; // 要处理的块级 DOM 字符串 (HTML 格式)
 }
 
-interface SpinBlockDOMResponseData {
+interface LuteSpinBlockDOMResponseData {
   dom: string; // 经过 SpinBlockDOM 处理后的块级 DOM 字符串 (HTML 格式)
 }
 
-interface SpinBlockDOMResponse {
+interface LuteSpinBlockDOMResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SpinBlockDOMResponseData;
+  Data: LuteSpinBlockDOMResponseData;
 }
 
-interface BroadcastSubscribeParams {
+interface MiscBroadcastSubscribeParams {
   channel: string; // 要订阅的一个或多个广播频道名称，多个频道用逗号分隔。此参数通过 URL Query String 传递。
   retry?: number;
 }
 
-interface BroadcastParams {
+interface MiscBroadcastParams {
   channel: string; // 要连接的广播频道名称。此参数通过 URL Query String 传递。
 }
 
-interface ForwardProxyParams {
+interface NetworkForwardProxyParams {
   url: string; // 必需。要请求的目标 URL，必须是合法的 HTTP 或 HTTPS 地址。
   method?: string;
   timeout?: number;
@@ -3650,7 +3650,7 @@ interface ForwardProxyParams {
   payloadEncoding?: 'json' | 'text' | 'base64' | 'base64-std' | 'base64-url' | 'base32' | 'base32-std' | 'base32-hex' | 'hex';
 }
 
-interface ForwardProxyResponseDataCookiesItem {
+interface NetworkForwardProxyResponseDataCookiesItem {
   Name: string;
   Value: string;
   Path?: string;
@@ -3665,50 +3665,50 @@ interface ForwardProxyResponseDataCookiesItem {
   Unparsed?: Array<string>;
 }
 
-interface ForwardProxyResponseData {
+interface NetworkForwardProxyResponseData {
   status: string; // 目标服务器返回的 HTTP 状态文本，例如 '200 OK'。
   statusCode: number; // 目标服务器返回的 HTTP 状态码，例如 200。
   proto: string; // 目标服务器响应的 HTTP 协议版本，例如 'HTTP/1.1'。
   headers: Record<string, Array<string>>; // 目标服务器返回的 HTTP 响应头，键为头域名，值为字符串数组织。例如 {'Content-Type': ['application/json']}
-  cookies?: Array<ForwardProxyResponseDataCookiesItem>;
+  cookies?: Array<NetworkForwardProxyResponseDataCookiesItem>;
   body: string; // 目标服务器返回的响应体内容，经过 Base64 编码。
   url: string; // 实际请求的最终 URL (可能经过重定向)。
   length: number; // 目标服务器返回的响应体原始长度 (解码前)。
   isText: boolean; // 指示目标服务器返回的响应体是否为文本类型。
 }
 
-interface ForwardProxyResponse {
+interface NetworkForwardProxyResponse {
   Code: number; // 返回码。0 表示代理请求成功（无论目标服务器返回何种状态码），非 0 表示代理请求本身失败。
   Msg: string; // 错误信息。代理请求成功时为空字符串。
-  Data: ForwardProxyResponseData | null;
+  Data: NetworkForwardProxyResponseData | null;
 }
 
-interface ChangeSortNotebookParams {
+interface NotebookChangeSortNotebookParams {
   notebooks: Array<string>; // 按新的期望顺序排列的笔记本 ID 数组。
 }
 
-interface ChangeSortNotebookResponse {
+interface NotebookChangeSortNotebookResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface CloseNotebookParams {
+interface NotebookCloseNotebookParams {
   notebook: string; // 要关闭的笔记本的唯一标识符 (ID)。
   callback?: string;
 }
 
-interface CloseNotebookResponse {
+interface NotebookCloseNotebookResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface CreateNotebookParams {
+interface NotebookCreateNotebookParams {
   name: string; // 新笔记本的名称，不能为空。
 }
 
-interface CreateNotebookResponseDataNotebook {
+interface NotebookCreateNotebookResponseDataNotebook {
   id: string; // 新创建的笔记本ID
   name: string; // 新创建的笔记本名称
   icon: string; // 笔记本图标
@@ -3717,21 +3717,21 @@ interface CreateNotebookResponseDataNotebook {
   sortMode: number; // 文档排序模式
 }
 
-interface CreateNotebookResponseData {
-  notebook: CreateNotebookResponseDataNotebook; // 新创建的笔记本对象信息。
+interface NotebookCreateNotebookResponseData {
+  notebook: NotebookCreateNotebookResponseDataNotebook; // 新创建的笔记本对象信息。
 }
 
-interface CreateNotebookResponse {
+interface NotebookCreateNotebookResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: CreateNotebookResponseData; // 包含新创建笔记本信息的对象。
+  Data: NotebookCreateNotebookResponseData; // 包含新创建笔记本信息的对象。
 }
 
-interface GetNotebookConfParams {
+interface NotebookGetNotebookConfParams {
   notebook: string; // 要获取配置的笔记本的唯一标识符 (ID)。
 }
 
-interface GetNotebookConfResponseDataConfBoxStat {
+interface NotebookGetNotebookConfResponseDataConfBoxStat {
   docCount: number; // 文档数量
   assetCount: number; // 资源文件数量
   assetSize: number; // 资源文件总大小 (字节)
@@ -3750,7 +3750,7 @@ interface GetNotebookConfResponseDataConfBoxStat {
   updated: number; // 最后更新时间 (Unix时间戳，秒)
 }
 
-interface GetNotebookConfResponseDataConf {
+interface NotebookGetNotebookConfResponseDataConf {
   name: string; // 笔记本名称
   sort: number; // 笔记本的排序值
   icon: string; // 笔记本图标 (Emoji 或 Base64)
@@ -3760,24 +3760,24 @@ interface GetNotebookConfResponseDataConf {
   docCreateSavePath: string; // 新文档默认保存路径 (HPath)
   dailyNoteSavePath: string; // 日记默认保存路径 (HPath)
   dailyNoteTemplatePath: string; // 日记模板路径 (HPath)
-  boxStat?: GetNotebookConfResponseDataConfBoxStat;
+  boxStat?: NotebookGetNotebookConfResponseDataConfBoxStat;
 }
 
-interface GetNotebookConfResponseData {
-  conf: GetNotebookConfResponseDataConf; // 笔记本的配置对象。
+interface NotebookGetNotebookConfResponseData {
+  conf: NotebookGetNotebookConfResponseDataConf; // 笔记本的配置对象。
 }
 
-interface GetNotebookConfResponse {
+interface NotebookGetNotebookConfResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetNotebookConfResponseData; // 包含笔记本配置的对象。
+  Data: NotebookGetNotebookConfResponseData; // 包含笔记本配置的对象。
 }
 
-interface GetNotebookInfoParams {
+interface NotebookGetNotebookInfoParams {
   notebook: string; // 要获取信息的笔记本的唯一标识符 (ID)。
 }
 
-interface GetNotebookInfoResponseDataBoxInfoBoxStat {
+interface NotebookGetNotebookInfoResponseDataBoxInfoBoxStat {
   docCount: number; // 文档数量
   assetCount: number; // 资源文件数量
   assetSize: number; // 资源文件总大小 (字节)
@@ -3796,7 +3796,7 @@ interface GetNotebookInfoResponseDataBoxInfoBoxStat {
   updated: number; // 最后更新时间 (Unix时间戳，秒)
 }
 
-interface GetNotebookInfoResponseDataBoxInfo {
+interface NotebookGetNotebookInfoResponseDataBoxInfo {
   id: string; // 笔记本ID
   name: string; // 笔记本名称
   icon: string; // 笔记本图标
@@ -3807,20 +3807,20 @@ interface GetNotebookInfoResponseDataBoxInfo {
   docCreateSavePath: string; // 新文档默认保存路径
   dailyNoteSavePath: string; // 日记默认保存路径
   dailyNoteTemplatePath: string; // 日记模板路径
-  boxStat: GetNotebookInfoResponseDataBoxInfoBoxStat; // 笔记本统计信息。
+  boxStat: NotebookGetNotebookInfoResponseDataBoxInfoBoxStat; // 笔记本统计信息。
 }
 
-interface GetNotebookInfoResponseData {
-  boxInfo: GetNotebookInfoResponseDataBoxInfo; // 笔记本的详细信息对象。
+interface NotebookGetNotebookInfoResponseData {
+  boxInfo: NotebookGetNotebookInfoResponseDataBoxInfo; // 笔记本的详细信息对象。
 }
 
-interface GetNotebookInfoResponse {
+interface NotebookGetNotebookInfoResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetNotebookInfoResponseData; // 包含笔记本详细信息的对象。
+  Data: NotebookGetNotebookInfoResponseData; // 包含笔记本详细信息的对象。
 }
 
-interface LsNotebooksResponseDataNotebooksItem {
+interface NotebookLsNotebooksResponseDataNotebooksItem {
   id: string; // 笔记本的唯一标识符 (ID)
   name: string; // 笔记本的名称
   icon: string; // 笔记本图标的 Base64 编码或 Emoji 字符
@@ -3829,54 +3829,54 @@ interface LsNotebooksResponseDataNotebooksItem {
   sortMode?: number;
 }
 
-interface LsNotebooksResponseData {
-  notebooks: Array<LsNotebooksResponseDataNotebooksItem>; // 笔记本对象数组。
+interface NotebookLsNotebooksResponseData {
+  notebooks: Array<NotebookLsNotebooksResponseDataNotebooksItem>; // 笔记本对象数组。
 }
 
-interface LsNotebooksResponse {
+interface NotebookLsNotebooksResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: LsNotebooksResponseData; // 包含笔记本列表的对象。
+  Data: NotebookLsNotebooksResponseData; // 包含笔记本列表的对象。
 }
 
-interface OpenNotebookParams {
+interface NotebookOpenNotebookParams {
   notebook: string; // 要打开的笔记本的唯一标识符 (ID)。
 }
 
-interface OpenNotebookResponse {
+interface NotebookOpenNotebookResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: Record<string, never> | null;
 }
 
-interface RemoveNotebookParams {
+interface NotebookRemoveNotebookParams {
   notebook: string; // 要删除的笔记本的唯一标识符 (ID)。
   callback?: string;
 }
 
-interface RemoveNotebookResponse {
+interface NotebookRemoveNotebookResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface RenameNotebookParams {
+interface NotebookRenameNotebookParams {
   notebook: string; // 要重命名的笔记本的唯一标识符 (ID)。
   name: string; // 笔记本的新名称，不能为空。
 }
 
-interface RenameNotebookResponseData {
+interface NotebookRenameNotebookResponseData {
   closeTimeout?: number;
   [key: string]: any; // From .catchall()
 }
 
-interface RenameNotebookResponse {
+interface NotebookRenameNotebookResponse {
   Code: number; // 返回码，0 表示成功, -1 表示失败 (例如名称冲突)。
   Msg: string; // 错误信息，成功时为空字符串。
-  Data: RenameNotebookResponseData | null;
+  Data: NotebookRenameNotebookResponseData | null;
 }
 
-interface SetNotebookConfParamsConf {
+interface NotebookSetNotebookConfParamsConf {
   name?: string;
   icon?: string;
   sortMode?: number;
@@ -3886,76 +3886,76 @@ interface SetNotebookConfParamsConf {
   dailyNoteTemplatePath?: string;
 }
 
-interface SetNotebookConfParams {
+interface NotebookSetNotebookConfParams {
   notebook: string; // 要设置配置的笔记本的唯一标识符 (ID)。
-  conf: SetNotebookConfParamsConf; // 要更新的配置项对象。只提供需要修改的字段。
+  conf: NotebookSetNotebookConfParamsConf; // 要更新的配置项对象。只提供需要修改的字段。
 }
 
-interface SetNotebookConfResponse {
+interface NotebookSetNotebookConfResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface SetNotebookIconParams {
+interface NotebookSetNotebookIconParams {
   notebook: string; // 要设置图标的笔记本的唯一标识符 (ID)。
   icon: string; // 笔记本的新图标，可以是 Emoji 字符或图片的 Base64 编码字符串。
 }
 
-interface SetNotebookIconResponse {
+interface NotebookSetNotebookIconResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data?: null;
 }
 
-interface PushErrMsgParams {
+interface NotificationPushErrMsgParams {
   msg: string; // 必需。要推送的错误消息内容。
   timeout?: number;
 }
 
-interface PushErrMsgResponseData {
+interface NotificationPushErrMsgResponseData {
   id: string; // 推送的消息的唯一标识符。
 }
 
-interface PushErrMsgResponse {
+interface NotificationPushErrMsgResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: PushErrMsgResponseData; // 包含消息ID的对象。
+  Data: NotificationPushErrMsgResponseData; // 包含消息ID的对象。
 }
 
-interface PushMsgParams {
+interface NotificationPushMsgParams {
   msg: string; // 必需。要推送的普通消息内容。
   timeout?: number;
 }
 
-interface PushMsgResponseData {
+interface NotificationPushMsgResponseData {
   id: string; // 推送的消息的唯一标识符。
 }
 
-interface PushMsgResponse {
+interface NotificationPushMsgResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串。如果 msg 为空，则 Code 为 -1，Msg 为 'msg can't be empty'。
-  Data: PushMsgResponseData | null;
+  Data: NotificationPushMsgResponseData | null;
 }
 
-interface GetDocOutlineParams {
+interface OutlineGetDocOutlineParams {
   id: string; // 必需。要获取大纲的文档块的 ID。通常是文档的根块 ID。
   preview?: boolean;
 }
 
-// Recursive type GetDocOutlineResponseDataItem (processing)
+// Recursive type OutlineGetDocOutlineResponseDataItem (processing)
 
-interface GetDocOutlineResponse {
+interface OutlineGetDocOutlineResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: Array<GetDocOutlineResponseDataItem> | null;
+  Data: Array<OutlineGetDocOutlineResponseDataItem> | null;
 }
 
-interface LoadPetalsParams {
+interface PetalLoadPetalsParams {
   frontend: string; // 必需。指定要加载插件的前端界面，例如 'desktop', 'mobile', 'browser-extension'。
 }
 
-interface LoadPetalsResponseDataItem {
+interface PetalLoadPetalsResponseDataItem {
   name: string; // 插件的包名 (唯一标识符)
   displayName: string; // 插件的显示名称 (来自 plugin.json)
   enabled: boolean; // 插件是否已在配置中启用
@@ -3965,42 +3965,42 @@ interface LoadPetalsResponseDataItem {
   i18n?: Record<string, any>;
 }
 
-interface LoadPetalsResponse {
+interface PetalLoadPetalsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: Array<LoadPetalsResponseDataItem> | null;
+  Data: Array<PetalLoadPetalsResponseDataItem> | null;
 }
 
-interface SetPetalEnabledParams {
+interface PetalSetPetalEnabledParams {
   packageName: string; // 必需。要设置启用状态的插件的包名 (唯一标识符)。
   enabled: boolean; // 必需。设置插件的启用状态，true 表示启用，false 表示禁用。
   frontend: string; // 必需。指定要设置插件状态的前端界面，例如 'desktop', 'mobile'。
 }
 
-interface SetPetalEnabledResponseData {
+interface PetalSetPetalEnabledResponseData {
   name: string; // 插件的包名
   displayName: string; // 插件的显示名称
   enabled: boolean; // 插件更新后的启用状态
   incompatible: boolean; // 插件是否不兼容
 }
 
-interface SetPetalEnabledResponse {
+interface PetalSetPetalEnabledResponse {
   Code: number; // 返回码，0 表示成功，-1 表示插件不兼容或其他错误
   Msg: string; // 错误信息，成功时为空字符串，失败时包含具体错误，如不兼容提示。
-  Data: SetPetalEnabledResponseData | null;
+  Data: PetalSetPetalEnabledResponseData | null;
 }
 
-interface SQLParams {
+interface QuerySQLParams {
   stmt: string; // 必需。要执行的 SQL 查询语句。
 }
 
-interface SQLResponse {
+interface QuerySQLResponse {
   Code: number; // 返回码，0 表示成功，其他值表示失败。
   Msg: string; // 错误信息，成功时通常为空字符串。
   Data: Array<Record<string, any>> | null;
 }
 
-interface GetBacklinkParams {
+interface RefGetBacklinkParams {
   id: string; // 必需。要查询反向链接和提及的目标块的 ID。
   k: string; // 用于筛选反向链接结果的关键词。
   mk: string; // 用于筛选反向提及结果的关键词。
@@ -4008,7 +4008,7 @@ interface GetBacklinkParams {
   containChildren?: boolean;
 }
 
-interface GetBacklinkResponseData {
+interface RefGetBacklinkResponseData {
   backlinks: Array<any>; // 反向链接块的详细信息数组，具体结构复杂，参考 model.Backlink。
   linkRefsCount: number; // 反向链接的总数量。
   backmentions: Array<any>; // 反向提及块的详细信息数组，具体结构复杂，参考 model.Backmention。
@@ -4018,13 +4018,13 @@ interface GetBacklinkResponseData {
   box: string; // 目标块所在的笔记本 ID。
 }
 
-interface GetBacklinkResponse {
+interface RefGetBacklinkResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetBacklinkResponseData | null;
+  Data: RefGetBacklinkResponseData | null;
 }
 
-interface GetBacklink2Params {
+interface RefGetBacklink2Params {
   id: string; // 必需。要查询反向链接和提及的目标块的 ID。
   k: string; // 用于筛选反向链接结果的关键词。
   mk: string; // 用于筛选反向提及结果的关键词。
@@ -4033,7 +4033,7 @@ interface GetBacklink2Params {
   containChildren?: boolean;
 }
 
-interface GetBacklink2ResponseData {
+interface RefGetBacklink2ResponseData {
   backlinks: Array<any>; // 反向链接块的详细信息数组，具体结构复杂，参考 model.Backlink。
   linkRefsCount: number; // 反向链接的总数量。
   backmentions: Array<any>; // 反向提及块的详细信息数组，具体结构复杂，参考 model.Backmention。
@@ -4043,13 +4043,13 @@ interface GetBacklink2ResponseData {
   box: string; // 目标块所在的笔记本 ID。
 }
 
-interface GetBacklink2Response {
+interface RefGetBacklink2Response {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetBacklink2ResponseData | null;
+  Data: RefGetBacklink2ResponseData | null;
 }
 
-interface GetBacklinkDocParams {
+interface RefGetBacklinkDocParams {
   defID: string; // 必需。定义块的 ID (即被其他块引用的块)。
   refTreeID: string; // 必需。引用块所在文档树的根块 ID (通常是当前打开的文档的根块 ID)。
   keyword: string; // 用于筛选结果的关键词。
@@ -4057,18 +4057,18 @@ interface GetBacklinkDocParams {
   highlight?: boolean;
 }
 
-interface GetBacklinkDocResponseData {
+interface RefGetBacklinkDocResponseData {
   backlinks: Array<any>; // 反向链接块的详细信息数组，具体结构复杂，参考 model.Backlink。
   keywords: Array<string>; // 实际用于高亮的关键词列表。
 }
 
-interface GetBacklinkDocResponse {
+interface RefGetBacklinkDocResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetBacklinkDocResponseData | null;
+  Data: RefGetBacklinkDocResponseData | null;
 }
 
-interface GetBackmentionDocParams {
+interface RefGetBackmentionDocParams {
   defID: string; // 必需。定义块的 ID (即被其他块提及的块)。
   refTreeID: string; // 必需。提及块所在文档树的根块 ID (通常是当前打开的文档的根块 ID)。
   keyword: string; // 用于筛选结果的关键词。
@@ -4076,120 +4076,120 @@ interface GetBackmentionDocParams {
   highlight?: boolean;
 }
 
-interface GetBackmentionDocResponseData {
+interface RefGetBackmentionDocResponseData {
   backmentions: Array<any>; // 反向提及块的详细信息数组，具体结构复杂，参考 model.Backmention。
   keywords: Array<string>; // 实际用于高亮的关键词列表。
 }
 
-interface GetBackmentionDocResponse {
+interface RefGetBackmentionDocResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetBackmentionDocResponseData | null;
+  Data: RefGetBackmentionDocResponseData | null;
 }
 
-interface RefreshBacklinkParams {
+interface RefRefreshBacklinkParams {
   id: string; // 必需。要刷新反向链接和提及信息的目标块的 ID。
 }
 
-interface RefreshBacklinkResponse {
+interface RefRefreshBacklinkResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface CheckoutRepoParams {
+interface RepoCheckoutRepoParams {
   id: string; // 必需。要检出的快照的唯一标识符 (ID)。
 }
 
-interface CheckoutRepoResponse {
+interface RepoCheckoutRepoResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface CreateSnapshotParams {
+interface RepoCreateSnapshotParams {
   memo?: string;
   tag?: string;
 }
 
-interface CreateSnapshotResponseData {
+interface RepoCreateSnapshotResponseData {
   id: string; // 新创建的快照的唯一标识符 (ID)。
 }
 
-interface CreateSnapshotResponse {
+interface RepoCreateSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: CreateSnapshotResponseData; // 包含新快照ID的对象。
+  Data: RepoCreateSnapshotResponseData; // 包含新快照ID的对象。
 }
 
-interface DiffRepoSnapshotsParams {
+interface RepoDiffRepoSnapshotsParams {
   left: string; // 必需。左侧快照的 ID，作为比较基准的旧版本。
   right: string; // 必需。右侧快照的 ID，作为比较目标的新版本。
 }
 
-interface DiffRepoSnapshotsResponseDataAddsLeftItem {
+interface RepoDiffRepoSnapshotsResponseDataAddsLeftItem {
   id: string; // 文档ID
   hPath: string; // 文档HPath
 }
 
-interface DiffRepoSnapshotsResponseDataUpdatesLeftItem {
+interface RepoDiffRepoSnapshotsResponseDataUpdatesLeftItem {
   id: string; // 文档ID
   hPath: string; // 文档HPath
 }
 
-interface DiffRepoSnapshotsResponseDataUpdatesRightItem {
+interface RepoDiffRepoSnapshotsResponseDataUpdatesRightItem {
   id: string; // 文档ID
   hPath: string; // 文档HPath
 }
 
-interface DiffRepoSnapshotsResponseDataRemovesRightItem {
+interface RepoDiffRepoSnapshotsResponseDataRemovesRightItem {
   id: string; // 文档ID
   hPath: string; // 文档HPath
 }
 
-interface DiffRepoSnapshotsResponseDataLeft {
+interface RepoDiffRepoSnapshotsResponseDataLeft {
   id: string; // 快照ID
   created: string; // 创建时间戳 (Unix 毫秒)
   memo: string; // 备注
 }
 
-interface DiffRepoSnapshotsResponseDataRight {
+interface RepoDiffRepoSnapshotsResponseDataRight {
   id: string; // 快照ID
   created: string; // 创建时间戳 (Unix 毫秒)
   memo: string; // 备注
 }
 
-interface DiffRepoSnapshotsResponseData {
-  addsLeft: Array<DiffRepoSnapshotsResponseDataAddsLeftItem>; // 右侧快照相对于左侧快照新增的文档列表。
-  updatesLeft: Array<DiffRepoSnapshotsResponseDataUpdatesLeftItem>; // 在左侧快照中存在，并在右侧快照中被修改的文档列表。
-  updatesRight: Array<DiffRepoSnapshotsResponseDataUpdatesRightItem>; // 在右侧快照中存在，并在左侧快照中被修改的文档列表 (通常为空或与updatesLeft对称，具体含义需结合上下文)。
-  removesRight: Array<DiffRepoSnapshotsResponseDataRemovesRightItem>; // 左侧快照中存在，但在右侧快照中被删除的文档列表。
-  left: DiffRepoSnapshotsResponseDataLeft; // 左侧快照的元信息。
-  right: DiffRepoSnapshotsResponseDataRight; // 右侧快照的元信息。
+interface RepoDiffRepoSnapshotsResponseData {
+  addsLeft: Array<RepoDiffRepoSnapshotsResponseDataAddsLeftItem>; // 右侧快照相对于左侧快照新增的文档列表。
+  updatesLeft: Array<RepoDiffRepoSnapshotsResponseDataUpdatesLeftItem>; // 在左侧快照中存在，并在右侧快照中被修改的文档列表。
+  updatesRight: Array<RepoDiffRepoSnapshotsResponseDataUpdatesRightItem>; // 在右侧快照中存在，并在左侧快照中被修改的文档列表 (通常为空或与updatesLeft对称，具体含义需结合上下文)。
+  removesRight: Array<RepoDiffRepoSnapshotsResponseDataRemovesRightItem>; // 左侧快照中存在，但在右侧快照中被删除的文档列表。
+  left: RepoDiffRepoSnapshotsResponseDataLeft; // 左侧快照的元信息。
+  right: RepoDiffRepoSnapshotsResponseDataRight; // 右侧快照的元信息。
 }
 
-interface DiffRepoSnapshotsResponse {
+interface RepoDiffRepoSnapshotsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: DiffRepoSnapshotsResponseData; // 包含两个快照差异详情的对象。
+  Data: RepoDiffRepoSnapshotsResponseData; // 包含两个快照差异详情的对象。
 }
 
-interface DownloadCloudSnapshotParams {
+interface RepoDownloadCloudSnapshotParams {
   id: string; // 必需。要下载的云端快照的 ID。
   tag?: string;
 }
 
-interface DownloadCloudSnapshotResponse {
+interface RepoDownloadCloudSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface GetCloudRepoSnapshotsParams {
+interface RepoGetCloudRepoSnapshotsParams {
   page: number; // 必需。页码，从 1 开始。
 }
 
-interface GetCloudRepoSnapshotsResponseDataSnapshotsItem {
+interface RepoGetCloudRepoSnapshotsResponseDataSnapshotsItem {
   id: string; // 快照的唯一标识符 (ID)
   created: string; // 快照创建时间 (Unix 时间戳字符串，秒级)
   hCreated: string; // 快照创建时间 (格式化字符串)
@@ -4198,23 +4198,23 @@ interface GetCloudRepoSnapshotsResponseDataSnapshotsItem {
   memo: string; // 快照备注信息
 }
 
-interface GetCloudRepoSnapshotsResponseData {
-  snapshots: Array<GetCloudRepoSnapshotsResponseDataSnapshotsItem>; // 云端快照对象数组。
+interface RepoGetCloudRepoSnapshotsResponseData {
+  snapshots: Array<RepoGetCloudRepoSnapshotsResponseDataSnapshotsItem>; // 云端快照对象数组。
   pageCount: number; // 总页数。
   totalCount: number; // 快照总数量。
 }
 
-interface GetCloudRepoSnapshotsResponse {
+interface RepoGetCloudRepoSnapshotsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetCloudRepoSnapshotsResponseData; // 包含云端快照列表、总页数和总数量的对象。
+  Data: RepoGetCloudRepoSnapshotsResponseData; // 包含云端快照列表、总页数和总数量的对象。
 }
 
-interface GetCloudRepoTagSnapshotsParams {
+interface RepoGetCloudRepoTagSnapshotsParams {
   page: number; // 必需。页码，从 1 开始。
 }
 
-interface GetCloudRepoTagSnapshotsResponseDataSnapshotsItem {
+interface RepoGetCloudRepoTagSnapshotsResponseDataSnapshotsItem {
   id: string; // 快照的唯一标识符 (ID)
   tag: string; // 快照标签名。
   created: string; // 快照创建时间 (Unix 时间戳字符串，秒级)
@@ -4224,28 +4224,28 @@ interface GetCloudRepoTagSnapshotsResponseDataSnapshotsItem {
   memo: string; // 快照备注信息
 }
 
-interface GetCloudRepoTagSnapshotsResponseData {
-  snapshots: Array<GetCloudRepoTagSnapshotsResponseDataSnapshotsItem>; // 云端标签快照对象数组。
+interface RepoGetCloudRepoTagSnapshotsResponseData {
+  snapshots: Array<RepoGetCloudRepoTagSnapshotsResponseDataSnapshotsItem>; // 云端标签快照对象数组。
   pageCount: number; // 总页数。
   totalCount: number; // 标签快照总数量。
 }
 
-interface GetCloudRepoTagSnapshotsResponse {
+interface RepoGetCloudRepoTagSnapshotsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetCloudRepoTagSnapshotsResponseData; // 包含云端标签快照列表、总页数和总数量的对象。
+  Data: RepoGetCloudRepoTagSnapshotsResponseData; // 包含云端标签快照列表、总页数和总数量的对象。
 }
 
-interface GetRepoFileParams {
+interface RepoGetRepoFileParams {
   id: string; // 必需。快照的 ID。
   path?: string;
 }
 
-interface GetRepoSnapshotsParams {
+interface RepoGetRepoSnapshotsParams {
   page: number; // 必需。页码，从 1 开始。
 }
 
-interface GetRepoSnapshotsResponseDataSnapshotsItem {
+interface RepoGetRepoSnapshotsResponseDataSnapshotsItem {
   id: string; // 快照的唯一标识符 (ID)
   created: string; // 快照创建时间 (Unix 时间戳字符串，秒级)
   hCreated: string; // 快照创建时间 (格式化字符串)
@@ -4254,23 +4254,23 @@ interface GetRepoSnapshotsResponseDataSnapshotsItem {
   memo: string; // 快照备注信息
 }
 
-interface GetRepoSnapshotsResponseData {
-  snapshots: Array<GetRepoSnapshotsResponseDataSnapshotsItem>; // 本地快照对象数组。
+interface RepoGetRepoSnapshotsResponseData {
+  snapshots: Array<RepoGetRepoSnapshotsResponseDataSnapshotsItem>; // 本地快照对象数组。
   pageCount: number; // 总页数。
   totalCount: number; // 快照总数量。
 }
 
-interface GetRepoSnapshotsResponse {
+interface RepoGetRepoSnapshotsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetRepoSnapshotsResponseData; // 包含本地快照列表、总页数和总数量的对象。
+  Data: RepoGetRepoSnapshotsResponseData; // 包含本地快照列表、总页数和总数量的对象。
 }
 
-interface GetRepoTagSnapshotsParams {
+interface RepoGetRepoTagSnapshotsParams {
   page: number; // 必需。页码，从 1 开始。
 }
 
-interface GetRepoTagSnapshotsResponseDataSnapshotsItem {
+interface RepoGetRepoTagSnapshotsResponseDataSnapshotsItem {
   id: string; // 快照的唯一标识符 (ID)
   tag: string; // 快照标签名。
   created: string; // 快照创建时间 (Unix 时间戳字符串，秒级)
@@ -4280,146 +4280,146 @@ interface GetRepoTagSnapshotsResponseDataSnapshotsItem {
   memo: string; // 快照备注信息
 }
 
-interface GetRepoTagSnapshotsResponseData {
-  snapshots: Array<GetRepoTagSnapshotsResponseDataSnapshotsItem>; // 本地标签快照对象数组。
+interface RepoGetRepoTagSnapshotsResponseData {
+  snapshots: Array<RepoGetRepoTagSnapshotsResponseDataSnapshotsItem>; // 本地标签快照对象数组。
   pageCount: number; // 总页数。
   totalCount: number; // 标签快照总数量。
 }
 
-interface GetRepoTagSnapshotsResponse {
+interface RepoGetRepoTagSnapshotsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetRepoTagSnapshotsResponseData; // 包含本地标签快照列表、总页数和总数量的对象。
+  Data: RepoGetRepoTagSnapshotsResponseData; // 包含本地标签快照列表、总页数和总数量的对象。
 }
 
-interface ImportRepoKeyResponse {
-  Code: number; // 返回码，0 表示成功
-  Msg: string; // 错误信息，成功时为空字符串
-  Data: null; // 成功时 Data 固定为 null。
-}
-
-interface InitRepoKeyResponse {
+interface RepoImportRepoKeyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface InitRepoKeyFromPassphraseParams {
+interface RepoInitRepoKeyResponse {
+  Code: number; // 返回码，0 表示成功
+  Msg: string; // 错误信息，成功时为空字符串
+  Data: null; // 成功时 Data 固定为 null。
+}
+
+interface RepoInitRepoKeyFromPassphraseParams {
   passphrase: string; // 必需。用于生成密钥的用户口令。
 }
 
-interface InitRepoKeyFromPassphraseResponse {
+interface RepoInitRepoKeyFromPassphraseResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface OpenRepoSnapshotDocParams {
+interface RepoOpenRepoSnapshotDocParams {
   id: string; // 必需。快照中文档的唯一标识符 (通常是 `快照ID/文档ID.sy`)。
 }
 
-interface OpenRepoSnapshotDocResponseData {
+interface RepoOpenRepoSnapshotDocResponseData {
   title: string; // 文档的标题。
   content: string; // 文档的内容 (HTML格式)。
   displayInText: boolean; // 是否应在纯文本模式下显示 (通常为 false)。
   updated: string; // 文档的最后更新时间 (Unix 时间戳字符串，秒级)。
 }
 
-interface OpenRepoSnapshotDocResponse {
+interface RepoOpenRepoSnapshotDocResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: OpenRepoSnapshotDocResponseData | null;
+  Data: RepoOpenRepoSnapshotDocResponseData | null;
 }
 
-interface PurgeCloudRepoResponse {
-  Code: number; // 返回码，0 表示成功
-  Msg: string; // 错误信息，成功时为空字符串
-  Data: null; // 成功时 Data 固定为 null。
-}
-
-interface PurgeRepoResponse {
+interface RepoPurgeCloudRepoResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface RemoveCloudRepoTagSnapshotParams {
+interface RepoPurgeRepoResponse {
+  Code: number; // 返回码，0 表示成功
+  Msg: string; // 错误信息，成功时为空字符串
+  Data: null; // 成功时 Data 固定为 null。
+}
+
+interface RepoRemoveCloudRepoTagSnapshotParams {
   id: string; // 必需。要移除的云端标签快照的 ID。
   tag: string; // 必需。要移除的云端标签快照的标签名。
 }
 
-interface RemoveCloudRepoTagSnapshotResponse {
+interface RepoRemoveCloudRepoTagSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface RemoveRepoTagSnapshotParams {
+interface RepoRemoveRepoTagSnapshotParams {
   id: string; // 必需。要移除的本地标签快照的 ID。
   tag: string; // 必需。要移除的本地标签快照的标签名。
 }
 
-interface RemoveRepoTagSnapshotResponse {
+interface RepoRemoveRepoTagSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface ResetRepoResponse {
+interface RepoResetRepoResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface SetRepoIndexRetentionDaysParams {
+interface RepoSetRepoIndexRetentionDaysParams {
   days: number; // 必需。快照索引保留的天数，必须为正整数。
 }
 
-interface SetRepoIndexRetentionDaysResponse {
+interface RepoSetRepoIndexRetentionDaysResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface SetRetentionIndexesDailyParams {
+interface RepoSetRetentionIndexesDailyParams {
   indexes: number; // 必需。每日快照的保留数量，必须为正整数。
 }
 
-interface SetRetentionIndexesDailyResponse {
+interface RepoSetRetentionIndexesDailyResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface TagSnapshotParams {
+interface RepoTagSnapshotParams {
   id: string; // 必需。要标记的快照的 ID。
   tag: string; // 必需。要打上的标签名。
   memo?: string;
 }
 
-interface TagSnapshotResponse {
+interface RepoTagSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface UploadCloudSnapshotParams {
+interface RepoUploadCloudSnapshotParams {
   id: string; // 必需。要上传的本地快照的 ID。
   tag?: string;
 }
 
-interface UploadCloudSnapshotResponse {
+interface RepoUploadCloudSnapshotResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface AddRiffCardsParams {
+interface RiffAddRiffCardsParams {
   deckID: string; // 必需。目标闪卡包的 ID。
   blockIDs: Array<string>; // 必需。要添加为闪卡的块 ID 数组。
 }
 
-interface AddRiffCardsResponseData {
+interface RiffAddRiffCardsResponseData {
   id: string; // 闪卡包 ID
   name: string; // 闪卡包名称
   size: number; // 闪卡包中的卡片数量
@@ -4427,32 +4427,32 @@ interface AddRiffCardsResponseData {
   updated: string; // 闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss
 }
 
-interface AddRiffCardsResponse {
+interface RiffAddRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: AddRiffCardsResponseData | null;
+  Data: RiffAddRiffCardsResponseData | null;
 }
 
-interface BatchSetRiffCardsDueTimeParamsCardDuesItem {
+interface RiffBatchSetRiffCardsDueTimeParamsCardDuesItem {
   id: string; // 必需。闪卡块 ID。
   due: string; // 必需。新的到期时间，ISO 8601 格式的日期时间字符串。
 }
 
-interface BatchSetRiffCardsDueTimeParams {
-  cardDues: Array<BatchSetRiffCardsDueTimeParamsCardDuesItem>; // 必需。包含闪卡 ID 和对应新到期时间的数组。
+interface RiffBatchSetRiffCardsDueTimeParams {
+  cardDues: Array<RiffBatchSetRiffCardsDueTimeParamsCardDuesItem>; // 必需。包含闪卡 ID 和对应新到期时间的数组。
 }
 
-interface BatchSetRiffCardsDueTimeResponse {
+interface RiffBatchSetRiffCardsDueTimeResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface CreateRiffDeckParams {
+interface RiffCreateRiffDeckParams {
   name: string; // 必需。新闪卡包的名称。
 }
 
-interface CreateRiffDeckResponseData {
+interface RiffCreateRiffDeckResponseData {
   id: string; // 新创建的闪卡包 ID
   name: string; // 新创建的闪卡包名称
   size: number; // 新创建的闪卡包中的卡片数量 (初始为0)
@@ -4460,40 +4460,40 @@ interface CreateRiffDeckResponseData {
   updated: string; // 闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss
 }
 
-interface CreateRiffDeckResponse {
+interface RiffCreateRiffDeckResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: CreateRiffDeckResponseData; // 成功时返回新创建的闪卡包信息。
+  Data: RiffCreateRiffDeckResponseData; // 成功时返回新创建的闪卡包信息。
 }
 
-interface GetNotebookRiffCardsParams {
+interface RiffGetNotebookRiffCardsParams {
   id: string; // 必需。笔记本 ID。
   page: number; // 必需。页码，从 1 开始。
   pageSize?: number;
 }
 
-interface GetNotebookRiffCardsResponseData {
+interface RiffGetNotebookRiffCardsResponseData {
   blocks: Array<string>; // 当前页的闪卡块 ID 数组。
   total: number; // 该笔记本下闪卡总数。
   pageCount: number; // 总页数。
 }
 
-interface GetNotebookRiffCardsResponse {
+interface RiffGetNotebookRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetNotebookRiffCardsResponseData; // 成功时返回分页的闪卡块 ID 及分页信息。
+  Data: RiffGetNotebookRiffCardsResponseData; // 成功时返回分页的闪卡块 ID 及分页信息。
 }
 
-interface GetNotebookRiffDueCardsParamsReviewedCardsItem {
+interface RiffGetNotebookRiffDueCardsParamsReviewedCardsItem {
   cardID: string; // 已复习卡片的 ID
 }
 
-interface GetNotebookRiffDueCardsParams {
+interface RiffGetNotebookRiffDueCardsParams {
   notebook: string; // 必需。笔记本 ID。
-  reviewedCards?: Array<GetNotebookRiffDueCardsParamsReviewedCardsItem>;
+  reviewedCards?: Array<RiffGetNotebookRiffDueCardsParamsReviewedCardsItem>;
 }
 
-interface GetNotebookRiffDueCardsResponseDataCardsItem {
+interface RiffGetNotebookRiffDueCardsResponseDataCardsItem {
   id: string; // 闪卡块 ID
   deckID: string; // 所属闪卡包 ID
   blockID: string; // 原始块 ID
@@ -4504,26 +4504,26 @@ interface GetNotebookRiffDueCardsResponseDataCardsItem {
   reps: number; // 已复习次数
 }
 
-interface GetNotebookRiffDueCardsResponseData {
-  cards: Array<GetNotebookRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
+interface RiffGetNotebookRiffDueCardsResponseData {
+  cards: Array<RiffGetNotebookRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
   unreviewedCount: number; // 未复习卡片总数。
   unreviewedNewCardCount: number; // 未复习新卡片数量。
   unreviewedOldCardCount: number; // 未复习旧卡片数量。
 }
 
-interface GetNotebookRiffDueCardsResponse {
+interface RiffGetNotebookRiffDueCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetNotebookRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
+  Data: RiffGetNotebookRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
 }
 
-interface GetRiffCardsParams {
+interface RiffGetRiffCardsParams {
   id: string; // 必需。闪卡包 ID。
   page: number; // 必需。页码，从 1 开始。
   pageSize?: number;
 }
 
-interface GetRiffCardsResponseDataBlocksItem {
+interface RiffGetRiffCardsResponseDataBlocksItem {
   id: string; // 闪卡块 ID
   deckID: string; // 所属闪卡包 ID
   blockID: string; // 原始块 ID
@@ -4534,23 +4534,23 @@ interface GetRiffCardsResponseDataBlocksItem {
   reps: number; // 已复习次数
 }
 
-interface GetRiffCardsResponseData {
-  blocks: Array<GetRiffCardsResponseDataBlocksItem>; // 当前页的闪卡对象数组。
+interface RiffGetRiffCardsResponseData {
+  blocks: Array<RiffGetRiffCardsResponseDataBlocksItem>; // 当前页的闪卡对象数组。
   total: number; // 该闪卡包下闪卡总数。
   pageCount: number; // 总页数。
 }
 
-interface GetRiffCardsResponse {
+interface RiffGetRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetRiffCardsResponseData; // 成功时返回分页的闪卡对象及分页信息。
+  Data: RiffGetRiffCardsResponseData; // 成功时返回分页的闪卡对象及分页信息。
 }
 
-interface GetRiffCardsByBlockIDsParams {
+interface RiffGetRiffCardsByBlockIDsParams {
   blockIDs: Array<string>; // 必需。块 ID 数组。
 }
 
-interface GetRiffCardsByBlockIDsResponseDataBlocksItem {
+interface RiffGetRiffCardsByBlockIDsResponseDataBlocksItem {
   id: string; // 闪卡块 ID
   deckID: string; // 所属闪卡包 ID
   blockID: string; // 原始块 ID
@@ -4561,17 +4561,17 @@ interface GetRiffCardsByBlockIDsResponseDataBlocksItem {
   reps: number; // 已复习次数
 }
 
-interface GetRiffCardsByBlockIDsResponseData {
-  blocks: Array<GetRiffCardsByBlockIDsResponseDataBlocksItem>; // 对应的闪卡信息数组。如果某个 blockID 不是闪卡，则对应项可能缺失或为 null。
+interface RiffGetRiffCardsByBlockIDsResponseData {
+  blocks: Array<RiffGetRiffCardsByBlockIDsResponseDataBlocksItem>; // 对应的闪卡信息数组。如果某个 blockID 不是闪卡，则对应项可能缺失或为 null。
 }
 
-interface GetRiffCardsByBlockIDsResponse {
+interface RiffGetRiffCardsByBlockIDsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetRiffCardsByBlockIDsResponseData; // 成功时返回闪卡信息。
+  Data: RiffGetRiffCardsByBlockIDsResponseData; // 成功时返回闪卡信息。
 }
 
-interface GetRiffDecksResponseDataItem {
+interface RiffGetRiffDecksResponseDataItem {
   id: string; // 闪卡包 ID
   name: string; // 闪卡包名称
   size: number; // 闪卡包中的卡片数量
@@ -4579,22 +4579,22 @@ interface GetRiffDecksResponseDataItem {
   updated: string; // 闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss
 }
 
-interface GetRiffDecksResponse {
+interface RiffGetRiffDecksResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: Array<GetRiffDecksResponseDataItem>; // 成功时返回所有闪卡包的信息数组。如果没有闪卡包，则返回空数组。
+  Data: Array<RiffGetRiffDecksResponseDataItem>; // 成功时返回所有闪卡包的信息数组。如果没有闪卡包，则返回空数组。
 }
 
-interface GetRiffDueCardsParamsReviewedCardsItem {
+interface RiffGetRiffDueCardsParamsReviewedCardsItem {
   cardID: string; // 已复习卡片的 ID
 }
 
-interface GetRiffDueCardsParams {
+interface RiffGetRiffDueCardsParams {
   deckID: string; // 必需。闪卡包 ID。
-  reviewedCards?: Array<GetRiffDueCardsParamsReviewedCardsItem>;
+  reviewedCards?: Array<RiffGetRiffDueCardsParamsReviewedCardsItem>;
 }
 
-interface GetRiffDueCardsResponseDataCardsItem {
+interface RiffGetRiffDueCardsResponseDataCardsItem {
   id: string; // 闪卡块 ID
   deckID: string; // 所属闪卡包 ID
   blockID: string; // 原始块 ID
@@ -4605,47 +4605,47 @@ interface GetRiffDueCardsResponseDataCardsItem {
   reps: number; // 已复习次数
 }
 
-interface GetRiffDueCardsResponseData {
-  cards: Array<GetRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
+interface RiffGetRiffDueCardsResponseData {
+  cards: Array<RiffGetRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
   unreviewedCount: number; // 未复习卡片总数。
   unreviewedNewCardCount: number; // 未复习新卡片数量。
   unreviewedOldCardCount: number; // 未复习旧卡片数量。
 }
 
-interface GetRiffDueCardsResponse {
+interface RiffGetRiffDueCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
+  Data: RiffGetRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
 }
 
-interface GetTreeRiffCardsParams {
+interface RiffGetTreeRiffCardsParams {
   id: string; // 必需。文档树的根块 ID。
   page: number; // 必需。页码，从 1 开始。
   pageSize?: number;
 }
 
-interface GetTreeRiffCardsResponseData {
+interface RiffGetTreeRiffCardsResponseData {
   blocks: Array<string>; // 当前页的闪卡块 ID 数组。
   total: number; // 该文档树下闪卡总数。
   pageCount: number; // 总页数。
 }
 
-interface GetTreeRiffCardsResponse {
+interface RiffGetTreeRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetTreeRiffCardsResponseData; // 成功时返回分页的闪卡块 ID 及分页信息。
+  Data: RiffGetTreeRiffCardsResponseData; // 成功时返回分页的闪卡块 ID 及分页信息。
 }
 
-interface GetTreeRiffDueCardsParamsReviewedCardsItem {
+interface RiffGetTreeRiffDueCardsParamsReviewedCardsItem {
   cardID: string; // 已复习卡片的 ID
 }
 
-interface GetTreeRiffDueCardsParams {
+interface RiffGetTreeRiffDueCardsParams {
   rootID: string; // 必需。文档树的根块 ID。
-  reviewedCards?: Array<GetTreeRiffDueCardsParamsReviewedCardsItem>;
+  reviewedCards?: Array<RiffGetTreeRiffDueCardsParamsReviewedCardsItem>;
 }
 
-interface GetTreeRiffDueCardsResponseDataCardsItem {
+interface RiffGetTreeRiffDueCardsResponseDataCardsItem {
   id: string; // 闪卡块 ID
   deckID: string; // 所属闪卡包 ID
   blockID: string; // 原始块 ID
@@ -4656,25 +4656,25 @@ interface GetTreeRiffDueCardsResponseDataCardsItem {
   reps: number; // 已复习次数
 }
 
-interface GetTreeRiffDueCardsResponseData {
-  cards: Array<GetTreeRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
+interface RiffGetTreeRiffDueCardsResponseData {
+  cards: Array<RiffGetTreeRiffDueCardsResponseDataCardsItem>; // 到期闪卡列表。
   unreviewedCount: number; // 未复习卡片总数。
   unreviewedNewCardCount: number; // 未复习新卡片数量。
   unreviewedOldCardCount: number; // 未复习旧卡片数量。
 }
 
-interface GetTreeRiffDueCardsResponse {
+interface RiffGetTreeRiffDueCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetTreeRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
+  Data: RiffGetTreeRiffDueCardsResponseData; // 成功时返回到期闪卡列表及统计信息。
 }
 
-interface RemoveRiffCardsParams {
+interface RiffRemoveRiffCardsParams {
   deckID: string; // 必需。目标闪卡包的 ID。如果为空字符串，则表示从所有卡包中移除这些卡片（通常用于"All"卡包的操作场景，但后端实际是根据 blockID 移除）。
   blockIDs: Array<string>; // 必需。要移除的闪卡块 ID 数组。
 }
 
-interface RemoveRiffCardsResponseData {
+interface RiffRemoveRiffCardsResponseData {
   id: string; // 闪卡包 ID
   name: string; // 闪卡包名称
   size: number; // 闪卡包中的卡片数量
@@ -4682,75 +4682,75 @@ interface RemoveRiffCardsResponseData {
   updated: string; // 闪卡包更新时间，格式 YYYY-MM-DD HH:mm:ss
 }
 
-interface RemoveRiffCardsResponse {
+interface RiffRemoveRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: RemoveRiffCardsResponseData | null;
+  Data: RiffRemoveRiffCardsResponseData | null;
 }
 
-interface RemoveRiffDeckParams {
+interface RiffRemoveRiffDeckParams {
   deckID: string; // 必需。要移除的闪卡包 ID。
 }
 
-interface RemoveRiffDeckResponse {
+interface RiffRemoveRiffDeckResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface RenameRiffDeckParams {
+interface RiffRenameRiffDeckParams {
   deckID: string; // 必需。要重命名的闪卡包 ID。
   name: string; // 必需。新的闪卡包名称。
 }
 
-interface RenameRiffDeckResponse {
+interface RiffRenameRiffDeckResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface ResetRiffCardsParams {
+interface RiffResetRiffCardsParams {
   type: 'notebook' | 'tree' | 'deck'; // 必需。重置类型：'notebook' (笔记本), 'tree' (文档树), 'deck' (闪卡包)。
   id: string; // 必需。对应类型的 ID：笔记本 ID、文档树根块 ID 或闪卡包 ID。
   deckID: string; // 必需。闪卡包 ID。即使 type 是 'notebook' 或 'tree'，也需要指定一个 deckID 来确定操作范围，通常可以是这些卡片实际所属的卡包 ID，或者是全局的卡片操作。具体逻辑需参照后端 model.ResetFlashcards 实现。从 riff.go L89 看，此参数未被直接使用，但model层可能需要。暂时保留。
   blockIDs?: Array<string>;
 }
 
-interface ResetRiffCardsResponse {
+interface RiffResetRiffCardsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface ReviewRiffCardParamsReviewedCardsItem {
+interface RiffReviewRiffCardParamsReviewedCardsItem {
   cardID: string; // 已复习卡片的 ID
 }
 
-interface ReviewRiffCardParams {
+interface RiffReviewRiffCardParams {
   deckID: string; // 必需。闪卡所属的卡包 ID。
   cardID: string; // 必需。要复习的闪卡块 ID。
   rating: number; // 必需。评分，通常为 0 (Again), 1 (Hard), 2 (Good), 3 (Easy), 4 (Soon)。具体数值对应关系可能依赖于底层的 SM-2 算法实现。参照 riff.Rating 定义，0:Again, 1:Hard, 2:Good, 3:Easy, 4:Soon, (SM2 的0-5 对应这里的0-4?)
-  reviewedCards?: Array<ReviewRiffCardParamsReviewedCardsItem>;
+  reviewedCards?: Array<RiffReviewRiffCardParamsReviewedCardsItem>;
 }
 
-interface ReviewRiffCardResponse {
+interface RiffReviewRiffCardResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface SkipReviewRiffCardParams {
+interface RiffSkipReviewRiffCardParams {
   deckID: string; // 必需。闪卡所属的卡包 ID。
   cardID: string; // 必需。要跳过复习的闪卡块 ID。
 }
 
-interface SkipReviewRiffCardResponse {
+interface RiffSkipReviewRiffCardResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功时 Data 固定为 null。
 }
 
-interface FindReplaceParams {
+interface SearchFindReplaceParams {
   k: string; // 必需。要查找的关键词。
   r: string; // 必需。要替换的字符串。
   ids: Array<string>; // 必需。要进行查找替换操作的块 ID 数组。
@@ -4763,17 +4763,17 @@ interface FindReplaceParams {
   replaceTypes?: Record<string, boolean>;
 }
 
-interface FindReplaceResponseData {
+interface SearchFindReplaceResponseData {
   closeTimeout?: number;
 }
 
-interface FindReplaceResponse {
+interface SearchFindReplaceResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: FindReplaceResponseData | null;
+  Data: SearchFindReplaceResponseData | null;
 }
 
-interface FullTextSearchAssetContentParams {
+interface SearchFullTextSearchAssetContentParams {
   query: string; // 必需。搜索查询语句。
   page?: number;
   pageSize?: number;
@@ -4782,7 +4782,7 @@ interface FullTextSearchAssetContentParams {
   orderBy?: number;
 }
 
-interface FullTextSearchAssetContentResponseDataAssetContentsItem {
+interface SearchFullTextSearchAssetContentResponseDataAssetContentsItem {
   id: string; // 资源文件块 ID。
   box: string; // 笔记本 ID。
   docID: string; // 所属文档 ID。
@@ -4794,19 +4794,19 @@ interface FullTextSearchAssetContentResponseDataAssetContentsItem {
   count: number; // 匹配数量。
 }
 
-interface FullTextSearchAssetContentResponseData {
-  assetContents: Array<FullTextSearchAssetContentResponseDataAssetContentsItem>; // 当前页的搜索结果列表。
+interface SearchFullTextSearchAssetContentResponseData {
+  assetContents: Array<SearchFullTextSearchAssetContentResponseDataAssetContentsItem>; // 当前页的搜索结果列表。
   matchedAssetCount: number; // 匹配到的资源文件总数。
   pageCount: number; // 总页数。
 }
 
-interface FullTextSearchAssetContentResponse {
+interface SearchFullTextSearchAssetContentResponse {
   Code: number; // 返回码，0 表示成功。如果未付费，Code 为 1。
   Msg: string; // 错误信息，成功时为空字符串。
-  Data: FullTextSearchAssetContentResponseData | null;
+  Data: SearchFullTextSearchAssetContentResponseData | null;
 }
 
-interface FullTextSearchBlockParams {
+interface SearchFullTextSearchBlockParams {
   query: string; // 必需。搜索查询语句。
   page?: number;
   pageSize?: number;
@@ -4818,7 +4818,7 @@ interface FullTextSearchBlockParams {
   groupBy?: number;
 }
 
-interface FullTextSearchBlockResponseData {
+interface SearchFullTextSearchBlockResponseData {
   blocks: Array<any>; // 当前页的搜索结果块列表。每个块的结构根据其类型而定，通常包含 id, type, content, path, box, docID 等字段。
   matchedBlockCount: number; // 匹配到的块总数。
   matchedRootCount: number; // 匹配到的根块（文档）总数。
@@ -4826,51 +4826,51 @@ interface FullTextSearchBlockResponseData {
   docMode: boolean; // 是否为文档模式搜索结果（groupBy=1 时为 true）。
 }
 
-interface FullTextSearchBlockResponse {
+interface SearchFullTextSearchBlockResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: FullTextSearchBlockResponseData | null;
+  Data: SearchFullTextSearchBlockResponseData | null;
 }
 
-interface GetAssetContentParams {
+interface SearchGetAssetContentParams {
   id: string; // 必需。资源文件块的 ID。
   query: string; // 必需。查询关键词。
   queryMethod: number; // 必需。查询方法：0：关键字，1：查询语法，2：SQL，3：正则表达式。
 }
 
-interface GetAssetContentResponseData {
+interface SearchGetAssetContentResponseData {
   assetContent: string; // 匹配到的资源文件内容片段。
 }
 
-interface GetAssetContentResponse {
+interface SearchGetAssetContentResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetAssetContentResponseData | null;
+  Data: SearchGetAssetContentResponseData | null;
 }
 
-interface GetEmbedBlockParams {
+interface SearchGetEmbedBlockParams {
   embedBlockID: string; // 必需。嵌入块（通常是 `((块ID))` 引用的块）的 ID。
   includeIDs: Array<string>; // 必需。要实际嵌入显示的块 ID 数组（通常只包含 embedBlockID，但在特殊情况下可能包含其子块）。
   headingMode?: number;
   breadcrumb?: boolean;
 }
 
-interface GetEmbedBlockResponseData {
+interface SearchGetEmbedBlockResponseData {
   blocks: Array<any>; // 渲染后的嵌入块内容数组。每个元素的具体结构取决于块类型。
 }
 
-interface GetEmbedBlockResponse {
+interface SearchGetEmbedBlockResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: GetEmbedBlockResponseData | null;
+  Data: SearchGetEmbedBlockResponseData | null;
 }
 
-interface ListInvalidBlockRefsParams {
+interface SearchListInvalidBlockRefsParams {
   page?: number;
   pageSize?: number;
 }
 
-interface ListInvalidBlockRefsResponseDataBlocksItem {
+interface SearchListInvalidBlockRefsResponseDataBlocksItem {
   id: string; // 包含无效引用的块的 ID。
   box: string; // 笔记本 ID。
   path: string; // 文档路径。
@@ -4879,35 +4879,35 @@ interface ListInvalidBlockRefsResponseDataBlocksItem {
   updated: string; // 块更新时间（YYYYMMDDHHmmss）。
 }
 
-interface ListInvalidBlockRefsResponseData {
-  blocks: Array<ListInvalidBlockRefsResponseDataBlocksItem>; // 当前页的无效引用块列表。
+interface SearchListInvalidBlockRefsResponseData {
+  blocks: Array<SearchListInvalidBlockRefsResponseDataBlocksItem>; // 当前页的无效引用块列表。
   matchedBlockCount: number; // 匹配到的无效引用块总数。
   matchedRootCount: number; // 匹配到的包含无效引用的文档总数。
   pageCount: number; // 总页数。
 }
 
-interface ListInvalidBlockRefsResponse {
+interface SearchListInvalidBlockRefsResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: ListInvalidBlockRefsResponseData | null;
+  Data: SearchListInvalidBlockRefsResponseData | null;
 }
 
-interface RemoveTemplateParams {
+interface SearchRemoveTemplateParams {
   path: string; // 必需。要移除的模板文件的相对路径（相对于模板文件夹）。
 }
 
-interface RemoveTemplateResponse {
+interface SearchRemoveTemplateResponse {
   Code: number; // 返回码，0 表示成功，-1 表示失败
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功或失败时 Data 均为 null。
 }
 
-interface SearchAssetParams {
+interface SearchSearchAssetParams {
   k: string; // 必需。搜索关键词。
   exts?: Array<string>;
 }
 
-interface SearchAssetResponseDataItem {
+interface SearchSearchAssetResponseDataItem {
   id: string; // 资源文件块 ID。
   box: string; // 笔记本 ID。
   docID: string; // 所属文档 ID。
@@ -4918,13 +4918,13 @@ interface SearchAssetResponseDataItem {
   updated: string; // 更新时间（YYYYMMDDHHmmss）。
 }
 
-interface SearchAssetResponse {
+interface SearchSearchAssetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: Array<SearchAssetResponseDataItem>; // 匹配到的资源文件列表。如果没有结果，则为空数组。
+  Data: Array<SearchSearchAssetResponseDataItem>; // 匹配到的资源文件列表。如果没有结果，则为空数组。
 }
 
-interface SearchEmbedBlockParams {
+interface SearchSearchEmbedBlockParams {
   embedBlockID: string; // 必需。作为搜索范围根的嵌入块 ID。
   stmt: string; // 必需。用于搜索的 SQL 语句。查询的表名通常为 'blocks'，可查询的字段如 id, content, markdown, type 等。
   excludeIDs?: Array<string>;
@@ -4932,17 +4932,17 @@ interface SearchEmbedBlockParams {
   breadcrumb?: boolean;
 }
 
-interface SearchEmbedBlockResponseData {
+interface SearchSearchEmbedBlockResponseData {
   blocks: Array<any>; // 满足 SQL 查询条件的块内容数组。每个元素的具体结构取决于块类型和查询语句。
 }
 
-interface SearchEmbedBlockResponse {
+interface SearchSearchEmbedBlockResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SearchEmbedBlockResponseData | null;
+  Data: SearchSearchEmbedBlockResponseData | null;
 }
 
-interface SearchRefBlockParams {
+interface SearchSearchRefBlockParams {
   id: string; // 必需。当前正在编辑的块的 ID。
   rootID: string; // 必需。当前文档的根块 ID。
   k: string; // 必需。用户输入的搜索关键词。
@@ -4952,132 +4952,132 @@ interface SearchRefBlockParams {
   reqId?: any;
 }
 
-interface SearchRefBlockResponseDataBlocksItem {
+interface SearchSearchRefBlockResponseDataBlocksItem {
   id: string; // 建议引用的块 ID。
   type: string; // 块类型。
   content: string; // 块内容预览或标题。
   [key: string]: any; // From .catchall()
 }
 
-interface SearchRefBlockResponseData {
-  blocks: Array<SearchRefBlockResponseDataBlocksItem>; // 引用建议块列表。
+interface SearchSearchRefBlockResponseData {
+  blocks: Array<SearchSearchRefBlockResponseDataBlocksItem>; // 引用建议块列表。
   newDoc: boolean; // 是否建议创建一个新文档（当搜索关键词在 `isSquareBrackets` 为 true 时可能触发）。
   k: string; // 原始搜索关键词 (HTML转义后)。
   reqId?: any;
 }
 
-interface SearchRefBlockResponse {
+interface SearchSearchRefBlockResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SearchRefBlockResponseData | null;
+  Data: SearchSearchRefBlockResponseData | null;
 }
 
-interface SearchTagParams {
+interface SearchSearchTagParams {
   k: string; // 必需。搜索关键词。
 }
 
-interface SearchTagResponseData {
+interface SearchSearchTagResponseData {
   tags: Array<string>; // 匹配到的标签列表。如果无结果则为空数组。
   k: string; // 原始搜索关键词。
 }
 
-interface SearchTagResponse {
+interface SearchSearchTagResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SearchTagResponseData | null;
+  Data: SearchSearchTagResponseData | null;
 }
 
-interface SearchTemplateParams {
+interface SearchSearchTemplateParams {
   k: string; // 必需。搜索关键词。
 }
 
-interface SearchTemplateResponseDataBlocksItem {
+interface SearchSearchTemplateResponseDataBlocksItem {
   content: string; // 模板内容片段或文件名。
   path: string; // 模板文件的相对路径。
   docpath?: string;
   [key: string]: any; // From .catchall()
 }
 
-interface SearchTemplateResponseData {
-  blocks: Array<SearchTemplateResponseDataBlocksItem>; // 匹配到的模板列表。
+interface SearchSearchTemplateResponseData {
+  blocks: Array<SearchSearchTemplateResponseDataBlocksItem>; // 匹配到的模板列表。
   k: string; // 原始搜索关键词。
 }
 
-interface SearchTemplateResponse {
+interface SearchSearchTemplateResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SearchTemplateResponseData | null;
+  Data: SearchSearchTemplateResponseData | null;
 }
 
-interface SearchWidgetParams {
+interface SearchSearchWidgetParams {
   k: string; // 必需。搜索关键词。
 }
 
-interface SearchWidgetResponseDataBlocksItem {
+interface SearchSearchWidgetResponseDataBlocksItem {
   id: string; // 挂件块 ID。
   markdown: string; // 挂件块的 Markdown 内容。
   name: string; // 挂件块的名称 (ial中的name属性)。
   [key: string]: any; // From .catchall()
 }
 
-interface SearchWidgetResponseData {
-  blocks: Array<SearchWidgetResponseDataBlocksItem>; // 匹配到的挂件块列表。
+interface SearchSearchWidgetResponseData {
+  blocks: Array<SearchSearchWidgetResponseDataBlocksItem>; // 匹配到的挂件块列表。
   k: string; // 原始搜索关键词。
 }
 
-interface SearchWidgetResponse {
+interface SearchSearchWidgetResponse {
   Code: number; // 返回码，0 表示成功
   Msg: string; // 错误信息，成功时为空字符串
-  Data: SearchWidgetResponseData | null;
+  Data: SearchSearchWidgetResponseData | null;
 }
 
-interface UpdateEmbedBlockParams {
+interface SearchUpdateEmbedBlockParams {
   id: string; // 必需。要更新的查询嵌入块的 ID。
   content: string; // 必需。查询嵌入块新的原始 Markdown 内容，通常是 SQL 查询语句或 JavaScript 脚本。
 }
 
-interface UpdateEmbedBlockResponse {
+interface SearchUpdateEmbedBlockResponse {
   Code: number; // 返回码，0 表示成功，-1 表示失败
   Msg: string; // 错误信息，成功时为空字符串
   Data: null; // 成功或失败时 Data 均为 null。
 }
 
-interface AddVirtualBlockRefExcludeParams {
+interface SettingAddVirtualBlockRefExcludeParams {
   keywords: Array<string>; // 要添加到排除列表的关键字数组。
 }
 
-interface AddVirtualBlockRefExcludeResponse {
+interface SettingAddVirtualBlockRefExcludeResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据。
 }
 
-interface AddVirtualBlockRefIncludeParams {
+interface SettingAddVirtualBlockRefIncludeParams {
   keywords: Array<string>; // 要添加到包含列表的关键字数组。
 }
 
-interface AddVirtualBlockRefIncludeResponse {
+interface SettingAddVirtualBlockRefIncludeResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据。
 }
 
-interface GetCloudUserParams {
+interface SettingGetCloudUserParams {
   token?: string;
 }
 
-interface GetCloudUserResponseDataUserTitlesItem {
+interface SettingGetCloudUserResponseDataUserTitlesItem {
   name: string; // 称号名称。
   icon: string; // 称号图标URL。
   url: string; // 称号链接URL。
 }
 
-interface GetCloudUserResponseData {
+interface SettingGetCloudUserResponseData {
   userId: string; // 用户ID。
   userName: string; // 用户名。
   userAvatarURL: string; // 用户头像URL。
   userHomeBImgURL: string; // 用户主页背景图URL。
-  userTitles: Array<GetCloudUserResponseDataUserTitlesItem>; // 用户获得的称号列表。
+  userTitles: Array<SettingGetCloudUserResponseDataUserTitlesItem>; // 用户获得的称号列表。
   userIntro: string; // 用户简介。
   userNickname: string; // 用户昵称。
   userCreateTime: string; // 用户账户创建时间。
@@ -5099,64 +5099,64 @@ interface GetCloudUserResponseData {
   userSiYuanTeam: boolean; // 是否为思源笔记团队版用户。
 }
 
-interface GetCloudUserResponse {
+interface SettingGetCloudUserResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: GetCloudUserResponseData | null;
+  Data: SettingGetCloudUserResponseData | null;
 }
 
-interface GetPublishResponseDataPublishAuthAccountsItem {
+interface SettingGetPublishResponseDataPublishAuthAccountsItem {
   username: string; // Basic 认证用户名。
   password: string; // Basic 认证密码。
   memo?: string;
 }
 
-interface GetPublishResponseDataPublishAuth {
+interface SettingGetPublishResponseDataPublishAuth {
   enable: boolean; // 是否启用 Basic 认证。
-  accounts: Array<GetPublishResponseDataPublishAuthAccountsItem>; // Basic 认证账户列表。
+  accounts: Array<SettingGetPublishResponseDataPublishAuthAccountsItem>; // Basic 认证账户列表。
 }
 
-interface GetPublishResponseDataPublish {
+interface SettingGetPublishResponseDataPublish {
   enable: boolean; // 是否启用发布服务。
   port: number; // 发布服务配置的端口号。
-  auth: GetPublishResponseDataPublishAuth; // Basic 认证配置。
+  auth: SettingGetPublishResponseDataPublishAuth; // Basic 认证配置。
 }
 
-interface GetPublishResponseData {
+interface SettingGetPublishResponseData {
   port: number; // 发布服务当前监听的端口号。
-  publish: GetPublishResponseDataPublish; // 详细的发布配置项。
+  publish: SettingGetPublishResponseDataPublish; // 详细的发布配置项。
 }
 
-interface GetPublishResponse {
+interface SettingGetPublishResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: GetPublishResponseData | null;
+  Data: SettingGetPublishResponseData | null;
 }
 
-interface Login2faCloudUserParams {
+interface SettingLogin2faCloudUserParams {
   token: string; // 登录过程中的临时令牌。
   code: string; // 6位数字的两步验证码。
 }
 
-interface Login2faCloudUserResponse {
+interface SettingLogin2faCloudUserResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: Record<string, any> | null;
 }
 
-interface LogoutCloudUserResponse {
+interface SettingLogoutCloudUserResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据。
 }
 
-interface RefreshVirtualBlockRefResponse {
+interface SettingRefreshVirtualBlockRefResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据。
 }
 
-interface SetAIParamsOpenAI {
+interface SettingSetAIParamsOpenAI {
   apiKey?: string;
   apiTimeout?: number;
   apiProxy?: string;
@@ -5170,11 +5170,11 @@ interface SetAIParamsOpenAI {
   apiVersion?: string;
 }
 
-interface SetAIParams {
-  openAI: SetAIParamsOpenAI; // OpenAI 相关配置。
+interface SettingSetAIParams {
+  openAI: SettingSetAIParamsOpenAI; // OpenAI 相关配置。
 }
 
-interface SetAIResponseDataOpenAI {
+interface SettingSetAIResponseDataOpenAI {
   apiKey?: string;
   apiTimeout?: number;
   apiProxy?: string;
@@ -5188,33 +5188,33 @@ interface SetAIResponseDataOpenAI {
   apiVersion?: string;
 }
 
-interface SetAIResponseData {
-  openAI: SetAIResponseDataOpenAI; // OpenAI 相关配置。
+interface SettingSetAIResponseData {
+  openAI: SettingSetAIResponseDataOpenAI; // OpenAI 相关配置。
 }
 
-interface SetAIResponse {
+interface SettingSetAIResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetAIResponseData | null;
+  Data: SettingSetAIResponseData | null;
 }
 
-interface SetAccountParams {
+interface SettingSetAccountParams {
   displayTitle?: boolean;
   displayVIP?: boolean;
 }
 
-interface SetAccountResponseData {
+interface SettingSetAccountResponseData {
   displayTitle: boolean; // 是否在用户头像旁显示称号。
   displayVIP: boolean; // 是否在用户头像旁显示Pro标识。
 }
 
-interface SetAccountResponse {
+interface SettingSetAccountResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetAccountResponseData | null;
+  Data: SettingSetAccountResponseData | null;
 }
 
-interface SetAppearanceParams {
+interface SettingSetAppearanceParams {
   mode?: number;
   themeDark?: string;
   themeLight?: string;
@@ -5229,7 +5229,7 @@ interface SetAppearanceParams {
   customCSS?: string;
 }
 
-interface SetAppearanceResponseData {
+interface SettingSetAppearanceResponseData {
   mode?: number;
   themeDark?: string;
   themeLight?: string;
@@ -5244,29 +5244,29 @@ interface SetAppearanceResponseData {
   customCSS?: string;
 }
 
-interface SetAppearanceResponse {
+interface SettingSetAppearanceResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetAppearanceResponseData | null;
+  Data: SettingSetAppearanceResponseData | null;
 }
 
-interface SetBazaarParams {
+interface SettingSetBazaarParams {
   trust?: boolean;
   petalDisabled?: boolean;
 }
 
-interface SetBazaarResponseData {
+interface SettingSetBazaarResponseData {
   trust?: boolean;
   petalDisabled?: boolean;
 }
 
-interface SetBazaarResponse {
+interface SettingSetBazaarResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetBazaarResponseData | null;
+  Data: SettingSetBazaarResponseData | null;
 }
 
-interface SetEditorParams {
+interface SettingSetEditorParams {
   allowHTMLBLockScript?: boolean;
   fontSize?: number;
   fontSizeScrollZoom?: boolean;
@@ -5303,33 +5303,33 @@ interface SetEditorParams {
   markdown?: any;
 }
 
-interface SetEditorResponse {
+interface SettingSetEditorResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: any | null;
 }
 
-interface SetEditorReadOnlyParams {
+interface SettingSetEditorReadOnlyParams {
   readonly: boolean; // 是否将编辑器设置为只读模式。
 }
 
-interface SetEditorReadOnlyResponse {
+interface SettingSetEditorReadOnlyResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据。
 }
 
-interface SetEmojiParams {
+interface SettingSetEmojiParams {
   emoji: Array<string>; // 新的常用表情符号列表。
 }
 
-interface SetEmojiResponse {
+interface SettingSetEmojiResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据，直接修改配置。
 }
 
-interface SetExportParams {
+interface SettingSetExportParams {
   paragraphBeginningSpace?: boolean;
   addTitle?: boolean;
   blockRefMode?: number;
@@ -5350,13 +5350,13 @@ interface SetExportParams {
   imageWatermarkDesc?: string;
 }
 
-interface SetExportResponse {
+interface SettingSetExportResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: any | null;
 }
 
-interface SetFiletreeParams {
+interface SettingSetFiletreeParams {
   alwaysSelectOpenedFile?: boolean;
   openFilesUseCurrentTab?: boolean;
   refCreateSaveBox?: string;
@@ -5372,13 +5372,13 @@ interface SetFiletreeParams {
   sort?: number;
 }
 
-interface SetFiletreeResponse {
+interface SettingSetFiletreeResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: any | null;
 }
 
-interface SetFlashcardParams {
+interface SettingSetFlashcardParams {
   newCardLimit?: number;
   reviewCardLimit?: number;
   requestRetention?: number;
@@ -5389,7 +5389,7 @@ interface SetFlashcardParams {
   againInterval?: number;
 }
 
-interface SetFlashcardResponseData {
+interface SettingSetFlashcardResponseData {
   newCardLimit: number; // 每日新建卡片上限。
   reviewCardLimit: number; // 每日复习卡片上限。
   requestRetention: number; // 期望记忆留存率。
@@ -5400,13 +5400,13 @@ interface SetFlashcardResponseData {
   againInterval: number; // 重来间隔系数。
 }
 
-interface SetFlashcardResponse {
+interface SettingSetFlashcardResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetFlashcardResponseData | null;
+  Data: SettingSetFlashcardResponseData | null;
 }
 
-interface SetKeymapParamsData {
+interface SettingSetKeymapParamsData {
   editor?: Record<string, string>;
   protyleIR?: Record<string, string>;
   protyleSV?: Record<string, string>;
@@ -5416,62 +5416,62 @@ interface SetKeymapParamsData {
   global?: Record<string, string>;
 }
 
-interface SetKeymapParams {
-  data: SetKeymapParamsData; // 包含各类快捷键映射的对象。
+interface SettingSetKeymapParams {
+  data: SettingSetKeymapParamsData; // 包含各类快捷键映射的对象。
 }
 
-interface SetKeymapResponse {
+interface SettingSetKeymapResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据，直接修改配置。
 }
 
-interface SetPublishParamsAuthAccountsItem {
+interface SettingSetPublishParamsAuthAccountsItem {
   username: string; // Basic 认证用户名。
   password: string; // Basic 认证密码。
   memo?: string;
 }
 
-interface SetPublishParamsAuth {
+interface SettingSetPublishParamsAuth {
   enable: boolean; // 是否启用 Basic 认证。
-  accounts: Array<SetPublishParamsAuthAccountsItem>; // Basic 认证账户列表。
+  accounts: Array<SettingSetPublishParamsAuthAccountsItem>; // Basic 认证账户列表。
 }
 
-interface SetPublishParams {
+interface SettingSetPublishParams {
   enable: boolean; // 是否启用发布服务。
   port: number; // 发布服务监听的端口号。
-  auth: SetPublishParamsAuth; // Basic 认证配置。
+  auth: SettingSetPublishParamsAuth; // Basic 认证配置。
 }
 
-interface SetPublishResponseDataPublishAuthAccountsItem {
+interface SettingSetPublishResponseDataPublishAuthAccountsItem {
   username: string; // 用户名。
   password: string; // 密码。
   memo?: string;
 }
 
-interface SetPublishResponseDataPublishAuth {
+interface SettingSetPublishResponseDataPublishAuth {
   enable: boolean; // 是否启用 Basic 认证。
-  accounts: Array<SetPublishResponseDataPublishAuthAccountsItem>; // 账户列表。
+  accounts: Array<SettingSetPublishResponseDataPublishAuthAccountsItem>; // 账户列表。
 }
 
-interface SetPublishResponseDataPublish {
+interface SettingSetPublishResponseDataPublish {
   enable: boolean; // 是否启用发布服务。
   port: number; // 发布服务配置的端口号。
-  auth: SetPublishResponseDataPublishAuth; // Basic 认证配置。
+  auth: SettingSetPublishResponseDataPublishAuth; // Basic 认证配置。
 }
 
-interface SetPublishResponseData {
+interface SettingSetPublishResponseData {
   port: number; // 发布服务实际监听的端口号 (如果成功初始化)。
-  publish: SetPublishResponseDataPublish; // 详细的发布配置项。
+  publish: SettingSetPublishResponseDataPublish; // 详细的发布配置项。
 }
 
-interface SetPublishResponse {
+interface SettingSetPublishResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetPublishResponseData | null;
+  Data: SettingSetPublishResponseData | null;
 }
 
-interface SetSearchParams {
+interface SettingSetSearchParams {
   document?: boolean;
   heading?: boolean;
   list?: boolean;
@@ -5507,35 +5507,35 @@ interface SetSearchParams {
   virtualRefDoc?: boolean;
 }
 
-interface SetSearchResponse {
+interface SettingSetSearchResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: any | null;
 }
 
-interface SetConfSnippetParams {
+interface SettingSetConfSnippetParams {
   enabledCSS?: boolean;
   enabledJS?: boolean;
 }
 
-interface SetConfSnippetResponseData {
+interface SettingSetConfSnippetResponseData {
   enabledCSS: boolean; // 是否启用所有自定义CSS代码片段。
   enabledJS: boolean; // 是否启用所有自定义JS代码片段。
 }
 
-interface SetConfSnippetResponse {
+interface SettingSetConfSnippetResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: SetConfSnippetResponseData | null;
+  Data: SettingSetConfSnippetResponseData | null;
 }
 
-interface GetSnippetParams {
+interface SnippetGetSnippetParams {
   type: 'js' | 'css' | 'all'; // 要获取的代码片段类型：'js', 'css', 或 'all'。
   enabled: number; // 根据启用状态进行过滤：0-仅禁用, 1-仅启用, 2-全部。
   keyword?: string;
 }
 
-interface GetSnippetResponseDataSnippetsItem {
+interface SnippetGetSnippetResponseDataSnippetsItem {
   id: string; // 代码片段的唯一ID。
   name: string; // 代码片段的名称。
   type: 'js' | 'css'; // 代码片段的类型：'js' 或 'css'。
@@ -5543,17 +5543,17 @@ interface GetSnippetResponseDataSnippetsItem {
   content: string; // 代码片段的实际内容。
 }
 
-interface GetSnippetResponseData {
-  snippets: Array<GetSnippetResponseDataSnippetsItem>; // 符合过滤条件的代码片段对象数组。
+interface SnippetGetSnippetResponseData {
+  snippets: Array<SnippetGetSnippetResponseDataSnippetsItem>; // 符合过滤条件的代码片段对象数组。
 }
 
-interface GetSnippetResponse {
+interface SnippetGetSnippetResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: GetSnippetResponseData | null;
+  Data: SnippetGetSnippetResponseData | null;
 }
 
-interface SetSnippetParamsSnippetsItem {
+interface SnippetSetSnippetParamsSnippetsItem {
   id: string; // 片段的唯一ID。对于新片段或希望系统生成ID的片段，可设置为空字符串。
   name: string; // 代码片段的名称。
   type: 'js' | 'css'; // 代码片段的类型，必须是 'js' 或 'css'。
@@ -5561,21 +5561,21 @@ interface SetSnippetParamsSnippetsItem {
   enabled: boolean; // 代码片段是否启用。
 }
 
-interface SetSnippetParams {
-  snippets: Array<SetSnippetParamsSnippetsItem>; // 包含一个或多个代码片段对象的数组。此数组将成为操作完成后系统中全新的、完整的代码片段列表。
+interface SnippetSetSnippetParams {
+  snippets: Array<SnippetSetSnippetParamsSnippetsItem>; // 包含一个或多个代码片段对象的数组。此数组将成为操作完成后系统中全新的、完整的代码片段列表。
 }
 
-interface SetSnippetResponse {
+interface SnippetSetSnippetResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
   Data: null; // 此接口成功时不返回具体数据，直接修改配置。
 }
 
-interface RemoveSnippetParams {
+interface SnippetRemoveSnippetParams {
   id: string; // 要移除的代码片段的唯一ID。
 }
 
-interface RemoveSnippetResponseData {
+interface SnippetRemoveSnippetResponseData {
   id: string; // 被移除代码片段的唯一ID。
   name: string; // 被移除代码片段的名称。
   type: 'js' | 'css'; // 被移除代码片段的类型。
@@ -5583,19 +5583,19 @@ interface RemoveSnippetResponseData {
   content: string; // 被移除代码片段的内容。
 }
 
-interface RemoveSnippetResponse {
+interface SnippetRemoveSnippetResponse {
   Code: number; // API 执行结果的状态码，0 表示成功，其他表示失败。
   Msg: string; // API 执行结果的描述信息。
-  Data: RemoveSnippetResponseData | null;
+  Data: SnippetRemoveSnippetResponseData | null;
 }
 
-interface FlushTransactionResponse {
+interface SqliteFlushTransactionResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface GetCriteriaResponseDataItem {
+interface StorageGetCriteriaResponseDataItem {
   name: string; // 搜索标准的唯一名称。
   id?: string;
   box?: string;
@@ -5616,19 +5616,19 @@ interface GetCriteriaResponseDataItem {
   kwd?: string;
 }
 
-interface GetCriteriaResponse {
+interface StorageGetCriteriaResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: Array<GetCriteriaResponseDataItem>; // 已保存的搜索标准列表。每个元素代表一个搜索标准，具体字段请参考思源笔记内核 model.Criterion 结构。
+  Data: Array<StorageGetCriteriaResponseDataItem>; // 已保存的搜索标准列表。每个元素代表一个搜索标准，具体字段请参考思源笔记内核 model.Criterion 结构。
 }
 
-interface GetLocalStorageResponse {
+interface StorageGetLocalStorageResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: Record<string, any>; // 包含 LocalStorage 所有键值对的对象。值的类型可能多样，取决于存储时的数据。
 }
 
-interface GetRecentDocsResponseDataItem {
+interface StorageGetRecentDocsResponseDataItem {
   id: string; // 文档的 ID。
   notebookID: string; // 文档所属笔记本的 ID。
   name: string; // 文档的名称。
@@ -5641,34 +5641,34 @@ interface GetRecentDocsResponseDataItem {
   updated: string; // 文档的最后更新时间 (ISO 8601 格式)。
 }
 
-interface GetRecentDocsResponse {
+interface StorageGetRecentDocsResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: Array<GetRecentDocsResponseDataItem>; // 最近打开的文档列表。
+  Data: Array<StorageGetRecentDocsResponseDataItem>; // 最近打开的文档列表。
 }
 
-interface RemoveCriterionParams {
+interface StorageRemoveCriterionParams {
   name: string; // 要移除的搜索标准的名称。
 }
 
-interface RemoveCriterionResponse {
+interface StorageRemoveCriterionResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface RemoveLocalStorageValsParams {
+interface StorageRemoveLocalStorageValsParams {
   keys: Array<string>; // 要移除的 LocalStorage 项目的键名数组。
   app: string; // 发起操作的 App ID，用于事件广播。
 }
 
-interface RemoveLocalStorageValsResponse {
+interface StorageRemoveLocalStorageValsResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetCriterionParamsCriterion {
+interface StorageSetCriterionParamsCriterion {
   name: string; // 搜索标准的唯一名称。
   id?: string;
   box?: string;
@@ -5689,91 +5689,91 @@ interface SetCriterionParamsCriterion {
   kwd?: string;
 }
 
-interface SetCriterionParams {
-  criterion: SetCriterionParamsCriterion; // 要保存或更新的搜索标准对象。具体字段请参考思源笔记内核 model.Criterion 结构。
+interface StorageSetCriterionParams {
+  criterion: StorageSetCriterionParamsCriterion; // 要保存或更新的搜索标准对象。具体字段请参考思源笔记内核 model.Criterion 结构。
 }
 
-interface SetCriterionResponse {
+interface StorageSetCriterionResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetLocalStorageParams {
+interface StorageSetLocalStorageParams {
   val: Record<string, any>; // 一个对象，其键值对将完全替换现有的 LocalStorage 内容。
   app: string; // 发起操作的 App ID，用于事件广播。
 }
 
-interface SetLocalStorageResponse {
+interface StorageSetLocalStorageResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetLocalStorageValParams {
+interface StorageSetLocalStorageValParams {
   key: string; // 要设置的 LocalStorage 项目的键名。
   val: any; // 要设置的 LocalStorage 项目的值，可以是任意类型，但最终会序列化为字符串存储。
   app: string; // 发起操作的 App ID，用于事件广播。
 }
 
-interface SetLocalStorageValResponse {
+interface StorageSetLocalStorageValResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface CreateCloudSyncDirParams {
+interface SyncCreateCloudSyncDirParams {
   name: string; // 要创建的云端同步目录的名称。
 }
 
-interface CreateCloudSyncDirResponse {
+interface SyncCreateCloudSyncDirResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。如果创建失败，Data 可能包含 { closeTimeout: 5000 }。
 }
 
-interface ExportSyncProviderS3ResponseData {
+interface SyncExportSyncProviderS3ResponseData {
   name: string; // 导出的文件名 (不含 .zip 后缀)。
   zip: string; // 导出的 .zip 文件在服务端的临时路径，前端可据此下载。
 }
 
-interface ExportSyncProviderS3Response {
+interface SyncExportSyncProviderS3Response {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: ExportSyncProviderS3ResponseData | null;
+  Data: SyncExportSyncProviderS3ResponseData | null;
 }
 
-interface ExportSyncProviderWebDAVResponseData {
+interface SyncExportSyncProviderWebDAVResponseData {
   name: string; // 导出的文件名 (不含 .zip 后缀)。
   zip: string; // 导出的 .zip 文件在服务端的临时路径，前端可据此下载。
 }
 
-interface ExportSyncProviderWebDAVResponse {
+interface SyncExportSyncProviderWebDAVResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: ExportSyncProviderWebDAVResponseData | null;
+  Data: SyncExportSyncProviderWebDAVResponseData | null;
 }
 
-interface GetBootSyncResponse {
+interface SyncGetBootSyncResponse {
   Code: number; // 错误码。0 表示未满足特定条件（非管理员、同步未启用、启动时同步未成功），1 表示启动时同步成功。其他值表示失败。注意这里的 Code 含义比较特殊。 
   Msg: string; // 接口返回的消息。Code 为 1 时，Msg 为提示信息（如 '启动时同步数据完毕'）。Code 为 0 时通常为空。 
   Data: null; // 此接口不通过 Data 返回数据。
 }
 
-interface GetSyncInfoResponseData {
+interface SyncGetSyncInfoResponseData {
   synced: string; // 最后成功同步的时间戳 (格式如 'YYYY-MM-DD HH:mm:ss')，如果从未同步则为空字符串。
   stat: string; // 当前的同步状态文本描述。如果同步未启用，则为 '同步未启用' 或类似提示。
   kernels: Array<string>; // 当前在线的其他内核实例的 ID 列表。
   kernel: string; // 当前内核实例的 ID。
 }
 
-interface GetSyncInfoResponse {
+interface SyncGetSyncInfoResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: GetSyncInfoResponseData | null;
+  Data: SyncGetSyncInfoResponseData | null;
 }
 
-interface ImportSyncProviderS3ResponseDataS3 {
+interface SyncImportSyncProviderS3ResponseDataS3 {
   endpoint: string; // S3 服务的 Endpoint。如：s3.amazonaws.com
   accessKeyID: string; // S3 Access Key ID。敏感信息，通常前端不直接展示。
   secretAccessKey: string; // S3 Secret Access Key。敏感信息，通常前端不直接展示。
@@ -5782,158 +5782,158 @@ interface ImportSyncProviderS3ResponseDataS3 {
   cdn?: string;
 }
 
-interface ImportSyncProviderS3ResponseData {
-  s3: ImportSyncProviderS3ResponseDataS3; // 导入并应用成功的 S3 配置对象。部分敏感字段可能不会完整返回或不应直接展示。
+interface SyncImportSyncProviderS3ResponseData {
+  s3: SyncImportSyncProviderS3ResponseDataS3; // 导入并应用成功的 S3 配置对象。部分敏感字段可能不会完整返回或不应直接展示。
 }
 
-interface ImportSyncProviderS3Response {
+interface SyncImportSyncProviderS3Response {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: ImportSyncProviderS3ResponseData | null;
+  Data: SyncImportSyncProviderS3ResponseData | null;
 }
 
-interface ImportSyncProviderWebDAVResponseDataWebdav {
+interface SyncImportSyncProviderWebDAVResponseDataWebdav {
   endpoint: string; // WebDAV 服务的 URL。如：https://dav.example.com/dav
   username: string; // WebDAV 用户名。敏感信息，通常前端不直接展示。
   password: string; // WebDAV 密码。敏感信息，通常前端不直接展示。
 }
 
-interface ImportSyncProviderWebDAVResponseData {
-  webdav: ImportSyncProviderWebDAVResponseDataWebdav; // 导入并应用成功的 WebDAV 配置对象。部分敏感字段可能不会完整返回或不应直接展示。
+interface SyncImportSyncProviderWebDAVResponseData {
+  webdav: SyncImportSyncProviderWebDAVResponseDataWebdav; // 导入并应用成功的 WebDAV 配置对象。部分敏感字段可能不会完整返回或不应直接展示。
 }
 
-interface ImportSyncProviderWebDAVResponse {
+interface SyncImportSyncProviderWebDAVResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
-  Data: ImportSyncProviderWebDAVResponseData | null;
+  Data: SyncImportSyncProviderWebDAVResponseData | null;
 }
 
-interface ListCloudSyncDirResponseDataSyncDirsItem {
+interface SyncListCloudSyncDirResponseDataSyncDirsItem {
   name: string; // 同步目录的名称。
   hSize: string; // 目录大小的人类可读格式 (例如 '1.2 MB')。
   size: number; // 目录大小，单位字节。
 }
 
-interface ListCloudSyncDirResponseData {
-  syncDirs: Array<ListCloudSyncDirResponseDataSyncDirsItem>; // 云端同步目录列表。
+interface SyncListCloudSyncDirResponseData {
+  syncDirs: Array<SyncListCloudSyncDirResponseDataSyncDirsItem>; // 云端同步目录列表。
   hSize: string; // 所有同步目录的总大小的人类可读格式。
   checkedSyncDir: string; // 当前内核配置中正在使用的云端同步目录名称。
 }
 
-interface ListCloudSyncDirResponse {
+interface SyncListCloudSyncDirResponse {
   Code: number; // 错误码，0 表示成功，1 表示获取失败（如网络错误、配置错误）。
   Msg: string; // 接口返回的消息，成功时通常为空字符串，失败时包含错误信息。
-  Data: ListCloudSyncDirResponseData | null;
+  Data: SyncListCloudSyncDirResponseData | null;
 }
 
-interface PerformBootSyncResponse {
+interface SyncPerformBootSyncResponse {
   Code: number; // 错误码。model.BootSyncSucc (通常为0或1，表示启动同步的结果) 会被赋给 Code。具体含义需参考内核实现。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 此接口不通过 Data 返回具体数据。
 }
 
-interface PerformSyncParams {
+interface SyncPerformSyncParams {
   mobileSwitch?: boolean;
   upload?: boolean;
 }
 
-interface PerformSyncResponse {
+interface SyncPerformSyncResponse {
   Code: number; // 错误码，0 表示成功接收请求并开始处理（同步是异步过程），其他表示接收参数错误等。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 此接口不通过 Data 返回具体数据。
 }
 
-interface RemoveCloudSyncDirParams {
+interface SyncRemoveCloudSyncDirParams {
   name: string; // 要移除的云端同步目录的名称。
 }
 
-interface RemoveCloudSyncDirResponse {
+interface SyncRemoveCloudSyncDirResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。如果移除失败，Data 可能包含 { closeTimeout: 5000 }。
 }
 
-interface SetCloudSyncDirParams {
+interface SyncSetCloudSyncDirParams {
   name: string; // 要设置为当前同步目录的云端目录名称。
 }
 
-interface SetCloudSyncDirResponse {
+interface SyncSetCloudSyncDirResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。如果设置失败，Data 可能包含 { closeTimeout: 5000 }。
 }
 
-interface SetSyncEnableParams {
+interface SyncSetSyncEnableParams {
   enabled: boolean; // 是否启用同步。true 为启用，false 为禁用。
 }
 
-interface SetSyncEnableResponse {
+interface SyncSetSyncEnableResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncGenerateConflictDocParams {
+interface SyncSetSyncGenerateConflictDocParams {
   generateConflictDoc: boolean; // 是否生成冲突文档。true 为生成，false 为不生成。
 }
 
-interface SetSyncGenerateConflictDocResponse {
+interface SyncSetSyncGenerateConflictDocResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncIntervalParams {
+interface SyncSetSyncIntervalParams {
   syncInterval: number; // 自动同步的时间间隔，单位为分钟。例如，输入 5 表示每5分钟同步一次。最小值为1分钟。
 }
 
-interface SetSyncIntervalResponse {
+interface SyncSetSyncIntervalResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncModeParams {
+interface SyncSetSyncModeParams {
   syncMode: number; // 同步模式。例如：0-自动, 1-手动, 3-云端完全手动。具体可用值请参考内核实现或相关文档。
 }
 
-interface SetSyncModeResponse {
+interface SyncSetSyncModeResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncPerceptionParams {
+interface SyncSetSyncPerceptionParams {
   syncPerception: boolean; // 是否启用同步感知。true 为启用，false 为禁用。
 }
 
-interface SetSyncPerceptionResponse {
+interface SyncSetSyncPerceptionResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncProviderParams {
+interface SyncSetSyncProviderParams {
   syncProvider: string; // 同步服务提供商的标识符。例如：'S3', 'WebDAV', 'LocalFolder'。具体可用值请参考内核实现。
 }
 
-interface SetSyncProviderResponse {
+interface SyncSetSyncProviderResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncProviderLocalParams {
+interface SyncSetSyncProviderLocalParams {
   syncProviderLocalPath: string; // 本地同步文件夹的绝对路径。
 }
 
-interface SetSyncProviderLocalResponse {
+interface SyncSetSyncProviderLocalResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncProviderS3Params {
+interface SyncSetSyncProviderS3Params {
   s3AccessKeyID: string; // S3 Access Key ID.
   s3SecretAccessKey: string; // S3 Secret Access Key.
   s3Endpoint: string; // S3 服务的 Endpoint。例如：s3.amazonaws.com
@@ -5942,133 +5942,133 @@ interface SetSyncProviderS3Params {
   s3CDN?: string;
 }
 
-interface SetSyncProviderS3Response {
+interface SyncSetSyncProviderS3Response {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface SetSyncProviderWebDAVParams {
+interface SyncSetSyncProviderWebDAVParams {
   webdavEndpoint: string; // WebDAV 服务的 URL。例如：https://dav.example.com/remote.php/dav
   webdavUsername: string; // WebDAV 用户名。
   webdavPassword: string; // WebDAV 密码。
 }
 
-interface SetSyncProviderWebDAVResponse {
+interface SyncSetSyncProviderWebDAVResponse {
   Code: number; // 错误码，0 表示成功，其他表示失败。
   Msg: string; // 接口返回的消息，成功时通常为空字符串。
   Data: null; // 接口成功执行时，Data 固定为 null。
 }
 
-interface AddMicrosoftDefenderExclusionResponse {
+interface SystemAddMicrosoftDefenderExclusionResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface BootProgressResponseData {
+interface SystemBootProgressResponseData {
   progress: number; // 启动进度百分比，例如 89
   state: number; // 当前启动状态码
   details: string; // 当前启动状态的详细描述文本
 }
 
-interface BootProgressResponse {
+interface SystemBootProgressResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: BootProgressResponseData | null;
+  data: SystemBootProgressResponseData | null;
 }
 
-interface CheckUpdateParams {
+interface SystemCheckUpdateParams {
   showMsg: boolean; // 是否在检查后显示提示消息给用户
 }
 
-interface CheckUpdateResponse {
+interface SystemCheckUpdateResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null，更新信息通过 WebSocket 推送或直接在 UI 弹出
 }
 
-interface CheckWorkspaceDirParams {
+interface SystemCheckWorkspaceDirParams {
   path: string; // 要检查的目录绝对路径
 }
 
-interface CheckWorkspaceDirResponseData {
+interface SystemCheckWorkspaceDirResponseData {
   isWorkspace: boolean; // 该路径是否已经是或可以成为一个有效的工作空间
 }
 
-interface CheckWorkspaceDirResponse {
+interface SystemCheckWorkspaceDirResponse {
   code: number; // 错误码，0 表示成功，-1 表示无效路径或检查失败
   msg: string; // 错误或提示信息
-  data: CheckWorkspaceDirResponseData | null;
+  data: SystemCheckWorkspaceDirResponseData | null;
 }
 
-interface CreateWorkspaceDirParams {
+interface SystemCreateWorkspaceDirParams {
   path: string; // 要创建工作空间的目录绝对路径
 }
 
-interface CreateWorkspaceDirResponse {
+interface SystemCreateWorkspaceDirResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface CurrentTimeResponse {
+interface SystemCurrentTimeResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: number; // 当前的 Unix 时间戳 (毫秒)
 }
 
-interface ExitResponse {
+interface SystemExitResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface ExportConfResponseData {
+interface SystemExportConfResponseData {
   path: string; // 导出的配置文件 `conf.json` 所在临时目录的绝对路径。前端通常会触发下载此目录下的 `conf.json`。
   name: string; // 导出的配置文件名，通常是 `conf.json`
 }
 
-interface ExportConfResponse {
+interface SystemExportConfResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: ExportConfResponseData;
+  data: SystemExportConfResponseData;
 }
 
-interface ExportLogResponseData {
+interface SystemExportLogResponseData {
   zip: string; // 导出的日志压缩文件 `log.zip` 的绝对路径。前端通常会触发此文件的下载。
 }
 
-interface ExportLogResponse {
+interface SystemExportLogResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: ExportLogResponseData;
+  data: SystemExportLogResponseData;
 }
 
-interface GetCaptchaResponse {
+interface SystemGetCaptchaResponse {
   code?: number;
   msg?: string;
   data?: string;
 }
 
-interface GetChangelogResponseData {
+interface SystemGetChangelogResponseData {
   show: boolean; // 是否需要显示更新日志（例如，新版本首次启动后）
   html: string; // 更新日志的 HTML 内容
 }
 
-interface GetChangelogResponse {
+interface SystemGetChangelogResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: GetChangelogResponseData;
+  data: SystemGetChangelogResponseData;
 }
 
-interface GetConfResponse {
+interface SystemGetConfResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: any; // 包含所有配置项的对象，结构复杂，请参考 `siyuan/kernel/conf/conf.go` 中的 `Conf` 结构体。例如 `data.appearance.mode` 等。
 }
 
-interface GetEmojiConfResponseDataItemItemsItem {
+interface SystemGetEmojiConfResponseDataItemItemsItem {
   unicode: string; // Emoji 的 Unicode 表示或自定义 Emoji 的文件名/路径
   description: string; // Emoji 描述 (英文)
   description_zh_cn?: string;
@@ -6076,21 +6076,21 @@ interface GetEmojiConfResponseDataItemItemsItem {
   keywords?: string;
 }
 
-interface GetEmojiConfResponseDataItem {
+interface SystemGetEmojiConfResponseDataItem {
   id: string; // Emoji 分组 ID，例如 'custom', 'people'
   title: string; // Emoji 分组标题 (英文)
   title_zh_cn?: string;
   title_ja_jp?: string;
-  items: Array<GetEmojiConfResponseDataItemItemsItem>; // 该分组下的 Emoji项列表
+  items: Array<SystemGetEmojiConfResponseDataItemItemsItem>; // 该分组下的 Emoji项列表
 }
 
-interface GetEmojiConfResponse {
+interface SystemGetEmojiConfResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: Array<GetEmojiConfResponseDataItem>; // Emoji 配置数组，每个元素是一个 Emoji 分组
+  data: Array<SystemGetEmojiConfResponseDataItem>; // Emoji 配置数组，每个元素是一个 Emoji 分组
 }
 
-interface GetMobileWorkspacesResponseDataItem {
+interface SystemGetMobileWorkspacesResponseDataItem {
   path: string; // 工作空间的绝对路径
   name: string; // 工作空间的名称 (目录名)
   title: string; // 工作空间的标题 (通常与名称相同)
@@ -6098,45 +6098,45 @@ interface GetMobileWorkspacesResponseDataItem {
   closed: boolean; // 工作空间是否已关闭
 }
 
-interface GetMobileWorkspacesResponse {
+interface SystemGetMobileWorkspacesResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: Array<GetMobileWorkspacesResponseDataItem>; // 移动端工作空间列表
+  data: Array<SystemGetMobileWorkspacesResponseDataItem>; // 移动端工作空间列表
 }
 
-interface GetNetworkResponseData {
+interface SystemGetNetworkResponseData {
   proxy: string; // 网络代理配置字符串，例如 'socks5://127.0.0.1:1080' 或空字符串
 }
 
-interface GetNetworkResponse {
+interface SystemGetNetworkResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: GetNetworkResponseData;
+  data: SystemGetNetworkResponseData;
 }
 
-interface GetSysFontsResponseDataItem {
+interface SystemGetSysFontsResponseDataItem {
   label: string; // 字体名称，用于显示和选择
   value: string; // 字体族名称，用于 CSS font-family
 }
 
-interface GetSysFontsResponse {
+interface SystemGetSysFontsResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: Array<GetSysFontsResponseDataItem>; // 系统字体列表
+  data: Array<SystemGetSysFontsResponseDataItem>; // 系统字体列表
 }
 
-interface GetWorkspaceInfoResponseData {
+interface SystemGetWorkspaceInfoResponseData {
   workspaceDir: string; // 当前工作空间的绝对路径
   siyuanVer: string; // 当前思源笔记的版本号
 }
 
-interface GetWorkspaceInfoResponse {
+interface SystemGetWorkspaceInfoResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: GetWorkspaceInfoResponseData;
+  data: SystemGetWorkspaceInfoResponseData;
 }
 
-interface GetWorkspacesResponseDataItem {
+interface SystemGetWorkspacesResponseDataItem {
   path: string; // 工作空间的绝对路径
   name: string; // 工作空间的名称 (目录名)
   title: string; // 工作空间的标题 (通常与名称相同，可由用户设置)
@@ -6144,205 +6144,205 @@ interface GetWorkspacesResponseDataItem {
   closed: boolean; // 工作空间当前是否处于关闭状态
 }
 
-interface GetWorkspacesResponse {
+interface SystemGetWorkspacesResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
-  data: Array<GetWorkspacesResponseDataItem>; // 工作空间列表
+  data: Array<SystemGetWorkspacesResponseDataItem>; // 工作空间列表
 }
 
-interface IgnoreAddMicrosoftDefenderExclusionResponse {
+interface SystemIgnoreAddMicrosoftDefenderExclusionResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface ImportConfParams {
+interface SystemImportConfParams {
   file: any; // 上传的 `conf.json` 文件。通常通过 FormData 提交。`z.instanceof(File)` 在此场景不适用，因为这是后端定义。前端应使用 `FormData`。
 }
 
-interface ImportConfResponse {
+interface SystemImportConfResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface LoginAuthParams {
+interface SystemLoginAuthParams {
   authcode?: string;
   captcha?: string;
 }
 
-interface LoginAuthResponse {
+interface SystemLoginAuthResponse {
   code: number; // 错误码，0 表示成功，其他表示失败 (如授权码错误、验证码错误等)
   msg: string; // 错误或提示信息
   data: null; // 成功时为 null，失败时也可能为 null
 }
 
-interface LogoutAuthResponse {
+interface SystemLogoutAuthResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface ReloadUIResponse {
+interface SystemReloadUIResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface RemoveWorkspaceDirParams {
+interface SystemRemoveWorkspaceDirParams {
   path: string; // 要移除的工作空间的绝对路径
 }
 
-interface RemoveWorkspaceDirResponse {
+interface SystemRemoveWorkspaceDirResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface RemoveWorkspaceDirPhysicallyParams {
+interface SystemRemoveWorkspaceDirPhysicallyParams {
   paths: Array<string>; // 要物理删除的工作空间的绝对路径列表
 }
 
-interface RemoveWorkspaceDirPhysicallyResponse {
+interface SystemRemoveWorkspaceDirPhysicallyResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetAPITokenParams {
+interface SystemSetAPITokenParams {
   token: string; // 新的 API 令牌。如果为空字符串，则表示清空令牌。
 }
 
-interface SetAPITokenResponse {
+interface SystemSetAPITokenResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetAccessAuthCodeParams {
+interface SystemSetAccessAuthCodeParams {
   code: string; // 新的访问授权码。如果为空字符串，则表示清空授权码。
   permanent?: boolean;
 }
 
-interface SetAccessAuthCodeResponse {
+interface SystemSetAccessAuthCodeResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetAppearanceModeParams {
+interface SystemSetAppearanceModeParams {
   mode: number; // 外观模式：0 表示亮色 (Light)，1 表示暗色 (Dark)
 }
 
-interface SetAppearanceModeResponse {
+interface SystemSetAppearanceModeResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetAutoLaunchParams {
+interface SystemSetAutoLaunchParams {
   autoLaunch: boolean; // 是否开机自启动
 }
 
-interface SetAutoLaunchResponse {
+interface SystemSetAutoLaunchResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetDownloadInstallPkgParams {
+interface SystemSetDownloadInstallPkgParams {
   downloadInstallPkg: boolean; // 是否自动下载并安装更新包
 }
 
-interface SetDownloadInstallPkgResponse {
+interface SystemSetDownloadInstallPkgResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetFollowSystemLockScreenParams {
+interface SystemSetFollowSystemLockScreenParams {
   follow: boolean; // 是否跟随系统锁屏
 }
 
-interface SetFollowSystemLockScreenResponse {
+interface SystemSetFollowSystemLockScreenResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetGoogleAnalyticsParams {
+interface SystemSetGoogleAnalyticsParams {
   enabled: boolean; // 是否启用 Google Analytics
 }
 
-interface SetGoogleAnalyticsResponse {
+interface SystemSetGoogleAnalyticsResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetNetworkProxyParams {
+interface SystemSetNetworkProxyParams {
   proxy: string; // 代理服务器地址，例如 'http://127.0.0.1:7890', 'socks5://127.0.0.1:1080'。如果为空字符串，则表示清除代理设置。
 }
 
-interface SetNetworkProxyResponse {
+interface SystemSetNetworkProxyResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetNetworkServeParams {
+interface SystemSetNetworkServeParams {
   serve: boolean; // 是否启用网络服务
   port: string; // 网络服务端口号，字符串形式，例如 '6806'
   accessPermission: string; // 网络访问权限：'lan' (仅局域网), 'wan' (允许公网，需谨慎), 'localhost' (仅本机)
 }
 
-interface SetNetworkServeResponse {
+interface SystemSetNetworkServeResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetUILayoutParams {
+interface SystemSetUILayoutParams {
   layout: string; // UI 布局模式的标识符字符串
 }
 
-interface SetUILayoutResponse {
+interface SystemSetUILayoutResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface SetWorkspaceDirParams {
+interface SystemSetWorkspaceDirParams {
   path: string; // 要切换到的工作空间的绝对路径
 }
 
-interface SetWorkspaceDirResponse {
+interface SystemSetWorkspaceDirResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface AddUIProcessParams {
+interface SystemAddUIProcessParams {
   pid?: number;
 }
 
-interface AddUIProcessResponse {
+interface SystemAddUIProcessResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: null; // 成功时总是为 null
 }
 
-interface VersionResponse {
+interface SystemVersionResponse {
   code: number; // 错误码，0 表示成功
   msg: string; // 错误信息
   data: string; // 当前思源笔记的版本号字符串，例如 '2.10.0'
 }
 
-interface GetTagParams {
+interface TagGetTagParams {
   sort?: number;
 }
 
-interface GetTagResponseDataItem {
+interface TagGetTagResponseDataItem {
   label: string; // 标签的名称。
   count: number; // 标签关联的块数量（文档块+列表项块等）。
   blockCount: number; // 标签关联的文档块数量。
@@ -6350,81 +6350,81 @@ interface GetTagResponseDataItem {
   hUpdated: string; // 标签最后更新时间的人类可读格式。
 }
 
-interface GetTagResponse {
+interface TagGetTagResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息，成功时为空字符串。
-  data: Array<GetTagResponseDataItem> | null;
+  data: Array<TagGetTagResponseDataItem> | null;
 }
 
-interface RemoveTagParams {
+interface TagRemoveTagParams {
   label: string; // 要移除的标签的名称。
 }
 
-interface RemoveTagResponseData {
+interface TagRemoveTagResponseData {
   closeTimeout?: number;
 }
 
-interface RemoveTagResponse {
+interface TagRemoveTagResponse {
   code: number; // 错误码，0 表示成功，-1 表示失败。
   msg: string; // 错误信息。
-  data: RemoveTagResponseData | null;
+  data: TagRemoveTagResponseData | null;
 }
 
-interface RenameTagParams {
+interface TagRenameTagParams {
   oldLabel: string; // 要重命名的旧标签名称。
   newLabel: string; // 新的标签名称。
 }
 
-interface RenameTagResponseData {
+interface TagRenameTagResponseData {
   closeTimeout?: number;
 }
 
-interface RenameTagResponse {
+interface TagRenameTagResponse {
   code: number; // 错误码，0 表示成功，-1 表示失败。
   msg: string; // 错误信息。
-  data: RenameTagResponseData | null;
+  data: TagRenameTagResponseData | null;
 }
 
-interface DocSaveAsTemplateParams {
+interface TemplateDocSaveAsTemplateParams {
   id: string; // 要作为模板保存的文档ID。
   name: string; // 模板的名称。
   overwrite: boolean; // 如果已存在同名模板，是否覆盖。
 }
 
-interface DocSaveAsTemplateResponse {
+interface TemplateDocSaveAsTemplateResponse {
   code: number; // 错误码，0 表示成功，其他表示失败。
   msg: string; // 错误或成功信息。
   data: null; // 成功时总是为 null。
 }
 
-interface RenderTemplateParams {
+interface TemplateRenderTemplateParams {
   path: string; // 模板文件的绝对路径。
   id: string; // 可选的上下文块ID，用于模板内获取该块的信息。
   preview?: boolean;
 }
 
-interface RenderTemplateResponseData {
+interface TemplateRenderTemplateResponseData {
   path: string; // 渲染的模板文件路径。
   content: string; // 渲染后的模板内容 (HTML 字符串)。
 }
 
-interface RenderTemplateResponse {
+interface TemplateRenderTemplateResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息。
-  data: RenderTemplateResponseData | null;
+  data: TemplateRenderTemplateResponseData | null;
 }
 
-interface RenderSprigParams {
+interface TemplateRenderSprigParams {
   template: string; // 包含 Sprig 模板语法的字符串。
 }
 
-interface RenderSprigResponse {
+interface TemplateRenderSprigResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息。
   data: string | null;
 }
 
-interface PerformTransactionsParamsTransactionsItemDoOperationsItem {
+interface TransactionsPerformTransactionsParamsTransactionsItemDoOperationsItem {
   action: string; // 必需，具体的操作名称 (如 updateBlock, insertBlock, deleteBlock, setBlockAttrs, foldHeading, addFlashcards, setAttrViewName, updateAttrViewCell 等)。实际可用 action 请参考 kernel/model/transaction.go 中的 performTx 函数内 switch case 定义。
   id?: string;
   parentID?: string;
@@ -6466,7 +6466,7 @@ interface PerformTransactionsParamsTransactionsItemDoOperationsItem {
   removeDest?: boolean;
 }
 
-interface PerformTransactionsParamsTransactionsItemUndoOperationsItem {
+interface TransactionsPerformTransactionsParamsTransactionsItemUndoOperationsItem {
   action: string; // 必需，具体的操作名称 (如 updateBlock, insertBlock, deleteBlock, setBlockAttrs, foldHeading, addFlashcards, setAttrViewName, updateAttrViewCell 等)。实际可用 action 请参考 kernel/model/transaction.go 中的 performTx 函数内 switch case 定义。
   id?: string;
   parentID?: string;
@@ -6508,20 +6508,20 @@ interface PerformTransactionsParamsTransactionsItemUndoOperationsItem {
   removeDest?: boolean;
 }
 
-interface PerformTransactionsParamsTransactionsItem {
+interface TransactionsPerformTransactionsParamsTransactionsItem {
   timestamp: number; // 事务时间戳，通常由前端生成或后端使用 reqId 覆盖（毫秒级）。
-  doOperations: Array<PerformTransactionsParamsTransactionsItemDoOperationsItem>; // 要执行的操作列表，至少包含一个操作。
-  undoOperations?: Array<PerformTransactionsParamsTransactionsItemUndoOperationsItem>;
+  doOperations: Array<TransactionsPerformTransactionsParamsTransactionsItemDoOperationsItem>; // 要执行的操作列表，至少包含一个操作。
+  undoOperations?: Array<TransactionsPerformTransactionsParamsTransactionsItemUndoOperationsItem>;
 }
 
-interface PerformTransactionsParams {
-  transactions: Array<PerformTransactionsParamsTransactionsItem>; // 一个或多个事务对象的数组，至少包含一个事务。
+interface TransactionsPerformTransactionsParams {
+  transactions: Array<TransactionsPerformTransactionsParamsTransactionsItem>; // 一个或多个事务对象的数组，至少包含一个事务。
   reqId: number; // 必需，请求的唯一ID (通常是客户端生成的时间戳，毫秒级)。
   app: string; // 必需，发起请求的应用标识 (例如 "SiYuan")。
   session: string; // 必需，当前会话ID (例如前端的 WebSocket clientID)。
 }
 
-interface PerformTransactionsResponseDataItemDoOperationsItem {
+interface TransactionsPerformTransactionsResponseDataItemDoOperationsItem {
   action: string; // 必需，具体的操作名称。
   id?: string;
   parentID?: string;
@@ -6564,7 +6564,7 @@ interface PerformTransactionsResponseDataItemDoOperationsItem {
   retData?: any;
 }
 
-interface PerformTransactionsResponseDataItemUndoOperationsItem {
+interface TransactionsPerformTransactionsResponseDataItemUndoOperationsItem {
   action: string; // 必需，具体的操作名称。
   id?: string;
   parentID?: string;
@@ -6607,3384 +6607,3447 @@ interface PerformTransactionsResponseDataItemUndoOperationsItem {
   retData?: any;
 }
 
-interface PerformTransactionsResponseDataItem {
+interface TransactionsPerformTransactionsResponseDataItem {
   timestamp: number; // 事务时间戳，与请求中的 reqId 一致（毫秒级）。
-  doOperations: Array<PerformTransactionsResponseDataItemDoOperationsItem>; // 已执行的操作列表，其中 retData 可能包含操作结果。
-  undoOperations?: Array<PerformTransactionsResponseDataItemUndoOperationsItem>;
+  doOperations: Array<TransactionsPerformTransactionsResponseDataItemDoOperationsItem>; // 已执行的操作列表，其中 retData 可能包含操作结果。
+  undoOperations?: Array<TransactionsPerformTransactionsResponseDataItemUndoOperationsItem>;
 }
 
-interface PerformTransactionsResponse {
+interface TransactionsPerformTransactionsResponse {
   code: number; // 错误码，0 表示成功。其他值表示不同类型的错误。
   msg: string; // 错误或成功信息。成功时通常为空字符串。
-  data: Array<PerformTransactionsResponseDataItem> | null;
+  data: Array<TransactionsPerformTransactionsResponseDataItem> | null;
 }
 
-interface ReloadAttributeViewParams {
+interface UiReloadAttributeViewParams {
   id: string; // 要重新加载的属性视图的 ID。
 }
 
-interface ReloadAttributeViewResponse {
+interface UiReloadAttributeViewResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息，成功时为空字符串。
   data: null; // 成功时总是为 null。
 }
 
-interface ReloadFiletreeResponse {
+interface UiReloadFiletreeResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息，成功时为空字符串。
   data: null; // 成功时总是为 null。
 }
 
-interface ReloadProtyleParams {
+interface UiReloadProtyleParams {
   id: string; // 要重新加载的 Protyle 编辑器实例对应的块 ID 或文档 ID。
 }
 
-interface ReloadProtyleResponse {
+interface UiReloadProtyleResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息，成功时为空字符串。
   data: null; // 成功时总是为 null。
 }
 
-interface ReloadTagResponse {
+interface UiReloadTagResponse {
   code: number; // 错误码，0 表示成功。
   msg: string; // 错误信息，成功时为空字符串。
   data: null; // 成功时总是为 null。
 }
 
-declare module './account' {
+interface UiReloadUIResponse {
+  code: number; // 错误码，0 表示成功。
+  msg: string; // 错误信息，成功时为空字符串。
+  data: null; // 成功时总是为 null。
+}
+
+export interface AccountApi {
   /**
    * 检查用户输入的激活码是否有效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CheckActivationcodeParams)
-   * @returns Promise<CheckActivationcodeResponse> 
+   * @param params Request parameters (AccountCheckActivationcodeParams)
+   * @returns Promise<AccountCheckActivationcodeResponse> 
    */
-  export function checkActivationcode(params: CheckActivationcodeParams): Promise<CheckActivationcodeResponse>;
+  checkActivationcode(params: AccountCheckActivationcodeParams): Promise<AccountCheckActivationcodeResponse>;
 
   /**
    * 注销当前用户账号。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<DeactivateUserResponse> 
+   * @returns Promise<AccountDeactivateUserResponse> 
    */
-  export function deactivateUser(): Promise<DeactivateUserResponse>;
+  deactivateUser(): Promise<AccountDeactivateUserResponse>;
 
   /**
    * 用户登录，需要提供用户名、密码、验证码和云端区域。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (LoginParams)
-   * @returns Promise<LoginResponse> 
+   * @param params Request parameters (AccountLoginParams)
+   * @returns Promise<AccountLoginResponse> 
    */
-  export function login(params: LoginParams): Promise<LoginResponse>;
+  login(params: AccountLoginParams): Promise<AccountLoginResponse>;
 
   /**
    * 为当前用户开启免费试用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<StartFreeTrialResponse> 
+   * @returns Promise<AccountStartFreeTrialResponse> 
    */
-  export function startFreeTrial(): Promise<StartFreeTrialResponse>;
+  startFreeTrial(): Promise<AccountStartFreeTrialResponse>;
 
   /**
    * 使用激活码激活账户。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UseActivationcodeParams)
-   * @returns Promise<UseActivationcodeResponse> 
+   * @param params Request parameters (AccountUseActivationcodeParams)
+   * @returns Promise<AccountUseActivationcodeResponse> 
    */
-  export function useActivationcode(params: UseActivationcodeParams): Promise<UseActivationcodeResponse>;
+  useActivationcode(params: AccountUseActivationcodeParams): Promise<AccountUseActivationcodeResponse>;
 
 }
 
-declare module './ai' {
+export interface AiApi {
   /**
    * 与 ChatGPT 进行简单对话。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ChatGPTParams)
-   * @returns Promise<ChatGPTResponse> 
+   * @param params Request parameters (AiChatGPTParams)
+   * @returns Promise<AiChatGPTResponse> 
    */
-  export function chatGPT(params: ChatGPTParams): Promise<ChatGPTResponse>;
+  chatGPT(params: AiChatGPTParams): Promise<AiChatGPTResponse>;
 
   /**
    * 调用 ChatGPT 对指定的块ID列表执行特定动作。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ChatGPTWithActionParams)
-   * @returns Promise<ChatGPTWithActionResponse> 
+   * @param params Request parameters (AiChatGPTWithActionParams)
+   * @returns Promise<AiChatGPTWithActionResponse> 
    */
-  export function chatGPTWithAction(params: ChatGPTWithActionParams): Promise<ChatGPTWithActionResponse>;
+  chatGPTWithAction(params: AiChatGPTWithActionParams): Promise<AiChatGPTWithActionResponse>;
 
 }
 
-declare module './archive' {
+export interface ArchiveApi {
   /**
    * 将指定的 .zip 文件解压到指定路径。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UnzipParams)
-   * @returns Promise<UnzipResponse> 
+   * @param params Request parameters (ArchiveUnzipParams)
+   * @returns Promise<ArchiveUnzipResponse> 
    */
-  export function unzip(params: UnzipParams): Promise<UnzipResponse>;
+  unzip(params: ArchiveUnzipParams): Promise<ArchiveUnzipResponse>;
 
   /**
    * 将指定路径的文件或目录压缩到指定的 .zip 文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ZipParams)
-   * @returns Promise<ZipResponse> 
+   * @param params Request parameters (ArchiveZipParams)
+   * @returns Promise<ArchiveZipResponse> 
    */
-  export function zip(params: ZipParams): Promise<ZipResponse>;
+  zip(params: ArchiveZipParams): Promise<ArchiveZipResponse>;
 
 }
 
-declare module './asset' {
+export interface AssetApi {
   /**
    * 完全重新索引工作空间中所有资源文件的内容，用于搜索。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<FullReindexAssetContentResponse> 
+   * @returns Promise<AssetFullReindexAssetContentResponse> 
    */
-  export function fullReindexAssetContent(): Promise<FullReindexAssetContentResponse>;
+  fullReindexAssetContent(): Promise<AssetFullReindexAssetContentResponse>;
 
   /**
    * 获取指定文档块所引用的所有资源文件列表。
    * (Requires authentication)
-   * @param params Request parameters (GetDocAssetsParams)
-   * @returns Promise<GetDocAssetsResponse> 
+   * @param params Request parameters (AssetGetDocAssetsParams)
+   * @returns Promise<AssetGetDocAssetsResponse> 
    */
-  export function getDocAssets(params: GetDocAssetsParams): Promise<GetDocAssetsResponse>;
+  getDocAssets(params: AssetGetDocAssetsParams): Promise<AssetGetDocAssetsResponse>;
 
   /**
    * 获取指定文档块所引用的所有图片类型资源文件列表。
    * (Requires authentication)
-   * @param params Request parameters (GetDocImageAssetsParams)
-   * @returns Promise<GetDocImageAssetsResponse> 
+   * @param params Request parameters (AssetGetDocImageAssetsParams)
+   * @returns Promise<AssetGetDocImageAssetsResponse> 
    */
-  export function getDocImageAssets(params: GetDocImageAssetsParams): Promise<GetDocImageAssetsResponse>;
+  getDocImageAssets(params: AssetGetDocImageAssetsParams): Promise<AssetGetDocImageAssetsResponse>;
 
   /**
    * 获取指定资源文件的标注信息（通常是 XFDF 格式的 PDF 标注）。
    * (Requires authentication)
-   * @param params Request parameters (GetFileAnnotationParams)
-   * @returns Promise<GetFileAnnotationResponse> 
+   * @param params Request parameters (AssetGetFileAnnotationParams)
+   * @returns Promise<AssetGetFileAnnotationResponse> 
    */
-  export function getFileAnnotation(params: GetFileAnnotationParams): Promise<GetFileAnnotationResponse>;
+  getFileAnnotation(params: AssetGetFileAnnotationParams): Promise<AssetGetFileAnnotationResponse>;
 
   /**
    * 获取指定图片资源文件后台 OCR 识别的文本内容。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetImageOCRTextParams)
-   * @returns Promise<GetImageOCRTextResponse> 
+   * @param params Request parameters (AssetGetImageOCRTextParams)
+   * @returns Promise<AssetGetImageOCRTextResponse> 
    */
-  export function getImageOCRText(params: GetImageOCRTextParams): Promise<GetImageOCRTextResponse>;
+  getImageOCRText(params: AssetGetImageOCRTextParams): Promise<AssetGetImageOCRTextResponse>;
 
   /**
    * 获取所有在文档中被引用但实际资源文件已不存在的资源路径列表。
    * (Requires authentication)
-   * @returns Promise<GetMissingAssetsResponse> 
+   * @returns Promise<AssetGetMissingAssetsResponse> 
    */
-  export function getMissingAssets(): Promise<GetMissingAssetsResponse>;
+  getMissingAssets(): Promise<AssetGetMissingAssetsResponse>;
 
   /**
    * 获取工作空间中存在但未被任何文档引用的资源文件列表（最多返回512条）。
    * (Requires authentication)
-   * @returns Promise<GetUnusedAssetsResponse> 
+   * @returns Promise<AssetGetUnusedAssetsResponse> 
    */
-  export function getUnusedAssets(): Promise<GetUnusedAssetsResponse>;
+  getUnusedAssets(): Promise<AssetGetUnusedAssetsResponse>;
 
   /**
    * 将指定的本地文件复制到当前笔记本的 assets 文件夹中，并在指定文档中插入对这些资源的引用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InsertLocalAssetsParams)
-   * @returns Promise<InsertLocalAssetsResponse> 
+   * @param params Request parameters (AssetInsertLocalAssetsParams)
+   * @returns Promise<AssetInsertLocalAssetsResponse> 
    */
-  export function insertLocalAssets(params: InsertLocalAssetsParams): Promise<InsertLocalAssetsResponse>;
+  insertLocalAssets(params: AssetInsertLocalAssetsParams): Promise<AssetInsertLocalAssetsResponse>;
 
   /**
    * 对指定的图片资源文件执行光学字符识别，并返回识别出的文本及原始 OCR 结果。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (OcrParams)
-   * @returns Promise<OcrResponse> 
+   * @param params Request parameters (AssetOcrParams)
+   * @returns Promise<AssetOcrResponse> 
    */
-  export function ocr(params: OcrParams): Promise<OcrResponse>;
+  ocr(params: AssetOcrParams): Promise<AssetOcrResponse>;
 
   /**
    * 删除工作空间中指定的单个未使用（未被任何文档引用）的资源文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveUnusedAssetParams)
-   * @returns Promise<RemoveUnusedAssetResponse> 
+   * @param params Request parameters (AssetRemoveUnusedAssetParams)
+   * @returns Promise<AssetRemoveUnusedAssetResponse> 
    */
-  export function removeUnusedAsset(params: RemoveUnusedAssetParams): Promise<RemoveUnusedAssetResponse>;
+  removeUnusedAsset(params: AssetRemoveUnusedAssetParams): Promise<AssetRemoveUnusedAssetResponse>;
 
   /**
    * 删除工作空间中所有未被任何文档引用的资源文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<RemoveUnusedAssetsResponse> 
+   * @returns Promise<AssetRemoveUnusedAssetsResponse> 
    */
-  export function removeUnusedAssets(): Promise<RemoveUnusedAssetsResponse>;
+  removeUnusedAssets(): Promise<AssetRemoveUnusedAssetsResponse>;
 
   /**
    * 重命名指定的资源文件，并自动更新所有文档中对该资源的引用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameAssetParams)
-   * @returns Promise<RenameAssetResponse> 
+   * @param params Request parameters (AssetRenameAssetParams)
+   * @returns Promise<AssetRenameAssetResponse> 
    */
-  export function renameAsset(params: RenameAssetParams): Promise<RenameAssetResponse>;
+  renameAsset(params: AssetRenameAssetParams): Promise<AssetRenameAssetResponse>;
 
   /**
    * 将资源文件在思源笔记中的相对路径（如 'assets/image.png'）转换为其在文件系统中的绝对路径。
    * (Requires authentication)
-   * @param params Request parameters (ResolveAssetPathParams)
-   * @returns Promise<ResolveAssetPathResponse> 
+   * @param params Request parameters (AssetResolveAssetPathParams)
+   * @returns Promise<AssetResolveAssetPathResponse> 
    */
-  export function resolveAssetPath(params: ResolveAssetPathParams): Promise<ResolveAssetPathResponse>;
+  resolveAssetPath(params: AssetResolveAssetPathParams): Promise<AssetResolveAssetPathResponse>;
 
   /**
    * 为指定的资源文件（通常是 PDF）保存或更新其标注信息（通常是 XFDF 格式）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetFileAnnotationParams)
-   * @returns Promise<SetFileAnnotationResponse> 
+   * @param params Request parameters (AssetSetFileAnnotationParams)
+   * @returns Promise<AssetSetFileAnnotationResponse> 
    */
-  export function setFileAnnotation(params: SetFileAnnotationParams): Promise<SetFileAnnotationResponse>;
+  setFileAnnotation(params: AssetSetFileAnnotationParams): Promise<AssetSetFileAnnotationResponse>;
 
   /**
    * 手动为指定的图片资源文件设置或更新其 OCR 文本内容，并刷新到数据库。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetImageOCRTextParams)
-   * @returns Promise<SetImageOCRTextResponse> 
+   * @param params Request parameters (AssetSetImageOCRTextParams)
+   * @returns Promise<AssetSetImageOCRTextResponse> 
    */
-  export function setImageOCRText(params: SetImageOCRTextParams): Promise<SetImageOCRTextResponse>;
+  setImageOCRText(params: AssetSetImageOCRTextParams): Promise<AssetSetImageOCRTextResponse>;
 
   /**
    * 获取指定资源文件（assets/ 路径）或本地文件（file:/// 路径）的大小、创建及修改时间等元信息。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (StatAssetParams)
-   * @returns Promise<StatAssetResponse> 
+   * @param params Request parameters (AssetStatAssetParams)
+   * @returns Promise<AssetStatAssetResponse> 
    */
-  export function statAsset(params: StatAssetParams): Promise<StatAssetResponse>;
+  statAsset(params: AssetStatAssetParams): Promise<AssetStatAssetResponse>;
 
   /**
    * 处理文件上传。通常用于将文件上传到服务器的临时目录或直接作为资源插入。参数通过 FormData 传递，如 assetPath (可选，指定保存路径) 和 id (可选，关联的文档ID)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UploadParams)
-   * @returns Promise<UploadResponse> 
+   * @param params Request parameters (AssetUploadParams)
+   * @returns Promise<AssetUploadResponse> 
    */
-  export function Upload(params: UploadParams): Promise<UploadResponse>;
+  Upload(params: AssetUploadParams): Promise<AssetUploadResponse>;
 
   /**
    * 将指定文档（及其子文档中）引用的所有本地资源文件上传到用户配置的云存储服务。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UploadCloudParams)
-   * @returns Promise<UploadCloudResponse> 
+   * @param params Request parameters (AssetUploadCloudParams)
+   * @returns Promise<AssetUploadCloudResponse> 
    */
-  export function uploadCloud(params: UploadCloudParams): Promise<UploadCloudResponse>;
+  uploadCloud(params: AssetUploadCloudParams): Promise<AssetUploadCloudResponse>;
 
 }
 
-declare module './attr' {
+export interface AttrApi {
   /**
    * 根据提供的块 ID 列表，批量获取这些块的所有自定义属性。
    * (Requires authentication)
-   * @param params Request parameters (BatchGetBlockAttrsParams)
-   * @returns Promise<BatchGetBlockAttrsResponse> 
+   * @param params Request parameters (AttrBatchGetBlockAttrsParams)
+   * @returns Promise<AttrBatchGetBlockAttrsResponse> 
    */
-  export function batchGetBlockAttrs(params: BatchGetBlockAttrsParams): Promise<BatchGetBlockAttrsResponse>;
+  batchGetBlockAttrs(params: AttrBatchGetBlockAttrsParams): Promise<AttrBatchGetBlockAttrsResponse>;
 
   /**
    * 根据提供的块 ID 和对应的属性集，批量为这些块设置自定义属性。如果属性值为 null，则表示删除该属性。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (BatchSetBlockAttrsParams)
-   * @returns Promise<BatchSetBlockAttrsResponse> 
+   * @param params Request parameters (AttrBatchSetBlockAttrsParams)
+   * @returns Promise<AttrBatchSetBlockAttrsResponse> 
    */
-  export function batchSetBlockAttrs(params: BatchSetBlockAttrsParams): Promise<BatchSetBlockAttrsResponse>;
+  batchSetBlockAttrs(params: AttrBatchSetBlockAttrsParams): Promise<AttrBatchSetBlockAttrsResponse>;
 
   /**
    * 获取指定块 ID 的所有自定义属性。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockAttrsParams)
-   * @returns Promise<GetBlockAttrsResponse> 
+   * @param params Request parameters (AttrGetBlockAttrsParams)
+   * @returns Promise<AttrGetBlockAttrsResponse> 
    */
-  export function getBlockAttrs(params: GetBlockAttrsParams): Promise<GetBlockAttrsResponse>;
+  getBlockAttrs(params: AttrGetBlockAttrsParams): Promise<AttrGetBlockAttrsResponse>;
 
   /**
    * 获取当前工作空间中所有书签使用过的标签列表。
    * (Requires authentication)
-   * @returns Promise<GetBookmarkLabelsResponse> 
+   * @returns Promise<AttrGetBookmarkLabelsResponse> 
    */
-  export function getBookmarkLabels(): Promise<GetBookmarkLabelsResponse>;
+  getBookmarkLabels(): Promise<AttrGetBookmarkLabelsResponse>;
 
   /**
    * 重置指定块的若干属性。此操作通常用于删除属性，但需要提供属性的当前期望值进行匹配后才会执行。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ResetBlockAttrsParams)
-   * @returns Promise<ResetBlockAttrsResponse> 
+   * @param params Request parameters (AttrResetBlockAttrsParams)
+   * @returns Promise<AttrResetBlockAttrsResponse> 
    */
-  export function resetBlockAttrs(params: ResetBlockAttrsParams): Promise<ResetBlockAttrsResponse>;
+  resetBlockAttrs(params: AttrResetBlockAttrsParams): Promise<AttrResetBlockAttrsResponse>;
 
   /**
    * 为指定的单个块设置自定义属性。如果属性值为 null，则表示删除该属性。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetBlockAttrsParams)
-   * @returns Promise<SetBlockAttrsResponse> 
+   * @param params Request parameters (AttrSetBlockAttrsParams)
+   * @returns Promise<AttrSetBlockAttrsResponse> 
    */
-  export function setBlockAttrs(params: SetBlockAttrsParams): Promise<SetBlockAttrsResponse>;
+  setBlockAttrs(params: AttrSetBlockAttrsParams): Promise<AttrSetBlockAttrsResponse>;
 
 }
 
-declare module './av' {
+export interface AvApi {
   /**
    * 向指定的属性视图中添加一个或多个数据块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AddAttributeViewBlocksParams)
-   * @returns Promise<AddAttributeViewBlocksResponse> 
+   * @param params Request parameters (AvAddAttributeViewBlocksParams)
+   * @returns Promise<AvAddAttributeViewBlocksResponse> 
    */
-  export function addAttributeViewBlocks(params: AddAttributeViewBlocksParams): Promise<AddAttributeViewBlocksResponse>;
+  addAttributeViewBlocks(params: AvAddAttributeViewBlocksParams): Promise<AvAddAttributeViewBlocksResponse>;
 
   /**
    * 向指定的属性视图添加一个新的列定义。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AddAttributeViewKeyParams)
-   * @returns Promise<AddAttributeViewKeyResponse> 
+   * @param params Request parameters (AvAddAttributeViewKeyParams)
+   * @returns Promise<AvAddAttributeViewKeyResponse> 
    */
-  export function addAttributeViewKey(params: AddAttributeViewKeyParams): Promise<AddAttributeViewKeyResponse>;
+  addAttributeViewKey(params: AvAddAttributeViewKeyParams): Promise<AvAddAttributeViewKeyResponse>;
 
   /**
    * 向属性视图追加多个新的独立块，并为这些块设置初始值。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AppendAttributeViewDetachedBlocksWithValuesParams)
-   * @returns Promise<AppendAttributeViewDetachedBlocksWithValuesResponse> 
+   * @param params Request parameters (AvAppendAttributeViewDetachedBlocksWithValuesParams)
+   * @returns Promise<AvAppendAttributeViewDetachedBlocksWithValuesResponse> 
    */
-  export function appendAttributeViewDetachedBlocksWithValues(params: AppendAttributeViewDetachedBlocksWithValuesParams): Promise<AppendAttributeViewDetachedBlocksWithValuesResponse>;
+  appendAttributeViewDetachedBlocksWithValues(params: AvAppendAttributeViewDetachedBlocksWithValuesParams): Promise<AvAppendAttributeViewDetachedBlocksWithValuesResponse>;
 
   /**
    * 复制一个属性视图块（数据库块）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (DuplicateAttributeViewBlockParams)
-   * @returns Promise<DuplicateAttributeViewBlockResponse> 
+   * @param params Request parameters (AvDuplicateAttributeViewBlockParams)
+   * @returns Promise<AvDuplicateAttributeViewBlockResponse> 
    */
-  export function duplicateAttributeViewBlock(params: DuplicateAttributeViewBlockParams): Promise<DuplicateAttributeViewBlockResponse>;
+  duplicateAttributeViewBlock(params: AvDuplicateAttributeViewBlockParams): Promise<AvDuplicateAttributeViewBlockResponse>;
 
   /**
    * 获取指定ID的属性视图的详细信息。
    * (Requires authentication, Unavailable in read-only mode)
-   * @param params Request parameters (GetAttributeViewParams)
-   * @returns Promise<GetAttributeViewResponse> 
+   * @param params Request parameters (AvGetAttributeViewParams)
+   * @returns Promise<AvGetAttributeViewResponse> 
    */
-  export function getAttributeView(params: GetAttributeViewParams): Promise<GetAttributeViewResponse>;
+  getAttributeView(params: AvGetAttributeViewParams): Promise<AvGetAttributeViewResponse>;
 
   /**
    * 获取指定属性视图（或其关联块）的筛选条件和排序规则。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetAttributeViewFilterSortParams)
-   * @returns Promise<GetAttributeViewFilterSortResponse> 
+   * @param params Request parameters (AvGetAttributeViewFilterSortParams)
+   * @returns Promise<AvGetAttributeViewFilterSortResponse> 
    */
-  export function getAttributeViewFilterSort(params: GetAttributeViewFilterSortParams): Promise<GetAttributeViewFilterSortResponse>;
+  getAttributeViewFilterSort(params: AvGetAttributeViewFilterSortParams): Promise<AvGetAttributeViewFilterSortResponse>;
 
   /**
    * 获取指定属性视图ID的所有列定义 (keys)。
    * (Requires authentication)
-   * @param params Request parameters (GetAttributeViewKeysParams)
-   * @returns Promise<GetAttributeViewKeysResponse> 
+   * @param params Request parameters (AvGetAttributeViewKeysParams)
+   * @returns Promise<AvGetAttributeViewKeysResponse> 
    */
-  export function getAttributeViewKeys(params: GetAttributeViewKeysParams): Promise<GetAttributeViewKeysResponse>;
+  getAttributeViewKeys(params: AvGetAttributeViewKeysParams): Promise<AvGetAttributeViewKeysResponse>;
 
   /**
    * 通过属性视图ID获取其所有列定义 (keys)。(此接口功能上可能与 getAttributeViewKeys 重复，需确认)
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetAttributeViewKeysByAvIDParams)
-   * @returns Promise<GetAttributeViewKeysByAvIDResponse> 
+   * @param params Request parameters (AvGetAttributeViewKeysByAvIDParams)
+   * @returns Promise<AvGetAttributeViewKeysByAvIDResponse> 
    */
-  export function getAttributeViewKeysByAvID(params: GetAttributeViewKeysByAvIDParams): Promise<GetAttributeViewKeysByAvIDResponse>;
+  getAttributeViewKeysByAvID(params: AvGetAttributeViewKeysByAvIDParams): Promise<AvGetAttributeViewKeysByAvIDResponse>;
 
   /**
    * 获取指定属性视图的主键列的值，支持分页和关键词搜索。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetAttributeViewPrimaryKeyValuesParams)
-   * @returns Promise<GetAttributeViewPrimaryKeyValuesResponse> 
+   * @param params Request parameters (AvGetAttributeViewPrimaryKeyValuesParams)
+   * @returns Promise<AvGetAttributeViewPrimaryKeyValuesResponse> 
    */
-  export function getAttributeViewPrimaryKeyValues(params: GetAttributeViewPrimaryKeyValuesParams): Promise<GetAttributeViewPrimaryKeyValuesResponse>;
+  getAttributeViewPrimaryKeyValues(params: AvGetAttributeViewPrimaryKeyValuesParams): Promise<AvGetAttributeViewPrimaryKeyValuesResponse>;
 
   /**
    * 获取指定属性视图ID的镜像数据库块ID列表。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetMirrorDatabaseBlocksParams)
-   * @returns Promise<GetMirrorDatabaseBlocksResponse> 
+   * @param params Request parameters (AvGetMirrorDatabaseBlocksParams)
+   * @returns Promise<AvGetMirrorDatabaseBlocksResponse> 
    */
-  export function getMirrorDatabaseBlocks(params: GetMirrorDatabaseBlocksParams): Promise<GetMirrorDatabaseBlocksResponse>;
+  getMirrorDatabaseBlocks(params: AvGetMirrorDatabaseBlocksParams): Promise<AvGetMirrorDatabaseBlocksResponse>;
 
   /**
    * 从指定的属性视图中移除一个或多个数据块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveAttributeViewBlocksParams)
-   * @returns Promise<RemoveAttributeViewBlocksResponse> 
+   * @param params Request parameters (AvRemoveAttributeViewBlocksParams)
+   * @returns Promise<AvRemoveAttributeViewBlocksResponse> 
    */
-  export function removeAttributeViewBlocks(params: RemoveAttributeViewBlocksParams): Promise<RemoveAttributeViewBlocksResponse>;
+  removeAttributeViewBlocks(params: AvRemoveAttributeViewBlocksParams): Promise<AvRemoveAttributeViewBlocksResponse>;
 
   /**
    * 从指定的属性视图移除一个列定义。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveAttributeViewKeyParams)
-   * @returns Promise<RemoveAttributeViewKeyResponse> 
+   * @param params Request parameters (AvRemoveAttributeViewKeyParams)
+   * @returns Promise<AvRemoveAttributeViewKeyResponse> 
    */
-  export function removeAttributeViewKey(params: RemoveAttributeViewKeyParams): Promise<RemoveAttributeViewKeyResponse>;
+  removeAttributeViewKey(params: AvRemoveAttributeViewKeyParams): Promise<AvRemoveAttributeViewKeyResponse>;
 
   /**
    * 渲染属性视图，获取其名称、视图类型、视图ID、所有视图、当前视图详情以及是否为镜像等信息。
    * (Requires authentication)
-   * @param params Request parameters (RenderAttributeViewParams)
-   * @returns Promise<RenderAttributeViewResponse> 
+   * @param params Request parameters (AvRenderAttributeViewParams)
+   * @returns Promise<AvRenderAttributeViewResponse> 
    */
-  export function renderAttributeView(params: RenderAttributeViewParams): Promise<RenderAttributeViewResponse>;
+  renderAttributeView(params: AvRenderAttributeViewParams): Promise<AvRenderAttributeViewResponse>;
 
   /**
    * 渲染指定历史版本的属性视图。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (RenderHistoryAttributeViewParams)
-   * @returns Promise<RenderHistoryAttributeViewResponse> 
+   * @param params Request parameters (AvRenderHistoryAttributeViewParams)
+   * @returns Promise<AvRenderHistoryAttributeViewResponse> 
    */
-  export function renderHistoryAttributeView(params: RenderHistoryAttributeViewParams): Promise<RenderHistoryAttributeViewResponse>;
+  renderHistoryAttributeView(params: AvRenderHistoryAttributeViewParams): Promise<AvRenderHistoryAttributeViewResponse>;
 
   /**
    * 渲染指定快照索引的属性视图。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (RenderSnapshotAttributeViewParams)
-   * @returns Promise<RenderSnapshotAttributeViewResponse> 
+   * @param params Request parameters (AvRenderSnapshotAttributeViewParams)
+   * @returns Promise<AvRenderSnapshotAttributeViewResponse> 
    */
-  export function renderSnapshotAttributeView(params: RenderSnapshotAttributeViewParams): Promise<RenderSnapshotAttributeViewResponse>;
+  renderSnapshotAttributeView(params: AvRenderSnapshotAttributeViewParams): Promise<AvRenderSnapshotAttributeViewResponse>;
 
   /**
    * 根据关键词搜索属性视图，可排除指定ID。
    * (Requires authentication, Unavailable in read-only mode)
-   * @param params Request parameters (SearchAttributeViewParams)
-   * @returns Promise<SearchAttributeViewResponse> 
+   * @param params Request parameters (AvSearchAttributeViewParams)
+   * @returns Promise<AvSearchAttributeViewResponse> 
    */
-  export function searchAttributeView(params: SearchAttributeViewParams): Promise<SearchAttributeViewResponse>;
+  searchAttributeView(params: AvSearchAttributeViewParams): Promise<AvSearchAttributeViewResponse>;
 
   /**
    * 根据关键词搜索指定属性视图的非关联列 (Non-relation Key)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SearchAttributeViewNonRelationKeyParams)
-   * @returns Promise<SearchAttributeViewNonRelationKeyResponse> 
+   * @param params Request parameters (AvSearchAttributeViewNonRelationKeyParams)
+   * @returns Promise<AvSearchAttributeViewNonRelationKeyResponse> 
    */
-  export function searchAttributeViewNonRelationKey(params: SearchAttributeViewNonRelationKeyParams): Promise<SearchAttributeViewNonRelationKeyResponse>;
+  searchAttributeViewNonRelationKey(params: AvSearchAttributeViewNonRelationKeyParams): Promise<AvSearchAttributeViewNonRelationKeyResponse>;
 
   /**
    * 根据关键词搜索指定属性视图的关联列 (Relation Key)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SearchAttributeViewRelationKeyParams)
-   * @returns Promise<SearchAttributeViewRelationKeyResponse> 
+   * @param params Request parameters (AvSearchAttributeViewRelationKeyParams)
+   * @returns Promise<AvSearchAttributeViewRelationKeyResponse> 
    */
-  export function searchAttributeViewRelationKey(params: SearchAttributeViewRelationKeyParams): Promise<SearchAttributeViewRelationKeyResponse>;
+  searchAttributeViewRelationKey(params: AvSearchAttributeViewRelationKeyParams): Promise<AvSearchAttributeViewRelationKeyResponse>;
 
   /**
    * 更新属性视图中指定行（块ID）、指定列（KeyID）的单元格的值。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAttributeViewBlockAttrParams)
-   * @returns Promise<SetAttributeViewBlockAttrResponse> 
+   * @param params Request parameters (AvSetAttributeViewBlockAttrParams)
+   * @returns Promise<AvSetAttributeViewBlockAttrResponse> 
    */
-  export function setAttributeViewBlockAttr(params: SetAttributeViewBlockAttrParams): Promise<SetAttributeViewBlockAttrResponse>;
+  setAttributeViewBlockAttr(params: AvSetAttributeViewBlockAttrParams): Promise<AvSetAttributeViewBlockAttrResponse>;
 
   /**
    * 设置指定数据库块（属性视图块）的默认视图ID。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetDatabaseBlockViewParams)
-   * @returns Promise<SetDatabaseBlockViewResponse> 
+   * @param params Request parameters (AvSetDatabaseBlockViewParams)
+   * @returns Promise<AvSetDatabaseBlockViewResponse> 
    */
-  export function setDatabaseBlockView(params: SetDatabaseBlockViewParams): Promise<SetDatabaseBlockViewResponse>;
+  setDatabaseBlockView(params: AvSetDatabaseBlockViewParams): Promise<AvSetDatabaseBlockViewResponse>;
 
   /**
    * 对属性视图的列进行排序。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SortAttributeViewKeyParams)
-   * @returns Promise<SortAttributeViewKeyResponse> 
+   * @param params Request parameters (AvSortAttributeViewKeyParams)
+   * @returns Promise<AvSortAttributeViewKeyResponse> 
    */
-  export function sortAttributeViewKey(params: SortAttributeViewKeyParams): Promise<SortAttributeViewKeyResponse>;
+  sortAttributeViewKey(params: AvSortAttributeViewKeyParams): Promise<AvSortAttributeViewKeyResponse>;
 
   /**
    * 对属性视图中某个特定视图（如图表、看板等）的列进行排序。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SortAttributeViewViewKeyParams)
-   * @returns Promise<SortAttributeViewViewKeyResponse> 
+   * @param params Request parameters (AvSortAttributeViewViewKeyParams)
+   * @returns Promise<AvSortAttributeViewViewKeyResponse> 
    */
-  export function sortAttributeViewViewKey(params: SortAttributeViewViewKeyParams): Promise<SortAttributeViewViewKeyResponse>;
+  sortAttributeViewViewKey(params: AvSortAttributeViewViewKeyParams): Promise<AvSortAttributeViewViewKeyResponse>;
 
 }
 
-declare module './bazaar' {
+export interface BazaarApi {
   /**
    * 根据指定的客户端类型（如 'frontend'）批量更新思源笔记本地缓存的集市包信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (BatchUpdatePackageParams)
-   * @returns Promise<BatchUpdatePackageResponse> 
+   * @param params Request parameters (BazaarBatchUpdatePackageParams)
+   * @returns Promise<BazaarBatchUpdatePackageResponse> 
    */
-  export function batchUpdatePackage(params: BatchUpdatePackageParams): Promise<BatchUpdatePackageResponse>;
+  batchUpdatePackage(params: BazaarBatchUpdatePackageParams): Promise<BazaarBatchUpdatePackageResponse>;
 
   /**
    * 从集市获取所有可用的图标包列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarIconParams)
-   * @returns Promise<GetBazaarIconResponse> 
+   * @param params Request parameters (BazaarGetBazaarIconParams)
+   * @returns Promise<BazaarGetBazaarIconResponse> 
    */
-  export function getBazaarIcon(params: GetBazaarIconParams): Promise<GetBazaarIconResponse>;
+  getBazaarIcon(params: BazaarGetBazaarIconParams): Promise<BazaarGetBazaarIconResponse>;
 
   /**
    * 获取指定集市包（通过仓库URL、哈希和类型指定）的 README 文件内容 (HTML格式)。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarPackageREAMEParams)
-   * @returns Promise<GetBazaarPackageREAMEResponse> 
+   * @param params Request parameters (BazaarGetBazaarPackageREAMEParams)
+   * @returns Promise<BazaarGetBazaarPackageREAMEResponse> 
    */
-  export function getBazaarPackageREAME(params: GetBazaarPackageREAMEParams): Promise<GetBazaarPackageREAMEResponse>;
+  getBazaarPackageREAME(params: BazaarGetBazaarPackageREAMEParams): Promise<BazaarGetBazaarPackageREAMEResponse>;
 
   /**
    * 从集市获取所有可用的插件列表，支持按前端类型和关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarPluginParams)
-   * @returns Promise<GetBazaarPluginResponse> 
+   * @param params Request parameters (BazaarGetBazaarPluginParams)
+   * @returns Promise<BazaarGetBazaarPluginResponse> 
    */
-  export function getBazaarPlugin(params: GetBazaarPluginParams): Promise<GetBazaarPluginResponse>;
+  getBazaarPlugin(params: BazaarGetBazaarPluginParams): Promise<BazaarGetBazaarPluginResponse>;
 
   /**
    * 从集市获取所有可用的模板列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarTemplateParams)
-   * @returns Promise<GetBazaarTemplateResponse> 
+   * @param params Request parameters (BazaarGetBazaarTemplateParams)
+   * @returns Promise<BazaarGetBazaarTemplateResponse> 
    */
-  export function getBazaarTemplate(params: GetBazaarTemplateParams): Promise<GetBazaarTemplateResponse>;
+  getBazaarTemplate(params: BazaarGetBazaarTemplateParams): Promise<BazaarGetBazaarTemplateResponse>;
 
   /**
    * 从集市获取所有可用的主题列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarThemeParams)
-   * @returns Promise<GetBazaarThemeResponse> 
+   * @param params Request parameters (BazaarGetBazaarThemeParams)
+   * @returns Promise<BazaarGetBazaarThemeResponse> 
    */
-  export function getBazaarTheme(params: GetBazaarThemeParams): Promise<GetBazaarThemeResponse>;
+  getBazaarTheme(params: BazaarGetBazaarThemeParams): Promise<BazaarGetBazaarThemeResponse>;
 
   /**
    * 从集市获取所有可用的挂件列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetBazaarWidgetParams)
-   * @returns Promise<GetBazaarWidgetResponse> 
+   * @param params Request parameters (BazaarGetBazaarWidgetParams)
+   * @returns Promise<BazaarGetBazaarWidgetResponse> 
    */
-  export function getBazaarWidget(params: GetBazaarWidgetParams): Promise<GetBazaarWidgetResponse>;
+  getBazaarWidget(params: BazaarGetBazaarWidgetParams): Promise<BazaarGetBazaarWidgetResponse>;
 
   /**
    * 获取本地已安装的图标包列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetInstalledIconParams)
-   * @returns Promise<GetInstalledIconResponse> 
+   * @param params Request parameters (BazaarGetInstalledIconParams)
+   * @returns Promise<BazaarGetInstalledIconResponse> 
    */
-  export function getInstalledIcon(params: GetInstalledIconParams): Promise<GetInstalledIconResponse>;
+  getInstalledIcon(params: BazaarGetInstalledIconParams): Promise<BazaarGetInstalledIconResponse>;
 
   /**
    * 获取本地已安装的插件列表，支持按前端类型和关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetInstalledPluginParams)
-   * @returns Promise<GetInstalledPluginResponse> 
+   * @param params Request parameters (BazaarGetInstalledPluginParams)
+   * @returns Promise<BazaarGetInstalledPluginResponse> 
    */
-  export function getInstalledPlugin(params: GetInstalledPluginParams): Promise<GetInstalledPluginResponse>;
+  getInstalledPlugin(params: BazaarGetInstalledPluginParams): Promise<BazaarGetInstalledPluginResponse>;
 
   /**
    * 获取本地已安装的模板列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetInstalledTemplateParams)
-   * @returns Promise<GetInstalledTemplateResponse> 
+   * @param params Request parameters (BazaarGetInstalledTemplateParams)
+   * @returns Promise<BazaarGetInstalledTemplateResponse> 
    */
-  export function getInstalledTemplate(params: GetInstalledTemplateParams): Promise<GetInstalledTemplateResponse>;
+  getInstalledTemplate(params: BazaarGetInstalledTemplateParams): Promise<BazaarGetInstalledTemplateResponse>;
 
   /**
    * 获取本地已安装的主题列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetInstalledThemeParams)
-   * @returns Promise<GetInstalledThemeResponse> 
+   * @param params Request parameters (BazaarGetInstalledThemeParams)
+   * @returns Promise<BazaarGetInstalledThemeResponse> 
    */
-  export function getInstalledTheme(params: GetInstalledThemeParams): Promise<GetInstalledThemeResponse>;
+  getInstalledTheme(params: BazaarGetInstalledThemeParams): Promise<BazaarGetInstalledThemeResponse>;
 
   /**
    * 获取本地已安装的挂件列表，支持关键词筛选。
    * (Requires authentication)
-   * @param params Request parameters (GetInstalledWidgetParams)
-   * @returns Promise<GetInstalledWidgetResponse> 
+   * @param params Request parameters (BazaarGetInstalledWidgetParams)
+   * @returns Promise<BazaarGetInstalledWidgetResponse> 
    */
-  export function getInstalledWidget(params: GetInstalledWidgetParams): Promise<GetInstalledWidgetResponse>;
+  getInstalledWidget(params: BazaarGetInstalledWidgetParams): Promise<BazaarGetInstalledWidgetResponse>;
 
   /**
    * 检查并返回所有已安装且存在更新的集市包（插件、挂件、图标、主题、模板）。
    * (Requires authentication)
-   * @param params Request parameters (GetUpdatedPackageParams)
-   * @returns Promise<GetUpdatedPackageResponse> 
+   * @param params Request parameters (BazaarGetUpdatedPackageParams)
+   * @returns Promise<BazaarGetUpdatedPackageResponse> 
    */
-  export function getUpdatedPackage(params: GetUpdatedPackageParams): Promise<GetUpdatedPackageResponse>;
+  getUpdatedPackage(params: BazaarGetUpdatedPackageParams): Promise<BazaarGetUpdatedPackageResponse>;
 
   /**
    * 从集市安装指定的图标包。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InstallBazaarIconParams)
-   * @returns Promise<InstallBazaarIconResponse> 
+   * @param params Request parameters (BazaarInstallBazaarIconParams)
+   * @returns Promise<BazaarInstallBazaarIconResponse> 
    */
-  export function installBazaarIcon(params: InstallBazaarIconParams): Promise<InstallBazaarIconResponse>;
+  installBazaarIcon(params: BazaarInstallBazaarIconParams): Promise<BazaarInstallBazaarIconResponse>;
 
   /**
    * 从集市安装指定的插件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InstallBazaarPluginParams)
-   * @returns Promise<InstallBazaarPluginResponse> 
+   * @param params Request parameters (BazaarInstallBazaarPluginParams)
+   * @returns Promise<BazaarInstallBazaarPluginResponse> 
    */
-  export function installBazaarPlugin(params: InstallBazaarPluginParams): Promise<InstallBazaarPluginResponse>;
+  installBazaarPlugin(params: BazaarInstallBazaarPluginParams): Promise<BazaarInstallBazaarPluginResponse>;
 
   /**
    * 从集市安装指定的模板。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InstallBazaarTemplateParams)
-   * @returns Promise<InstallBazaarTemplateResponse> 
+   * @param params Request parameters (BazaarInstallBazaarTemplateParams)
+   * @returns Promise<BazaarInstallBazaarTemplateResponse> 
    */
-  export function installBazaarTemplate(params: InstallBazaarTemplateParams): Promise<InstallBazaarTemplateResponse>;
+  installBazaarTemplate(params: BazaarInstallBazaarTemplateParams): Promise<BazaarInstallBazaarTemplateResponse>;
 
   /**
    * 从集市安装指定的主题，并可指定主题模式 (mode) 和是否为更新 (update)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InstallBazaarThemeParams)
-   * @returns Promise<InstallBazaarThemeResponse> 
+   * @param params Request parameters (BazaarInstallBazaarThemeParams)
+   * @returns Promise<BazaarInstallBazaarThemeResponse> 
    */
-  export function installBazaarTheme(params: InstallBazaarThemeParams): Promise<InstallBazaarThemeResponse>;
+  installBazaarTheme(params: BazaarInstallBazaarThemeParams): Promise<BazaarInstallBazaarThemeResponse>;
 
   /**
    * 从集市安装指定的挂件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InstallBazaarWidgetParams)
-   * @returns Promise<InstallBazaarWidgetResponse> 
+   * @param params Request parameters (BazaarInstallBazaarWidgetParams)
+   * @returns Promise<BazaarInstallBazaarWidgetResponse> 
    */
-  export function installBazaarWidget(params: InstallBazaarWidgetParams): Promise<InstallBazaarWidgetResponse>;
+  installBazaarWidget(params: BazaarInstallBazaarWidgetParams): Promise<BazaarInstallBazaarWidgetResponse>;
 
   /**
    * 卸载本地已安装的指定图标包。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UninstallBazaarIconParams)
-   * @returns Promise<UninstallBazaarIconResponse> 
+   * @param params Request parameters (BazaarUninstallBazaarIconParams)
+   * @returns Promise<BazaarUninstallBazaarIconResponse> 
    */
-  export function uninstallBazaarIcon(params: UninstallBazaarIconParams): Promise<UninstallBazaarIconResponse>;
+  uninstallBazaarIcon(params: BazaarUninstallBazaarIconParams): Promise<BazaarUninstallBazaarIconResponse>;
 
   /**
    * 卸载本地已安装的指定插件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UninstallBazaarPluginParams)
-   * @returns Promise<UninstallBazaarPluginResponse> 
+   * @param params Request parameters (BazaarUninstallBazaarPluginParams)
+   * @returns Promise<BazaarUninstallBazaarPluginResponse> 
    */
-  export function uninstallBazaarPlugin(params: UninstallBazaarPluginParams): Promise<UninstallBazaarPluginResponse>;
+  uninstallBazaarPlugin(params: BazaarUninstallBazaarPluginParams): Promise<BazaarUninstallBazaarPluginResponse>;
 
   /**
    * 卸载本地已安装的指定模板。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UninstallBazaarTemplateParams)
-   * @returns Promise<UninstallBazaarTemplateResponse> 
+   * @param params Request parameters (BazaarUninstallBazaarTemplateParams)
+   * @returns Promise<BazaarUninstallBazaarTemplateResponse> 
    */
-  export function uninstallBazaarTemplate(params: UninstallBazaarTemplateParams): Promise<UninstallBazaarTemplateResponse>;
+  uninstallBazaarTemplate(params: BazaarUninstallBazaarTemplateParams): Promise<BazaarUninstallBazaarTemplateResponse>;
 
   /**
    * 卸载本地已安装的指定主题。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UninstallBazaarThemeParams)
-   * @returns Promise<UninstallBazaarThemeResponse> 
+   * @param params Request parameters (BazaarUninstallBazaarThemeParams)
+   * @returns Promise<BazaarUninstallBazaarThemeResponse> 
    */
-  export function uninstallBazaarTheme(params: UninstallBazaarThemeParams): Promise<UninstallBazaarThemeResponse>;
+  uninstallBazaarTheme(params: BazaarUninstallBazaarThemeParams): Promise<BazaarUninstallBazaarThemeResponse>;
 
   /**
    * 卸载本地已安装的指定挂件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UninstallBazaarWidgetParams)
-   * @returns Promise<UninstallBazaarWidgetResponse> 
+   * @param params Request parameters (BazaarUninstallBazaarWidgetParams)
+   * @returns Promise<BazaarUninstallBazaarWidgetResponse> 
    */
-  export function uninstallBazaarWidget(params: UninstallBazaarWidgetParams): Promise<UninstallBazaarWidgetResponse>;
+  uninstallBazaarWidget(params: BazaarUninstallBazaarWidgetParams): Promise<BazaarUninstallBazaarWidgetResponse>;
 
 }
 
-declare module './block' {
+export interface BlockApi {
   /**
    * 在指定父块的末尾插入新的子块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AppendBlockParams)
-   * @returns Promise<AppendBlockResponse> 
+   * @param params Request parameters (BlockAppendBlockParams)
+   * @returns Promise<BlockAppendBlockResponse> 
    */
-  export function appendBlock(params: AppendBlockParams): Promise<AppendBlockResponse>;
+  appendBlock(params: BlockAppendBlockParams): Promise<BlockAppendBlockResponse>;
 
   /**
    * 向指定笔记本的当日日记文档末尾追加新的内容块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AppendDailyNoteBlockParams)
-   * @returns Promise<AppendDailyNoteBlockResponse> 
+   * @param params Request parameters (BlockAppendDailyNoteBlockParams)
+   * @returns Promise<BlockAppendDailyNoteBlockResponse> 
    */
-  export function appendDailyNoteBlock(params: AppendDailyNoteBlockParams): Promise<AppendDailyNoteBlockResponse>;
+  appendDailyNoteBlock(params: BlockAppendDailyNoteBlockParams): Promise<BlockAppendDailyNoteBlockResponse>;
 
   /**
    * 批量更新多个块的内容。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (BatchUpdateBlockParams)
-   * @returns Promise<BatchUpdateBlockResponse> 
+   * @param params Request parameters (BlockBatchUpdateBlockParams)
+   * @returns Promise<BlockBatchUpdateBlockResponse> 
    */
-  export function batchUpdateBlock(params: BatchUpdateBlockParams): Promise<BatchUpdateBlockResponse>;
+  batchUpdateBlock(params: BlockBatchUpdateBlockParams): Promise<BlockBatchUpdateBlockResponse>;
 
   /**
    * 检查指定的块ID是否存在。
    * (Requires authentication)
-   * @param params Request parameters (CheckBlockExistParams)
-   * @returns Promise<CheckBlockExistResponse> 
+   * @param params Request parameters (BlockCheckBlockExistParams)
+   * @returns Promise<BlockCheckBlockExistResponse> 
    */
-  export function checkBlockExist(params: CheckBlockExistParams): Promise<CheckBlockExistResponse>;
+  checkBlockExist(params: BlockCheckBlockExistParams): Promise<BlockCheckBlockExistResponse>;
 
   /**
    * 检查指定的块ID是否已折叠，并返回其是否为根块。
    * (Requires authentication)
-   * @param params Request parameters (CheckBlockFoldParams)
-   * @returns Promise<CheckBlockFoldResponse> 
+   * @param params Request parameters (BlockCheckBlockFoldParams)
+   * @returns Promise<BlockCheckBlockFoldResponse> 
    */
-  export function checkBlockFold(params: CheckBlockFoldParams): Promise<CheckBlockFoldResponse>;
+  checkBlockFold(params: BlockCheckBlockFoldParams): Promise<BlockCheckBlockFoldResponse>;
 
   /**
    * 检查一批块ID的引用状态（例如，是否被其他块引用，是否定义了其他块等）。
    * (Requires authentication)
-   * @param params Request parameters (CheckBlockRefParams)
-   * @returns Promise<CheckBlockRefResponse> 
+   * @param params Request parameters (BlockCheckBlockRefParams)
+   * @returns Promise<BlockCheckBlockRefResponse> 
    */
-  export function checkBlockRef(params: CheckBlockRefParams): Promise<CheckBlockRefResponse>;
+  checkBlockRef(params: BlockCheckBlockRefParams): Promise<BlockCheckBlockRefResponse>;
 
   /**
    * 删除指定的块ID。此操作通过事务完成。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (DeleteBlockParams)
-   * @returns Promise<DeleteBlockResponse> 
+   * @param params Request parameters (BlockDeleteBlockParams)
+   * @returns Promise<BlockDeleteBlockResponse> 
    */
-  export function deleteBlock(params: DeleteBlockParams): Promise<DeleteBlockResponse>;
+  deleteBlock(params: BlockDeleteBlockParams): Promise<BlockDeleteBlockResponse>;
 
   /**
    * 折叠指定的块ID。对于标题块，执行 foldHeading 操作；对于其他类型的块，设置其 fold 属性。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (FoldBlockParams)
-   * @returns Promise<FoldBlockResponse> 
+   * @param params Request parameters (BlockFoldBlockParams)
+   * @returns Promise<BlockFoldBlockResponse> 
    */
-  export function foldBlock(params: FoldBlockParams): Promise<FoldBlockResponse>;
+  foldBlock(params: BlockFoldBlockParams): Promise<BlockFoldBlockResponse>;
 
   /**
    * 获取指定块ID到其根块（通常是文档块）的面包屑路径，可以排除特定类型的块。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockBreadcrumbParams)
-   * @returns Promise<GetBlockBreadcrumbResponse> 
+   * @param params Request parameters (BlockGetBlockBreadcrumbParams)
+   * @returns Promise<BlockGetBlockBreadcrumbResponse> 
    */
-  export function getBlockBreadcrumb(params: GetBlockBreadcrumbParams): Promise<GetBlockBreadcrumbResponse>;
+  getBlockBreadcrumb(params: BlockGetBlockBreadcrumbParams): Promise<BlockGetBlockBreadcrumbResponse>;
 
   /**
    * 获取指定块ID的DOM表示（HTML字符串）。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockDOMParams)
-   * @returns Promise<GetBlockDOMResponse> 
+   * @param params Request parameters (BlockGetBlockDOMParams)
+   * @returns Promise<BlockGetBlockDOMResponse> 
    */
-  export function getBlockDOM(params: GetBlockDOMParams): Promise<GetBlockDOMResponse>;
+  getBlockDOM(params: BlockGetBlockDOMParams): Promise<BlockGetBlockDOMResponse>;
 
   /**
    * 根据引用文本（锚文本）搜索并返回其可能指向的块定义ID列表。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockDefIDsByRefTextParams)
-   * @returns Promise<GetBlockDefIDsByRefTextResponse> 
+   * @param params Request parameters (BlockGetBlockDefIDsByRefTextParams)
+   * @returns Promise<BlockGetBlockDefIDsByRefTextResponse> 
    */
-  export function getBlockDefIDsByRefText(params: GetBlockDefIDsByRefTextParams): Promise<GetBlockDefIDsByRefTextResponse>;
+  getBlockDefIDsByRefText(params: BlockGetBlockDefIDsByRefTextParams): Promise<BlockGetBlockDefIDsByRefTextResponse>;
 
   /**
    * 获取指定块ID在其父级块的子块列表中的位置索引（从0开始）。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockIndexParams)
-   * @returns Promise<GetBlockIndexResponse> 
+   * @param params Request parameters (BlockGetBlockIndexParams)
+   * @returns Promise<BlockGetBlockIndexResponse> 
    */
-  export function getBlockIndex(params: GetBlockIndexParams): Promise<GetBlockIndexResponse>;
+  getBlockIndex(params: BlockGetBlockIndexParams): Promise<BlockGetBlockIndexResponse>;
 
   /**
    * 获取指定块ID的详细信息，包括其所在的笔记本ID(box)、路径(path)、根块ID(rootID)、根块标题(rootTitle)、根块图标(rootIcon)以及其在根块下的直接子块ID(rootChildID)。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockInfoParams)
-   * @returns Promise<GetBlockInfoResponse> 
+   * @param params Request parameters (BlockGetBlockInfoParams)
+   * @returns Promise<BlockGetBlockInfoResponse> 
    */
-  export function getBlockInfo(params: GetBlockInfoParams): Promise<GetBlockInfoResponse>;
+  getBlockInfo(params: BlockGetBlockInfoParams): Promise<BlockGetBlockInfoResponse>;
 
   /**
    * 获取指定块ID的Kramdown源码表示。可选模式：'md'（Markdown标记符模式，默认）或 'textmark'（文本标记模式，使用span标签）。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockKramdownParams)
-   * @returns Promise<GetBlockKramdownResponse> 
+   * @param params Request parameters (BlockGetBlockKramdownParams)
+   * @returns Promise<BlockGetBlockKramdownResponse> 
    */
-  export function getBlockKramdown(params: GetBlockKramdownParams): Promise<GetBlockKramdownResponse>;
+  getBlockKramdown(params: BlockGetBlockKramdownParams): Promise<BlockGetBlockKramdownResponse>;
 
   /**
    * 获取指定块ID的父块ID、上一个同级块ID和下一个同级块ID。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockSiblingIDParams)
-   * @returns Promise<GetBlockSiblingIDResponse> 
+   * @param params Request parameters (BlockGetBlockSiblingIDParams)
+   * @returns Promise<BlockGetBlockSiblingIDResponse> 
    */
-  export function getBlockSiblingID(params: GetBlockSiblingIDParams): Promise<GetBlockSiblingIDResponse>;
+  getBlockSiblingID(params: BlockGetBlockSiblingIDParams): Promise<BlockGetBlockSiblingIDResponse>;
 
   /**
    * 批量获取指定块ID列表对应的块树（BlockTree）信息。
    * (Requires authentication)
-   * @param params Request parameters (GetBlockTreeInfosParams)
-   * @returns Promise<GetBlockTreeInfosResponse> 
+   * @param params Request parameters (BlockGetBlockTreeInfosParams)
+   * @returns Promise<BlockGetBlockTreeInfosResponse> 
    */
-  export function getBlockTreeInfos(params: GetBlockTreeInfosParams): Promise<GetBlockTreeInfosResponse>;
+  getBlockTreeInfos(params: BlockGetBlockTreeInfosParams): Promise<BlockGetBlockTreeInfosResponse>;
 
   /**
    * 批量获取指定块ID列表各自在其父级块的子块列表中的位置索引。
    * (Requires authentication)
-   * @param params Request parameters (GetBlocksIndexesParams)
-   * @returns Promise<GetBlocksIndexesResponse> 
+   * @param params Request parameters (BlockGetBlocksIndexesParams)
+   * @returns Promise<BlockGetBlocksIndexesResponse> 
    */
-  export function getBlocksIndexes(params: GetBlocksIndexesParams): Promise<GetBlocksIndexesResponse>;
+  getBlocksIndexes(params: BlockGetBlocksIndexesParams): Promise<BlockGetBlocksIndexesResponse>;
 
   /**
    * 获取指定块ID列表的总字数、字符数和链接数统计信息。
    * (Requires authentication)
-   * @param params Request parameters (GetBlocksWordCountParams)
-   * @returns Promise<GetBlocksWordCountResponse> 
+   * @param params Request parameters (BlockGetBlocksWordCountParams)
+   * @returns Promise<BlockGetBlocksWordCountResponse> 
    */
-  export function getBlocksWordCount(params: GetBlocksWordCountParams): Promise<GetBlocksWordCountResponse>;
+  getBlocksWordCount(params: BlockGetBlocksWordCountParams): Promise<BlockGetBlocksWordCountResponse>;
 
   /**
    * 获取指定块ID的所有直接子块的基本信息列表（仅包含ID和类型）。
    * (Requires authentication)
-   * @param params Request parameters (GetChildBlocksParams)
-   * @returns Promise<GetChildBlocksResponse> 
+   * @param params Request parameters (BlockGetChildBlocksParams)
+   * @returns Promise<BlockGetChildBlocksResponse> 
    */
-  export function getChildBlocks(params: GetChildBlocksParams): Promise<GetChildBlocksResponse>;
+  getChildBlocks(params: BlockGetChildBlocksParams): Promise<BlockGetChildBlocksResponse>;
 
   /**
    * 获取给定内容字符串的字数、字符数和链接数统计信息。
    * (Requires authentication)
-   * @param params Request parameters (GetContentWordCountParams)
-   * @returns Promise<GetContentWordCountResponse> 
+   * @param params Request parameters (BlockGetContentWordCountParams)
+   * @returns Promise<BlockGetContentWordCountResponse> 
    */
-  export function getContentWordCount(params: GetContentWordCountParams): Promise<GetContentWordCountResponse>;
+  getContentWordCount(params: BlockGetContentWordCountParams): Promise<BlockGetContentWordCountResponse>;
 
   /**
    * 提取给定DOM字符串中的纯文本内容。
    * (Requires authentication)
-   * @param params Request parameters (GetDOMTextParams)
-   * @returns Promise<GetDOMTextResponse> 
+   * @param params Request parameters (BlockGetDOMTextParams)
+   * @returns Promise<BlockGetDOMTextResponse> 
    */
-  export function getDOMText(params: GetDOMTextParams): Promise<GetDOMTextResponse>;
+  getDOMText(params: BlockGetDOMTextParams): Promise<BlockGetDOMTextResponse>;
 
   /**
    * 获取指定文档块ID的信息，包括其内容（DOM）、标题、图标、面包屑路径和是否为模板。
    * (Requires authentication)
-   * @param params Request parameters (GetDocInfoParams)
-   * @returns Promise<GetDocInfoResponse> 
+   * @param params Request parameters (BlockGetDocInfoParams)
+   * @returns Promise<BlockGetDocInfoResponse> 
    */
-  export function getDocInfo(params: GetDocInfoParams): Promise<GetDocInfoResponse>;
+  getDocInfo(params: BlockGetDocInfoParams): Promise<BlockGetDocInfoResponse>;
 
   /**
    * 批量获取多个指定文档块ID的信息。
    * (Requires authentication)
-   * @param params Request parameters (GetDocsInfoParams)
-   * @returns Promise<GetDocsInfoResponse> 
+   * @param params Request parameters (BlockGetDocsInfoParams)
+   * @returns Promise<BlockGetDocsInfoResponse> 
    */
-  export function getDocsInfo(params: GetDocsInfoParams): Promise<GetDocsInfoResponse>;
+  getDocsInfo(params: BlockGetDocsInfoParams): Promise<BlockGetDocsInfoResponse>;
 
   /**
    * 获取指定标题块ID下的所有子孙块的DOM内容。
    * (Requires authentication)
-   * @param params Request parameters (GetHeadingChildrenDOMParams)
-   * @returns Promise<GetHeadingChildrenDOMResponse> 
+   * @param params Request parameters (BlockGetHeadingChildrenDOMParams)
+   * @returns Promise<BlockGetHeadingChildrenDOMResponse> 
    */
-  export function getHeadingChildrenDOM(params: GetHeadingChildrenDOMParams): Promise<GetHeadingChildrenDOMResponse>;
+  getHeadingChildrenDOM(params: BlockGetHeadingChildrenDOMParams): Promise<BlockGetHeadingChildrenDOMResponse>;
 
   /**
    * 获取指定标题块ID下的所有子孙块的ID列表。
    * (Requires authentication)
-   * @param params Request parameters (GetHeadingChildrenIDsParams)
-   * @returns Promise<GetHeadingChildrenIDsResponse> 
+   * @param params Request parameters (BlockGetHeadingChildrenIDsParams)
+   * @returns Promise<BlockGetHeadingChildrenIDsResponse> 
    */
-  export function getHeadingChildrenIDs(params: GetHeadingChildrenIDsParams): Promise<GetHeadingChildrenIDsResponse>;
+  getHeadingChildrenIDs(params: BlockGetHeadingChildrenIDsParams): Promise<BlockGetHeadingChildrenIDsResponse>;
 
   /**
    * 获取删除指定标题块（及其所有子孙块）所需的事务操作列表。此接口仅返回事务，不实际执行删除。
    * (Requires authentication)
-   * @param params Request parameters (GetHeadingDeleteTransactionParams)
-   * @returns Promise<GetHeadingDeleteTransactionResponse> 
+   * @param params Request parameters (BlockGetHeadingDeleteTransactionParams)
+   * @returns Promise<BlockGetHeadingDeleteTransactionResponse> 
    */
-  export function getHeadingDeleteTransaction(params: GetHeadingDeleteTransactionParams): Promise<GetHeadingDeleteTransactionResponse>;
+  getHeadingDeleteTransaction(params: BlockGetHeadingDeleteTransactionParams): Promise<BlockGetHeadingDeleteTransactionResponse>;
 
   /**
    * 获取调整指定标题块级别所需的事务操作列表。此接口仅返回事务，不实际执行调整。
    * (Requires authentication)
-   * @param params Request parameters (GetHeadingLevelTransactionParams)
-   * @returns Promise<GetHeadingLevelTransactionResponse> 
+   * @param params Request parameters (BlockGetHeadingLevelTransactionParams)
+   * @returns Promise<BlockGetHeadingLevelTransactionResponse> 
    */
-  export function getHeadingLevelTransaction(params: GetHeadingLevelTransactionParams): Promise<GetHeadingLevelTransactionResponse>;
+  getHeadingLevelTransaction(params: BlockGetHeadingLevelTransactionParams): Promise<BlockGetHeadingLevelTransactionResponse>;
 
   /**
    * 获取最近更新的块列表，按更新时间倒序排列。
    * (Requires authentication)
-   * @returns Promise<GetRecentUpdatedBlocksResponse> 
+   * @returns Promise<BlockGetRecentUpdatedBlocksResponse> 
    */
-  export function getRecentUpdatedBlocks(): Promise<GetRecentUpdatedBlocksResponse>;
+  getRecentUpdatedBlocks(): Promise<BlockGetRecentUpdatedBlocksResponse>;
 
   /**
    * 获取指定块ID所引用的所有定义块的ID列表。
    * (Requires authentication)
-   * @param params Request parameters (GetRefIDsParams)
-   * @returns Promise<GetRefIDsResponse> 
+   * @param params Request parameters (BlockGetRefIDsParams)
+   * @returns Promise<BlockGetRefIDsResponse> 
    */
-  export function getRefIDs(params: GetRefIDsParams): Promise<GetRefIDsResponse>;
+  getRefIDs(params: BlockGetRefIDsParams): Promise<BlockGetRefIDsResponse>;
 
   /**
    * 根据文件注解块的ID，查找与该注解相关的引用块ID和定义块ID。
    * (Requires authentication)
-   * @param params Request parameters (GetRefIDsByFileAnnotationIDParams)
-   * @returns Promise<GetRefIDsByFileAnnotationIDResponse> 
+   * @param params Request parameters (BlockGetRefIDsByFileAnnotationIDParams)
+   * @returns Promise<BlockGetRefIDsByFileAnnotationIDResponse> 
    */
-  export function getRefIDsByFileAnnotationID(params: GetRefIDsByFileAnnotationIDParams): Promise<GetRefIDsByFileAnnotationIDResponse>;
+  getRefIDsByFileAnnotationID(params: BlockGetRefIDsByFileAnnotationIDParams): Promise<BlockGetRefIDsByFileAnnotationIDResponse>;
 
   /**
    * 获取指定引用块ID的锚文本内容。
    * (Requires authentication)
-   * @param params Request parameters (GetRefTextParams)
-   * @returns Promise<GetRefTextResponse> 
+   * @param params Request parameters (BlockGetRefTextParams)
+   * @returns Promise<BlockGetRefTextResponse> 
    */
-  export function getRefText(params: GetRefTextParams): Promise<GetRefTextResponse>;
+  getRefText(params: BlockGetRefTextParams): Promise<BlockGetRefTextResponse>;
 
   /**
    * 获取指定块ID的尾部（最后）指定数量的直接子块的基本信息。
    * (Requires authentication)
-   * @param params Request parameters (GetTailChildBlocksParams)
-   * @returns Promise<GetTailChildBlocksResponse> 
+   * @param params Request parameters (BlockGetTailChildBlocksParams)
+   * @returns Promise<BlockGetTailChildBlocksResponse> 
    */
-  export function getTailChildBlocks(params: GetTailChildBlocksParams): Promise<GetTailChildBlocksResponse>;
+  getTailChildBlocks(params: BlockGetTailChildBlocksParams): Promise<BlockGetTailChildBlocksResponse>;
 
   /**
    * 获取指定块ID（通常是文档块）的树结构统计信息，如各种类型子块的数量等。
    * (Requires authentication)
-   * @param params Request parameters (GetTreeStatParams)
-   * @returns Promise<GetTreeStatResponse> 
+   * @param params Request parameters (BlockGetTreeStatParams)
+   * @returns Promise<BlockGetTreeStatResponse> 
    */
-  export function getTreeStat(params: GetTreeStatParams): Promise<GetTreeStatResponse>;
+  getTreeStat(params: BlockGetTreeStatParams): Promise<BlockGetTreeStatResponse>;
 
   /**
    * 向上查找指定块ID的父块链，返回最近的一个已展开（未折叠）的父块ID。
    * (Requires authentication)
-   * @param params Request parameters (GetUnfoldedParentIDParams)
-   * @returns Promise<GetUnfoldedParentIDResponse> 
+   * @param params Request parameters (BlockGetUnfoldedParentIDParams)
+   * @returns Promise<BlockGetUnfoldedParentIDResponse> 
    */
-  export function getUnfoldedParentID(params: GetUnfoldedParentIDParams): Promise<GetUnfoldedParentIDResponse>;
+  getUnfoldedParentID(params: BlockGetUnfoldedParentIDParams): Promise<BlockGetUnfoldedParentIDResponse>;
 
   /**
    * 在指定的锚点块（anchorID）之前或之后插入新的内容块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InsertBlockParams)
-   * @returns Promise<InsertBlockResponse> 
+   * @param params Request parameters (BlockInsertBlockParams)
+   * @returns Promise<BlockInsertBlockResponse> 
    */
-  export function insertBlock(params: InsertBlockParams): Promise<InsertBlockResponse>;
+  insertBlock(params: BlockInsertBlockParams): Promise<BlockInsertBlockResponse>;
 
   /**
    * 在指定父块的开头插入新的子块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PrependBlockParams)
-   * @returns Promise<PrependBlockResponse> 
+   * @param params Request parameters (BlockPrependBlockParams)
+   * @returns Promise<BlockPrependBlockResponse> 
    */
-  export function prependBlock(params: PrependBlockParams): Promise<PrependBlockResponse>;
+  prependBlock(params: BlockPrependBlockParams): Promise<BlockPrependBlockResponse>;
 
   /**
    * 为指定的块ID设置一个提醒时间。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetBlockReminderParams)
-   * @returns Promise<SetBlockReminderResponse> 
+   * @param params Request parameters (BlockSetBlockReminderParams)
+   * @returns Promise<BlockSetBlockReminderResponse> 
    */
-  export function setBlockReminder(params: SetBlockReminderParams): Promise<SetBlockReminderResponse>;
+  setBlockReminder(params: BlockSetBlockReminderParams): Promise<BlockSetBlockReminderResponse>;
 
   /**
    * 交换指定的引用块和其指向的定义块的角色。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SwapBlockRefParams)
-   * @returns Promise<SwapBlockRefResponse> 
+   * @param params Request parameters (BlockSwapBlockRefParams)
+   * @returns Promise<BlockSwapBlockRefResponse> 
    */
-  export function swapBlockRef(params: SwapBlockRefParams): Promise<SwapBlockRefResponse>;
+  swapBlockRef(params: BlockSwapBlockRefParams): Promise<BlockSwapBlockRefResponse>;
 
   /**
    * 将原块（fromID）的所有引用关系（或指定的引用关系 refIDs）转移到目标块（toID）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (TransferBlockRefParams)
-   * @returns Promise<TransferBlockRefResponse> 
+   * @param params Request parameters (BlockTransferBlockRefParams)
+   * @returns Promise<BlockTransferBlockRefResponse> 
    */
-  export function transferBlockRef(params: TransferBlockRefParams): Promise<TransferBlockRefResponse>;
+  transferBlockRef(params: BlockTransferBlockRefParams): Promise<BlockTransferBlockRefResponse>;
 
   /**
    * 展开指定的块ID。对于标题块，执行 unfoldHeading 操作；对于其他类型的块，设置其 fold 属性为 false。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UnfoldBlockParams)
-   * @returns Promise<UnfoldBlockResponse> 
+   * @param params Request parameters (BlockUnfoldBlockParams)
+   * @returns Promise<BlockUnfoldBlockResponse> 
    */
-  export function unfoldBlock(params: UnfoldBlockParams): Promise<UnfoldBlockResponse>;
+  unfoldBlock(params: BlockUnfoldBlockParams): Promise<BlockUnfoldBlockResponse>;
 
   /**
    * 更新指定块ID的内容。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UpdateBlockParams)
-   * @returns Promise<UpdateBlockResponse> 
+   * @param params Request parameters (BlockUpdateBlockParams)
+   * @returns Promise<BlockUpdateBlockResponse> 
    */
-  export function updateBlock(params: UpdateBlockParams): Promise<UpdateBlockResponse>;
+  updateBlock(params: BlockUpdateBlockParams): Promise<BlockUpdateBlockResponse>;
 
   /**
    * 在指定笔记本的当日日记文档开头追加新的内容块。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PrependDailyNoteBlockParams)
-   * @returns Promise<PrependDailyNoteBlockResponse> 
+   * @param params Request parameters (BlockPrependDailyNoteBlockParams)
+   * @returns Promise<BlockPrependDailyNoteBlockResponse> 
    */
-  export function prependDailyNoteBlock(params: PrependDailyNoteBlockParams): Promise<PrependDailyNoteBlockResponse>;
+  prependDailyNoteBlock(params: BlockPrependDailyNoteBlockParams): Promise<BlockPrependDailyNoteBlockResponse>;
 
   /**
    * 将指定的块移动到新的父块下或同级块的特定位置。移动后会触发相关文档编辑器的重载。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (MoveBlockParams)
-   * @returns Promise<MoveBlockResponse> 
+   * @param params Request parameters (BlockMoveBlockParams)
+   * @returns Promise<BlockMoveBlockResponse> 
    */
-  export function moveBlock(params: MoveBlockParams): Promise<MoveBlockResponse>;
+  moveBlock(params: BlockMoveBlockParams): Promise<BlockMoveBlockResponse>;
 
   /**
    * 移动大纲中的标题块到新的父级或同级位置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (MoveOutlineHeadingParams)
-   * @returns Promise<MoveOutlineHeadingResponse> 
+   * @param params Request parameters (BlockMoveOutlineHeadingParams)
+   * @returns Promise<BlockMoveOutlineHeadingResponse> 
    */
-  export function moveOutlineHeading(params: MoveOutlineHeadingParams): Promise<MoveOutlineHeadingResponse>;
+  moveOutlineHeading(params: BlockMoveOutlineHeadingParams): Promise<BlockMoveOutlineHeadingResponse>;
 
 }
 
-declare module './bookmark' {
+export interface BookmarkApi {
   /**
    * 构建并返回当前工作空间的所有书签列表。书签是为块设置的特定名称，方便快速访问。
    * (Requires authentication)
-   * @returns Promise<GetBookmarkResponse> 
+   * @returns Promise<BookmarkGetBookmarkResponse> 
    */
-  export function getBookmark(): Promise<GetBookmarkResponse>;
+  getBookmark(): Promise<BookmarkGetBookmarkResponse>;
 
   /**
    * 根据书签名称（即块的 IAL 中 bookmark 属性的值）移除一个或多个书签。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveBookmarkParams)
-   * @returns Promise<RemoveBookmarkResponse> 
+   * @param params Request parameters (BookmarkRemoveBookmarkParams)
+   * @returns Promise<BookmarkRemoveBookmarkResponse> 
    */
-  export function removeBookmark(params: RemoveBookmarkParams): Promise<RemoveBookmarkResponse>;
+  removeBookmark(params: BookmarkRemoveBookmarkParams): Promise<BookmarkRemoveBookmarkResponse>;
 
   /**
    * 将具有特定旧书签名称（块 IAL 中 bookmark 属性的旧值）的所有书签重命名为一个新的书签名称。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameBookmarkParams)
-   * @returns Promise<RenameBookmarkResponse> 
+   * @param params Request parameters (BookmarkRenameBookmarkParams)
+   * @returns Promise<BookmarkRenameBookmarkResponse> 
    */
-  export function renameBookmark(params: RenameBookmarkParams): Promise<RenameBookmarkResponse>;
+  renameBookmark(params: BookmarkRenameBookmarkParams): Promise<BookmarkRenameBookmarkResponse>;
 
 }
 
-declare module './broadcast' {
+export interface BroadcastApi {
   /**
    * 获取指定名称的广播频道的详细信息，如订阅者数量。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetChannelInfoParams)
-   * @returns Promise<GetChannelInfoResponse> 
+   * @param params Request parameters (BroadcastGetChannelInfoParams)
+   * @returns Promise<BroadcastGetChannelInfoResponse> 
    */
-  export function getChannelInfo(params: GetChannelInfoParams): Promise<GetChannelInfoResponse>;
+  getChannelInfo(params: BroadcastGetChannelInfoParams): Promise<BroadcastGetChannelInfoResponse>;
 
   /**
    * 获取当前所有活跃的广播频道及其订阅者数量的列表。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetChannelsResponse> 
+   * @returns Promise<BroadcastGetChannelsResponse> 
    */
-  export function getChannels(): Promise<GetChannelsResponse>;
+  getChannels(): Promise<BroadcastGetChannelsResponse>;
 
   /**
    * 向指定的广播频道发送文本消息。也可以用于发送特定命令 (cmd)。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (PostMessageParams)
-   * @returns Promise<PostMessageResponse> 
+   * @param params Request parameters (BroadcastPostMessageParams)
+   * @returns Promise<BroadcastPostMessageResponse> 
    */
-  export function postMessage(params: PostMessageParams): Promise<PostMessageResponse>;
+  postMessage(params: BroadcastPostMessageParams): Promise<BroadcastPostMessageResponse>;
 
   /**
    * 向指定的广播频道发布消息。可以是文本消息，也可以通过上传文件发布二进制消息。请求体应为 multipart/form-data。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (BroadcastPublishParams)
-   * @returns Promise<BroadcastPublishResponse> 
+   * @param params Request parameters (BroadcastBroadcastPublishParams)
+   * @returns Promise<BroadcastBroadcastPublishResponse> 
    */
-  export function broadcastPublish(params: BroadcastPublishParams): Promise<BroadcastPublishResponse>;
+  broadcastPublish(params: BroadcastBroadcastPublishParams): Promise<BroadcastBroadcastPublishResponse>;
 
 }
 
-declare module './clipboard' {
+export interface ClipboardApi {
   /**
    * 从系统剪贴板中读取文件路径列表。注意：在 Linux 上此功能可能受限或不可用。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ReadFilePathsResponse> 
+   * @returns Promise<ClipboardReadFilePathsResponse> 
    */
-  export function readFilePaths(): Promise<ReadFilePathsResponse>;
+  readFilePaths(): Promise<ClipboardReadFilePathsResponse>;
 
 }
 
-declare module './cloud' {
+export interface CloudApi {
   /**
    * 获取用户的云端存储空间使用情况、流量消耗以及同步和备份状态等信息。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetCloudSpaceResponse> 
+   * @returns Promise<CloudGetCloudSpaceResponse> 
    */
-  export function getCloudSpace(): Promise<GetCloudSpaceResponse>;
+  getCloudSpace(): Promise<CloudGetCloudSpaceResponse>;
 
 }
 
-declare module './convert' {
+export interface ConvertApi {
   /**
    * 调用系统安装的 Pandoc 工具进行文档格式转换。需要提供 Pandoc 命令行参数。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PandocParams)
-   * @returns Promise<PandocResponse> 
+   * @param params Request parameters (ConvertPandocParams)
+   * @returns Promise<ConvertPandocResponse> 
    */
-  export function pandoc(params: PandocParams): Promise<PandocResponse>;
+  pandoc(params: ConvertPandocParams): Promise<ConvertPandocResponse>;
 
 }
 
-declare module './export' {
+export interface ExportApi {
   /**
    * 将指定的文档内容导出到链滴社区。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (Export2LiandiParams)
-   * @returns Promise<Export2LiandiResponse> 
+   * @param params Request parameters (ExportExport2LiandiParams)
+   * @returns Promise<ExportExport2LiandiResponse> 
    */
-  export function export2Liandi(params: Export2LiandiParams): Promise<Export2LiandiResponse>;
+  export2Liandi(params: ExportExport2LiandiParams): Promise<ExportExport2LiandiResponse>;
 
   /**
    * 接收上传的文件，将其保存到临时导出目录，并返回处理后的文件名及可访问路径。通常用于'另存为'等场景。文件通过 FormData 的 'file' 字段上传。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportAsFileParams)
-   * @returns Promise<ExportAsFileResponse> 
+   * @param params Request parameters (ExportExportAsFileParams)
+   * @returns Promise<ExportExportAsFileResponse> 
    */
-  export function exportAsFile(params: ExportAsFileParams): Promise<ExportAsFileResponse>;
+  exportAsFile(params: ExportExportAsFileParams): Promise<ExportExportAsFileResponse>;
 
   /**
    * 将指定的文档导出为 AsciiDoc 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportAsciiDocParams)
-   * @returns Promise<ExportAsciiDocResponse> 
+   * @param params Request parameters (ExportExportAsciiDocParams)
+   * @returns Promise<ExportExportAsciiDocResponse> 
    */
-  export function exportAsciiDoc(params: ExportAsciiDocParams): Promise<ExportAsciiDocResponse>;
+  exportAsciiDoc(params: ExportExportAsciiDocParams): Promise<ExportExportAsciiDocResponse>;
 
   /**
    * 将指定的属性视图导出为 CSV 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportAttributeViewParams)
-   * @returns Promise<ExportAttributeViewResponse> 
+   * @param params Request parameters (ExportExportAttributeViewParams)
+   * @returns Promise<ExportExportAttributeViewResponse> 
    */
-  export function exportAttributeView(params: ExportAttributeViewParams): Promise<ExportAttributeViewResponse>;
+  exportAttributeView(params: ExportExportAttributeViewParams): Promise<ExportExportAttributeViewResponse>;
 
   /**
    * 导出当前工作空间的全部数据为一个 .zip 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExportDataResponse> 
+   * @returns Promise<ExportExportDataResponse> 
    */
-  export function exportData(): Promise<ExportDataResponse>;
+  exportData(): Promise<ExportExportDataResponse>;
 
   /**
    * 导出指定文件夹内的所有数据为一个压缩包。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportDataInFolderParams)
-   * @returns Promise<ExportDataInFolderResponse> 
+   * @param params Request parameters (ExportExportDataInFolderParams)
+   * @returns Promise<ExportExportDataInFolderResponse> 
    */
-  export function exportDataInFolder(params: ExportDataInFolderParams): Promise<ExportDataInFolderResponse>;
+  exportDataInFolder(params: ExportExportDataInFolderParams): Promise<ExportExportDataInFolderResponse>;
 
   /**
    * 将指定的文档导出为 DOCX (.docx) 文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportDocxParams)
-   * @returns Promise<ExportDocxResponse> 
+   * @param params Request parameters (ExportExportDocxParams)
+   * @returns Promise<ExportExportDocxResponse> 
    */
-  export function exportDocx(params: ExportDocxParams): Promise<ExportDocxResponse>;
+  exportDocx(params: ExportExportDocxParams): Promise<ExportExportDocxResponse>;
 
   /**
    * 将指定的文档导出为 EPUB 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportEPUBParams)
-   * @returns Promise<ExportEPUBResponse> 
+   * @param params Request parameters (ExportExportEPUBParams)
+   * @returns Promise<ExportExportEPUBResponse> 
    */
-  export function exportEPUB(params: ExportEPUBParams): Promise<ExportEPUBResponse>;
+  exportEPUB(params: ExportExportEPUBParams): Promise<ExportExportEPUBResponse>;
 
   /**
    * 将指定文档导出为标准的、包含完整思源主题样式和脚本的 HTML 内容，通常用于生成可独立浏览的 HTML 文件或作为导出 PDF 的中间步骤。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportHTMLParams)
-   * @returns Promise<ExportHTMLResponse> 
+   * @param params Request parameters (ExportExportHTMLParams)
+   * @returns Promise<ExportExportHTMLResponse> 
    */
-  export function exportHTML(params: ExportHTMLParams): Promise<ExportHTMLResponse>;
+  exportHTML(params: ExportExportHTMLParams): Promise<ExportExportHTMLResponse>;
 
   /**
    * 将指定的单个文档导出为 Markdown 文件，并打包成一个 .zip 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportMdParams)
-   * @returns Promise<ExportMdResponse> 
+   * @param params Request parameters (ExportExportMdParams)
+   * @returns Promise<ExportExportMdResponse> 
    */
-  export function exportMd(params: ExportMdParams): Promise<ExportMdResponse>;
+  exportMd(params: ExportExportMdParams): Promise<ExportExportMdResponse>;
 
   /**
    * 获取指定文档的 Markdown 文本内容，可自定义块引用和嵌入块的处理方式以及是否包含 YAML Front Matter。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportMdContentParams)
-   * @returns Promise<ExportMdContentResponse> 
+   * @param params Request parameters (ExportExportMdContentParams)
+   * @returns Promise<ExportExportMdContentResponse> 
    */
-  export function exportMdContent(params: ExportMdContentParams): Promise<ExportMdContentResponse>;
+  exportMdContent(params: ExportExportMdContentParams): Promise<ExportExportMdContentResponse>;
 
   /**
    * 获取指定文档渲染后的纯 HTML 内容（不包含完整主题样式和脚本，主要用于内容嵌入）。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportMdHTMLParams)
-   * @returns Promise<ExportMdHTMLResponse> 
+   * @param params Request parameters (ExportExportMdHTMLParams)
+   * @returns Promise<ExportExportMdHTMLResponse> 
    */
-  export function exportMdHTML(params: ExportMdHTMLParams): Promise<ExportMdHTMLResponse>;
+  exportMdHTML(params: ExportExportMdHTMLParams): Promise<ExportExportMdHTMLResponse>;
 
   /**
    * 将指定的多个文档分别导出为 Markdown 文件，并打包成一个 .zip 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportMdsParams)
-   * @returns Promise<ExportMdsResponse> 
+   * @param params Request parameters (ExportExportMdsParams)
+   * @returns Promise<ExportExportMdsResponse> 
    */
-  export function exportMds(params: ExportMdsParams): Promise<ExportMdsResponse>;
+  exportMds(params: ExportExportMdsParams): Promise<ExportExportMdsResponse>;
 
   /**
    * 将指定的文档导出为 MediaWiki 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportMediaWikiParams)
-   * @returns Promise<ExportMediaWikiResponse> 
+   * @param params Request parameters (ExportExportMediaWikiParams)
+   * @returns Promise<ExportExportMediaWikiResponse> 
    */
-  export function exportMediaWiki(params: ExportMediaWikiParams): Promise<ExportMediaWikiResponse>;
+  exportMediaWiki(params: ExportExportMediaWikiParams): Promise<ExportExportMediaWikiResponse>;
 
   /**
    * 将指定的笔记本导出为 Markdown 格式的 .zip 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportNotebookMdParams)
-   * @returns Promise<ExportNotebookMdResponse> 
+   * @param params Request parameters (ExportExportNotebookMdParams)
+   * @returns Promise<ExportExportNotebookMdResponse> 
    */
-  export function exportNotebookMd(params: ExportNotebookMdParams): Promise<ExportNotebookMdResponse>;
+  exportNotebookMd(params: ExportExportNotebookMdParams): Promise<ExportExportNotebookMdResponse>;
 
   /**
    * 将指定的笔记本导出为思源原生 .sy 格式的压缩包。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportNotebookSYParams)
-   * @returns Promise<ExportNotebookSYResponse> 
+   * @param params Request parameters (ExportExportNotebookSYParams)
+   * @returns Promise<ExportExportNotebookSYResponse> 
    */
-  export function exportNotebookSY(params: ExportNotebookSYParams): Promise<ExportNotebookSYResponse>;
+  exportNotebookSY(params: ExportExportNotebookSYParams): Promise<ExportExportNotebookSYResponse>;
 
   /**
    * 将指定的文档导出为 ODT 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportODTParams)
-   * @returns Promise<ExportODTResponse> 
+   * @param params Request parameters (ExportExportODTParams)
+   * @returns Promise<ExportExportODTResponse> 
    */
-  export function exportODT(params: ExportODTParams): Promise<ExportODTResponse>;
+  exportODT(params: ExportExportODTParams): Promise<ExportExportODTResponse>;
 
   /**
    * 将指定的文档导出为 OPML 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportOPMLParams)
-   * @returns Promise<ExportOPMLResponse> 
+   * @param params Request parameters (ExportExportOPMLParams)
+   * @returns Promise<ExportExportOPMLResponse> 
    */
-  export function exportOPML(params: ExportOPMLParams): Promise<ExportOPMLResponse>;
+  exportOPML(params: ExportExportOPMLParams): Promise<ExportExportOPMLResponse>;
 
   /**
    * 将指定的文档导出为 Org-mode 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportOrgModeParams)
-   * @returns Promise<ExportOrgModeResponse> 
+   * @param params Request parameters (ExportExportOrgModeParams)
+   * @returns Promise<ExportExportOrgModeResponse> 
    */
-  export function exportOrgMode(params: ExportOrgModeParams): Promise<ExportOrgModeResponse>;
+  exportOrgMode(params: ExportExportOrgModeParams): Promise<ExportExportOrgModeResponse>;
 
   /**
    * 获取指定文档用于预览的 HTML 内容，包含块属性、类型等更丰富的上下文信息，并处理了块引链接。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportPreviewHTMLParams)
-   * @returns Promise<ExportPreviewHTMLResponse> 
+   * @param params Request parameters (ExportExportPreviewHTMLParams)
+   * @returns Promise<ExportExportPreviewHTMLResponse> 
    */
-  export function exportPreviewHTML(params: ExportPreviewHTMLParams): Promise<ExportPreviewHTMLResponse>;
+  exportPreviewHTML(params: ExportExportPreviewHTMLParams): Promise<ExportExportPreviewHTMLResponse>;
 
   /**
    * 将指定的文档导出为 RTF 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportRTFParams)
-   * @returns Promise<ExportRTFResponse> 
+   * @param params Request parameters (ExportExportRTFParams)
+   * @returns Promise<ExportExportRTFResponse> 
    */
-  export function exportRTF(params: ExportRTFParams): Promise<ExportRTFResponse>;
+  exportRTF(params: ExportExportRTFParams): Promise<ExportExportRTFResponse>;
 
   /**
    * 将指定的文档导出为 reStructuredText 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportReStructuredTextParams)
-   * @returns Promise<ExportReStructuredTextResponse> 
+   * @param params Request parameters (ExportExportReStructuredTextParams)
+   * @returns Promise<ExportExportReStructuredTextResponse> 
    */
-  export function exportReStructuredText(params: ExportReStructuredTextParams): Promise<ExportReStructuredTextResponse>;
+  exportReStructuredText(params: ExportExportReStructuredTextParams): Promise<ExportExportReStructuredTextResponse>;
 
   /**
    * 将指定路径列表的文件或文件夹打包导出为一个 .zip 压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportResourcesParams)
-   * @returns Promise<ExportResourcesResponse> 
+   * @param params Request parameters (ExportExportResourcesParams)
+   * @returns Promise<ExportExportResourcesResponse> 
    */
-  export function exportResources(params: ExportResourcesParams): Promise<ExportResourcesResponse>;
+  exportResources(params: ExportExportResourcesParams): Promise<ExportExportResourcesResponse>;
 
   /**
    * 将指定的单个文档导出为思源原生 .sy 格式的压缩包。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportSYParams)
-   * @returns Promise<ExportSYResponse> 
+   * @param params Request parameters (ExportExportSYParams)
+   * @returns Promise<ExportExportSYResponse> 
    */
-  export function exportSY(params: ExportSYParams): Promise<ExportSYResponse>;
+  exportSY(params: ExportExportSYParams): Promise<ExportExportSYResponse>;
 
   /**
    * 将传入的 Markdown 内容保存为临时文件，并根据参数生成预览（HTML/PDF/图片），返回预览的 URL。注意：此接口在 `export.go` 中并未完整实现所有参数的逻辑（如 mode, theme, title, type, css, js 均未实际使用），主要实现了 content 的临时保存和URL返回。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportTempContentParams)
-   * @returns Promise<ExportTempContentResponse> 
+   * @param params Request parameters (ExportExportTempContentParams)
+   * @returns Promise<ExportExportTempContentResponse> 
    */
-  export function exportTempContent(params: ExportTempContentParams): Promise<ExportTempContentResponse>;
+  exportTempContent(params: ExportExportTempContentParams): Promise<ExportExportTempContentResponse>;
 
   /**
    * 将指定的文档导出为 Textile 格式的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ExportTextileParams)
-   * @returns Promise<ExportTextileResponse> 
+   * @param params Request parameters (ExportExportTextileParams)
+   * @returns Promise<ExportExportTextileResponse> 
    */
-  export function exportTextile(params: ExportTextileParams): Promise<ExportTextileResponse>;
+  exportTextile(params: ExportExportTextileParams): Promise<ExportExportTextileResponse>;
 
   /**
    * 获取指定文档的完整 HTML 预览内容，包含标准主题和脚本，可直接用于浏览器展示。
    * (Requires authentication)
-   * @param params Request parameters (ExportPreviewParams)
-   * @returns Promise<ExportPreviewResponse> 
+   * @param params Request parameters (ExportExportPreviewParams)
+   * @returns Promise<ExportExportPreviewResponse> 
    */
-  export function exportPreview(params: ExportPreviewParams): Promise<ExportPreviewResponse>;
+  exportPreview(params: ExportExportPreviewParams): Promise<ExportExportPreviewResponse>;
 
   /**
    * 对已生成的用于 PDF 导出的 HTML 文件进行后处理，如添加水印等。通常在调用 exportHTML (pdf=true) 之后使用。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ProcessPDFParams)
-   * @returns Promise<ProcessPDFResponse> 
+   * @param params Request parameters (ExportProcessPDFParams)
+   * @returns Promise<ExportProcessPDFResponse> 
    */
-  export function processPDF(params: ProcessPDFParams): Promise<ProcessPDFResponse>;
+  processPDF(params: ExportProcessPDFParams): Promise<ExportProcessPDFResponse>;
 
 }
 
-declare module './extension' {
+export interface ExtensionApi {
   /**
    * 处理来自浏览器扩展（如剪藏）复制过来的内容。将 HTML DOM 转换为 Markdown，并处理其中包含的图片等资源，将其保存到指定的笔记本或默认的 assets 目录。支持从链滴剪藏时直接获取 Markdown。这是一个 multipart/form-data 请求，除了明确定义的字段外，还可以包含多个文件字段。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ExtensionCopyParams)
-   * @returns Promise<ExtensionCopyResponse> 
+   * @param params Request parameters (ExtensionExtensionCopyParams)
+   * @returns Promise<ExtensionExtensionCopyResponse> 
    */
-  export function extensionCopy(params: ExtensionCopyParams): Promise<ExtensionCopyResponse>;
+  extensionCopy(params: ExtensionExtensionCopyParams): Promise<ExtensionExtensionCopyResponse>;
 
 }
 
-declare module './file' {
+export interface FileApi {
   /**
    * 复制工作空间内的单个文件或资源文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CopyFileParams)
-   * @returns Promise<CopyFileResponse> 
+   * @param params Request parameters (FileCopyFileParams)
+   * @returns Promise<FileCopyFileResponse> 
    */
-  export function copyFile(params: CopyFileParams): Promise<CopyFileResponse>;
+  copyFile(params: FileCopyFileParams): Promise<FileCopyFileResponse>;
 
   /**
    * 获取指定路径的文件内容。注意：此接口不通过JSON返回文件内容，而是直接在HTTP响应体中返回文件数据流，Content-Type 根据文件类型确定。因此，zodResponseSchema 仅用于描述可能的错误情况下的JSON响应。成功获取文件时，HTTP状态码为200，响应体为文件内容。
    * (Requires authentication)
-   * @param params Request parameters (GetFileParams)
-   * @returns Promise<GetFileResponse> 
+   * @param params Request parameters (FileGetFileParams)
+   * @returns Promise<FileGetFileResponse> 
    */
-  export function getFile(params: GetFileParams): Promise<GetFileResponse>;
+  getFile(params: FileGetFileParams): Promise<FileGetFileResponse>;
 
   /**
    * 根据输入的文件路径，生成一个在目标位置唯一的、不冲突的文件名版本。例如，输入 'assets/image.png'，如果已存在，则可能返回 'assets/image_1.png'。
    * (Requires authentication)
-   * @param params Request parameters (GetUniqueFilenameParams)
-   * @returns Promise<GetUniqueFilenameResponse> 
+   * @param params Request parameters (FileGetUniqueFilenameParams)
+   * @returns Promise<FileGetUniqueFilenameResponse> 
    */
-  export function getUniqueFilename(params: GetUniqueFilenameParams): Promise<GetUniqueFilenameResponse>;
+  getUniqueFilename(params: FileGetUniqueFilenameParams): Promise<FileGetUniqueFilenameResponse>;
 
   /**
    * 将多个源文件复制到指定的目标目录 (相对于工作空间)。源文件路径必须是绝对路径。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GlobalCopyFilesParams)
-   * @returns Promise<GlobalCopyFilesResponse> 
+   * @param params Request parameters (FileGlobalCopyFilesParams)
+   * @returns Promise<FileGlobalCopyFilesResponse> 
    */
-  export function globalCopyFiles(params: GlobalCopyFilesParams): Promise<GlobalCopyFilesResponse>;
+  globalCopyFiles(params: FileGlobalCopyFilesParams): Promise<FileGlobalCopyFilesResponse>;
 
   /**
    * 上传文件或创建目录。这是一个 multipart/form-data 请求。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PutFileParams)
-   * @returns Promise<PutFileResponse> 
+   * @param params Request parameters (FilePutFileParams)
+   * @returns Promise<FilePutFileResponse> 
    */
-  export function putFile(params: PutFileParams): Promise<PutFileResponse>;
+  putFile(params: FilePutFileParams): Promise<FilePutFileResponse>;
 
   /**
    * 读取指定目录下的文件和子目录列表。
    * (Requires authentication)
-   * @param params Request parameters (ReadDirParams)
-   * @returns Promise<ReadDirResponse> 
+   * @param params Request parameters (FileReadDirParams)
+   * @returns Promise<FileReadDirResponse> 
    */
-  export function readDir(params: ReadDirParams): Promise<ReadDirResponse>;
+  readDir(params: FileReadDirParams): Promise<FileReadDirResponse>;
 
   /**
    * 移除指定路径的文件或目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveFileParams)
-   * @returns Promise<RemoveFileResponse> 
+   * @param params Request parameters (FileRemoveFileParams)
+   * @returns Promise<FileRemoveFileResponse> 
    */
-  export function removeFile(params: RemoveFileParams): Promise<RemoveFileResponse>;
+  removeFile(params: FileRemoveFileParams): Promise<FileRemoveFileResponse>;
 
   /**
    * 重命名指定路径的文件或目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameFileParams)
-   * @returns Promise<RenameFileResponse> 
+   * @param params Request parameters (FileRenameFileParams)
+   * @returns Promise<FileRenameFileResponse> 
    */
-  export function renameFile(params: RenameFileParams): Promise<RenameFileResponse>;
+  renameFile(params: FileRenameFileParams): Promise<FileRenameFileResponse>;
 
 }
 
-declare module './filetree' {
+export interface FiletreeApi {
   /**
    * 更改指定笔记本下，特定路径列表的文档树排序方式。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ChangeSortParams)
-   * @returns Promise<ChangeSortResponse> 
+   * @param params Request parameters (FiletreeChangeSortParams)
+   * @returns Promise<FiletreeChangeSortResponse> 
    */
-  export function changeSort(params: ChangeSortParams): Promise<ChangeSortResponse>;
+  changeSort(params: FiletreeChangeSortParams): Promise<FiletreeChangeSortResponse>;
 
   /**
    * 根据用户配置的日记模板创建今日的日记文档。如果今日的日记已存在，则直接返回该日记的信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateDailyNoteParams)
-   * @returns Promise<CreateDailyNoteResponse> 
+   * @param params Request parameters (FiletreeCreateDailyNoteParams)
+   * @returns Promise<FiletreeCreateDailyNoteResponse> 
    */
-  export function createDailyNote(params: CreateDailyNoteParams): Promise<CreateDailyNoteResponse>;
+  createDailyNote(params: FiletreeCreateDailyNoteParams): Promise<FiletreeCreateDailyNoteResponse>;
 
   /**
    * 在指定的笔记本和路径下创建一个新的文档，并可以附带初始Markdown内容和排序信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateDocParams)
-   * @returns Promise<CreateDocResponse> 
+   * @param params Request parameters (FiletreeCreateDocParams)
+   * @returns Promise<FiletreeCreateDocResponse> 
    */
-  export function createDoc(params: CreateDocParams): Promise<CreateDocResponse>;
+  createDoc(params: FiletreeCreateDocParams): Promise<FiletreeCreateDocResponse>;
 
   /**
    * 在指定笔记本、路径下，使用提供的Markdown内容创建一个新文档。可以指定父文档ID、新文档ID、标签等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateDocWithMdParams)
-   * @returns Promise<CreateDocWithMdResponse> 
+   * @param params Request parameters (FiletreeCreateDocWithMdParams)
+   * @returns Promise<FiletreeCreateDocWithMdResponse> 
    */
-  export function createDocWithMd(params: CreateDocWithMdParams): Promise<CreateDocWithMdResponse>;
+  createDocWithMd(params: FiletreeCreateDocWithMdParams): Promise<FiletreeCreateDocWithMdResponse>;
 
   /**
    * 将一个源文档的内容转换为一个标题块，并将其插入到目标文档的指定标题块之后或之前。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (Doc2HeadingParams)
-   * @returns Promise<Doc2HeadingResponse> 
+   * @param params Request parameters (FiletreeDoc2HeadingParams)
+   * @returns Promise<FiletreeDoc2HeadingResponse> 
    */
-  export function doc2Heading(params: Doc2HeadingParams): Promise<Doc2HeadingResponse>;
+  doc2Heading(params: FiletreeDoc2HeadingParams): Promise<FiletreeDoc2HeadingResponse>;
 
   /**
    * 复制（克隆）一个指定的文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (DuplicateDocParams)
-   * @returns Promise<DuplicateDocResponse> 
+   * @param params Request parameters (FiletreeDuplicateDocParams)
+   * @returns Promise<FiletreeDuplicateDocResponse> 
    */
-  export function duplicateDoc(params: DuplicateDocParams): Promise<DuplicateDocResponse>;
+  duplicateDoc(params: FiletreeDuplicateDocParams): Promise<FiletreeDuplicateDocResponse>;
 
   /**
    * 获取指定文档（或文档中的一部分内容）的详细信息，包括块内容、结构、属性等。支持多种加载模式和查询参数。
    * (Requires authentication)
-   * @param params Request parameters (GetDocParams)
-   * @returns Promise<GetDocResponse> 
+   * @param params Request parameters (FiletreeGetDocParams)
+   * @returns Promise<FiletreeGetDocResponse> 
    */
-  export function getDoc(params: GetDocParams): Promise<GetDocResponse>;
+  getDoc(params: FiletreeGetDocParams): Promise<FiletreeGetDocResponse>;
 
   /**
    * 根据当前笔记本和全局配置，计算并返回创建新文档时应使用的默认笔记本ID和保存路径 (HPath)。路径支持Go模板。
    * (Requires authentication)
-   * @param params Request parameters (GetDocCreateSavePathParams)
-   * @returns Promise<GetDocCreateSavePathResponse> 
+   * @param params Request parameters (FiletreeGetDocCreateSavePathParams)
+   * @returns Promise<FiletreeGetDocCreateSavePathResponse> 
    */
-  export function getDocCreateSavePath(params: GetDocCreateSavePathParams): Promise<GetDocCreateSavePathResponse>;
+  getDocCreateSavePath(params: FiletreeGetDocCreateSavePathParams): Promise<FiletreeGetDocCreateSavePathResponse>;
 
   /**
    * 根据文档或块的ID，获取其在笔记本中的完整层级标题路径 (HPath)，例如 '/父文档标题/子文档标题/当前文档标题'。
    * (Requires authentication)
-   * @param params Request parameters (GetFullHPathByIDParams)
-   * @returns Promise<GetFullHPathByIDResponse> 
+   * @param params Request parameters (FiletreeGetFullHPathByIDParams)
+   * @returns Promise<FiletreeGetFullHPathByIDResponse> 
    */
-  export function getFullHPathByID(params: GetFullHPathByIDParams): Promise<GetFullHPathByIDResponse>;
+  getFullHPathByID(params: FiletreeGetFullHPathByIDParams): Promise<FiletreeGetFullHPathByIDResponse>;
 
   /**
    * 根据文档或块的ID，获取其在笔记本中的人类可读路径 (HPath)，即文件路径形式的标题路径，例如 '/父文档标题/子文档标题/当前文档标题.sy' 的 Sy 文件名部分。
    * (Requires authentication)
-   * @param params Request parameters (GetHPathByIDParams)
-   * @returns Promise<GetHPathByIDResponse> 
+   * @param params Request parameters (FiletreeGetHPathByIDParams)
+   * @returns Promise<FiletreeGetHPathByIDResponse> 
    */
-  export function getHPathByID(params: GetHPathByIDParams): Promise<GetHPathByIDResponse>;
+  getHPathByID(params: FiletreeGetHPathByIDParams): Promise<FiletreeGetHPathByIDResponse>;
 
   /**
    * 根据文档在笔记本中的实际存储路径 (相对于笔记本根目录)，获取其人类可读路径 (HPath)。
    * (Requires authentication)
-   * @param params Request parameters (GetHPathByPathParams)
-   * @returns Promise<GetHPathByPathResponse> 
+   * @param params Request parameters (FiletreeGetHPathByPathParams)
+   * @returns Promise<FiletreeGetHPathByPathResponse> 
    */
-  export function getHPathByPath(params: GetHPathByPathParams): Promise<GetHPathByPathResponse>;
+  getHPathByPath(params: FiletreeGetHPathByPathParams): Promise<FiletreeGetHPathByPathResponse>;
 
   /**
    * 根据一组文档的实际存储路径 (包含笔记本ID和文档相对路径)，批量获取它们对应的人类可读路径 (HPath)。
    * (Requires authentication)
-   * @param params Request parameters (GetHPathsByPathsParams)
-   * @returns Promise<GetHPathsByPathsResponse> 
+   * @param params Request parameters (FiletreeGetHPathsByPathsParams)
+   * @returns Promise<FiletreeGetHPathsByPathsResponse> 
    */
-  export function getHPathsByPaths(params: GetHPathsByPathsParams): Promise<GetHPathsByPathsResponse>;
+  getHPathsByPaths(params: FiletreeGetHPathsByPathsParams): Promise<FiletreeGetHPathsByPathsResponse>;
 
   /**
    * 根据文档的人类可读路径 (HPath) 和其所在的笔记本ID，获取所有匹配该路径的文档的ID列表。因为HPath可能不唯一，所以返回的是数组。
    * (Requires authentication)
-   * @param params Request parameters (GetIDsByHPathParams)
-   * @returns Promise<GetIDsByHPathResponse> 
+   * @param params Request parameters (FiletreeGetIDsByHPathParams)
+   * @returns Promise<FiletreeGetIDsByHPathResponse> 
    */
-  export function getIDsByHPath(params: GetIDsByHPathParams): Promise<GetIDsByHPathResponse>;
+  getIDsByHPath(params: FiletreeGetIDsByHPathParams): Promise<FiletreeGetIDsByHPathResponse>;
 
   /**
    * 根据文档或块的ID，获取其在工作空间中的实际存储路径 (相对于笔记本根目录) 和所在的笔记本ID。
    * (Requires authentication)
-   * @param params Request parameters (GetPathByIDParams)
-   * @returns Promise<GetPathByIDResponse> 
+   * @param params Request parameters (FiletreeGetPathByIDParams)
+   * @returns Promise<FiletreeGetPathByIDResponse> 
    */
-  export function getPathByID(params: GetPathByIDParams): Promise<GetPathByIDResponse>;
+  getPathByID(params: FiletreeGetPathByIDParams): Promise<FiletreeGetPathByIDResponse>;
 
   /**
    * 根据当前笔记本和全局配置，计算并返回创建新块引文档时应使用的默认笔记本ID和保存路径 (HPath)。路径支持Go模板。
    * (Requires authentication)
-   * @param params Request parameters (GetRefCreateSavePathParams)
-   * @returns Promise<GetRefCreateSavePathResponse> 
+   * @param params Request parameters (FiletreeGetRefCreateSavePathParams)
+   * @returns Promise<FiletreeGetRefCreateSavePathResponse> 
    */
-  export function getRefCreateSavePath(params: GetRefCreateSavePathParams): Promise<GetRefCreateSavePathResponse>;
+  getRefCreateSavePath(params: FiletreeGetRefCreateSavePathParams): Promise<FiletreeGetRefCreateSavePathResponse>;
 
   /**
    * 将源文档中的一个标题块及其后续同级内容，转换为一个新的独立文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (Heading2DocParams)
-   * @returns Promise<Heading2DocResponse> 
+   * @param params Request parameters (FiletreeHeading2DocParams)
+   * @returns Promise<FiletreeHeading2DocResponse> 
    */
-  export function heading2Doc(params: Heading2DocParams): Promise<Heading2DocResponse>;
+  heading2Doc(params: FiletreeHeading2DocParams): Promise<FiletreeHeading2DocResponse>;
 
   /**
    * 将源文档中的一个列表项（及其所有子项）转换为一个新的独立文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (Li2DocParams)
-   * @returns Promise<Li2DocResponse> 
+   * @param params Request parameters (FiletreeLi2DocParams)
+   * @returns Promise<FiletreeLi2DocResponse> 
    */
-  export function li2Doc(params: Li2DocParams): Promise<Li2DocResponse>;
+  li2Doc(params: FiletreeLi2DocParams): Promise<FiletreeLi2DocResponse>;
 
   /**
    * 列出指定笔记本的文档树结构，支持过滤、排序等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ListDocTreeParams)
-   * @returns Promise<ListDocTreeResponse> 
+   * @param params Request parameters (FiletreeListDocTreeParams)
+   * @returns Promise<FiletreeListDocTreeResponse> 
    */
-  export function listDocTree(params: ListDocTreeParams): Promise<ListDocTreeResponse>;
+  listDocTree(params: FiletreeListDocTreeParams): Promise<FiletreeListDocTreeResponse>;
 
   /**
    * 获取指定笔记本和路径下的文档及子文件夹列表，支持排序、闪卡过滤和数量限制。
    * (Requires authentication)
-   * @param params Request parameters (ListDocsByPathParams)
-   * @returns Promise<ListDocsByPathResponse> 
+   * @param params Request parameters (FiletreeListDocsByPathParams)
+   * @returns Promise<FiletreeListDocsByPathResponse> 
    */
-  export function listDocsByPath(params: ListDocsByPathParams): Promise<ListDocsByPathResponse>;
+  listDocsByPath(params: FiletreeListDocsByPathParams): Promise<FiletreeListDocsByPathResponse>;
 
   /**
    * 将一组源文档（通过其在各自笔记本中的相对路径指定）移动到目标笔记本的指定路径下。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (MoveDocsParams)
-   * @returns Promise<MoveDocsResponse> 
+   * @param params Request parameters (FiletreeMoveDocsParams)
+   * @returns Promise<FiletreeMoveDocsResponse> 
    */
-  export function moveDocs(params: MoveDocsParams): Promise<MoveDocsResponse>;
+  moveDocs(params: FiletreeMoveDocsParams): Promise<FiletreeMoveDocsResponse>;
 
   /**
    * 将一组源文档（通过其ID指定）移动到目标文档（通过其ID指定）的目录下或成为其子文档（取决于目标ID是文件夹还是文件）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (MoveDocsByIDParams)
-   * @returns Promise<MoveDocsByIDResponse> 
+   * @param params Request parameters (FiletreeMoveDocsByIDParams)
+   * @returns Promise<FiletreeMoveDocsByIDResponse> 
    */
-  export function moveDocsByID(params: MoveDocsByIDParams): Promise<MoveDocsByIDResponse>;
+  moveDocsByID(params: FiletreeMoveDocsByIDParams): Promise<FiletreeMoveDocsByIDResponse>;
 
   /**
    * 将指定笔记本中的本地闪念速记（通常是未整理的、直接记录在本地的摘录或想法）移动到配置的闪念速记存放位置。这是一个待改进的旧接口，未来可能基于文档树配置实现。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (MoveLocalShorthandsParams)
-   * @returns Promise<MoveLocalShorthandsResponse> 
+   * @param params Request parameters (FiletreeMoveLocalShorthandsParams)
+   * @returns Promise<FiletreeMoveLocalShorthandsResponse> 
    */
-  export function moveLocalShorthands(params: MoveLocalShorthandsParams): Promise<MoveLocalShorthandsResponse>;
+  moveLocalShorthands(params: FiletreeMoveLocalShorthandsParams): Promise<FiletreeMoveLocalShorthandsResponse>;
 
   /**
    * 触发一次全局的文档树刷新和全量索引重建。这是一个耗时操作，请谨慎调用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<RefreshFiletreeResponse> 
+   * @returns Promise<FiletreeRefreshFiletreeResponse> 
    */
-  export function refreshFiletree(): Promise<RefreshFiletreeResponse>;
+  refreshFiletree(): Promise<FiletreeRefreshFiletreeResponse>;
 
   /**
    * 根据指定的笔记本ID和文档相对路径，移除（删除）该文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveDocParams)
-   * @returns Promise<RemoveDocResponse> 
+   * @param params Request parameters (FiletreeRemoveDocParams)
+   * @returns Promise<FiletreeRemoveDocResponse> 
    */
-  export function removeDoc(params: RemoveDocParams): Promise<RemoveDocResponse>;
+  removeDoc(params: FiletreeRemoveDocParams): Promise<FiletreeRemoveDocResponse>;
 
   /**
    * 根据指定的文档ID，移除（删除）该文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveDocByIDParams)
-   * @returns Promise<RemoveDocByIDResponse> 
+   * @param params Request parameters (FiletreeRemoveDocByIDParams)
+   * @returns Promise<FiletreeRemoveDocByIDResponse> 
    */
-  export function removeDocByID(params: RemoveDocByIDParams): Promise<RemoveDocByIDResponse>;
+  removeDocByID(params: FiletreeRemoveDocByIDParams): Promise<FiletreeRemoveDocByIDResponse>;
 
   /**
    * 根据一组复合路径（包含笔记本ID和文档相对路径）批量移除（删除）文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveDocsParams)
-   * @returns Promise<RemoveDocsResponse> 
+   * @param params Request parameters (FiletreeRemoveDocsParams)
+   * @returns Promise<FiletreeRemoveDocsResponse> 
    */
-  export function removeDocs(params: RemoveDocsParams): Promise<RemoveDocsResponse>;
+  removeDocs(params: FiletreeRemoveDocsParams): Promise<FiletreeRemoveDocsResponse>;
 
   /**
    * 根据指定的文档路径列表（通常是 .sy 文件路径），从搜索引擎中移除这些文档的索引。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveIndexesParams)
-   * @returns Promise<RemoveIndexesResponse> 
+   * @param params Request parameters (FiletreeRemoveIndexesParams)
+   * @returns Promise<FiletreeRemoveIndexesResponse> 
    */
-  export function removeIndexes(params: RemoveIndexesParams): Promise<RemoveIndexesResponse>;
+  removeIndexes(params: FiletreeRemoveIndexesParams): Promise<FiletreeRemoveIndexesResponse>;
 
   /**
    * 根据指定的笔记本ID、旧文档相对路径和新标题，重命名该文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameDocParams)
-   * @returns Promise<RenameDocResponse> 
+   * @param params Request parameters (FiletreeRenameDocParams)
+   * @returns Promise<FiletreeRenameDocResponse> 
    */
-  export function renameDoc(params: RenameDocParams): Promise<RenameDocResponse>;
+  renameDoc(params: FiletreeRenameDocParams): Promise<FiletreeRenameDocResponse>;
 
   /**
    * 根据指定的文档ID和新标题，重命名该文档。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameDocByIDParams)
-   * @returns Promise<RenameDocByIDResponse> 
+   * @param params Request parameters (FiletreeRenameDocByIDParams)
+   * @returns Promise<FiletreeRenameDocByIDResponse> 
    */
-  export function renameDocByID(params: RenameDocByIDParams): Promise<RenameDocByIDResponse>;
+  renameDocByID(params: FiletreeRenameDocByIDParams): Promise<FiletreeRenameDocByIDResponse>;
 
   /**
    * 根据关键词搜索匹配的文档标题和别名。主要用于快速查找文档，不支持全文搜索。
    * (Requires authentication)
-   * @param params Request parameters (SearchDocsParams)
-   * @returns Promise<SearchDocsResponse> 
+   * @param params Request parameters (FiletreeSearchDocsParams)
+   * @returns Promise<FiletreeSearchDocsResponse> 
    */
-  export function searchDocs(params: SearchDocsParams): Promise<SearchDocsResponse>;
+  searchDocs(params: FiletreeSearchDocsParams): Promise<FiletreeSearchDocsResponse>;
 
   /**
    * 根据指定的文档路径列表（通常是 .sy 文件路径），更新或插入这些文档在搜索引擎中的索引。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UpsertIndexesParams)
-   * @returns Promise<UpsertIndexesResponse> 
+   * @param params Request parameters (FiletreeUpsertIndexesParams)
+   * @returns Promise<FiletreeUpsertIndexesResponse> 
    */
-  export function upsertIndexes(params: UpsertIndexesParams): Promise<UpsertIndexesResponse>;
+  upsertIndexes(params: FiletreeUpsertIndexesParams): Promise<FiletreeUpsertIndexesResponse>;
 
 }
 
-declare module './format' {
+export interface FormatApi {
   /**
    * 为指定块ID的内容（Markdown原文）在中文与英文、数字之间自动添加空格，以优化排版。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AutoSpaceParams)
-   * @returns Promise<AutoSpaceResponse> 
+   * @param params Request parameters (FormatAutoSpaceParams)
+   * @returns Promise<FormatAutoSpaceResponse> 
    */
-  export function autoSpace(params: AutoSpaceParams): Promise<AutoSpaceResponse>;
+  autoSpace(params: FormatAutoSpaceParams): Promise<FormatAutoSpaceResponse>;
 
   /**
    * 将指定块ID内的所有外部网络资源（如图片、附件等，但不包括仅被引用的网络图片链接）下载并转存为本地资源。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (NetAssets2LocalAssetsParams)
-   * @returns Promise<NetAssets2LocalAssetsResponse> 
+   * @param params Request parameters (FormatNetAssets2LocalAssetsParams)
+   * @returns Promise<FormatNetAssets2LocalAssetsResponse> 
    */
-  export function netAssets2LocalAssets(params: NetAssets2LocalAssetsParams): Promise<NetAssets2LocalAssetsResponse>;
+  netAssets2LocalAssets(params: FormatNetAssets2LocalAssetsParams): Promise<FormatNetAssets2LocalAssetsResponse>;
 
   /**
    * 将指定块ID内的网络图片（Markdown中实际嵌入的图片，非普通链接）转存为本地资源。可以指定单个图片URL进行转存，或留空以转存块内所有网络图片。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (NetImg2LocalAssetsParams)
-   * @returns Promise<NetImg2LocalAssetsResponse> 
+   * @param params Request parameters (FormatNetImg2LocalAssetsParams)
+   * @returns Promise<FormatNetImg2LocalAssetsResponse> 
    */
-  export function netImg2LocalAssets(params: NetImg2LocalAssetsParams): Promise<NetImg2LocalAssetsResponse>;
+  netImg2LocalAssets(params: FormatNetImg2LocalAssetsParams): Promise<FormatNetImg2LocalAssetsResponse>;
 
 }
 
-declare module './graph' {
+export interface GraphApi {
   /**
    * 根据关键词和配置获取全局关系图的节点和边数据。
    * (Requires authentication)
-   * @param params Request parameters (GetGraphParams)
-   * @returns Promise<GetGraphResponse> 
+   * @param params Request parameters (GraphGetGraphParams)
+   * @returns Promise<GraphGetGraphResponse> 
    */
-  export function getGraph(params: GetGraphParams): Promise<GetGraphResponse>;
+  getGraph(params: GraphGetGraphParams): Promise<GraphGetGraphResponse>;
 
   /**
    * 根据指定的文档 ID、关键词和配置获取局部关系图（如文档关系图、反链关系图等）的节点和边数据。
    * (Requires authentication)
-   * @param params Request parameters (GetLocalGraphParams)
-   * @returns Promise<GetLocalGraphResponse> 
+   * @param params Request parameters (GraphGetLocalGraphParams)
+   * @returns Promise<GraphGetLocalGraphResponse> 
    */
-  export function getLocalGraph(params: GetLocalGraphParams): Promise<GetLocalGraphResponse>;
+  getLocalGraph(params: GraphGetLocalGraphParams): Promise<GraphGetLocalGraphResponse>;
 
   /**
    * 将全局关系图的配置恢复为默认设置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ResetGraphResponse> 
+   * @returns Promise<GraphResetGraphResponse> 
    */
-  export function resetGraph(): Promise<ResetGraphResponse>;
+  resetGraph(): Promise<GraphResetGraphResponse>;
 
   /**
    * 将局部关系图的配置恢复为默认设置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ResetLocalGraphResponse> 
+   * @returns Promise<GraphResetLocalGraphResponse> 
    */
-  export function resetLocalGraph(): Promise<ResetLocalGraphResponse>;
+  resetLocalGraph(): Promise<GraphResetLocalGraphResponse>;
 
 }
 
-declare module './history' {
+export interface HistoryApi {
   /**
    * 清空当前工作空间下的所有历史记录。这是一个耗时操作，执行前会有提示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ClearWorkspaceHistoryResponse> 
+   * @returns Promise<HistoryClearWorkspaceHistoryResponse> 
    */
-  export function clearWorkspaceHistory(): Promise<ClearWorkspaceHistoryResponse>;
+  clearWorkspaceHistory(): Promise<HistoryClearWorkspaceHistoryResponse>;
 
   /**
    * 获取指定文档历史版本的内容和相关信息。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetDocHistoryContentParams)
-   * @returns Promise<GetDocHistoryContentResponse> 
+   * @param params Request parameters (HistoryGetDocHistoryContentParams)
+   * @returns Promise<HistoryGetDocHistoryContentResponse> 
    */
-  export function getDocHistoryContent(params: GetDocHistoryContentParams): Promise<GetDocHistoryContentResponse>;
+  getDocHistoryContent(params: HistoryGetDocHistoryContentParams): Promise<HistoryGetDocHistoryContentResponse>;
 
   /**
    * 根据创建日期、关键词等条件获取历史记录中的具体条目列表。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetHistoryItemsParams)
-   * @returns Promise<GetHistoryItemsResponse> 
+   * @param params Request parameters (HistoryGetHistoryItemsParams)
+   * @returns Promise<HistoryGetHistoryItemsResponse> 
    */
-  export function getHistoryItems(params: GetHistoryItemsParams): Promise<GetHistoryItemsResponse>;
+  getHistoryItems(params: HistoryGetHistoryItemsParams): Promise<HistoryGetHistoryItemsResponse>;
 
   /**
    * 获取所有笔记本的历史记录信息。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetNotebookHistoryResponse> 
+   * @returns Promise<HistoryGetNotebookHistoryResponse> 
    */
-  export function getNotebookHistory(): Promise<GetNotebookHistoryResponse>;
+  getNotebookHistory(): Promise<HistoryGetNotebookHistoryResponse>;
 
   /**
    * 重建整个工作空间的历史记录索引。这是一个后台异步操作。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ReindexHistoryResponse> 
+   * @returns Promise<HistoryReindexHistoryResponse> 
    */
-  export function reindexHistory(): Promise<ReindexHistoryResponse>;
+  reindexHistory(): Promise<HistoryReindexHistoryResponse>;
 
   /**
    * 将资源文件回滚到指定的历史版本。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RollbackAssetsHistoryParams)
-   * @returns Promise<RollbackAssetsHistoryResponse> 
+   * @param params Request parameters (HistoryRollbackAssetsHistoryParams)
+   * @returns Promise<HistoryRollbackAssetsHistoryResponse> 
    */
-  export function rollbackAssetsHistory(params: RollbackAssetsHistoryParams): Promise<RollbackAssetsHistoryResponse>;
+  rollbackAssetsHistory(params: HistoryRollbackAssetsHistoryParams): Promise<HistoryRollbackAssetsHistoryResponse>;
 
   /**
    * 将单个文档回滚到指定的历史版本。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RollbackDocHistoryParams)
-   * @returns Promise<RollbackDocHistoryResponse> 
+   * @param params Request parameters (HistoryRollbackDocHistoryParams)
+   * @returns Promise<HistoryRollbackDocHistoryResponse> 
    */
-  export function rollbackDocHistory(params: RollbackDocHistoryParams): Promise<RollbackDocHistoryResponse>;
+  rollbackDocHistory(params: HistoryRollbackDocHistoryParams): Promise<HistoryRollbackDocHistoryResponse>;
 
   /**
    * 将整个笔记本回滚到指定的历史版本。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RollbackNotebookHistoryParams)
-   * @returns Promise<RollbackNotebookHistoryResponse> 
+   * @param params Request parameters (HistoryRollbackNotebookHistoryParams)
+   * @returns Promise<HistoryRollbackNotebookHistoryResponse> 
    */
-  export function rollbackNotebookHistory(params: RollbackNotebookHistoryParams): Promise<RollbackNotebookHistoryResponse>;
+  rollbackNotebookHistory(params: HistoryRollbackNotebookHistoryParams): Promise<HistoryRollbackNotebookHistoryResponse>;
 
   /**
    * 根据关键词、笔记本、类型等分页搜索历史记录。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (SearchHistoryParams)
-   * @returns Promise<SearchHistoryResponse> 
+   * @param params Request parameters (HistorySearchHistoryParams)
+   * @returns Promise<HistorySearchHistoryResponse> 
    */
-  export function searchHistory(params: SearchHistoryParams): Promise<SearchHistoryResponse>;
+  searchHistory(params: HistorySearchHistoryParams): Promise<HistorySearchHistoryResponse>;
 
 }
 
-declare module './icon' {
+export interface IconApi {
   /**
    * 根据参数动态生成一个SVG格式的日期或文字图标。此接口直接返回 SVG 图像数据。
-   * @param params Request parameters (GetDynamicIconParams)
+   * @param params Request parameters (IconGetDynamicIconParams)
    * @returns Promise<any> 此接口不返回 JSON。成功时直接返回 image/svg+xml 类型的 SVG 图像数据 (HTTP 200)。失败时可能返回其他 HTTP 错误状态码。
    */
-  export function getDynamicIcon(params: GetDynamicIconParams): Promise<any>;
+  getDynamicIcon(params: IconGetDynamicIconParams): Promise<any>;
 
 }
 
-declare module './import' {
+export interface ImportApi {
   /**
    * 导入完整的数据包备份 (.zip)。此操作会覆盖当前工作空间的数据。请求体为 FormData，必须包含 'file' 字段，值为 .zip 数据包文件。由于是 FormData，具体字段不在 Zod schema 中定义。代码实现详见 kernel/api/import.go:importData。导入过程会将文件暂存并在处理后删除。注意：此操作会覆盖当前工作空间。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ImportDataResponse> 
+   * @returns Promise<ImportImportDataResponse> 
    */
-  export function importData(): Promise<ImportDataResponse>;
+  importData(): Promise<ImportImportDataResponse>;
 
   /**
    * 导入 .sy 文件 (思源笔记的标准文档/子文档包) 到指定的笔记本和路径下。请求体为 FormData。必须包含 'file' 字段 (值为 .sy.zip 文件), 'notebook' 字段 (目标笔记本ID), 'toPath' 字段 (目标文档父路径，例如 '/' 表示笔记本根目录)。由于是 FormData，具体字段不在 Zod schema 中定义。代码实现详见 kernel/api/import.go:importSY。导入过程会将文件暂存并在处理后删除。后台会显示进度。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ImportSYResponse> 
+   * @returns Promise<ImportImportSYResponse> 
    */
-  export function importSY(): Promise<ImportSYResponse>;
+  importSY(): Promise<ImportImportSYResponse>;
 
   /**
    * 从本地文件系统导入标准 Markdown 文件或包含 Markdown 文件的文件夹到指定的笔记本和路径下。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ImportStdMdParams)
-   * @returns Promise<ImportStdMdResponse> 
+   * @param params Request parameters (ImportImportStdMdParams)
+   * @returns Promise<ImportImportStdMdResponse> 
    */
-  export function importStdMd(params: ImportStdMdParams): Promise<ImportStdMdResponse>;
+  importStdMd(params: ImportImportStdMdParams): Promise<ImportImportStdMdResponse>;
 
 }
 
-declare module './inbox' {
+export interface InboxApi {
   /**
    * 根据ID获取单个云端速记条目的详细内容。速记内容会从 Markdown 转换为 HTML。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetShorthandParams)
-   * @returns Promise<GetShorthandResponse> 
+   * @param params Request parameters (InboxGetShorthandParams)
+   * @returns Promise<InboxGetShorthandResponse> 
    */
-  export function getShorthand(params: GetShorthandParams): Promise<GetShorthandResponse>;
+  getShorthand(params: InboxGetShorthandParams): Promise<InboxGetShorthandResponse>;
 
   /**
    * 分页获取云端速记条目列表。速记内容会从 Markdown 转换为 HTML，描述会做简化处理。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetShorthandsParams)
-   * @returns Promise<GetShorthandsResponse> 
+   * @param params Request parameters (InboxGetShorthandsParams)
+   * @returns Promise<InboxGetShorthandsResponse> 
    */
-  export function getShorthands(params: GetShorthandsParams): Promise<GetShorthandsResponse>;
+  getShorthands(params: InboxGetShorthandsParams): Promise<InboxGetShorthandsResponse>;
 
   /**
    * 根据ID列表批量移除云端速记条目。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveShorthandsParams)
-   * @returns Promise<RemoveShorthandsResponse> 
+   * @param params Request parameters (InboxRemoveShorthandsParams)
+   * @returns Promise<InboxRemoveShorthandsResponse> 
    */
-  export function removeShorthands(params: RemoveShorthandsParams): Promise<RemoveShorthandsResponse>;
+  removeShorthands(params: InboxRemoveShorthandsParams): Promise<InboxRemoveShorthandsResponse>;
 
 }
 
-declare module './lute' {
+export interface LuteApi {
   /**
    * 将指定ID的块内容导出为标准 Markdown 格式的字符串。
    * (Requires authentication)
-   * @param params Request parameters (CopyStdMarkdownParams)
-   * @returns Promise<CopyStdMarkdownResponse> 
+   * @param params Request parameters (LuteCopyStdMarkdownParams)
+   * @returns Promise<LuteCopyStdMarkdownResponse> 
    */
-  export function copyStdMarkdown(params: CopyStdMarkdownParams): Promise<CopyStdMarkdownResponse>;
+  copyStdMarkdown(params: LuteCopyStdMarkdownParams): Promise<LuteCopyStdMarkdownResponse>;
 
   /**
    * 将输入的 HTML 字符串转换为思源笔记的块级 DOM 结构 (仍为HTML字符串，但经过Lute处理)。会处理本地资源路径、空列表项、单列表格转段落等情况。
    * (Requires authentication)
-   * @param params Request parameters (Html2BlockDOMParams)
-   * @returns Promise<Html2BlockDOMResponse> 
+   * @param params Request parameters (LuteHtml2BlockDOMParams)
+   * @returns Promise<LuteHtml2BlockDOMResponse> 
    */
-  export function html2BlockDOM(params: Html2BlockDOMParams): Promise<Html2BlockDOMResponse>;
+  html2BlockDOM(params: LuteHtml2BlockDOMParams): Promise<LuteHtml2BlockDOMResponse>;
 
   /**
    * 对传入的块级 DOM 字符串执行 Lute 引擎的 SpinBlockDOM 处理，进行原生渲染相关的优化。
    * (Requires authentication)
-   * @param params Request parameters (SpinBlockDOMParams)
-   * @returns Promise<SpinBlockDOMResponse> 
+   * @param params Request parameters (LuteSpinBlockDOMParams)
+   * @returns Promise<LuteSpinBlockDOMResponse> 
    */
-  export function spinBlockDOM(params: SpinBlockDOMParams): Promise<SpinBlockDOMResponse>;
+  spinBlockDOM(params: LuteSpinBlockDOMParams): Promise<LuteSpinBlockDOMResponse>;
 
 }
 
-declare module './misc' {
+export interface MiscApi {
   /**
    * 通过 Server-Sent Events (SSE) 订阅一个或多个指定广播频道的消息。连接建立后，服务器会持续推送所订阅频道的消息。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (BroadcastSubscribeParams)
+   * @param params Request parameters (MiscBroadcastSubscribeParams)
    * @returns Promise<Record<string, never>> 
    */
-  export function broadcastSubscribe(params: BroadcastSubscribeParams): Promise<Record<string, never>>;
+  broadcastSubscribe(params: MiscBroadcastSubscribeParams): Promise<Record<string, never>>;
 
   /**
    * 通过 WebSocket 连接到指定的广播频道，用于双向实时通讯。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (BroadcastParams)
+   * @param params Request parameters (MiscBroadcastParams)
    * @returns Promise<Record<string, never>> 
    */
-  export function broadcast(params: BroadcastParams): Promise<Record<string, never>>;
+  broadcast(params: MiscBroadcastParams): Promise<Record<string, never>>;
 
 }
 
-declare module './network' {
+export interface NetworkApi {
   /**
    * 作为代理，将客户端构造的HTTP(S)请求转发到指定的目标URL，并返回目标服务器的响应。支持多种请求体编码方式。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (ForwardProxyParams)
-   * @returns Promise<ForwardProxyResponse> 
+   * @param params Request parameters (NetworkForwardProxyParams)
+   * @returns Promise<NetworkForwardProxyResponse> 
    */
-  export function forwardProxy(params: ForwardProxyParams): Promise<ForwardProxyResponse>;
+  forwardProxy(params: NetworkForwardProxyParams): Promise<NetworkForwardProxyResponse>;
 
 }
 
-declare module './notebook' {
+export interface NotebookApi {
   /**
    * 批量更改笔记本的显示顺序。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ChangeSortNotebookParams)
-   * @returns Promise<ChangeSortNotebookResponse> 
+   * @param params Request parameters (NotebookChangeSortNotebookParams)
+   * @returns Promise<NotebookChangeSortNotebookResponse> 
    */
-  export function changeSortNotebook(params: ChangeSortNotebookParams): Promise<ChangeSortNotebookResponse>;
+  changeSortNotebook(params: NotebookChangeSortNotebookParams): Promise<NotebookChangeSortNotebookResponse>;
 
   /**
    * 关闭一个指定的笔记本。关闭后，笔记本内容将不再可访问，直到再次打开。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CloseNotebookParams)
-   * @returns Promise<CloseNotebookResponse> 
+   * @param params Request parameters (NotebookCloseNotebookParams)
+   * @returns Promise<NotebookCloseNotebookResponse> 
    */
-  export function closeNotebook(params: CloseNotebookParams): Promise<CloseNotebookResponse>;
+  closeNotebook(params: NotebookCloseNotebookParams): Promise<NotebookCloseNotebookResponse>;
 
   /**
    * 创建一个新的笔记本。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateNotebookParams)
-   * @returns Promise<CreateNotebookResponse> 
+   * @param params Request parameters (NotebookCreateNotebookParams)
+   * @returns Promise<NotebookCreateNotebookResponse> 
    */
-  export function createNotebook(params: CreateNotebookParams): Promise<CreateNotebookResponse>;
+  createNotebook(params: NotebookCreateNotebookParams): Promise<NotebookCreateNotebookResponse>;
 
   /**
    * 获取指定笔记本的配置信息。
    * (Requires authentication)
-   * @param params Request parameters (GetNotebookConfParams)
-   * @returns Promise<GetNotebookConfResponse> 
+   * @param params Request parameters (NotebookGetNotebookConfParams)
+   * @returns Promise<NotebookGetNotebookConfResponse> 
    */
-  export function getNotebookConf(params: GetNotebookConfParams): Promise<GetNotebookConfResponse>;
+  getNotebookConf(params: NotebookGetNotebookConfParams): Promise<NotebookGetNotebookConfResponse>;
 
   /**
    * 获取指定笔记本的详细信息，包括其配置和统计数据。
    * (Requires authentication, Unavailable in read-only mode)
-   * @param params Request parameters (GetNotebookInfoParams)
-   * @returns Promise<GetNotebookInfoResponse> 
+   * @param params Request parameters (NotebookGetNotebookInfoParams)
+   * @returns Promise<NotebookGetNotebookInfoResponse> 
    */
-  export function getNotebookInfo(params: GetNotebookInfoParams): Promise<GetNotebookInfoResponse>;
+  getNotebookInfo(params: NotebookGetNotebookInfoParams): Promise<NotebookGetNotebookInfoResponse>;
 
   /**
    * 获取当前工作空间中所有笔记本的列表，包含已打开和未打开的笔记本。
    * (Requires authentication)
-   * @returns Promise<LsNotebooksResponse> 
+   * @returns Promise<NotebookLsNotebooksResponse> 
    */
-  export function lsNotebooks(): Promise<LsNotebooksResponse>;
+  lsNotebooks(): Promise<NotebookLsNotebooksResponse>;
 
   /**
    * 打开一个指定的笔记本。如果笔记本已经是打开状态，此操作可能仅刷新其状态。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (OpenNotebookParams)
-   * @returns Promise<OpenNotebookResponse> 
+   * @param params Request parameters (NotebookOpenNotebookParams)
+   * @returns Promise<NotebookOpenNotebookResponse> 
    */
-  export function openNotebook(params: OpenNotebookParams): Promise<OpenNotebookResponse>;
+  openNotebook(params: NotebookOpenNotebookParams): Promise<NotebookOpenNotebookResponse>;
 
   /**
    * 删除一个指定的笔记本。此操作会从工作空间移除笔记本及其所有内容。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveNotebookParams)
-   * @returns Promise<RemoveNotebookResponse> 
+   * @param params Request parameters (NotebookRemoveNotebookParams)
+   * @returns Promise<NotebookRemoveNotebookResponse> 
    */
-  export function removeNotebook(params: RemoveNotebookParams): Promise<RemoveNotebookResponse>;
+  removeNotebook(params: NotebookRemoveNotebookParams): Promise<NotebookRemoveNotebookResponse>;
 
   /**
    * 重命名一个指定的笔记本。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameNotebookParams)
-   * @returns Promise<RenameNotebookResponse> 
+   * @param params Request parameters (NotebookRenameNotebookParams)
+   * @returns Promise<NotebookRenameNotebookResponse> 
    */
-  export function renameNotebook(params: RenameNotebookParams): Promise<RenameNotebookResponse>;
+  renameNotebook(params: NotebookRenameNotebookParams): Promise<NotebookRenameNotebookResponse>;
 
   /**
    * 更新指定笔记本的配置信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetNotebookConfParams)
-   * @returns Promise<SetNotebookConfResponse> 
+   * @param params Request parameters (NotebookSetNotebookConfParams)
+   * @returns Promise<NotebookSetNotebookConfResponse> 
    */
-  export function setNotebookConf(params: SetNotebookConfParams): Promise<SetNotebookConfResponse>;
+  setNotebookConf(params: NotebookSetNotebookConfParams): Promise<NotebookSetNotebookConfResponse>;
 
   /**
    * 设置指定笔记本的显示图标。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetNotebookIconParams)
-   * @returns Promise<SetNotebookIconResponse> 
+   * @param params Request parameters (NotebookSetNotebookIconParams)
+   * @returns Promise<NotebookSetNotebookIconResponse> 
    */
-  export function setNotebookIcon(params: SetNotebookIconParams): Promise<SetNotebookIconResponse>;
+  setNotebookIcon(params: NotebookSetNotebookIconParams): Promise<NotebookSetNotebookIconResponse>;
 
 }
 
-declare module './notification' {
+export interface NotificationApi {
   /**
    * 向前端推送一条错误类型的消息通知，通常用于显示操作失败或异常情况。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (PushErrMsgParams)
-   * @returns Promise<PushErrMsgResponse> 
+   * @param params Request parameters (NotificationPushErrMsgParams)
+   * @returns Promise<NotificationPushErrMsgResponse> 
    */
-  export function pushErrMsg(params: PushErrMsgParams): Promise<PushErrMsgResponse>;
+  pushErrMsg(params: NotificationPushErrMsgParams): Promise<NotificationPushErrMsgResponse>;
 
   /**
    * 向前端推送一条普通类型的消息通知，通常用于显示操作成功或提示信息。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (PushMsgParams)
-   * @returns Promise<PushMsgResponse> 
+   * @param params Request parameters (NotificationPushMsgParams)
+   * @returns Promise<NotificationPushMsgResponse> 
    */
-  export function pushMsg(params: PushMsgParams): Promise<PushMsgResponse>;
+  pushMsg(params: NotificationPushMsgParams): Promise<NotificationPushMsgResponse>;
 
 }
 
-declare module './outline' {
+export interface OutlineApi {
   /**
    * 获取指定文档块（通常是文档的根块ID）的层级大纲结构。
    * (Requires authentication)
-   * @param params Request parameters (GetDocOutlineParams)
-   * @returns Promise<GetDocOutlineResponse> 
+   * @param params Request parameters (OutlineGetDocOutlineParams)
+   * @returns Promise<OutlineGetDocOutlineResponse> 
    */
-  export function getDocOutline(params: GetDocOutlineParams): Promise<GetDocOutlineResponse>;
+  getDocOutline(params: OutlineGetDocOutlineParams): Promise<OutlineGetDocOutlineResponse>;
 
 }
 
-declare module './petal' {
+export interface PetalApi {
   /**
    * 加载指定前端界面的所有已启用且兼容的插件（Petals）及其代码和配置信息。
    * (Requires authentication)
-   * @param params Request parameters (LoadPetalsParams)
-   * @returns Promise<LoadPetalsResponse> 
+   * @param params Request parameters (PetalLoadPetalsParams)
+   * @returns Promise<PetalLoadPetalsResponse> 
    */
-  export function loadPetals(params: LoadPetalsParams): Promise<LoadPetalsResponse>;
+  loadPetals(params: PetalLoadPetalsParams): Promise<PetalLoadPetalsResponse>;
 
   /**
    * 设置指定前端界面中特定插件（由包名识别）的启用或禁用状态。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetPetalEnabledParams)
-   * @returns Promise<SetPetalEnabledResponse> 
+   * @param params Request parameters (PetalSetPetalEnabledParams)
+   * @returns Promise<PetalSetPetalEnabledResponse> 
    */
-  export function setPetalEnabled(params: SetPetalEnabledParams): Promise<SetPetalEnabledResponse>;
+  setPetalEnabled(params: PetalSetPetalEnabledParams): Promise<PetalSetPetalEnabledResponse>;
 
 }
 
-declare module './query' {
+export interface QueryApi {
   /**
    * 执行 SQL 查询语句，返回查询结果。思源笔记使用 SQLite 作为底层数据库，支持标准的 SQL 查询语法。
    * (Requires authentication)
-   * @param params Request parameters (SQLParams)
-   * @returns Promise<SQLResponse> 
+   * @param params Request parameters (QuerySQLParams)
+   * @returns Promise<QuerySQLResponse> 
    */
-  export function SQL(params: SQLParams): Promise<SQLResponse>;
+  SQL(params: QuerySQLParams): Promise<QuerySQLResponse>;
 
 }
 
-declare module './ref' {
+export interface RefApi {
   /**
    * 获取指定块ID的反向链接和反向提及列表。此接口为旧版，建议使用 /api/ref/getBacklink2。
    * (Requires authentication)
-   * @param params Request parameters (GetBacklinkParams)
-   * @returns Promise<GetBacklinkResponse> 
+   * @param params Request parameters (RefGetBacklinkParams)
+   * @returns Promise<RefGetBacklinkResponse> 
    */
-  export function getBacklink(params: GetBacklinkParams): Promise<GetBacklinkResponse>;
+  getBacklink(params: RefGetBacklinkParams): Promise<RefGetBacklinkResponse>;
 
   /**
    * 获取指定块ID的反向链接和反向提及列表，支持排序。
    * (Requires authentication)
-   * @param params Request parameters (GetBacklink2Params)
-   * @returns Promise<GetBacklink2Response> 
+   * @param params Request parameters (RefGetBacklink2Params)
+   * @returns Promise<RefGetBacklink2Response> 
    */
-  export function getBacklink2(params: GetBacklink2Params): Promise<GetBacklink2Response>;
+  getBacklink2(params: RefGetBacklink2Params): Promise<RefGetBacklink2Response>;
 
   /**
    * 获取指定 定义块 在某个特定 文档树 内的反向链接列表。用于在打开一个文档时，显示该文档中有哪些块引用了当前面板的文档。
    * (Requires authentication)
-   * @param params Request parameters (GetBacklinkDocParams)
-   * @returns Promise<GetBacklinkDocResponse> 
+   * @param params Request parameters (RefGetBacklinkDocParams)
+   * @returns Promise<RefGetBacklinkDocResponse> 
    */
-  export function getBacklinkDoc(params: GetBacklinkDocParams): Promise<GetBacklinkDocResponse>;
+  getBacklinkDoc(params: RefGetBacklinkDocParams): Promise<RefGetBacklinkDocResponse>;
 
   /**
    * 获取指定 定义块 在某个特定 文档树 内的反向提及列表 (提及了定义块的名称或别名，但未直接引用的块)。
    * (Requires authentication)
-   * @param params Request parameters (GetBackmentionDocParams)
-   * @returns Promise<GetBackmentionDocResponse> 
+   * @param params Request parameters (RefGetBackmentionDocParams)
+   * @returns Promise<RefGetBackmentionDocResponse> 
    */
-  export function getBackmentionDoc(params: GetBackmentionDocParams): Promise<GetBackmentionDocResponse>;
+  getBackmentionDoc(params: RefGetBackmentionDocParams): Promise<RefGetBackmentionDocResponse>;
 
   /**
    * 手动触发指定块的反向链接和提及关系的刷新计算。通常在数据发生变更后，系统会自动更新，但此接口可用于强制刷新。
    * (Requires authentication)
-   * @param params Request parameters (RefreshBacklinkParams)
-   * @returns Promise<RefreshBacklinkResponse> 
+   * @param params Request parameters (RefRefreshBacklinkParams)
+   * @returns Promise<RefRefreshBacklinkResponse> 
    */
-  export function refreshBacklink(params: RefreshBacklinkParams): Promise<RefreshBacklinkResponse>;
+  refreshBacklink(params: RefRefreshBacklinkParams): Promise<RefRefreshBacklinkResponse>;
 
 }
 
-declare module './repo' {
+export interface RepoApi {
   /**
    * 将当前工作区内容回滚到指定的仓库快照版本。这是一个危险操作，会导致当前未保存的更改丢失，请谨慎操作。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CheckoutRepoParams)
-   * @returns Promise<CheckoutRepoResponse> 
+   * @param params Request parameters (RepoCheckoutRepoParams)
+   * @returns Promise<RepoCheckoutRepoResponse> 
    */
-  export function checkoutRepo(params: CheckoutRepoParams): Promise<CheckoutRepoResponse>;
+  checkoutRepo(params: RepoCheckoutRepoParams): Promise<RepoCheckoutRepoResponse>;
 
   /**
    * 为当前工作区创建一个新的快照。可以附带备注信息和标签。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateSnapshotParams)
-   * @returns Promise<CreateSnapshotResponse> 
+   * @param params Request parameters (RepoCreateSnapshotParams)
+   * @returns Promise<RepoCreateSnapshotResponse> 
    */
-  export function createSnapshot(params: CreateSnapshotParams): Promise<CreateSnapshotResponse>;
+  createSnapshot(params: RepoCreateSnapshotParams): Promise<RepoCreateSnapshotResponse>;
 
   /**
    * 比较两个指定的本地快照之间的差异，列出新增、修改和删除的文档。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (DiffRepoSnapshotsParams)
-   * @returns Promise<DiffRepoSnapshotsResponse> 
+   * @param params Request parameters (RepoDiffRepoSnapshotsParams)
+   * @returns Promise<RepoDiffRepoSnapshotsResponse> 
    */
-  export function diffRepoSnapshots(params: DiffRepoSnapshotsParams): Promise<DiffRepoSnapshotsResponse>;
+  diffRepoSnapshots(params: RepoDiffRepoSnapshotsParams): Promise<RepoDiffRepoSnapshotsResponse>;
 
   /**
    * 从云端下载指定的快照到本地。如果本地已存在同名快照，可能会被覆盖或操作失败。下载的是标签快照时需要提供标签名。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (DownloadCloudSnapshotParams)
-   * @returns Promise<DownloadCloudSnapshotResponse> 
+   * @param params Request parameters (RepoDownloadCloudSnapshotParams)
+   * @returns Promise<RepoDownloadCloudSnapshotResponse> 
    */
-  export function downloadCloudSnapshot(params: DownloadCloudSnapshotParams): Promise<DownloadCloudSnapshotResponse>;
+  downloadCloudSnapshot(params: RepoDownloadCloudSnapshotParams): Promise<RepoDownloadCloudSnapshotResponse>;
 
   /**
    * 分页获取当前用户在云端存储的所有普通快照列表。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetCloudRepoSnapshotsParams)
-   * @returns Promise<GetCloudRepoSnapshotsResponse> 
+   * @param params Request parameters (RepoGetCloudRepoSnapshotsParams)
+   * @returns Promise<RepoGetCloudRepoSnapshotsResponse> 
    */
-  export function getCloudRepoSnapshots(params: GetCloudRepoSnapshotsParams): Promise<GetCloudRepoSnapshotsResponse>;
+  getCloudRepoSnapshots(params: RepoGetCloudRepoSnapshotsParams): Promise<RepoGetCloudRepoSnapshotsResponse>;
 
   /**
    * 分页获取当前用户在云端存储的所有标签快照列表。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetCloudRepoTagSnapshotsParams)
-   * @returns Promise<GetCloudRepoTagSnapshotsResponse> 
+   * @param params Request parameters (RepoGetCloudRepoTagSnapshotsParams)
+   * @returns Promise<RepoGetCloudRepoTagSnapshotsResponse> 
    */
-  export function getCloudRepoTagSnapshots(params: GetCloudRepoTagSnapshotsParams): Promise<GetCloudRepoTagSnapshotsResponse>;
+  getCloudRepoTagSnapshots(params: RepoGetCloudRepoTagSnapshotsParams): Promise<RepoGetCloudRepoTagSnapshotsResponse>;
 
   /**
    * 获取指定快照中特定文件的原始内容。此接口直接返回文件数据流，不返回标准JSON结构。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetRepoFileParams)
+   * @param params Request parameters (RepoGetRepoFileParams)
    * @returns Promise<any> 此接口不返回标准 JSON。成功时直接返回文件数据流 (HTTP 200)，Content-Type 根据文件类型确定。失败时返回标准 JSON 错误结构。
    */
-  export function getRepoFile(params: GetRepoFileParams): Promise<any>;
+  getRepoFile(params: RepoGetRepoFileParams): Promise<any>;
 
   /**
    * 分页获取当前工作区本地存储的所有普通快照列表。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetRepoSnapshotsParams)
-   * @returns Promise<GetRepoSnapshotsResponse> 
+   * @param params Request parameters (RepoGetRepoSnapshotsParams)
+   * @returns Promise<RepoGetRepoSnapshotsResponse> 
    */
-  export function getRepoSnapshots(params: GetRepoSnapshotsParams): Promise<GetRepoSnapshotsResponse>;
+  getRepoSnapshots(params: RepoGetRepoSnapshotsParams): Promise<RepoGetRepoSnapshotsResponse>;
 
   /**
    * 分页获取当前工作区本地存储的所有标签快照列表。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetRepoTagSnapshotsParams)
-   * @returns Promise<GetRepoTagSnapshotsResponse> 
+   * @param params Request parameters (RepoGetRepoTagSnapshotsParams)
+   * @returns Promise<RepoGetRepoTagSnapshotsResponse> 
    */
-  export function getRepoTagSnapshots(params: GetRepoTagSnapshotsParams): Promise<GetRepoTagSnapshotsResponse>;
+  getRepoTagSnapshots(params: RepoGetRepoTagSnapshotsParams): Promise<RepoGetRepoTagSnapshotsResponse>;
 
   /**
    * 导入仓库加密密钥。这是一个危险操作，错误的密钥可能导致数据无法解密。导入的密钥文件通常是 .sykey 后缀。此操作通过 FormData 接收文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ImportRepoKeyResponse> 
+   * @returns Promise<RepoImportRepoKeyResponse> 
    */
-  export function importRepoKey(): Promise<ImportRepoKeyResponse>;
+  importRepoKey(): Promise<RepoImportRepoKeyResponse>;
 
   /**
    * 为当前工作区初始化一个新的随机加密密钥。此操作通常在首次设置加密或重置密钥时使用。旧密钥将被覆盖。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<InitRepoKeyResponse> 
+   * @returns Promise<RepoInitRepoKeyResponse> 
    */
-  export function initRepoKey(): Promise<InitRepoKeyResponse>;
+  initRepoKey(): Promise<RepoInitRepoKeyResponse>;
 
   /**
    * 通过用户提供的口令生成并初始化仓库加密密钥。旧密钥将被覆盖。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (InitRepoKeyFromPassphraseParams)
-   * @returns Promise<InitRepoKeyFromPassphraseResponse> 
+   * @param params Request parameters (RepoInitRepoKeyFromPassphraseParams)
+   * @returns Promise<RepoInitRepoKeyFromPassphraseResponse> 
    */
-  export function initRepoKeyFromPassphrase(params: InitRepoKeyFromPassphraseParams): Promise<InitRepoKeyFromPassphraseResponse>;
+  initRepoKeyFromPassphrase(params: RepoInitRepoKeyFromPassphraseParams): Promise<RepoInitRepoKeyFromPassphraseResponse>;
 
   /**
    * 获取并打开指定快照中特定文档的内容，用于预览历史版本。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (OpenRepoSnapshotDocParams)
-   * @returns Promise<OpenRepoSnapshotDocResponse> 
+   * @param params Request parameters (RepoOpenRepoSnapshotDocParams)
+   * @returns Promise<RepoOpenRepoSnapshotDocResponse> 
    */
-  export function openRepoSnapshotDoc(params: OpenRepoSnapshotDocParams): Promise<OpenRepoSnapshotDocResponse>;
+  openRepoSnapshotDoc(params: RepoOpenRepoSnapshotDocParams): Promise<RepoOpenRepoSnapshotDocResponse>;
 
   /**
    * 彻底删除用户在云端的所有仓库数据，包括所有快照和标签快照。这是一个非常危险且不可逆的操作，执行前通常会有二次确认。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<PurgeCloudRepoResponse> 
+   * @returns Promise<RepoPurgeCloudRepoResponse> 
    */
-  export function purgeCloudRepo(): Promise<PurgeCloudRepoResponse>;
+  purgeCloudRepo(): Promise<RepoPurgeCloudRepoResponse>;
 
   /**
    * 彻底删除当前工作区的本地仓库数据，包括所有快照和标签快照。这是一个非常危险且不可逆的操作，执行前通常会有二次确认。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<PurgeRepoResponse> 
+   * @returns Promise<RepoPurgeRepoResponse> 
    */
-  export function purgeRepo(): Promise<PurgeRepoResponse>;
+  purgeRepo(): Promise<RepoPurgeRepoResponse>;
 
   /**
    * 从云端移除指定的标签快照。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveCloudRepoTagSnapshotParams)
-   * @returns Promise<RemoveCloudRepoTagSnapshotResponse> 
+   * @param params Request parameters (RepoRemoveCloudRepoTagSnapshotParams)
+   * @returns Promise<RepoRemoveCloudRepoTagSnapshotResponse> 
    */
-  export function removeCloudRepoTagSnapshot(params: RemoveCloudRepoTagSnapshotParams): Promise<RemoveCloudRepoTagSnapshotResponse>;
+  removeCloudRepoTagSnapshot(params: RepoRemoveCloudRepoTagSnapshotParams): Promise<RepoRemoveCloudRepoTagSnapshotResponse>;
 
   /**
    * 从本地仓库移除指定的标签快照。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveRepoTagSnapshotParams)
-   * @returns Promise<RemoveRepoTagSnapshotResponse> 
+   * @param params Request parameters (RepoRemoveRepoTagSnapshotParams)
+   * @returns Promise<RepoRemoveRepoTagSnapshotResponse> 
    */
-  export function removeRepoTagSnapshot(params: RemoveRepoTagSnapshotParams): Promise<RemoveRepoTagSnapshotResponse>;
+  removeRepoTagSnapshot(params: RepoRemoveRepoTagSnapshotParams): Promise<RepoRemoveRepoTagSnapshotResponse>;
 
   /**
    * 重置本地仓库，会清空所有快照和标签，并重新初始化仓库密钥。这是一个危险操作，执行前通常会有二次确认。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ResetRepoResponse> 
+   * @returns Promise<RepoResetRepoResponse> 
    */
-  export function resetRepo(): Promise<ResetRepoResponse>;
+  resetRepo(): Promise<RepoResetRepoResponse>;
 
   /**
    * 设置本地仓库快照索引的保留天数。过期的索引将被自动清理。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (SetRepoIndexRetentionDaysParams)
-   * @returns Promise<SetRepoIndexRetentionDaysResponse> 
+   * @param params Request parameters (RepoSetRepoIndexRetentionDaysParams)
+   * @returns Promise<RepoSetRepoIndexRetentionDaysResponse> 
    */
-  export function setRepoIndexRetentionDays(params: SetRepoIndexRetentionDaysParams): Promise<SetRepoIndexRetentionDaysResponse>;
+  setRepoIndexRetentionDays(params: RepoSetRepoIndexRetentionDaysParams): Promise<RepoSetRepoIndexRetentionDaysResponse>;
 
   /**
    * 设置每日自动创建的快照在本地的保留数量。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (SetRetentionIndexesDailyParams)
-   * @returns Promise<SetRetentionIndexesDailyResponse> 
+   * @param params Request parameters (RepoSetRetentionIndexesDailyParams)
+   * @returns Promise<RepoSetRetentionIndexesDailyResponse> 
    */
-  export function setRetentionIndexesDaily(params: SetRetentionIndexesDailyParams): Promise<SetRetentionIndexesDailyResponse>;
+  setRetentionIndexesDaily(params: RepoSetRetentionIndexesDailyParams): Promise<RepoSetRetentionIndexesDailyResponse>;
 
   /**
    * 为指定的本地快照打上标签，使其成为一个标签快照。可以同时提供备注，如果提供会覆盖快照原有的备注。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (TagSnapshotParams)
-   * @returns Promise<TagSnapshotResponse> 
+   * @param params Request parameters (RepoTagSnapshotParams)
+   * @returns Promise<RepoTagSnapshotResponse> 
    */
-  export function tagSnapshot(params: TagSnapshotParams): Promise<TagSnapshotResponse>;
+  tagSnapshot(params: RepoTagSnapshotParams): Promise<RepoTagSnapshotResponse>;
 
   /**
    * 将指定的本地快照上传到云端。如果是标签快照，需要提供标签名。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (UploadCloudSnapshotParams)
-   * @returns Promise<UploadCloudSnapshotResponse> 
+   * @param params Request parameters (RepoUploadCloudSnapshotParams)
+   * @returns Promise<RepoUploadCloudSnapshotResponse> 
    */
-  export function uploadCloudSnapshot(params: UploadCloudSnapshotParams): Promise<UploadCloudSnapshotResponse>;
+  uploadCloudSnapshot(params: RepoUploadCloudSnapshotParams): Promise<RepoUploadCloudSnapshotResponse>;
 
 }
 
-declare module './riff' {
+export interface RiffApi {
   /**
    * 将指定的块添加为闪卡到指定的闪卡包中。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AddRiffCardsParams)
-   * @returns Promise<AddRiffCardsResponse> 
+   * @param params Request parameters (RiffAddRiffCardsParams)
+   * @returns Promise<RiffAddRiffCardsResponse> 
    */
-  export function addRiffCards(params: AddRiffCardsParams): Promise<AddRiffCardsResponse>;
+  addRiffCards(params: RiffAddRiffCardsParams): Promise<RiffAddRiffCardsResponse>;
 
   /**
    * 批量设置闪卡的到期时间。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (BatchSetRiffCardsDueTimeParams)
-   * @returns Promise<BatchSetRiffCardsDueTimeResponse> 
+   * @param params Request parameters (RiffBatchSetRiffCardsDueTimeParams)
+   * @returns Promise<RiffBatchSetRiffCardsDueTimeResponse> 
    */
-  export function batchSetRiffCardsDueTime(params: BatchSetRiffCardsDueTimeParams): Promise<BatchSetRiffCardsDueTimeResponse>;
+  batchSetRiffCardsDueTime(params: RiffBatchSetRiffCardsDueTimeParams): Promise<RiffBatchSetRiffCardsDueTimeResponse>;
 
   /**
    * 创建一个新的闪卡包。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateRiffDeckParams)
-   * @returns Promise<CreateRiffDeckResponse> 
+   * @param params Request parameters (RiffCreateRiffDeckParams)
+   * @returns Promise<RiffCreateRiffDeckResponse> 
    */
-  export function createRiffDeck(params: CreateRiffDeckParams): Promise<CreateRiffDeckResponse>;
+  createRiffDeck(params: RiffCreateRiffDeckParams): Promise<RiffCreateRiffDeckResponse>;
 
   /**
    * 获取指定笔记本下的所有闪卡块 ID，支持分页。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetNotebookRiffCardsParams)
-   * @returns Promise<GetNotebookRiffCardsResponse> 
+   * @param params Request parameters (RiffGetNotebookRiffCardsParams)
+   * @returns Promise<RiffGetNotebookRiffCardsResponse> 
    */
-  export function getNotebookRiffCards(params: GetNotebookRiffCardsParams): Promise<GetNotebookRiffCardsResponse>;
+  getNotebookRiffCards(params: RiffGetNotebookRiffCardsParams): Promise<RiffGetNotebookRiffCardsResponse>;
 
   /**
    * 获取指定笔记本下所有到期应复习的闪卡。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetNotebookRiffDueCardsParams)
-   * @returns Promise<GetNotebookRiffDueCardsResponse> 
+   * @param params Request parameters (RiffGetNotebookRiffDueCardsParams)
+   * @returns Promise<RiffGetNotebookRiffDueCardsResponse> 
    */
-  export function getNotebookRiffDueCards(params: GetNotebookRiffDueCardsParams): Promise<GetNotebookRiffDueCardsResponse>;
+  getNotebookRiffDueCards(params: RiffGetNotebookRiffDueCardsParams): Promise<RiffGetNotebookRiffDueCardsResponse>;
 
   /**
    * 获取指定闪卡包中的所有闪卡块 ID，支持分页。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetRiffCardsParams)
-   * @returns Promise<GetRiffCardsResponse> 
+   * @param params Request parameters (RiffGetRiffCardsParams)
+   * @returns Promise<RiffGetRiffCardsResponse> 
    */
-  export function getRiffCards(params: GetRiffCardsParams): Promise<GetRiffCardsResponse>;
+  getRiffCards(params: RiffGetRiffCardsParams): Promise<RiffGetRiffCardsResponse>;
 
   /**
    * 根据一组块 ID 批量获取它们对应的闪卡信息。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (GetRiffCardsByBlockIDsParams)
-   * @returns Promise<GetRiffCardsByBlockIDsResponse> 
+   * @param params Request parameters (RiffGetRiffCardsByBlockIDsParams)
+   * @returns Promise<RiffGetRiffCardsByBlockIDsResponse> 
    */
-  export function getRiffCardsByBlockIDs(params: GetRiffCardsByBlockIDsParams): Promise<GetRiffCardsByBlockIDsResponse>;
+  getRiffCardsByBlockIDs(params: RiffGetRiffCardsByBlockIDsParams): Promise<RiffGetRiffCardsByBlockIDsResponse>;
 
   /**
    * 获取当前工作空间中所有的闪卡包列表。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetRiffDecksResponse> 
+   * @returns Promise<RiffGetRiffDecksResponse> 
    */
-  export function getRiffDecks(): Promise<GetRiffDecksResponse>;
+  getRiffDecks(): Promise<RiffGetRiffDecksResponse>;
 
   /**
    * 获取指定闪卡包中所有到期应复习的闪卡。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetRiffDueCardsParams)
-   * @returns Promise<GetRiffDueCardsResponse> 
+   * @param params Request parameters (RiffGetRiffDueCardsParams)
+   * @returns Promise<RiffGetRiffDueCardsResponse> 
    */
-  export function getRiffDueCards(params: GetRiffDueCardsParams): Promise<GetRiffDueCardsResponse>;
+  getRiffDueCards(params: RiffGetRiffDueCardsParams): Promise<RiffGetRiffDueCardsResponse>;
 
   /**
    * 获取指定文档树（根块）下的所有闪卡块 ID，支持分页。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetTreeRiffCardsParams)
-   * @returns Promise<GetTreeRiffCardsResponse> 
+   * @param params Request parameters (RiffGetTreeRiffCardsParams)
+   * @returns Promise<RiffGetTreeRiffCardsResponse> 
    */
-  export function getTreeRiffCards(params: GetTreeRiffCardsParams): Promise<GetTreeRiffCardsResponse>;
+  getTreeRiffCards(params: RiffGetTreeRiffCardsParams): Promise<RiffGetTreeRiffCardsResponse>;
 
   /**
    * 获取指定文档树（根块）下所有到期应复习的闪卡。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (GetTreeRiffDueCardsParams)
-   * @returns Promise<GetTreeRiffDueCardsResponse> 
+   * @param params Request parameters (RiffGetTreeRiffDueCardsParams)
+   * @returns Promise<RiffGetTreeRiffDueCardsResponse> 
    */
-  export function getTreeRiffDueCards(params: GetTreeRiffDueCardsParams): Promise<GetTreeRiffDueCardsResponse>;
+  getTreeRiffDueCards(params: RiffGetTreeRiffDueCardsParams): Promise<RiffGetTreeRiffDueCardsResponse>;
 
   /**
    * 从指定的闪卡包中移除指定的闪卡。如果 deckID 为空字符串，则从所有闪卡包中移除。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveRiffCardsParams)
-   * @returns Promise<RemoveRiffCardsResponse> 
+   * @param params Request parameters (RiffRemoveRiffCardsParams)
+   * @returns Promise<RiffRemoveRiffCardsResponse> 
    */
-  export function removeRiffCards(params: RemoveRiffCardsParams): Promise<RemoveRiffCardsResponse>;
+  removeRiffCards(params: RiffRemoveRiffCardsParams): Promise<RiffRemoveRiffCardsResponse>;
 
   /**
    * 移除指定的闪卡包及其包含的所有闪卡。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveRiffDeckParams)
-   * @returns Promise<RemoveRiffDeckResponse> 
+   * @param params Request parameters (RiffRemoveRiffDeckParams)
+   * @returns Promise<RiffRemoveRiffDeckResponse> 
    */
-  export function removeRiffDeck(params: RemoveRiffDeckParams): Promise<RemoveRiffDeckResponse>;
+  removeRiffDeck(params: RiffRemoveRiffDeckParams): Promise<RiffRemoveRiffDeckResponse>;
 
   /**
    * 重命名指定的闪卡包。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameRiffDeckParams)
-   * @returns Promise<RenameRiffDeckResponse> 
+   * @param params Request parameters (RiffRenameRiffDeckParams)
+   * @returns Promise<RiffRenameRiffDeckResponse> 
    */
-  export function renameRiffDeck(params: RenameRiffDeckParams): Promise<RenameRiffDeckResponse>;
+  renameRiffDeck(params: RiffRenameRiffDeckParams): Promise<RiffRenameRiffDeckResponse>;
 
   /**
    * 重置指定范围内的闪卡的学习进度。可以按笔记本、文档树或闪卡包进行重置，也可以指定具体的块 ID 列表。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ResetRiffCardsParams)
-   * @returns Promise<ResetRiffCardsResponse> 
+   * @param params Request parameters (RiffResetRiffCardsParams)
+   * @returns Promise<RiffResetRiffCardsResponse> 
    */
-  export function resetRiffCards(params: ResetRiffCardsParams): Promise<ResetRiffCardsResponse>;
+  resetRiffCards(params: RiffResetRiffCardsParams): Promise<RiffResetRiffCardsResponse>;
 
   /**
    * 对指定的闪卡进行一次复习，并根据评分更新其下次到期时间等学习状态。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ReviewRiffCardParams)
-   * @returns Promise<ReviewRiffCardResponse> 
+   * @param params Request parameters (RiffReviewRiffCardParams)
+   * @returns Promise<RiffReviewRiffCardResponse> 
    */
-  export function reviewRiffCard(params: ReviewRiffCardParams): Promise<ReviewRiffCardResponse>;
+  reviewRiffCard(params: RiffReviewRiffCardParams): Promise<RiffReviewRiffCardResponse>;
 
   /**
    * 跳过当前闪卡的复习，通常是将其推迟到当前学习队列的末尾或稍后。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SkipReviewRiffCardParams)
-   * @returns Promise<SkipReviewRiffCardResponse> 
+   * @param params Request parameters (RiffSkipReviewRiffCardParams)
+   * @returns Promise<RiffSkipReviewRiffCardResponse> 
    */
-  export function skipReviewRiffCard(params: SkipReviewRiffCardParams): Promise<SkipReviewRiffCardResponse>;
+  skipReviewRiffCard(params: RiffSkipReviewRiffCardParams): Promise<RiffSkipReviewRiffCardResponse>;
 
 }
 
-declare module './search' {
+export interface SearchApi {
   /**
    * 在指定的块ID范围、路径、笔记本、类型中查找内容并进行替换。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (FindReplaceParams)
-   * @returns Promise<FindReplaceResponse> 
+   * @param params Request parameters (SearchFindReplaceParams)
+   * @returns Promise<SearchFindReplaceResponse> 
    */
-  export function findReplace(params: FindReplaceParams): Promise<FindReplaceResponse>;
+  findReplace(params: SearchFindReplaceParams): Promise<SearchFindReplaceResponse>;
 
   /**
    * 对资源文件内容进行全文搜索（此功能需要付费订阅）。
    * (Requires authentication)
-   * @param params Request parameters (FullTextSearchAssetContentParams)
-   * @returns Promise<FullTextSearchAssetContentResponse> 
+   * @param params Request parameters (SearchFullTextSearchAssetContentParams)
+   * @returns Promise<SearchFullTextSearchAssetContentResponse> 
    */
-  export function fullTextSearchAssetContent(params: FullTextSearchAssetContentParams): Promise<FullTextSearchAssetContentResponse>;
+  fullTextSearchAssetContent(params: SearchFullTextSearchAssetContentParams): Promise<SearchFullTextSearchAssetContentResponse>;
 
   /**
    * 对块内容进行全文搜索，支持多种搜索方式和过滤条件。
    * (Requires authentication)
-   * @param params Request parameters (FullTextSearchBlockParams)
-   * @returns Promise<FullTextSearchBlockResponse> 
+   * @param params Request parameters (SearchFullTextSearchBlockParams)
+   * @returns Promise<SearchFullTextSearchBlockResponse> 
    */
-  export function fullTextSearchBlock(params: FullTextSearchBlockParams): Promise<FullTextSearchBlockResponse>;
+  fullTextSearchBlock(params: SearchFullTextSearchBlockParams): Promise<SearchFullTextSearchBlockResponse>;
 
   /**
    * 获取资源文件内容中，与指定查询相关的片段。
    * (Requires authentication)
-   * @param params Request parameters (GetAssetContentParams)
-   * @returns Promise<GetAssetContentResponse> 
+   * @param params Request parameters (SearchGetAssetContentParams)
+   * @returns Promise<SearchGetAssetContentResponse> 
    */
-  export function getAssetContent(params: GetAssetContentParams): Promise<GetAssetContentResponse>;
+  getAssetContent(params: SearchGetAssetContentParams): Promise<SearchGetAssetContentResponse>;
 
   /**
    * 获取指定嵌入块的渲染内容，支持包含其子块或显示面包屑。
    * (Requires authentication)
-   * @param params Request parameters (GetEmbedBlockParams)
-   * @returns Promise<GetEmbedBlockResponse> 
+   * @param params Request parameters (SearchGetEmbedBlockParams)
+   * @returns Promise<SearchGetEmbedBlockResponse> 
    */
-  export function getEmbedBlock(params: GetEmbedBlockParams): Promise<GetEmbedBlockResponse>;
+  getEmbedBlock(params: SearchGetEmbedBlockParams): Promise<SearchGetEmbedBlockResponse>;
 
   /**
    * 分页列出在当前工作空间中所有无效的块引用（例如，引用的块已被删除）。
    * (Requires authentication)
-   * @param params Request parameters (ListInvalidBlockRefsParams)
-   * @returns Promise<ListInvalidBlockRefsResponse> 
+   * @param params Request parameters (SearchListInvalidBlockRefsParams)
+   * @returns Promise<SearchListInvalidBlockRefsResponse> 
    */
-  export function listInvalidBlockRefs(params: ListInvalidBlockRefsParams): Promise<ListInvalidBlockRefsResponse>;
+  listInvalidBlockRefs(params: SearchListInvalidBlockRefsParams): Promise<SearchListInvalidBlockRefsResponse>;
 
   /**
    * 根据路径移除指定的模板文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveTemplateParams)
-   * @returns Promise<RemoveTemplateResponse> 
+   * @param params Request parameters (SearchRemoveTemplateParams)
+   * @returns Promise<SearchRemoveTemplateResponse> 
    */
-  export function removeTemplate(params: RemoveTemplateParams): Promise<RemoveTemplateResponse>;
+  removeTemplate(params: SearchRemoveTemplateParams): Promise<SearchRemoveTemplateResponse>;
 
   /**
    * 根据文件名关键词和可选的文件扩展名搜索资源文件。
    * (Requires authentication)
-   * @param params Request parameters (SearchAssetParams)
-   * @returns Promise<SearchAssetResponse> 
+   * @param params Request parameters (SearchSearchAssetParams)
+   * @returns Promise<SearchSearchAssetResponse> 
    */
-  export function searchAsset(params: SearchAssetParams): Promise<SearchAssetResponse>;
+  searchAsset(params: SearchSearchAssetParams): Promise<SearchSearchAssetResponse>;
 
   /**
    * 在指定的嵌入块（及其可能的子块）中使用 SQL 语句进行内容搜索。
    * (Requires authentication)
-   * @param params Request parameters (SearchEmbedBlockParams)
-   * @returns Promise<SearchEmbedBlockResponse> 
+   * @param params Request parameters (SearchSearchEmbedBlockParams)
+   * @returns Promise<SearchSearchEmbedBlockResponse> 
    */
-  export function searchEmbedBlock(params: SearchEmbedBlockParams): Promise<SearchEmbedBlockResponse>;
+  searchEmbedBlock(params: SearchSearchEmbedBlockParams): Promise<SearchSearchEmbedBlockResponse>;
 
   /**
    * 在输入引用（例如 `((` 或 `[[`）时，根据关键词动态搜索可能的引用块建议。
    * (Requires authentication)
-   * @param params Request parameters (SearchRefBlockParams)
-   * @returns Promise<SearchRefBlockResponse> 
+   * @param params Request parameters (SearchSearchRefBlockParams)
+   * @returns Promise<SearchSearchRefBlockResponse> 
    */
-  export function searchRefBlock(params: SearchRefBlockParams): Promise<SearchRefBlockResponse>;
+  searchRefBlock(params: SearchSearchRefBlockParams): Promise<SearchSearchRefBlockResponse>;
 
   /**
    * 根据关键词搜索已存在的标签。
    * (Requires authentication)
-   * @param params Request parameters (SearchTagParams)
-   * @returns Promise<SearchTagResponse> 
+   * @param params Request parameters (SearchSearchTagParams)
+   * @returns Promise<SearchSearchTagResponse> 
    */
-  export function searchTag(params: SearchTagParams): Promise<SearchTagResponse>;
+  searchTag(params: SearchSearchTagParams): Promise<SearchSearchTagResponse>;
 
   /**
    * 根据关键词搜索模板（通常是模板文件名或内容）。
    * (Requires authentication)
-   * @param params Request parameters (SearchTemplateParams)
-   * @returns Promise<SearchTemplateResponse> 
+   * @param params Request parameters (SearchSearchTemplateParams)
+   * @returns Promise<SearchSearchTemplateResponse> 
    */
-  export function searchTemplate(params: SearchTemplateParams): Promise<SearchTemplateResponse>;
+  searchTemplate(params: SearchSearchTemplateParams): Promise<SearchSearchTemplateResponse>;
 
   /**
    * 根据关键词搜索挂件块。
    * (Requires authentication)
-   * @param params Request parameters (SearchWidgetParams)
-   * @returns Promise<SearchWidgetResponse> 
+   * @param params Request parameters (SearchSearchWidgetParams)
+   * @returns Promise<SearchSearchWidgetResponse> 
    */
-  export function searchWidget(params: SearchWidgetParams): Promise<SearchWidgetResponse>;
+  searchWidget(params: SearchSearchWidgetParams): Promise<SearchSearchWidgetResponse>;
 
   /**
    * 更新指定**查询嵌入块（`query_embed` 类型）**的原始查询语句或脚本内容。此接口专门用于处理查询嵌入块，不适用于普通块的自定义属性更新。
    * (Requires authentication)
-   * @param params Request parameters (UpdateEmbedBlockParams)
-   * @returns Promise<UpdateEmbedBlockResponse> 
+   * @param params Request parameters (SearchUpdateEmbedBlockParams)
+   * @returns Promise<SearchUpdateEmbedBlockResponse> 
    */
-  export function updateEmbedBlock(params: UpdateEmbedBlockParams): Promise<UpdateEmbedBlockResponse>;
+  updateEmbedBlock(params: SearchUpdateEmbedBlockParams): Promise<SearchUpdateEmbedBlockResponse>;
 
 }
 
-declare module './setting' {
+export interface SettingApi {
   /**
    * 将指定的关键字列表添加到虚拟块引用的全局排除列表中。这些关键字将不会用于生成虚拟引用。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AddVirtualBlockRefExcludeParams)
-   * @returns Promise<AddVirtualBlockRefExcludeResponse> 
+   * @param params Request parameters (SettingAddVirtualBlockRefExcludeParams)
+   * @returns Promise<SettingAddVirtualBlockRefExcludeResponse> 
    */
-  export function addVirtualBlockRefExclude(params: AddVirtualBlockRefExcludeParams): Promise<AddVirtualBlockRefExcludeResponse>;
+  addVirtualBlockRefExclude(params: SettingAddVirtualBlockRefExcludeParams): Promise<SettingAddVirtualBlockRefExcludeResponse>;
 
   /**
    * 将指定的关键字列表添加到虚拟块引用的全局包含列表中。只有这些关键字才可能用于生成虚拟引用（如果全局虚拟引用开关已打开）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (AddVirtualBlockRefIncludeParams)
-   * @returns Promise<AddVirtualBlockRefIncludeResponse> 
+   * @param params Request parameters (SettingAddVirtualBlockRefIncludeParams)
+   * @returns Promise<SettingAddVirtualBlockRefIncludeResponse> 
    */
-  export function addVirtualBlockRefInclude(params: AddVirtualBlockRefIncludeParams): Promise<AddVirtualBlockRefIncludeResponse>;
+  addVirtualBlockRefInclude(params: SettingAddVirtualBlockRefIncludeParams): Promise<SettingAddVirtualBlockRefIncludeResponse>;
 
   /**
    * 刷新并获取当前登录的思源云端账户信息。
    * (Requires authentication)
-   * @param params Request parameters (GetCloudUserParams)
-   * @returns Promise<GetCloudUserResponse> 
+   * @param params Request parameters (SettingGetCloudUserParams)
+   * @returns Promise<SettingGetCloudUserResponse> 
    */
-  export function getCloudUser(params: GetCloudUserParams): Promise<GetCloudUserResponse>;
+  getCloudUser(params: SettingGetCloudUserParams): Promise<SettingGetCloudUserResponse>;
 
   /**
    * 获取当前的发布服务配置信息，包括端口和具体的发布设置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<GetPublishResponse> 
+   * @returns Promise<SettingGetPublishResponse> 
    */
-  export function getPublish(): Promise<GetPublishResponse>;
+  getPublish(): Promise<SettingGetPublishResponse>;
 
   /**
    * 使用令牌和两步验证码完成云端用户的登录过程。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (Login2faCloudUserParams)
-   * @returns Promise<Login2faCloudUserResponse> 
+   * @param params Request parameters (SettingLogin2faCloudUserParams)
+   * @returns Promise<SettingLogin2faCloudUserResponse> 
    */
-  export function login2faCloudUser(params: Login2faCloudUserParams): Promise<Login2faCloudUserResponse>;
+  login2faCloudUser(params: SettingLogin2faCloudUserParams): Promise<SettingLogin2faCloudUserResponse>;
 
   /**
    * 登出当前已登录的思源云端账户。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<LogoutCloudUserResponse> 
+   * @returns Promise<SettingLogoutCloudUserResponse> 
    */
-  export function logoutCloudUser(): Promise<LogoutCloudUserResponse>;
+  logoutCloudUser(): Promise<SettingLogoutCloudUserResponse>;
 
   /**
    * 清除并重建虚拟块引用的缓存。当虚拟引用的相关配置（如包含/排除列表、编辑器中的开关）发生变化后，可能需要调用此接口。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<RefreshVirtualBlockRefResponse> 
+   * @returns Promise<SettingRefreshVirtualBlockRefResponse> 
    */
-  export function refreshVirtualBlockRef(): Promise<RefreshVirtualBlockRefResponse>;
+  refreshVirtualBlockRef(): Promise<SettingRefreshVirtualBlockRefResponse>;
 
   /**
    * 更新AI相关的配置，主要针对OpenAI服务。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAIParams)
-   * @returns Promise<SetAIResponse> 
+   * @param params Request parameters (SettingSetAIParams)
+   * @returns Promise<SettingSetAIResponse> 
    */
-  export function setAI(params: SetAIParams): Promise<SetAIResponse>;
+  setAI(params: SettingSetAIParams): Promise<SettingSetAIResponse>;
 
   /**
    * 更新用户账户相关的显示配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAccountParams)
-   * @returns Promise<SetAccountResponse> 
+   * @param params Request parameters (SettingSetAccountParams)
+   * @returns Promise<SettingSetAccountResponse> 
    */
-  export function setAccount(params: SetAccountParams): Promise<SetAccountResponse>;
+  setAccount(params: SettingSetAccountParams): Promise<SettingSetAccountResponse>;
 
   /**
    * 更新应用的外观相关配置，如主题、字体、语言等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAppearanceParams)
-   * @returns Promise<SetAppearanceResponse> 
+   * @param params Request parameters (SettingSetAppearanceParams)
+   * @returns Promise<SettingSetAppearanceResponse> 
    */
-  export function setAppearance(params: SetAppearanceParams): Promise<SetAppearanceResponse>;
+  setAppearance(params: SettingSetAppearanceParams): Promise<SettingSetAppearanceResponse>;
 
   /**
    * 更新与集市相关的配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetBazaarParams)
-   * @returns Promise<SetBazaarResponse> 
+   * @param params Request parameters (SettingSetBazaarParams)
+   * @returns Promise<SettingSetBazaarResponse> 
    */
-  export function setBazaar(params: SetBazaarParams): Promise<SetBazaarResponse>;
+  setBazaar(params: SettingSetBazaarParams): Promise<SettingSetBazaarResponse>;
 
   /**
    * 更新编辑器相关的各种配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetEditorParams)
-   * @returns Promise<SetEditorResponse> 
+   * @param params Request parameters (SettingSetEditorParams)
+   * @returns Promise<SettingSetEditorResponse> 
    */
-  export function setEditor(params: SetEditorParams): Promise<SetEditorResponse>;
+  setEditor(params: SettingSetEditorParams): Promise<SettingSetEditorResponse>;
 
   /**
    * 单独设置整个编辑器的只读状态。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetEditorReadOnlyParams)
-   * @returns Promise<SetEditorReadOnlyResponse> 
+   * @param params Request parameters (SettingSetEditorReadOnlyParams)
+   * @returns Promise<SettingSetEditorReadOnlyResponse> 
    */
-  export function setEditorReadOnly(params: SetEditorReadOnlyParams): Promise<SetEditorReadOnlyResponse>;
+  setEditorReadOnly(params: SettingSetEditorReadOnlyParams): Promise<SettingSetEditorReadOnlyResponse>;
 
   /**
    * 更新编辑器配置中的常用表情列表。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetEmojiParams)
-   * @returns Promise<SetEmojiResponse> 
+   * @param params Request parameters (SettingSetEmojiParams)
+   * @returns Promise<SettingSetEmojiResponse> 
    */
-  export function setEmoji(params: SetEmojiParams): Promise<SetEmojiResponse>;
+  setEmoji(params: SettingSetEmojiParams): Promise<SettingSetEmojiResponse>;
 
   /**
    * 更新与导出功能相关的配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetExportParams)
-   * @returns Promise<SetExportResponse> 
+   * @param params Request parameters (SettingSetExportParams)
+   * @returns Promise<SettingSetExportResponse> 
    */
-  export function setExport(params: SetExportParams): Promise<SetExportResponse>;
+  setExport(params: SettingSetExportParams): Promise<SettingSetExportResponse>;
 
   /**
    * 更新文件树（文档列表）相关的配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetFiletreeParams)
-   * @returns Promise<SetFiletreeResponse> 
+   * @param params Request parameters (SettingSetFiletreeParams)
+   * @returns Promise<SettingSetFiletreeResponse> 
    */
-  export function setFiletree(params: SetFiletreeParams): Promise<SetFiletreeResponse>;
+  setFiletree(params: SettingSetFiletreeParams): Promise<SettingSetFiletreeResponse>;
 
   /**
    * 更新与闪卡（FSRS算法）相关的配置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetFlashcardParams)
-   * @returns Promise<SetFlashcardResponse> 
+   * @param params Request parameters (SettingSetFlashcardParams)
+   * @returns Promise<SettingSetFlashcardResponse> 
    */
-  export function setFlashcard(params: SetFlashcardParams): Promise<SetFlashcardResponse>;
+  setFlashcard(params: SettingSetFlashcardParams): Promise<SettingSetFlashcardResponse>;
 
   /**
    * 更新用户自定义的快捷键映射。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetKeymapParams)
-   * @returns Promise<SetKeymapResponse> 
+   * @param params Request parameters (SettingSetKeymapParams)
+   * @returns Promise<SettingSetKeymapResponse> 
    */
-  export function setKeymap(params: SetKeymapParams): Promise<SetKeymapResponse>;
+  setKeymap(params: SettingSetKeymapParams): Promise<SettingSetKeymapResponse>;
 
   /**
    * 更新发布服务的配置，并尝试根据新配置初始化（或重启）发布服务。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetPublishParams)
-   * @returns Promise<SetPublishResponse> 
+   * @param params Request parameters (SettingSetPublishParams)
+   * @returns Promise<SettingSetPublishResponse> 
    */
-  export function setPublish(params: SetPublishParams): Promise<SetPublishResponse>;
+  setPublish(params: SettingSetPublishParams): Promise<SettingSetPublishResponse>;
 
   /**
    * 更新与搜索功能相关的配置，部分配置更改可能触发重建索引。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSearchParams)
-   * @returns Promise<SetSearchResponse> 
+   * @param params Request parameters (SettingSetSearchParams)
+   * @returns Promise<SettingSetSearchResponse> 
    */
-  export function setSearch(params: SetSearchParams): Promise<SetSearchResponse>;
+  setSearch(params: SettingSetSearchParams): Promise<SettingSetSearchResponse>;
 
   /**
    * 更新代码片段（Snippets）的启用状态，如是否启用自定义CSS和JS。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetConfSnippetParams)
-   * @returns Promise<SetConfSnippetResponse> 
+   * @param params Request parameters (SettingSetConfSnippetParams)
+   * @returns Promise<SettingSetConfSnippetResponse> 
    */
-  export function setConfSnippet(params: SetConfSnippetParams): Promise<SetConfSnippetResponse>;
+  setConfSnippet(params: SettingSetConfSnippetParams): Promise<SettingSetConfSnippetResponse>;
 
 }
 
-declare module './snippet' {
+export interface SnippetApi {
   /**
    * 获取已保存的代码片段列表。可以根据类型（js/css/all）、启用状态（0-禁用, 1-启用, 2-全部）和关键字进行过滤。
    * (Requires authentication)
-   * @param params Request parameters (GetSnippetParams)
-   * @returns Promise<GetSnippetResponse> 
+   * @param params Request parameters (SnippetGetSnippetParams)
+   * @returns Promise<SnippetGetSnippetResponse> 
    */
-  export function getSnippet(params: GetSnippetParams): Promise<GetSnippetResponse>;
+  getSnippet(params: SnippetGetSnippetParams): Promise<SnippetGetSnippetResponse>;
 
   /**
    * 设置全新的代码片段列表。这是一个全量替换操作，提供的 snippets 数组将完全覆盖当前所有的代码片段。如果只想修改或添加单个片段，需要先获取所有现有片段，在本地修改/添加后，将修改后的完整列表通过此API发送。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSnippetParams)
-   * @returns Promise<SetSnippetResponse> 
+   * @param params Request parameters (SnippetSetSnippetParams)
+   * @returns Promise<SnippetSetSnippetResponse> 
    */
-  export function setSnippet(params: SetSnippetParams): Promise<SetSnippetResponse>;
+  setSnippet(params: SnippetSetSnippetParams): Promise<SnippetSetSnippetResponse>;
 
   /**
    * 根据ID移除指定的代码片段。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveSnippetParams)
-   * @returns Promise<RemoveSnippetResponse> 
+   * @param params Request parameters (SnippetRemoveSnippetParams)
+   * @returns Promise<SnippetRemoveSnippetResponse> 
    */
-  export function removeSnippet(params: RemoveSnippetParams): Promise<RemoveSnippetResponse>;
+  removeSnippet(params: SnippetRemoveSnippetParams): Promise<SnippetRemoveSnippetResponse>;
 
 }
 
-declare module './sqlite' {
+export interface SqliteApi {
   /**
    * 将内核中待处理的数据库事务队列立即刷新到磁盘。这通常用于确保在关键操作后数据被持久化。该接口不接收参数。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<FlushTransactionResponse> 
+   * @returns Promise<SqliteFlushTransactionResponse> 
    */
-  export function flushTransaction(): Promise<FlushTransactionResponse>;
+  flushTransaction(): Promise<SqliteFlushTransactionResponse>;
 
 }
 
-declare module './storage' {
+export interface StorageApi {
   /**
    * 获取所有用户已保存的搜索标准（过滤条件）列表。
    * (Requires authentication)
-   * @returns Promise<GetCriteriaResponse> 
+   * @returns Promise<StorageGetCriteriaResponse> 
    */
-  export function getCriteria(): Promise<GetCriteriaResponse>;
+  getCriteria(): Promise<StorageGetCriteriaResponse>;
 
   /**
    * 获取浏览器 LocalStorage 中的所有键值对。
    * (Requires authentication)
-   * @returns Promise<GetLocalStorageResponse> 
+   * @returns Promise<StorageGetLocalStorageResponse> 
    */
-  export function getLocalStorage(): Promise<GetLocalStorageResponse>;
+  getLocalStorage(): Promise<StorageGetLocalStorageResponse>;
 
   /**
    * 获取用户最近打开过的文档列表。这些文档按最近打开时间排序。
    * (Requires authentication)
-   * @returns Promise<GetRecentDocsResponse> 
+   * @returns Promise<StorageGetRecentDocsResponse> 
    */
-  export function getRecentDocs(): Promise<GetRecentDocsResponse>;
+  getRecentDocs(): Promise<StorageGetRecentDocsResponse>;
 
   /**
    * 根据名称移除一个已保存的搜索标准（过滤条件）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveCriterionParams)
-   * @returns Promise<RemoveCriterionResponse> 
+   * @param params Request parameters (StorageRemoveCriterionParams)
+   * @returns Promise<StorageRemoveCriterionResponse> 
    */
-  export function removeCriterion(params: RemoveCriterionParams): Promise<RemoveCriterionResponse>;
+  removeCriterion(params: StorageRemoveCriterionParams): Promise<StorageRemoveCriterionResponse>;
 
   /**
    * 根据提供的键名列表，批量移除浏览器 LocalStorage 中的项目。同时会广播事件通知其他客户端同步移除。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveLocalStorageValsParams)
-   * @returns Promise<RemoveLocalStorageValsResponse> 
+   * @param params Request parameters (StorageRemoveLocalStorageValsParams)
+   * @returns Promise<StorageRemoveLocalStorageValsResponse> 
    */
-  export function removeLocalStorageVals(params: RemoveLocalStorageValsParams): Promise<RemoveLocalStorageValsResponse>;
+  removeLocalStorageVals(params: StorageRemoveLocalStorageValsParams): Promise<StorageRemoveLocalStorageValsResponse>;
 
   /**
    * 保存或更新一个搜索标准（过滤条件）。搜索标准可用于后续的文档或内容搜索。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetCriterionParams)
-   * @returns Promise<SetCriterionResponse> 
+   * @param params Request parameters (StorageSetCriterionParams)
+   * @returns Promise<StorageSetCriterionResponse> 
    */
-  export function setCriterion(params: SetCriterionParams): Promise<SetCriterionResponse>;
+  setCriterion(params: StorageSetCriterionParams): Promise<StorageSetCriterionResponse>;
 
   /**
    * 使用一个完整的对象来覆盖整个浏览器 LocalStorage 的内容。通常用于导入或恢复 LocalStorage 数据。同时会广播事件通知其他客户端同步设置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetLocalStorageParams)
-   * @returns Promise<SetLocalStorageResponse> 
+   * @param params Request parameters (StorageSetLocalStorageParams)
+   * @returns Promise<StorageSetLocalStorageResponse> 
    */
-  export function setLocalStorage(params: SetLocalStorageParams): Promise<SetLocalStorageResponse>;
+  setLocalStorage(params: StorageSetLocalStorageParams): Promise<StorageSetLocalStorageResponse>;
 
   /**
    * 设置浏览器 LocalStorage 中的单个键值对。同时会广播事件通知其他客户端同步设置。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetLocalStorageValParams)
-   * @returns Promise<SetLocalStorageValResponse> 
+   * @param params Request parameters (StorageSetLocalStorageValParams)
+   * @returns Promise<StorageSetLocalStorageValResponse> 
    */
-  export function setLocalStorageVal(params: SetLocalStorageValParams): Promise<SetLocalStorageValResponse>;
+  setLocalStorageVal(params: StorageSetLocalStorageValParams): Promise<StorageSetLocalStorageValResponse>;
 
 }
 
-declare module './sync' {
+export interface SyncApi {
   /**
    * 在云端存储中创建一个新的同步目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateCloudSyncDirParams)
-   * @returns Promise<CreateCloudSyncDirResponse> 
+   * @param params Request parameters (SyncCreateCloudSyncDirParams)
+   * @returns Promise<SyncCreateCloudSyncDirResponse> 
    */
-  export function createCloudSyncDir(params: CreateCloudSyncDirParams): Promise<CreateCloudSyncDirResponse>;
+  createCloudSyncDir(params: SyncCreateCloudSyncDirParams): Promise<SyncCreateCloudSyncDirResponse>;
 
   /**
    * 将会话中当前的 S3 同步配置加密并打包成 .zip 文件供导出。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExportSyncProviderS3Response> 
+   * @returns Promise<SyncExportSyncProviderS3Response> 
    */
-  export function exportSyncProviderS3(): Promise<ExportSyncProviderS3Response>;
+  exportSyncProviderS3(): Promise<SyncExportSyncProviderS3Response>;
 
   /**
    * 将会话中当前的 WebDAV 同步配置加密并打包成 .zip 文件供导出。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExportSyncProviderWebDAVResponse> 
+   * @returns Promise<SyncExportSyncProviderWebDAVResponse> 
    */
-  export function exportSyncProviderWebDAV(): Promise<ExportSyncProviderWebDAVResponse>;
+  exportSyncProviderWebDAV(): Promise<SyncExportSyncProviderWebDAVResponse>;
 
   /**
    * 检查应用启动时数据同步是否成功完成。此接口仅在管理员角色下，且同步已启用且成功时返回特定提示。
    * (Requires authentication)
-   * @returns Promise<GetBootSyncResponse> 
+   * @returns Promise<SyncGetBootSyncResponse> 
    */
-  export function getBootSync(): Promise<GetBootSyncResponse>;
+  getBootSync(): Promise<SyncGetBootSyncResponse>;
 
   /**
    * 获取当前的同步状态、最后同步时间、以及当前在线的内核实例等信息。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetSyncInfoResponse> 
+   * @returns Promise<SyncGetSyncInfoResponse> 
    */
-  export function getSyncInfo(): Promise<GetSyncInfoResponse>;
+  getSyncInfo(): Promise<SyncGetSyncInfoResponse>;
 
   /**
    * 通过上传的 .zip 或 .json 文件导入 S3 同步配置。导入的配置会经过解密和验证。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ImportSyncProviderS3Response> 
+   * @returns Promise<SyncImportSyncProviderS3Response> 
    */
-  export function importSyncProviderS3(): Promise<ImportSyncProviderS3Response>;
+  importSyncProviderS3(): Promise<SyncImportSyncProviderS3Response>;
 
   /**
    * 通过上传的 .zip 或 .json 文件导入 WebDAV 同步配置。导入的配置会经过解密和验证。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ImportSyncProviderWebDAVResponse> 
+   * @returns Promise<SyncImportSyncProviderWebDAVResponse> 
    */
-  export function importSyncProviderWebDAV(): Promise<ImportSyncProviderWebDAVResponse>;
+  importSyncProviderWebDAV(): Promise<SyncImportSyncProviderWebDAVResponse>;
 
   /**
    * 列出当前配置的云端存储中可用的同步目录及其大小信息。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ListCloudSyncDirResponse> 
+   * @returns Promise<SyncListCloudSyncDirResponse> 
    */
-  export function listCloudSyncDir(): Promise<ListCloudSyncDirResponse>;
+  listCloudSyncDir(): Promise<SyncListCloudSyncDirResponse>;
 
   /**
    * 执行启动时的数据同步流程。此接口会触发 model.BootSyncData()。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<PerformBootSyncResponse> 
+   * @returns Promise<SyncPerformBootSyncResponse> 
    */
-  export function performBootSync(): Promise<PerformBootSyncResponse>;
+  performBootSync(): Promise<SyncPerformBootSyncResponse>;
 
   /**
    * 执行数据同步操作。对于非云端同步模式 (mode != 3)，将触发 model.SyncData(true)。对于云端同步模式 (mode === 3)，需要明确指定同步方向 (upload: true/false)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PerformSyncParams)
-   * @returns Promise<PerformSyncResponse> 
+   * @param params Request parameters (SyncPerformSyncParams)
+   * @returns Promise<SyncPerformSyncResponse> 
    */
-  export function performSync(params: PerformSyncParams): Promise<PerformSyncResponse>;
+  performSync(params: SyncPerformSyncParams): Promise<SyncPerformSyncResponse>;
 
   /**
    * 从云端存储中移除指定的同步目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveCloudSyncDirParams)
-   * @returns Promise<RemoveCloudSyncDirResponse> 
+   * @param params Request parameters (SyncRemoveCloudSyncDirParams)
+   * @returns Promise<SyncRemoveCloudSyncDirResponse> 
    */
-  export function removeCloudSyncDir(params: RemoveCloudSyncDirParams): Promise<RemoveCloudSyncDirResponse>;
+  removeCloudSyncDir(params: SyncRemoveCloudSyncDirParams): Promise<SyncRemoveCloudSyncDirResponse>;
 
   /**
    * 设置当前内核实例使用的云端同步目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetCloudSyncDirParams)
-   * @returns Promise<SetCloudSyncDirResponse> 
+   * @param params Request parameters (SyncSetCloudSyncDirParams)
+   * @returns Promise<SyncSetCloudSyncDirResponse> 
    */
-  export function setCloudSyncDir(params: SetCloudSyncDirParams): Promise<SetCloudSyncDirResponse>;
+  setCloudSyncDir(params: SyncSetCloudSyncDirParams): Promise<SyncSetCloudSyncDirResponse>;
 
   /**
    * 设置是否启用数据同步功能。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncEnableParams)
-   * @returns Promise<SetSyncEnableResponse> 
+   * @param params Request parameters (SyncSetSyncEnableParams)
+   * @returns Promise<SyncSetSyncEnableResponse> 
    */
-  export function setSyncEnable(params: SetSyncEnableParams): Promise<SetSyncEnableResponse>;
+  setSyncEnable(params: SyncSetSyncEnableParams): Promise<SyncSetSyncEnableResponse>;
 
   /**
    * 设置在数据同步过程中发生内容冲突时，是否自动生成冲突副本文件。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncGenerateConflictDocParams)
-   * @returns Promise<SetSyncGenerateConflictDocResponse> 
+   * @param params Request parameters (SyncSetSyncGenerateConflictDocParams)
+   * @returns Promise<SyncSetSyncGenerateConflictDocResponse> 
    */
-  export function setSyncGenerateConflictDoc(params: SetSyncGenerateConflictDocParams): Promise<SetSyncGenerateConflictDocResponse>;
+  setSyncGenerateConflictDoc(params: SyncSetSyncGenerateConflictDocParams): Promise<SyncSetSyncGenerateConflictDocResponse>;
 
   /**
    * 设置自动数据同步的时间间隔（单位：分钟）。设置后会重置同步计时器。
    * (Requires authentication)
-   * @param params Request parameters (SetSyncIntervalParams)
-   * @returns Promise<SetSyncIntervalResponse> 
+   * @param params Request parameters (SyncSetSyncIntervalParams)
+   * @returns Promise<SyncSetSyncIntervalResponse> 
    */
-  export function setSyncInterval(params: SetSyncIntervalParams): Promise<SetSyncIntervalResponse>;
+  setSyncInterval(params: SyncSetSyncIntervalParams): Promise<SyncSetSyncIntervalResponse>;
 
   /**
    * 设置数据同步的模式。例如：0 表示自动同步，1 表示手动同步，3 表示云端双向同步时需手动触发单向同步。设置后会重置同步计时器。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncModeParams)
-   * @returns Promise<SetSyncModeResponse> 
+   * @param params Request parameters (SyncSetSyncModeParams)
+   * @returns Promise<SyncSetSyncModeResponse> 
    */
-  export function setSyncMode(params: SetSyncModeParams): Promise<SetSyncModeResponse>;
+  setSyncMode(params: SyncSetSyncModeParams): Promise<SyncSetSyncModeResponse>;
 
   /**
    * 设置是否启用同步感知功能。启用后，当检测到远程数据更新时，可能会有相应的提示或行为。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncPerceptionParams)
-   * @returns Promise<SetSyncPerceptionResponse> 
+   * @param params Request parameters (SyncSetSyncPerceptionParams)
+   * @returns Promise<SyncSetSyncPerceptionResponse> 
    */
-  export function setSyncPerception(params: SetSyncPerceptionParams): Promise<SetSyncPerceptionResponse>;
+  setSyncPerception(params: SyncSetSyncPerceptionParams): Promise<SyncSetSyncPerceptionResponse>;
 
   /**
    * 设置当前使用的数据同步服务提供商，例如 S3、WebDAV 或本地文件夹。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncProviderParams)
-   * @returns Promise<SetSyncProviderResponse> 
+   * @param params Request parameters (SyncSetSyncProviderParams)
+   * @returns Promise<SyncSetSyncProviderResponse> 
    */
-  export function setSyncProvider(params: SetSyncProviderParams): Promise<SetSyncProviderResponse>;
+  setSyncProvider(params: SyncSetSyncProviderParams): Promise<SyncSetSyncProviderResponse>;
 
   /**
    * 设置当同步服务提供商为本地文件夹时，所使用的本地文件夹路径。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncProviderLocalParams)
-   * @returns Promise<SetSyncProviderLocalResponse> 
+   * @param params Request parameters (SyncSetSyncProviderLocalParams)
+   * @returns Promise<SyncSetSyncProviderLocalResponse> 
    */
-  export function setSyncProviderLocal(params: SetSyncProviderLocalParams): Promise<SetSyncProviderLocalResponse>;
+  setSyncProviderLocal(params: SyncSetSyncProviderLocalParams): Promise<SyncSetSyncProviderLocalResponse>;
 
   /**
    * 设置使用 S3作为同步服务提供商时的详细配置信息，如 Access Key, Secret Key, Endpoint, Bucket 等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncProviderS3Params)
-   * @returns Promise<SetSyncProviderS3Response> 
+   * @param params Request parameters (SyncSetSyncProviderS3Params)
+   * @returns Promise<SyncSetSyncProviderS3Response> 
    */
-  export function setSyncProviderS3(params: SetSyncProviderS3Params): Promise<SetSyncProviderS3Response>;
+  setSyncProviderS3(params: SyncSetSyncProviderS3Params): Promise<SyncSetSyncProviderS3Response>;
 
   /**
    * 设置使用 WebDAV 作为同步服务提供商时的详细配置信息，如 Endpoint, 用户名和密码。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetSyncProviderWebDAVParams)
-   * @returns Promise<SetSyncProviderWebDAVResponse> 
+   * @param params Request parameters (SyncSetSyncProviderWebDAVParams)
+   * @returns Promise<SyncSetSyncProviderWebDAVResponse> 
    */
-  export function setSyncProviderWebDAV(params: SetSyncProviderWebDAVParams): Promise<SetSyncProviderWebDAVResponse>;
+  setSyncProviderWebDAV(params: SyncSetSyncProviderWebDAVParams): Promise<SyncSetSyncProviderWebDAVResponse>;
 
 }
 
-declare module './system' {
+export interface SystemApi {
   /**
    * 将思源笔记相关目录添加到 Microsoft Defender 的排除项中，以避免潜在的性能问题或冲突。此操作仅在 Windows 系统上有效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<AddMicrosoftDefenderExclusionResponse> 
+   * @returns Promise<SystemAddMicrosoftDefenderExclusionResponse> 
    */
-  export function addMicrosoftDefenderExclusion(): Promise<AddMicrosoftDefenderExclusionResponse>;
+  addMicrosoftDefenderExclusion(): Promise<SystemAddMicrosoftDefenderExclusionResponse>;
 
   /**
    * 获取思源笔记内核的启动进度。此接口也接受 POST 请求。
-   * @returns Promise<BootProgressResponse> 
+   * @returns Promise<SystemBootProgressResponse> 
    */
-  export function bootProgress(): Promise<BootProgressResponse>;
+  bootProgress(): Promise<SystemBootProgressResponse>;
 
   /**
    * 获取思源笔记内核的启动进度。此接口也接受 GET 请求。
-   * @returns Promise<BootProgressResponse> 
+   * @returns Promise<SystemBootProgressResponse> 
    */
-  export function bootProgress(): Promise<BootProgressResponse>;
+  bootProgress(): Promise<SystemBootProgressResponse>;
 
   /**
    * 检查思源笔记是否有新版本。
    * (Requires authentication, Requires admin role)
-   * @param params Request parameters (CheckUpdateParams)
-   * @returns Promise<CheckUpdateResponse> 
+   * @param params Request parameters (SystemCheckUpdateParams)
+   * @returns Promise<SystemCheckUpdateResponse> 
    */
-  export function checkUpdate(params: CheckUpdateParams): Promise<CheckUpdateResponse>;
+  checkUpdate(params: SystemCheckUpdateParams): Promise<SystemCheckUpdateResponse>;
 
   /**
    * 检查指定路径是否可以作为思源笔记的工作空间目录。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CheckWorkspaceDirParams)
-   * @returns Promise<CheckWorkspaceDirResponse> 
+   * @param params Request parameters (SystemCheckWorkspaceDirParams)
+   * @returns Promise<SystemCheckWorkspaceDirResponse> 
    */
-  export function checkWorkspaceDir(params: CheckWorkspaceDirParams): Promise<CheckWorkspaceDirResponse>;
+  checkWorkspaceDir(params: SystemCheckWorkspaceDirParams): Promise<SystemCheckWorkspaceDirResponse>;
 
   /**
    * 在指定路径创建一个新的思源笔记工作空间。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (CreateWorkspaceDirParams)
-   * @returns Promise<CreateWorkspaceDirResponse> 
+   * @param params Request parameters (SystemCreateWorkspaceDirParams)
+   * @returns Promise<SystemCreateWorkspaceDirResponse> 
    */
-  export function createWorkspaceDir(params: CreateWorkspaceDirParams): Promise<CreateWorkspaceDirResponse>;
+  createWorkspaceDir(params: SystemCreateWorkspaceDirParams): Promise<SystemCreateWorkspaceDirResponse>;
 
   /**
    * 获取思源笔记服务器当前的 Unix 时间戳 (毫秒)。
-   * @returns Promise<CurrentTimeResponse> 
+   * @returns Promise<SystemCurrentTimeResponse> 
    */
-  export function currentTime(): Promise<CurrentTimeResponse>;
+  currentTime(): Promise<SystemCurrentTimeResponse>;
 
   /**
    * 关闭并退出思源笔记程序。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExitResponse> 
+   * @returns Promise<SystemExitResponse> 
    */
-  export function exit(): Promise<ExitResponse>;
+  exit(): Promise<SystemExitResponse>;
 
   /**
    * 导出一份包含当前用户所有配置的 JSON 文件。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExportConfResponse> 
+   * @returns Promise<SystemExportConfResponse> 
    */
-  export function exportConf(): Promise<ExportConfResponse>;
+  exportConf(): Promise<SystemExportConfResponse>;
 
   /**
    * 导出包含系统运行日志的压缩文件。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<ExportLogResponse> 
+   * @returns Promise<SystemExportLogResponse> 
    */
-  export function exportLog(): Promise<ExportLogResponse>;
+  exportLog(): Promise<SystemExportLogResponse>;
 
   /**
    * 获取用于登录验证的图片验证码。
-   * @returns Promise<GetCaptchaResponse> 
+   * @returns Promise<SystemGetCaptchaResponse> 
    */
-  export function GetCaptcha(): Promise<GetCaptchaResponse>;
+  GetCaptcha(): Promise<SystemGetCaptchaResponse>;
 
   /**
    * 获取当前版本的更新日志内容 (Markdown 格式转换为 HTML)。
    * (Requires authentication)
-   * @returns Promise<GetChangelogResponse> 
+   * @returns Promise<SystemGetChangelogResponse> 
    */
-  export function getChangelog(): Promise<GetChangelogResponse>;
+  getChangelog(): Promise<SystemGetChangelogResponse>;
 
   /**
    * 获取思源笔记的全部配置信息。配置项繁多，具体结构请参考 `siyuan/kernel/conf/conf.go` 中的 `Conf` 结构体。
    * (Requires authentication)
-   * @returns Promise<GetConfResponse> 
+   * @returns Promise<SystemGetConfResponse> 
    */
-  export function getConf(): Promise<GetConfResponse>;
+  getConf(): Promise<SystemGetConfResponse>;
 
   /**
    * 获取内置及自定义 Emoji 的配置信息，用于 Emoji 选择器等功能。
    * (Requires authentication)
-   * @returns Promise<GetEmojiConfResponse> 
+   * @returns Promise<SystemGetEmojiConfResponse> 
    */
-  export function getEmojiConf(): Promise<GetEmojiConfResponse>;
+  getEmojiConf(): Promise<SystemGetEmojiConfResponse>;
 
   /**
    * 获取用于移动端同步的工作空间列表。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetMobileWorkspacesResponse> 
+   * @returns Promise<SystemGetMobileWorkspacesResponse> 
    */
-  export function getMobileWorkspaces(): Promise<GetMobileWorkspacesResponse>;
+  getMobileWorkspaces(): Promise<SystemGetMobileWorkspacesResponse>;
 
   /**
    * 获取当前的网络代理等配置信息。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetNetworkResponse> 
+   * @returns Promise<SystemGetNetworkResponse> 
    */
-  export function getNetwork(): Promise<GetNetworkResponse>;
+  getNetwork(): Promise<SystemGetNetworkResponse>;
 
   /**
    * 获取当前操作系统上安装的可用字体列表。
    * (Requires authentication, Requires admin role)
-   * @returns Promise<GetSysFontsResponse> 
+   * @returns Promise<SystemGetSysFontsResponse> 
    */
-  export function getSysFonts(): Promise<GetSysFontsResponse>;
+  getSysFonts(): Promise<SystemGetSysFontsResponse>;
 
   /**
    * 获取当前打开的工作空间目录路径和思源版本号。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<GetWorkspaceInfoResponse> 
+   * @returns Promise<SystemGetWorkspaceInfoResponse> 
    */
-  export function getWorkspaceInfo(): Promise<GetWorkspaceInfoResponse>;
+  getWorkspaceInfo(): Promise<SystemGetWorkspaceInfoResponse>;
 
   /**
    * 获取所有已配置或曾经打开过的工作空间列表。
    * (Requires authentication)
-   * @returns Promise<GetWorkspacesResponse> 
+   * @returns Promise<SystemGetWorkspacesResponse> 
    */
-  export function getWorkspaces(): Promise<GetWorkspacesResponse>;
+  getWorkspaces(): Promise<SystemGetWorkspacesResponse>;
 
   /**
    * 设置不再提示用户添加 Microsoft Defender 排除项。此操作仅在 Windows 系统上有效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<IgnoreAddMicrosoftDefenderExclusionResponse> 
+   * @returns Promise<SystemIgnoreAddMicrosoftDefenderExclusionResponse> 
    */
-  export function ignoreAddMicrosoftDefenderExclusion(): Promise<IgnoreAddMicrosoftDefenderExclusionResponse>;
+  ignoreAddMicrosoftDefenderExclusion(): Promise<SystemIgnoreAddMicrosoftDefenderExclusionResponse>;
 
   /**
    * 通过上传 `conf.json` 文件来导入用户配置。导入成功后通常需要重启或刷新UI生效。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ImportConfParams)
-   * @returns Promise<ImportConfResponse> 
+   * @param params Request parameters (SystemImportConfParams)
+   * @returns Promise<SystemImportConfResponse> 
    */
-  export function importConf(params: ImportConfParams): Promise<ImportConfResponse>;
+  importConf(params: SystemImportConfParams): Promise<SystemImportConfResponse>;
 
   /**
    * 使用访问授权码或用户名密码进行登录验证。
-   * @param params Request parameters (LoginAuthParams)
-   * @returns Promise<LoginAuthResponse> 
+   * @param params Request parameters (SystemLoginAuthParams)
+   * @returns Promise<SystemLoginAuthResponse> 
    */
-  export function LoginAuth(params: LoginAuthParams): Promise<LoginAuthResponse>;
+  LoginAuth(params: SystemLoginAuthParams): Promise<SystemLoginAuthResponse>;
 
   /**
    * 清除当前的登录授权状态。
-   * @returns Promise<LogoutAuthResponse> 
+   * @returns Promise<SystemLogoutAuthResponse> 
    */
-  export function LogoutAuth(): Promise<LogoutAuthResponse>;
+  LogoutAuth(): Promise<SystemLogoutAuthResponse>;
 
   /**
    * 命令客户端重新加载思源笔记的用户界面。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ReloadUIResponse> 
+   * @returns Promise<SystemReloadUIResponse> 
    */
-  export function reloadUI(): Promise<ReloadUIResponse>;
+  reloadUI(): Promise<SystemReloadUIResponse>;
 
   /**
    * 从工作空间列表中移除指定的目录（逻辑删除，不删除物理文件）。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveWorkspaceDirParams)
-   * @returns Promise<RemoveWorkspaceDirResponse> 
+   * @param params Request parameters (SystemRemoveWorkspaceDirParams)
+   * @returns Promise<SystemRemoveWorkspaceDirResponse> 
    */
-  export function removeWorkspaceDir(params: RemoveWorkspaceDirParams): Promise<RemoveWorkspaceDirResponse>;
+  removeWorkspaceDir(params: SystemRemoveWorkspaceDirParams): Promise<SystemRemoveWorkspaceDirResponse>;
 
   /**
    * 从工作空间列表中移除并物理删除指定目录及其所有内容。这是一个危险操作！
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveWorkspaceDirPhysicallyParams)
-   * @returns Promise<RemoveWorkspaceDirPhysicallyResponse> 
+   * @param params Request parameters (SystemRemoveWorkspaceDirPhysicallyParams)
+   * @returns Promise<SystemRemoveWorkspaceDirPhysicallyResponse> 
    */
-  export function removeWorkspaceDirPhysically(params: RemoveWorkspaceDirPhysicallyParams): Promise<RemoveWorkspaceDirPhysicallyResponse>;
+  removeWorkspaceDirPhysically(params: SystemRemoveWorkspaceDirPhysicallyParams): Promise<SystemRemoveWorkspaceDirPhysicallyResponse>;
 
   /**
    * 设置或清空 API 访问令牌 (token)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAPITokenParams)
-   * @returns Promise<SetAPITokenResponse> 
+   * @param params Request parameters (SystemSetAPITokenParams)
+   * @returns Promise<SystemSetAPITokenResponse> 
    */
-  export function setAPIToken(params: SetAPITokenParams): Promise<SetAPITokenResponse>;
+  setAPIToken(params: SystemSetAPITokenParams): Promise<SystemSetAPITokenResponse>;
 
   /**
    * 设置或清空访问思源笔记的授权码。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAccessAuthCodeParams)
-   * @returns Promise<SetAccessAuthCodeResponse> 
+   * @param params Request parameters (SystemSetAccessAuthCodeParams)
+   * @returns Promise<SystemSetAccessAuthCodeResponse> 
    */
-  export function setAccessAuthCode(params: SetAccessAuthCodeParams): Promise<SetAccessAuthCodeResponse>;
+  setAccessAuthCode(params: SystemSetAccessAuthCodeParams): Promise<SystemSetAccessAuthCodeResponse>;
 
   /**
    * 设置思源笔记的外观模式 (亮色/暗色)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAppearanceModeParams)
-   * @returns Promise<SetAppearanceModeResponse> 
+   * @param params Request parameters (SystemSetAppearanceModeParams)
+   * @returns Promise<SystemSetAppearanceModeResponse> 
    */
-  export function setAppearanceMode(params: SetAppearanceModeParams): Promise<SetAppearanceModeResponse>;
+  setAppearanceMode(params: SystemSetAppearanceModeParams): Promise<SystemSetAppearanceModeResponse>;
 
   /**
    * 设置思源笔记是否开机自启动 (仅对桌面客户端有效)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetAutoLaunchParams)
-   * @returns Promise<SetAutoLaunchResponse> 
+   * @param params Request parameters (SystemSetAutoLaunchParams)
+   * @returns Promise<SystemSetAutoLaunchResponse> 
    */
-  export function setAutoLaunch(params: SetAutoLaunchParams): Promise<SetAutoLaunchResponse>;
+  setAutoLaunch(params: SystemSetAutoLaunchParams): Promise<SystemSetAutoLaunchResponse>;
 
   /**
    * 设置是否在检测到新版本后自动下载并安装更新包。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetDownloadInstallPkgParams)
-   * @returns Promise<SetDownloadInstallPkgResponse> 
+   * @param params Request parameters (SystemSetDownloadInstallPkgParams)
+   * @returns Promise<SystemSetDownloadInstallPkgResponse> 
    */
-  export function setDownloadInstallPkg(params: SetDownloadInstallPkgParams): Promise<SetDownloadInstallPkgResponse>;
+  setDownloadInstallPkg(params: SystemSetDownloadInstallPkgParams): Promise<SystemSetDownloadInstallPkgResponse>;
 
   /**
    * 设置思源笔记是否在系统锁屏时自动锁定 (仅对桌面客户端有效)。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetFollowSystemLockScreenParams)
-   * @returns Promise<SetFollowSystemLockScreenResponse> 
+   * @param params Request parameters (SystemSetFollowSystemLockScreenParams)
+   * @returns Promise<SystemSetFollowSystemLockScreenResponse> 
    */
-  export function setFollowSystemLockScreen(params: SetFollowSystemLockScreenParams): Promise<SetFollowSystemLockScreenResponse>;
+  setFollowSystemLockScreen(params: SystemSetFollowSystemLockScreenParams): Promise<SystemSetFollowSystemLockScreenResponse>;
 
   /**
    * 启用或禁用 Google Analytics 数据追踪。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetGoogleAnalyticsParams)
-   * @returns Promise<SetGoogleAnalyticsResponse> 
+   * @param params Request parameters (SystemSetGoogleAnalyticsParams)
+   * @returns Promise<SystemSetGoogleAnalyticsResponse> 
    */
-  export function setGoogleAnalytics(params: SetGoogleAnalyticsParams): Promise<SetGoogleAnalyticsResponse>;
+  setGoogleAnalytics(params: SystemSetGoogleAnalyticsParams): Promise<SystemSetGoogleAnalyticsResponse>;
 
   /**
    * 设置网络连接时使用的代理服务器。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetNetworkProxyParams)
-   * @returns Promise<SetNetworkProxyResponse> 
+   * @param params Request parameters (SystemSetNetworkProxyParams)
+   * @returns Promise<SystemSetNetworkProxyResponse> 
    */
-  export function setNetworkProxy(params: SetNetworkProxyParams): Promise<SetNetworkProxyResponse>;
+  setNetworkProxy(params: SystemSetNetworkProxyParams): Promise<SystemSetNetworkProxyResponse>;
 
   /**
    * 配置思源笔记的网络服务，如服务端口、是否允许其他设备访问等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetNetworkServeParams)
-   * @returns Promise<SetNetworkServeResponse> 
+   * @param params Request parameters (SystemSetNetworkServeParams)
+   * @returns Promise<SystemSetNetworkServeResponse> 
    */
-  export function setNetworkServe(params: SetNetworkServeParams): Promise<SetNetworkServeResponse>;
+  setNetworkServe(params: SystemSetNetworkServeParams): Promise<SystemSetNetworkServeResponse>;
 
   /**
    * 设置用户界面的布局模式，例如左右布局、顶部分栏等。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetUILayoutParams)
-   * @returns Promise<SetUILayoutResponse> 
+   * @param params Request parameters (SystemSetUILayoutParams)
+   * @returns Promise<SystemSetUILayoutResponse> 
    */
-  export function setUILayout(params: SetUILayoutParams): Promise<SetUILayoutResponse>;
+  setUILayout(params: SystemSetUILayoutParams): Promise<SystemSetUILayoutResponse>;
 
   /**
    * 切换到指定路径的工作空间。成功后通常需要重启或刷新 UI。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (SetWorkspaceDirParams)
-   * @returns Promise<SetWorkspaceDirResponse> 
+   * @param params Request parameters (SystemSetWorkspaceDirParams)
+   * @returns Promise<SystemSetWorkspaceDirResponse> 
    */
-  export function setWorkspaceDir(params: SetWorkspaceDirParams): Promise<SetWorkspaceDirResponse>;
+  setWorkspaceDir(params: SystemSetWorkspaceDirParams): Promise<SystemSetWorkspaceDirResponse>;
 
   /**
    * （内部接口）用于桌面端添加 UI 进程的相关信息，如 PID。通常不由普通用户或第三方应用直接调用。
-   * @param params Request parameters (AddUIProcessParams)
-   * @returns Promise<AddUIProcessResponse> 
+   * @param params Request parameters (SystemAddUIProcessParams)
+   * @returns Promise<SystemAddUIProcessResponse> 
    */
-  export function addUIProcess(params: AddUIProcessParams): Promise<AddUIProcessResponse>;
+  addUIProcess(params: SystemAddUIProcessParams): Promise<SystemAddUIProcessResponse>;
 
   /**
    * 获取当前思源笔记内核的版本号。此接口也接受 POST 请求。
-   * @returns Promise<VersionResponse> 
+   * @returns Promise<SystemVersionResponse> 
    */
-  export function version(): Promise<VersionResponse>;
+  version(): Promise<SystemVersionResponse>;
 
   /**
    * 获取当前思源笔记内核的版本号。此接口也接受 GET 请求。
-   * @returns Promise<VersionResponse> 
+   * @returns Promise<SystemVersionResponse> 
    */
-  export function version(): Promise<VersionResponse>;
+  version(): Promise<SystemVersionResponse>;
 
 }
 
-declare module './tag' {
+export interface TagApi {
   /**
    * 获取当前工作空间的所有标签列表。可以提供一个可选的排序参数来即时更新并应用全局标签排序设置。
    * (Requires authentication)
-   * @param params Request parameters (GetTagParams)
-   * @returns Promise<GetTagResponse> 
+   * @param params Request parameters (TagGetTagParams)
+   * @returns Promise<TagGetTagResponse> 
    */
-  export function getTag(params: GetTagParams): Promise<GetTagResponse>;
+  getTag(params: TagGetTagParams): Promise<TagGetTagResponse>;
 
   /**
    * 根据标签名称移除一个标签。这会从所有关联的块中移除该标签。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RemoveTagParams)
-   * @returns Promise<RemoveTagResponse> 
+   * @param params Request parameters (TagRemoveTagParams)
+   * @returns Promise<TagRemoveTagResponse> 
    */
-  export function removeTag(params: RemoveTagParams): Promise<RemoveTagResponse>;
+  removeTag(params: TagRemoveTagParams): Promise<TagRemoveTagResponse>;
 
   /**
    * 将一个旧标签名称重命名为一个新标签名称。所有关联块中的标签引用都会被更新。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenameTagParams)
-   * @returns Promise<RenameTagResponse> 
+   * @param params Request parameters (TagRenameTagParams)
+   * @returns Promise<TagRenameTagResponse> 
    */
-  export function renameTag(params: RenameTagParams): Promise<RenameTagResponse>;
+  renameTag(params: TagRenameTagParams): Promise<TagRenameTagResponse>;
 
 }
 
-declare module './template' {
+export interface TemplateApi {
   /**
    * 将指定 ID 的文档内容保存为一个模板。可以指定模板名称，以及是否覆盖同名模板。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (DocSaveAsTemplateParams)
-   * @returns Promise<DocSaveAsTemplateResponse> 
+   * @param params Request parameters (TemplateDocSaveAsTemplateParams)
+   * @returns Promise<TemplateDocSaveAsTemplateResponse> 
    */
-  export function docSaveAsTemplate(params: DocSaveAsTemplateParams): Promise<DocSaveAsTemplateResponse>;
+  docSaveAsTemplate(params: TemplateDocSaveAsTemplateParams): Promise<TemplateDocSaveAsTemplateResponse>;
 
   /**
    * 根据给定的模板文件路径和可选的上下文块ID，渲染模板内容。可以指定是否为预览模式。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (RenderTemplateParams)
-   * @returns Promise<RenderTemplateResponse> 
+   * @param params Request parameters (TemplateRenderTemplateParams)
+   * @returns Promise<TemplateRenderTemplateResponse> 
    */
-  export function renderTemplate(params: RenderTemplateParams): Promise<RenderTemplateResponse>;
+  renderTemplate(params: TemplateRenderTemplateParams): Promise<TemplateRenderTemplateResponse>;
 
   /**
    * 使用 Go 的 Sprig 模板函数库渲染给定的模板字符串。
    * (Requires authentication)
-   * @param params Request parameters (RenderSprigParams)
-   * @returns Promise<RenderSprigResponse> 
+   * @param params Request parameters (TemplateRenderSprigParams)
+   * @returns Promise<TemplateRenderSprigResponse> 
    */
-  export function renderSprig(params: RenderSprigParams): Promise<RenderSprigResponse>;
+  renderSprig(params: TemplateRenderSprigParams): Promise<TemplateRenderSprigResponse>;
 
 }
 
-declare module './transactions' {
+export interface TransactionsApi {
   /**
    * 执行一个或多个事务操作，每个事务可以包含多个具体的数据修改动作。这是思源笔记中进行数据修改最核心的接口之一。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (PerformTransactionsParams)
-   * @returns Promise<PerformTransactionsResponse> 
+   * @param params Request parameters (TransactionsPerformTransactionsParams)
+   * @returns Promise<TransactionsPerformTransactionsResponse> 
    */
-  export function performTransactions(params: PerformTransactionsParams): Promise<PerformTransactionsResponse>;
+  performTransactions(params: TransactionsPerformTransactionsParams): Promise<TransactionsPerformTransactionsResponse>;
 
 }
 
-declare module './ui' {
+export interface UiApi {
   /**
    * 重新加载指定的属性视图。通常在属性视图的结构或数据发生变化后调用，以刷新显示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ReloadAttributeViewParams)
-   * @returns Promise<ReloadAttributeViewResponse> 
+   * @param params Request parameters (UiReloadAttributeViewParams)
+   * @returns Promise<UiReloadAttributeViewResponse> 
    */
-  export function reloadAttributeView(params: ReloadAttributeViewParams): Promise<ReloadAttributeViewResponse>;
+  reloadAttributeView(params: UiReloadAttributeViewParams): Promise<UiReloadAttributeViewResponse>;
 
   /**
    * 重新加载文件树。当文档结构发生变化（如创建、删除、移动文档或笔记本）后，调用此接口以刷新文件树显示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ReloadFiletreeResponse> 
+   * @returns Promise<UiReloadFiletreeResponse> 
    */
-  export function reloadFiletree(): Promise<ReloadFiletreeResponse>;
+  reloadFiletree(): Promise<UiReloadFiletreeResponse>;
 
   /**
    * 重新加载指定的 Protyle 编辑器实例。通常在编辑器内容或状态在后端被修改后调用，以刷新前端显示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @param params Request parameters (ReloadProtyleParams)
-   * @returns Promise<ReloadProtyleResponse> 
+   * @param params Request parameters (UiReloadProtyleParams)
+   * @returns Promise<UiReloadProtyleResponse> 
    */
-  export function reloadProtyle(params: ReloadProtyleParams): Promise<ReloadProtyleResponse>;
+  reloadProtyle(params: UiReloadProtyleParams): Promise<UiReloadProtyleResponse>;
 
   /**
    * 重新加载标签列表。当标签被创建、删除、重命名或引用发生变化后，调用此接口以刷新标签面板的显示。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ReloadTagResponse> 
+   * @returns Promise<UiReloadTagResponse> 
    */
-  export function reloadTag(): Promise<ReloadTagResponse>;
+  reloadTag(): Promise<UiReloadTagResponse>;
 
   /**
    * 触发整个用户界面的重新加载。这是一个比较重的操作，通常在发生可能影响全局UI状态的重大变更后使用，或者作为一种通用的刷新手段。
    * (Requires authentication, Requires admin role, Unavailable in read-only mode)
-   * @returns Promise<ReloadUIResponse> 
+   * @returns Promise<UiReloadUIResponse> 
    */
-  export function reloadUI(): Promise<ReloadUIResponse>;
+  reloadUI(): Promise<UiReloadUIResponse>;
 
+}
+
+
+export interface SiyuanClientConfig {
+  baseUrl?: string;
+  apiToken?: string;
+  customFetch?: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
+}
+
+export class SiyuanClient {
+  constructor(config?: SiyuanClientConfig);
+
+  account: AccountApi;
+  ai: AiApi;
+  archive: ArchiveApi;
+  asset: AssetApi;
+  attr: AttrApi;
+  av: AvApi;
+  bazaar: BazaarApi;
+  block: BlockApi;
+  bookmark: BookmarkApi;
+  broadcast: BroadcastApi;
+  clipboard: ClipboardApi;
+  cloud: CloudApi;
+  convert: ConvertApi;
+  _export: ExportApi;
+  extension: ExtensionApi;
+  file: FileApi;
+  filetree: FiletreeApi;
+  format: FormatApi;
+  graph: GraphApi;
+  history: HistoryApi;
+  icon: IconApi;
+  import: ImportApi;
+  inbox: InboxApi;
+  lute: LuteApi;
+  misc: MiscApi;
+  network: NetworkApi;
+  notebook: NotebookApi;
+  notification: NotificationApi;
+  outline: OutlineApi;
+  petal: PetalApi;
+  query: QueryApi;
+  ref: RefApi;
+  repo: RepoApi;
+  riff: RiffApi;
+  search: SearchApi;
+  setting: SettingApi;
+  snippet: SnippetApi;
+  sqlite: SqliteApi;
+  storage: StorageApi;
+  sync: SyncApi;
+  system: SystemApi;
+  tag: TagApi;
+  template: TemplateApi;
+  transactions: TransactionsApi;
+  ui: UiApi;
 }
