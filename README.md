@@ -93,13 +93,11 @@ const client = new SiyuanClient({
   apiToken: 'YOUR_API_TOKEN_IF_NEEDED', // 如果 API 需要认证，请提供 Token
 });
 
-// 调用 API 示例 (假设有一个 system.getVersion() API)
+// 调用 API 示例 (假设有一个 getVersion() API)
 async function fetchVersion() {
   try {
-    const response = await client.system.getVersion(); // 不需要参数
-    console.log('Siyuan Kernel Version:', response); // response 会是 zodResponseSchema 定义的类型
-    // 如果 zodResponseSchema 是 (z) => ({ data: { version: z.string() } })
-    // 那么 response.data.version 就是版本号
+    const response = await client.version(); // 注意：方法名可能是 'version'，直接在 client 实例上，没有分组
+    console.log('Siyuan Kernel Version:', response); 
   } catch (error) {
     console.error('Failed to fetch version:', error.message);
     if (error.data) {
