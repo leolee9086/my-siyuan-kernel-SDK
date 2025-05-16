@@ -208,3 +208,7 @@ JSDoc 注释也会尽可能引用这些类型，以便在 JavaScript 中也能�
 -   本 SDK 的目的是简化与思源笔记内核的 HTTP API 交互，并提供类型安全。
 -   请确保 `apiDefs/` 中的定义与实际的内核 API 行为一致。
 -   如果内核 API 发生变更，你需要相应地更新 `apiDefs/` 中的定义并重新生成客户端。 
+
+## 更多相关
+
+https://leolee9086.github.io/my-siyuan-dev-guide/kernel-api/ 中包含了后端API端点的更详细介绍
